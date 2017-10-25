@@ -9,14 +9,26 @@
  * 
  */
 
+#if UNITY_5_6_OR_NEWER
+#define ALLOW_VIDEOPLAYER
+#endif
+
+#if (UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS)
+#define ALLOW_HANDHELD
+#elif UNITY_STANDALONE && (UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE) && !UNITY_2017_2_OR_NEWER
+#define ALLOW_MOVIETEXTURES
+#endif
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_5_6_OR_NEWER
-using UnityEngine.Video;
-#endif
+
 #if UNITY_EDITOR
 using UnityEditor;
+#endif
+
+#if ALLOW_VIDEOPLAYER
+using UnityEngine.Video;
 #endif
 
 namespace AC
@@ -25,19 +37,26 @@ namespace AC
 	[System.Serializable]
 	public class ActionMovie : Action
 	{
-		
+
+		#if ALLOW_VIDEOPLAYER
+		public MovieClipType movieClipType = MovieClipType.VideoPlayer;
+		#else
 		public MovieClipType movieClipType = MovieClipType.FullScreen;
+		#endif
 		public MovieMaterialMethod movieMaterialMethod = MovieMaterialMethod.PlayMovie;
 
-		#if UNITY_5_6_OR_NEWER
+		#if ALLOW_VIDEOPLAYER
 		public VideoPlayer videoPlayer;
 		public int videoPlayerParameterID = -1;
 		public int videoPlayerConstantID;
 		public bool prepareOnly = false;
 		#endif
 
-		#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
+		#if ALLOW_HANDHELD
 
+		public string filePath;
+
+		#elif ALLOW_MOVIETEXTURES
 		public Material material;
 		public int materialParameterID = -1;
 
@@ -48,12 +67,12 @@ namespace AC
 		public int soundID = 0;
 
 		public bool includeAudio;
+		private GUITexture guiTexture;
 		#endif
+
 		public string skipKey;
 		public bool canSkip;
 
-		public string filePath;
-		private GUITexture guiTexture;
 
 		
 		public ActionMovie ()
@@ -67,28 +86,23 @@ namespace AC
 
 		override public void AssignValues (List<ActionParameter> parameters)
 		{
-			#if UNITY_5_6_OR_NEWER
+			#if ALLOW_VIDEOPLAYER
 			videoPlayer = AssignFile <VideoPlayer> (parameters, videoPlayerParameterID, videoPlayerConstantID, videoPlayer);
 			#endif
 
-			#if UNITY_WEBGL || UNITY_PS4
-			#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS
-			#elif UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE
+			#if ALLOW_MOVIETEXTURES
 			material = (Material) AssignObject <Material> (parameters, materialParameterID, material);
 			movieClip = (MovieTexture) AssignObject <MovieTexture> (parameters, movieClipParameterID, movieClip);
-			#endif
-
-			#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
 			sound = AssignFile (soundID, sound);
 			#endif
 		}
 		
-		
+
 		override public float Run ()
 		{
 			if (movieClipType == MovieClipType.VideoPlayer)
 			{
-				#if UNITY_5_6_OR_NEWER
+				#if ALLOW_VIDEOPLAYER
 				if (videoPlayer != null)
 				{
 					if (!isRunning)
@@ -177,11 +191,7 @@ namespace AC
 				return 0f;
 			}
 
-			#if UNITY_WEBGL || UNITY_PS4
-
-			return 0f;
-
-			#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS
+			#if ALLOW_HANDHELD
 
 			if (!isRunning && filePath != "")
 			{
@@ -203,7 +213,7 @@ namespace AC
 				return 0f;
 			}
 
-			#elif UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE
+			#elif ALLOW_MOVIETEXTURES
 
 			if (movieClip == null)
 			{
@@ -303,9 +313,12 @@ namespace AC
 				isRunning = false;
 				return 0f;
 			}
+
 			#else
+
 			ACDebug.LogWarning ("On non-mobile platforms, this Action is only available in Unity 5 or Unity Pro.");
 			return 0f;
+
 			#endif
 		}
 
@@ -320,7 +333,7 @@ namespace AC
 		{
 			if (movieClipType == MovieClipType.VideoPlayer)
 			{
-				#if UNITY_5_6_OR_NEWER
+				#if ALLOW_VIDEOPLAYER
 				if (videoPlayer != null)
 				{
 					if (prepareOnly)
@@ -338,7 +351,7 @@ namespace AC
 			{
 				if (isRunning)
 				{
-					#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
+					#if ALLOW_MOVIETEXTURES
 					if (includeAudio)
 					{
 						sound.Stop ();
@@ -359,44 +372,16 @@ namespace AC
 			}
 		}
 
-
-		#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
-		private void CreateFullScreenMovie ()
-		{
-			GameObject movieOb = new GameObject ("Movie clip");
-			movieOb.transform.position = Vector3.zero;
-			movieOb.transform.position = new Vector2 (0.5f, 0.5f);
-
-			guiTexture = movieOb.AddComponent<GUITexture>();
-			guiTexture.enabled = false;
-			guiTexture.texture = movieClip;
-			guiTexture.enabled = true;
-
-			KickStarter.sceneSettings.SetFullScreenMovie (movieClip);
-		}
-
-
-		private void EndFullScreenMovie ()
-		{
-			KickStarter.sceneSettings.StopFullScreenMovie ();
-			if (guiTexture != null)
-			{
-				guiTexture.enabled = false;
-				Destroy (guiTexture.gameObject);
-			}
-		}
-		#endif
-		
 		
 		#if UNITY_EDITOR
-		
+
 		override public void ShowGUI (List<ActionParameter> parameters)
 		{
 			movieClipType = (MovieClipType) EditorGUILayout.EnumPopup ("Play clip:", movieClipType);
 
 			if (movieClipType == MovieClipType.VideoPlayer)
 			{
-				#if UNITY_5_6_OR_NEWER
+				#if ALLOW_VIDEOPLAYER
 
 				videoPlayerParameterID = Action.ChooseParameterGUI ("Video player:", parameters, videoPlayerParameterID, ParameterType.GameObject);
 				if (videoPlayerParameterID >= 0)
@@ -439,11 +424,7 @@ namespace AC
 				return;
 			}
 
-			#if UNITY_WEBGL || UNITY_PS4
-
-			EditorGUILayout.HelpBox ("This option is not available on the current platform.", MessageType.Info);
-
-			#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS
+			#if ALLOW_HANDHELD
 
 			if (movieClipType == MovieClipType.OnMaterial)
 			{
@@ -457,7 +438,7 @@ namespace AC
 				EditorGUILayout.HelpBox ("The clip must be placed in a folder named 'StreamingAssets'.", MessageType.Info);
 			}
 
-			#elif UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE
+			#elif ALLOW_MOVIETEXTURES
 
 			movieClipParameterID = Action.ChooseParameterGUI ("Movie clip:", parameters, movieClipParameterID, ParameterType.UnityObject);
 			if (movieClipParameterID < 0)
@@ -514,7 +495,9 @@ namespace AC
 			}
 
 			#else
-			EditorGUILayout.HelpBox ("On non-mobile platforms, this Action is only available in Unity 5 or Unity Pro.", MessageType.Warning);
+
+			EditorGUILayout.HelpBox ("On standalone, this Action is only available in Unity 5 or Unity Pro.", MessageType.Warning);
+
 			#endif
 
 			AfterRunningOption ();
@@ -523,7 +506,7 @@ namespace AC
 
 		override public void AssignConstantIDs (bool saveScriptsToo)
 		{
-			#if UNITY_5_6_OR_NEWER
+			#if ALLOW_VIDEOPLAYER
 			if (movieClipType == MovieClipType.VideoPlayer && videoPlayer != null)
 			{
 				if (saveScriptsToo)
@@ -541,7 +524,7 @@ namespace AC
 		{
 			if (movieClipType == MovieClipType.VideoPlayer)
 			{
-				#if UNITY_5_6_OR_NEWER
+				#if ALLOW_VIDEOPLAYER
 				string labelAdd = " (" + movieMaterialMethod.ToString ();
 				if (videoPlayer != null) labelAdd += " " + videoPlayer.name.ToString ();
 				labelAdd += ")";
@@ -551,22 +534,56 @@ namespace AC
 				#endif
 			}
 
-			#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS
+			#if ALLOW_HANDHELD
+
 			if (filePath != "")
 			{
 				return " (" + filePath + ")";
 			}
-			#elif !(UNITY_WEBGL || UNITY_PS4)
+
+			#elif ALLOW_MOVIETEXTURES
+
 			if (movieClip)
 			{
 				return " (" + movieClip.name + ")";
 			}
+
 			#endif
 			return "";
 		}
 		
 		#endif
-		
+
+
+		#if ALLOW_MOVIETEXTURES
+
+		private void CreateFullScreenMovie ()
+		{
+			GameObject movieOb = new GameObject ("Movie clip");
+			movieOb.transform.position = Vector3.zero;
+			movieOb.transform.position = new Vector2 (0.5f, 0.5f);
+
+			guiTexture = movieOb.AddComponent<GUITexture>();
+			guiTexture.enabled = false;
+			guiTexture.texture = movieClip;
+			guiTexture.enabled = true;
+
+			KickStarter.sceneSettings.SetFullScreenMovie (movieClip);
+		}
+
+
+		private void EndFullScreenMovie ()
+		{
+			KickStarter.sceneSettings.StopFullScreenMovie ();
+			if (guiTexture != null)
+			{
+				guiTexture.enabled = false;
+				Destroy (guiTexture.gameObject);
+			}
+		}
+
+		#endif
+
 	}
 	
 }

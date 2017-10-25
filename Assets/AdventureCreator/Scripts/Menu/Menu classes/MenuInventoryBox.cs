@@ -44,6 +44,8 @@ namespace AC
 		public int categoryID;
 		/** The category IDs to limit the display of inventory items by, if limitToCategory = True */
 		public List<int> categoryIDs = new List<int>();
+		/** What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic) */
+		public LinkUIGraphic linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 		/** The List of inventory items that are on display */
 		public List<InvItem> items = new List<InvItem>();
@@ -80,26 +82,29 @@ namespace AC
 			uiHideStyle = UIHideStyle.DisableObject;
 			items = new List<InvItem>();
 			categoryIDs = new List<int>();
+			linkUIGraphic = LinkUIGraphic.ImageComponent;
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuInventoryBox that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuInventoryBox with the same values as itself</return>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuInventoryBox newElement = CreateInstance <MenuInventoryBox>();
 			newElement.Declare ();
-			newElement.CopyInventoryBox (this);
+			newElement.CopyInventoryBox (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyInventoryBox (MenuInventoryBox _element)
+		private void CopyInventoryBox (MenuInventoryBox _element, bool ignoreUnityUI)
 		{
-			uiSlots = _element.uiSlots;
+			if (ignoreUnityUI)
+			{
+				uiSlots = null;
+			}
+			else
+			{
+				uiSlots = _element.uiSlots;
+			}
 
 			isClickable = _element.isClickable;
 			textEffects = _element.textEffects;
@@ -114,6 +119,7 @@ namespace AC
 			displayType = _element.displayType;
 			uiHideStyle = _element.uiHideStyle;
 			categoryIDs = _element.categoryIDs;
+			linkUIGraphic = _element.linkUIGraphic;
 
 			UpdateLimitCategory ();
 
@@ -168,7 +174,7 @@ namespace AC
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
-				uiSlot.LinkUIElements (canvas);
+				uiSlot.LinkUIElements (canvas, linkUIGraphic);
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
@@ -314,6 +320,8 @@ namespace AC
 				{
 					uiSlots[i].LinkedUiGUI (i, source);
 				}
+
+				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
 			}
 			EditorGUILayout.EndVertical ();
 

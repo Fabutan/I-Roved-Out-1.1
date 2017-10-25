@@ -124,15 +124,7 @@ namespace AC
 			
 			if (manageSaveType == ManageSaveType.RenameSave)
 			{
-				varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID);
-				if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-				{
-					GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-					if (_var != null && _var.type != VariableType.String)
-					{
-						EditorGUILayout.HelpBox ("The chosen Variable must be a String.", MessageType.Warning);
-					}
-				}
+				varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID, VariableType.String);
 			}
 
 			string _action = "delete";
@@ -152,15 +144,7 @@ namespace AC
 			}
 			else if (selectSaveType == SelectSaveType.SlotIndexFromVariable)
 			{
-				slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID);
-				if (slotVarID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-				{
-					GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (slotVarID);
-					if (_var != null && _var.type != VariableType.Integer)
-					{
-						EditorGUILayout.HelpBox ("The chosen Variable must be an Integer.", MessageType.Warning);
-					}
-				}
+				slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID, VariableType.Integer);
 			}
 
 			EditorGUILayout.Space ();

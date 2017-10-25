@@ -32,6 +32,8 @@ namespace AC
 		public BackgroundImage backgroundImage;
 		/** If True, then the MainCamera will copy its position when the Inspector is viewed */
 		public bool isActiveEditor = false;
+		/** The offset in perspective from the camera's centre */
+		public Vector2 perspectiveOffset = Vector2.zero;
 
 
 		/**
@@ -63,6 +65,27 @@ namespace AC
 
 		new public void ResetTarget ()
 		{}
+
+
+		public override Vector2 GetPerspectiveOffset ()
+		{
+			return perspectiveOffset;
+		}
+
+
+		public override void MoveCameraInstant ()
+		{
+			SetProjection ();
+		}
+
+
+		private void SetProjection ()
+		{
+			if (!_camera.orthographic)
+			{
+				_camera.projectionMatrix = AdvGame.SetVanishingPoint (_camera, perspectiveOffset);
+			}
+		}
 
 	}
 		

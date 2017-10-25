@@ -74,6 +74,13 @@ namespace AC
 				}
 				
 				_target.dampSpeed = EditorGUILayout.FloatField ("Follow speed", _target.dampSpeed);
+
+				_target.doSnapping = EditorGUILayout.Toggle ("Snap to grid?", _target.doSnapping);
+				if (_target.doSnapping)
+				{
+					_target.unitSnap = EditorGUILayout.FloatField ("Snap unit size:", _target.unitSnap);
+				}
+
 				EditorGUILayout.EndVertical ();
 			}
 			

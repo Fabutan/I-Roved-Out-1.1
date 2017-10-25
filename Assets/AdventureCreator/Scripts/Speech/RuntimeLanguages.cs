@@ -25,6 +25,7 @@ namespace AC
 
 		private Dictionary<int, SpeechLine> speechLinesDictionary = new Dictionary<int, SpeechLine>(); 
 		private List<string> languages = new List<string>();
+		private List<bool> languageIsRightToLeft = new List<bool>();
 
 
 		public void OnAwake ()
@@ -53,6 +54,12 @@ namespace AC
 				foreach (string _language in speechManager.languages)
 				{
 					languages.Add (_language);
+				}
+
+				languageIsRightToLeft.Clear ();
+				foreach (bool rtl in speechManager.languageIsRightToLeft)
+				{
+					languageIsRightToLeft.Add (rtl);
 				}
 
 				speechLinesDictionary.Clear ();
@@ -185,9 +192,10 @@ namespace AC
 		}
 
 
-		private void CreateLanguage (string name)
+		private void CreateLanguage (string name, bool isRTL)
 		{
 			languages.Add (name);
+			languageIsRightToLeft.Add (isRTL);
 
 			foreach (SpeechLine speechManagerLine in KickStarter.speechManager.lines)
 			{
@@ -209,8 +217,9 @@ namespace AC
 		 * <param name = "languageName">The name of the language.  If a language by this name already exists in the system, the import process will update it.</param>
 		 * <param name = "newTextColumn">The column number (starting from zero) that holds the new translation.  This must be greater than zero, as the first column should be occupied by the ID numbers.</param>
 		 * <param name = "ignoreEmptyCells">If True, then empty cells will not be imported and the original language will be used instead</param>
+		 * <param name = "isRTL">If True, the language is read right-to-left</summary>
 		 */
-		public void ImportRuntimeTranslation (TextAsset textAsset, string languageName, int newTextColumn, bool ignoreEmptyCells = false)
+		public void ImportRuntimeTranslation (TextAsset textAsset, string languageName, int newTextColumn, bool ignoreEmptyCells = false, bool isRTL = false)
 		{
 			if (textAsset != null && !string.IsNullOrEmpty (textAsset.text))
 			{
@@ -222,7 +231,7 @@ namespace AC
 
 				if (!languages.Contains (languageName))
 				{
-					CreateLanguage (languageName);
+					CreateLanguage (languageName, isRTL);
 					int i = languages.Count - 1;
 					ProcessTranslationFile (i, textAsset.text, newTextColumn, ignoreEmptyCells);
 					ACDebug.Log ("Created new language " + languageName);
@@ -230,10 +239,54 @@ namespace AC
 				else
 				{
 					int i = languages.IndexOf (languageName);
+					languageIsRightToLeft[i] = isRTL;
 					ProcessTranslationFile (i, textAsset.text, newTextColumn, ignoreEmptyCells);
 					ACDebug.Log ("Updated language " + languageName);
 				}
 			}
+		}
+	
+
+		/**
+		 * <summary>Checks if a given language reads right-to-left, Hebrew/Arabic-style</summary>
+		 * <param name = "languageIndex">The index number of the language to check, where 0 is the game's original language</param>
+		 * <returns>True if the given language reads right-to-left</returns>
+		 */
+		public bool LanguageReadsRightToLeft (int languageIndex)
+		{
+			if (languageIsRightToLeft != null && languageIsRightToLeft.Count > languageIndex)
+			{
+				return languageIsRightToLeft [languageIndex];
+			}
+			if (languageIsRightToLeft.Count == 0)
+			{
+				languageIsRightToLeft.Add (false);
+			}
+			return languageIsRightToLeft[0];
+		}
+
+
+		/**
+		 * <summary>Checks if a given language reads right-to-left, Hebrew/Arabic-style</summary>
+		 * <param name = "languageName">The name of the language to check, as written in the Speech Manager</param>
+		 * <returns>True if the given language reads right-to-left</returns>
+		 */
+		public bool LanguageReadsRightToLeft (string languageName)
+		{
+			if (!string.IsNullOrEmpty (languageName))
+			{
+				if (languages.Contains (languageName))
+				{
+					int i = languages.IndexOf (languageName);
+					return languageIsRightToLeft [i];
+				}
+			}
+
+			if (languageIsRightToLeft.Count == 0)
+			{
+				languageIsRightToLeft.Add (false);
+			}
+			return languageIsRightToLeft[0];
 		}
 		
 		

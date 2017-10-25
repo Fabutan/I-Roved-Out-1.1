@@ -36,6 +36,7 @@ namespace AC
 			FootstepSoundData footstepSoundData = new FootstepSoundData ();
 
 			footstepSoundData.objectID = constantID;
+			footstepSoundData.savePrevented = savePrevented;
 
 			if (GetComponent <FootstepSounds>())
 			{
@@ -59,6 +60,7 @@ namespace AC
 			{
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <FootstepSounds>())
 			{

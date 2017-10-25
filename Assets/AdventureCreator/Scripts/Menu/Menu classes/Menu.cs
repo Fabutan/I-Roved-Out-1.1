@@ -309,9 +309,10 @@ namespace AC
 			idString = id.ToString ();
 
 			elements = new List<MenuElement>();
+			bool ignoreUnityUI = (Application.isPlaying && !fromEditor && _menu.menuSource == MenuSource.AdventureCreator);
 			foreach (MenuElement _element in _menu.elements)
 			{
-				MenuElement newElement = _element.DuplicateSelf (fromEditor);
+				MenuElement newElement = _element.DuplicateSelf (fromEditor, ignoreUnityUI);
 				elements.Add (newElement);
 			}
 
@@ -590,7 +591,12 @@ namespace AC
 			ignoreMouseClicks = CustomGUILayout.Toggle ("Ignore Cursor clicks?", ignoreMouseClicks, apiPrefix + ".ignoreMouseClicks");
 			actionListOnTurnOn = ActionListAssetMenu.AssetGUI ("ActionList when turn on:", actionListOnTurnOn, apiPrefix + ".actionListOnTurnOn", title + "_When_Turn_On");
 			actionListOnTurnOff = ActionListAssetMenu.AssetGUI ("ActionList when turn off:", actionListOnTurnOff, apiPrefix + ".actionListOnTurnOff", title + "_When_Turn_Off");
-			
+
+			if (actionListOnTurnOff != null && ShouldTurnOffWhenLoading ())
+			{
+				EditorGUILayout.HelpBox ("The 'ActionList when turn off' will not be run if the Menu is turned off as a result of loading a save game.  The SaveList element's 'ActionList after load' should be used instead.", MessageType.Warning);
+			}
+
 			appearType = (AppearType) CustomGUILayout.EnumPopup ("Appear type:", appearType, apiPrefix + ".appearType");
 
 			if (appearType == AppearType.OnInputKey)
@@ -986,7 +992,7 @@ namespace AC
 		 */
 		public void SetCentre (Vector2 _position, bool useAspectRatio = false)
 		{
-			if (useAspectRatio && !KickStarter.settingsManager.forceAspectRatio)
+			if (useAspectRatio && KickStarter.settingsManager != null && !KickStarter.settingsManager.forceAspectRatio)
 			{
 				useAspectRatio = false;
 			}
@@ -1893,7 +1899,6 @@ namespace AC
 				else
 				{
 					transitionProgress = 1f - ((Time.realtimeSinceStartup - fadeStartTime) / fadeSpeed);
-
 					if (transitionProgress < 0f)
 					{
 						transitionProgress = 0f;
@@ -2558,6 +2563,26 @@ namespace AC
 					canvas.gameObject.SetActive (true);
 				}
 			}
+		}
+
+
+		/**
+		 * <summary>Checks if the Menu should be automatically turned off when loading a save game, instead of loaded.  This is only True if the Menu is manually-controlled and contains a SavesList element.</summary>
+		 * <returns>True if the Menu should be automatically turned off when loading a save game, instead of loaded.</summary>
+		 */
+		public bool ShouldTurnOffWhenLoading ()
+		{
+			if (IsManualControlled ())
+			{
+				foreach (MenuElement element in elements)
+				{
+					if (element is MenuSavesList)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 

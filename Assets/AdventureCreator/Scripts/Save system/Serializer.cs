@@ -14,17 +14,15 @@
  * 
  */
 
+#if !UNITY_WEBPLAYER
+#define CAN_DELETE
+#endif
+
 using UnityEngine;
-using System.Text;
 using System.Collections.Generic;
 using System.Collections;
 using System;
-#if !(UNITY_WP8 || UNITY_WINRT || UNITY_WII || UNITY_PS4)
-using System.Runtime.Serialization.Formatters.Binary;
-#endif
 using System.IO;
-using System.Xml; 
-using System.Xml.Serialization;
 
 namespace AC
 {
@@ -201,32 +199,19 @@ namespace AC
 
 
 		/**
-		 * <summary>Serializes an object, either by XML, Binary or Json, depending on the platform.</summary>
+		 * <summary>Serializes an object, either by XML, Binary or Json, depending on the game's iFileFormatHandler.</summary>
 		 * <param name = "dataObject">The object to serialize</param>
 		 * <param name = "addMethodName">If True, the name of the serialization method (XML, Binary or Json) will be appended to the start of the serialized string. This is useful when the same file is read later by a different serialization method.</param>
 		 * <returns>The object, serialized to a string</returns>
 		 */
 		public static string SerializeObject <T> (object dataObject, bool addMethodName = false)
 		{
-			SaveMethod saveMethod = SaveSystem.GetSaveMethod ();
-			string serializedString = "";
-
-			if (saveMethod == SaveMethod.XML)
-			{
-				serializedString = SerializeObjectXML <T> (dataObject);
-			}
-			else if (saveMethod == SaveMethod.Binary)
-			{
-				serializedString = SerializeObjectBinary (dataObject);
-			}
-			else if (saveMethod == SaveMethod.Json)
-			{
-				serializedString = SerializeObjectJson (dataObject);
-			}
+			iFileFormatHandler fileFormatHandler = SaveSystem.FileFormatHandler;
+			string serializedString = SaveSystem.FileFormatHandler.SerializeObject <T> (dataObject);
 
 			if (serializedString != "" && addMethodName)
 			{
-				serializedString = saveMethod.ToString () + serializedString;
+				serializedString = fileFormatHandler.GetSaveMethod () + serializedString;
 			}
 
 			return serializedString;
@@ -234,13 +219,13 @@ namespace AC
 
 
 		/**
-		 * <summary>De-serializes an object from a string, according to the game's SaveMethod.</summary>
+		 * <summary>De-serializes an object from a string, according to the game's iFileFormatHandler.</summary>
 		 * <param name = "dataString">The object, serialized into a string</param>
 		 * <returns>The object, deserialized</returns>
 		 */
 		public static T DeserializeObject <T> (string dataString)
 		{
-			SaveMethod saveMethod = SaveSystem.GetSaveMethod ();
+			iFileFormatHandler fileFormatHandler = SaveSystem.FileFormatHandler;
 
 			if (string.IsNullOrEmpty (dataString))
 			{
@@ -248,32 +233,16 @@ namespace AC
 			}
 			else if (dataString.Contains ("<?xml") || dataString.Contains ("xml version"))
 			{
-				saveMethod = SaveMethod.XML;
+				fileFormatHandler = new FileFormatHandler_Xml ();
 			}
-			else if (saveMethod == SaveMethod.XML && !dataString.Contains ("<?xml") && !dataString.Contains ("xml version"))
+
+			if (dataString.StartsWith (fileFormatHandler.GetSaveMethod ()))
 			{
-				return default (T);
+				dataString = dataString.Remove (0, fileFormatHandler.GetSaveMethod ().ToCharArray().Length);
 			}
-			
-			if (dataString.StartsWith (saveMethod.ToString ()))
-			{
-				dataString = dataString.Remove (0, saveMethod.ToString ().ToCharArray().Length);
-			}
-			
-			T result = default (T);
-			if (saveMethod == SaveMethod.XML)
-			{
-				result = (T) DeserializeObjectXML <T> (dataString);
-			}
-			else if (saveMethod == SaveMethod.Binary)
-			{
-				result = (T) DeserializeObjectBinary <T> (dataString);
-			}
-			else if (saveMethod == SaveMethod.Json)
-			{
-				result = (T) DeserializeObjectJson <T> (dataString);
-			}
-			
+
+			T result = (T) fileFormatHandler.DeserializeObject <T> (dataString);
+
 			if (result != null && result is T)
 			{
 				return (T) result;
@@ -281,352 +250,6 @@ namespace AC
 			return default (T);
 		}
 
-
-		/**
-		 * <summary>Serializes a List of SingleLevelData, either by XML, Binary or Json, depending on the platform.</summary>
-		 * <param name = "dataObjects">The objects to serialize</param>
-		 * <param name = "delimieter">If using Json, then this string will be inserted between each SingleLevelData instance.</param>
-		 * <returns>The object, serialized to a string</returns>
-		 */
-		public static string SerializeAllRoomData (List<SingleLevelData> dataObjects, string delimeter = "|ROOMDELIMITER|")
-		{
-			if (SaveSystem.GetSaveMethod () == SaveMethod.Json)
-			{
-				// Can't serialize a list, so split by delimeter
-				string serializedString = "";
-				if (dataObjects != null && dataObjects.Count > 0)
-				{
-					for (int i=0; i<dataObjects.Count; i++)
-					{
-						serializedString += Serializer.SerializeObject <SingleLevelData> (dataObjects[i]);
-						if (i < (dataObjects.Count -1))
-						{
-							serializedString += delimeter;
-						}
-					}
-				}
-				return serializedString;
-			}
-
-			return Serializer.SerializeObject <List<SingleLevelData>> (dataObjects);
-		}
-
-
-		/**
-		 * <summary>De-serializes a List of SingleLevelData object from a string, according to the game's SaveMethod.</summary>
-		 * <param name = "dataString">The object, serialized into a string</param>
-		 * <param name = "delimieter">If using Json, then this string is used to separate each SingleLevelData instance.</param>
-		 * <returns>The object, deserialized</returns>
-		 */
-		public static List<SingleLevelData> DeserializeAllRoomData (string dataString, string delimiter = "|ROOMDELIMITER|")
-		{
-			if (SaveSystem.GetSaveMethod () == SaveMethod.Json)
-			{
-				// Can't serialize a list, so split by delimeter
-				List<SingleLevelData> allLevelData = new List<SingleLevelData>();
-				string[] stringSeparators = new string[] {delimiter};
-				string[] levelDataStrings = dataString.Split (stringSeparators, StringSplitOptions.None);
-				foreach (string levelDataString in levelDataStrings)
-				{
-					SingleLevelData levelData = DeserializeObject <SingleLevelData> (levelDataString);
-					allLevelData.Add (levelData);
-				}
-				return allLevelData;
-			}
-			
-			return (List<SingleLevelData>) Serializer.DeserializeObject <List<SingleLevelData>> (dataString);
-		}
-
-
-		private static string SerializeObjectBinary (object pObject)
-		{
-			#if UNITY_WP8 || UNITY_WINRT
-			return "";
-			#else
-			BinaryFormatter binaryFormatter = new BinaryFormatter();
-			MemoryStream memoryStream = new MemoryStream ();
-			binaryFormatter.Serialize (memoryStream, pObject);
-			return (Convert.ToBase64String (memoryStream.GetBuffer ()));
-			#endif
-		}
-		
-
-		private static T DeserializeObjectBinary <T> (string pString)
-		{
-			#if UNITY_WP8 || UNITY_WINRT
-			return default (T);
-			#else
-			BinaryFormatter binaryFormatter = new BinaryFormatter ();
-			MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (pString));
-			return (T) binaryFormatter.Deserialize (memoryStream);
-			#endif
-		}
-
-
-		private static string SerializeObjectXML <T> (object pObject) 
-		{ 
-			string XmlizedString = null; 
-			
-			MemoryStream memoryStream = new MemoryStream(); 
-			XmlSerializer xs = new XmlSerializer (typeof (T)); 
-			XmlTextWriter xmlTextWriter = new XmlTextWriter (memoryStream, Encoding.UTF8); 
-			
-			xs.Serialize (xmlTextWriter, pObject); 
-			memoryStream = (MemoryStream) xmlTextWriter.BaseStream; 
-			XmlizedString = UTF8ByteArrayToString (memoryStream.ToArray());
-			
-			return XmlizedString;
-		}
-		
-
-		private static object DeserializeObjectXML <T> (string pXmlizedString) 
-		{ 
-			XmlSerializer xs = new XmlSerializer (typeof (T)); 
-			MemoryStream memoryStream = new MemoryStream (StringToUTF8ByteArray (pXmlizedString)); 
-
-			try
-			{
-				object deserializedObject = xs.Deserialize (memoryStream);
-				if (deserializedObject is T)
-				{
-					return (T) deserializedObject;
-				}
-			}
-			catch {}
-			return null;
-		}
-
-
-		private static string SerializeObjectJson (object pObject)
-		{
-			#if UNITY_5_3 || UNITY_5_4 || UNITY_5_3_OR_NEWER
-			return JsonUtility.ToJson (pObject);
-			#else
-			return "";
-			#endif
-		}
-
-
-		private static object DeserializeObjectJson <T> (string jsonString)
-		{
-			#if UNITY_5_3 || UNITY_5_4 || UNITY_5_3_OR_NEWER
-
-			//return JsonUtility.FromJson<T> (jsonString);
-
-			object jsonData = JsonUtility.FromJson (jsonString, typeof (T));
-
-			// Dirty hack, but with Unity's Json utility we can't check if the data type is correct
-			if (jsonData is AnimatorData && !jsonString.Contains ("layerWeightData"))
-			{
-				return null;
-			}
-			if (jsonData is ColliderData && !jsonString.Contains ("isOn"))
-			{
-				return null;
-			}
-			if (jsonData is ContainerData && !jsonString.Contains ("_linkedIDs"))
-			{
-				return null;
-			}
-			if (jsonData is ConversationData && !jsonString.Contains ("_optionStates"))
-			{
-				return null;
-			}
-			if (jsonData is FootstepSoundData && !jsonString.Contains ("walkSounds"))
-			{
-				return null;
-			}
-			if (jsonData is HotspotData && !jsonString.Contains ("buttonStates"))
-			{
-				return null;
-			}
-			if (jsonData is MaterialData && !jsonString.Contains ("_materialIDs"))
-			{
-				return null;
-			}
-			if (jsonData is NameData && !jsonString.Contains ("newName"))
-			{
-				return null;
-			}
-			if (jsonData is NavMesh2DData && !jsonString.Contains ("_linkedIDs"))
-			{
-				return null;
-			}
-			if (jsonData is NPCData && !jsonString.Contains ("isHeadTurning"))
-			{
-				return null;
-			}
-			if (jsonData is ShapeableData && !jsonString.Contains ("_activeKeyIDs"))
-			{
-				return null;
-			}
-			if (jsonData is SoundData && !jsonString.Contains ("isPlaying"))
-			{
-				return null;
-			}
-			if (jsonData is TransformData && !jsonString.Contains ("bringBack"))
-			{
-				return null;
-			}
-			if (jsonData is TriggerData && !jsonString.Contains ("isOn"))
-			{
-				return null;
-			}
-			#if UNITY_5_6_OR_NEWER
-			if (jsonData is VideoPlayerData && !jsonString.Contains ("isPlaying"))
-			{
-				return null;
-			}
-			#endif
-			if (jsonData is VisibilityData && !jsonString.Contains ("useDefaultTintMap"))
-			{
-				return null;
-			}
-			return jsonData;
-
-			#else
-			return null;
-			#endif
-		}
-
-		
-		private static string UTF8ByteArrayToString (byte[] characters) 
-		{		
-			UTF8Encoding encoding = new UTF8Encoding(); 
-			string constructedString = encoding.GetString (characters, 0, characters.Length);
-			return (constructedString); 
-		}
-		
-		
-		private static byte[] StringToUTF8ByteArray (string pXmlString) 
-		{ 
-			UTF8Encoding encoding = new UTF8Encoding(); 
-			byte[] byteArray = encoding.GetBytes (pXmlString); 
-			return byteArray; 
-		}
-
-
-		private static T DeserializeRememberData <T> (string pString) where T : RememberData
-		{
-			#if !(UNITY_WP8 || UNITY_WINRT || UNITY_WII || UNITY_PS4)
-			BinaryFormatter binaryFormatter = new BinaryFormatter();
-			MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (pString));
-			T myObject;
-			myObject = binaryFormatter.Deserialize (memoryStream) as T;
-			return myObject;
-			#else
-			return null;
-			#endif
-		}
-
-
-		/**
-		 * <summary>Deletes a save game file by name.</summary>
-		 * <param name = "fullFileName">The full filename of the file to delete.  If this is run on the WebPlayer platform, this is the name of the PlayerPrefs key to delete.</param>
-		 */
-		public static void DeleteSaveFile (string fullFileName)
-		{
-			#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			
-			if (PlayerPrefs.HasKey (fullFileName))
-			{
-				PlayerPrefs.DeleteKey (fullFileName);
-				ACDebug.Log ("PlayerPrefs key deleted: " + fullFileName);
-			}
-
-			#else
-
-			FileInfo t = new FileInfo (fullFileName);
-			if (t.Exists)
-			{
-				t.Delete ();
-				ACDebug.Log ("File deleted: " + fullFileName);
-			}
-
-			#endif
-		}
-
-
-		/**
-		 * <summary>Creates a save game file by name.</summary>
-		 * <param name = "fullFileName">The full filename of the file to create.  If this is run on the WebPlayer platform, this is the name of the PlayerPrefs key to create.</param>
-		 * <param name = "_data">The serialized data to save within the file</param>
-		 * <returns>True if the file-writing was successful</returns>
-		 */
-		public static bool CreateSaveFile (string fullFileName, string _data)
-		{
-			try
-			{
-				#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-				
-				PlayerPrefs.SetString (fullFileName, _data);
-				ACDebug.Log ("PlayerPrefs key written: " + fullFileName);
-				
-				#else
-				
-				StreamWriter writer;
-				FileInfo t = new FileInfo (fullFileName);
-				
-				if (!t.Exists)
-				{
-					writer = t.CreateText ();
-				}
-				
-				else
-				{
-					t.Delete ();
-					writer = t.CreateText ();
-				}
-				
-				writer.Write (_data);
-				writer.Close ();
-
-				ACDebug.Log ("File written: " + fullFileName);
-				#endif
-			}
-			catch
-			{
-				KickStarter.eventManager.Call_OnSave (FileAccessState.Fail);
-				return false;
-			}
-			return true;
-		}
-		
-
-		/**
-		 * <summary>Loads a save game file by name.</summary>
-		 * <param name = "fullFileName">The full filename of the file to load.  If this is run on the WebPlayer platform, this is the name of the PlayerPrefs key to load.</param>
-		 * <param name = "doLog">If True, then a log of the action will be written in the Console window</param>
-		 * <returns>The contents of the save file</returns>
-		 */
-		public static string LoadSaveFile (string fullFileName, bool doLog)
-		{
-			string _data = "";
-			
-			#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			
-			_data = PlayerPrefs.GetString (fullFileName, "");
-			
-			#else
-
-			if (File.Exists (fullFileName))
-			{
-				StreamReader r = File.OpenText (fullFileName);
-				
-				string _info = r.ReadToEnd ();
-				r.Close ();
-				_data = _info;
-			}
-			
-			#endif
-
-			if (doLog && _data != "")
-			{
-				ACDebug.Log ("File Read: " + fullFileName);
-			}
-			return (_data);
-		}
-		
 
 		/**
 		 * <summary>Converts a compressed string into an array of Paths object's nodes.</summary>
@@ -699,51 +322,61 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Saves a save game's screenshot texture to disk.</summary>
-		 * <param name = "screenshotTex">The screenshot texture to save</param>
-		 * <param name = "fileName">The full filename and filepath to save the screenshot to</param>
-		 */
-		public static void SaveScreenshot (Texture2D screenshotTex, string fileName)
+		#if UNITY_EDITOR
+
+		public static bool SaveFile (string fullFileName, string _data)
 		{
-			#if !UNITY_WEBPLAYER && !UNITY_ANDROID && !UNITY_WINRT && !UNITY_WII && !UNITY_WEBGL && !UNITY_PS4
-			byte[] bytes = screenshotTex.EncodeToJPG ();
-			File.WriteAllBytes (fileName, bytes);
-			#endif
+			try
+			{
+				StreamWriter writer; // = new 
+				FileInfo t = new FileInfo (fullFileName);
+				
+				if (!t.Exists)
+				{
+					writer = t.CreateText ();
+				}
+				
+				else
+				{
+					#if CAN_DELETE
+					t.Delete ();
+					#endif
+					writer = t.CreateText ();
+				}
+				
+				writer.Write (_data);
+				writer.Close ();
+
+				ACDebug.Log ("File written: " + fullFileName);
+			}
+			catch
+			{
+				return false;
+			}
+			return true;
 		}
 
+		#endif
 
-		/**
-		 * <summary>Deletes a save game's screenshot texture.</summary>
-		 * <param name = "fileName">The full filename and filepath of the screenshot</param>
-		 */
-		public static void DeleteScreenshot (string fileName)
+
+		public static string LoadFile (string fullFilename, bool doLog = true)
 		{
-			#if !UNITY_WEBPLAYER && !UNITY_ANDROID && !UNITY_WINRT && !UNITY_WII && !UNITY_WEBGL && !UNITY_PS4
-			if (File.Exists (fileName))
+			string _data = "";
+			
+			if (File.Exists (fullFilename))
 			{
-				File.Delete (fileName);
+				StreamReader r = File.OpenText (fullFilename);
+
+				string _info = r.ReadToEnd ();
+				r.Close ();
+				_data = _info;
 			}
-			#endif
-		}
-
-
-		/**
-		 * <summary>Loads a save game's screenshot texture.</summary>
-		 * <param name = "fileName">The full filename and filepath of the screenshot</param>
-		 */
-		public static Texture2D LoadScreenshot (string fileName)
-		{
-			#if !UNITY_WEBPLAYER && !UNITY_ANDROID && !UNITY_WINRT && !UNITY_WII && !UNITY_WEBGL && !UNITY_PS4
-			if (File.Exists (fileName))
+			
+			if (_data != "" && doLog)
 			{
-				byte[] bytes = File.ReadAllBytes (fileName);
-				Texture2D screenshotTex = new Texture2D (Screen.width, Screen.height, TextureFormat.RGB24, false);
-				screenshotTex.LoadImage (bytes);
-				return screenshotTex;
+				ACDebug.Log ("File Read: " + fullFilename);
 			}
-			#endif
-			return null;
+			return (_data);
 		}
 
 
@@ -754,31 +387,24 @@ namespace AC
 		 */
 		public static string SaveScriptData <T> (object dataObject) where T : RememberData
 		{
-			return Serializer.SerializeObject <T> (dataObject);
+			return SerializeObject <T> (dataObject);
 		}
 
 
 		/**
-		 * <summary>De-serializes a RememberData class, either from XML or Binary, depending on the platform.</summary>
+		 * <summary>De-serializes a RememberData class.</summary>
 		 * <param name = "dataString">The RememberData class, serialized as a string</param>
 		 * <returns>The de-serialized RememberData class</return>
 		 */
 		public static T LoadScriptData <T> (string dataString) where T : RememberData
 		{
-			SaveMethod saveMethod = SaveSystem.GetSaveMethod ();
-			if (dataString.StartsWith (saveMethod.ToString ()))
+			iFileFormatHandler fileFormatHandler = SaveSystem.FileFormatHandler;
+			if (dataString.StartsWith (fileFormatHandler.GetSaveMethod ()))
 			{
-				dataString = dataString.Remove (0, saveMethod.ToString ().ToCharArray().Length);
+				dataString = dataString.Remove (0, fileFormatHandler.GetSaveMethod ().ToCharArray().Length);
 			}
 
-			if (saveMethod == SaveMethod.Binary)
-			{
-				return (T) Serializer.DeserializeRememberData <T> (dataString);
-			}
-			else
-			{
-				return Serializer.DeserializeObject <T> (dataString);
-			}
+			return fileFormatHandler.LoadScriptData <T> (dataString);
 		}
 
 
@@ -789,10 +415,11 @@ namespace AC
 		 */
 		public static OptionsData DeserializeOptionsData (string dataString)
 		{
-			SaveMethod saveMethod = SaveSystem.GetSaveMethod ();
-			if (dataString.StartsWith (saveMethod.ToString ()))
+			iFileFormatHandler fileFormatHandler = SaveSystem.FileFormatHandler;
+
+			if (dataString.StartsWith (fileFormatHandler.GetSaveMethod ()))
 			{
-				dataString = dataString.Remove (0, saveMethod.ToString ().ToCharArray().Length);
+				dataString = dataString.Remove (0, fileFormatHandler.GetSaveMethod ().ToCharArray ().Length);
 			}
 			else
 			{
@@ -802,8 +429,7 @@ namespace AC
 					return new OptionsData ();
 				}
 			}
-			
-			return (OptionsData) DeserializeObject<OptionsData> (dataString);
+			return (OptionsData) DeserializeObject <OptionsData> (dataString);
 		}
 
 	}

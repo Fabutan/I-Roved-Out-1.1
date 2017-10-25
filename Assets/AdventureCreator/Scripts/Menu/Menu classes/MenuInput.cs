@@ -73,23 +73,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuInput that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuInput with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuInput newElement = CreateInstance <MenuInput>();
 			newElement.Declare ();
-			newElement.CopyInput (this);
+			newElement.CopyInput (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyInput (MenuInput _element)
+		private void CopyInput (MenuInput _element, bool ignoreUnityUI)
 		{
-			uiInput = _element.uiInput;
+			if (ignoreUnityUI)
+			{
+				uiInput = null;
+			}
+			else
+			{
+				uiInput = _element.uiInput;
+			}
+
 			label = _element.label;
 			anchor = _element.anchor;
 			textEffects = _element.textEffects;
@@ -325,7 +328,7 @@ namespace AC
 				return;
 			}
 
-			bool rightToLeft = KickStarter.speechManager.LanguageReadsRightToLeft (Options.GetLanguage ());
+			bool rightToLeft = KickStarter.runtimeLanguages.LanguageReadsRightToLeft (Options.GetLanguage ());
 
 			isSelected = true;
 			if (input == "Backspace")

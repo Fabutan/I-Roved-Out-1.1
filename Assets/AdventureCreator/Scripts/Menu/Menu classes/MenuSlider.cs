@@ -94,23 +94,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuSlider that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuSlider with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuSlider newElement = CreateInstance <MenuSlider>();
 			newElement.Declare ();
-			newElement.CopySlider (this);
+			newElement.CopySlider (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopySlider (MenuSlider _element)
+		private void CopySlider (MenuSlider _element, bool ignoreUnityUI)
 		{
-			uiSlider = _element.uiSlider;
+			if (ignoreUnityUI)
+			{
+				uiSlider = null;
+			}
+			else
+			{
+				uiSlider = _element.uiSlider;
+			}
+
 			label = _element.label;
 			isClickable = _element.isClickable;
 			textEffects = _element.textEffects;
@@ -214,15 +217,7 @@ namespace AC
 			}
 			else if (sliderType == AC_SliderType.FloatVariable)
 			{
-				varID = AdvGame.GlobalVariableGUI ("Global float var:", varID);
-				if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-				{
-					GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-					if (_var != null && _var.type != VariableType.Float)
-					{
-						EditorGUILayout.HelpBox ("The chosen Variable must be a Float.", MessageType.Warning);
-					}
-				}
+				varID = AdvGame.GlobalVariableGUI ("Global float var:", varID, VariableType.Float);
 			}
 			if (sliderType == AC_SliderType.CustomScript || sliderType == AC_SliderType.FloatVariable)
 			{
@@ -312,7 +307,7 @@ namespace AC
 		{
 			CalculateValue ();
 
-			fullText = TranslateLabel (label, languageNumber);
+			fullText = AdvGame.ConvertTokens (TranslateLabel (label, languageNumber));
 
 			if (uiSlider)
 			{
@@ -409,7 +404,7 @@ namespace AC
 		 */
 		public override string GetLabel (int slot, int languageNumber)
 		{
-			return TranslateLabel (label, languageNumber);
+			return AdvGame.ConvertTokens (TranslateLabel (label, languageNumber));
 		}
 
 
@@ -578,7 +573,14 @@ namespace AC
 				}
 			}
 
-			visualAmount = (amount - minValue) / (maxValue - minValue);
+			if (uiSlider != null)
+			{
+				visualAmount = amount;
+			}
+			else
+			{
+				visualAmount = (amount - minValue) / (maxValue - minValue);
+			}
 		}
 
 

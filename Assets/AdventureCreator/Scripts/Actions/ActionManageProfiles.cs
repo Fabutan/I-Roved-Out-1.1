@@ -199,15 +199,7 @@ namespace AC
 
 			if ((manageProfileType == ManageProfileType.CreateProfile && useCustomLabel) || manageProfileType == AC.ManageProfileType.RenameProfile)
 			{
-				varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID);
-				if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-				{
-					GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-					if (_var != null && _var.type != VariableType.String)
-					{
-						EditorGUILayout.HelpBox ("The chosen Variable must be a String.", MessageType.Warning);
-					}
-				}
+				varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID, VariableType.String);
 			}
 
 			if (manageProfileType == ManageProfileType.DeleteProfile ||
@@ -235,15 +227,7 @@ namespace AC
 				}
 				else if (deleteProfileType == DeleteProfileType.SlotIndexFromVariable)
 				{
-					slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID);
-					if (slotVarID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-					{
-						GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (slotVarID);
-						if (_var != null && _var.type != VariableType.Integer)
-						{
-							EditorGUILayout.HelpBox ("The chosen Variable must be an Integer.", MessageType.Warning);
-						}
-					}
+					slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID, VariableType.Integer);
 				}
 				else if (deleteProfileType == DeleteProfileType.SetProfileID)
 				{

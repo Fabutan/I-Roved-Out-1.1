@@ -9,6 +9,10 @@
  * 
  */
 
+#if UNITY_STANDALONE && (UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE)
+#define ALLOW_MOVIETEXTURES
+#endif
+
 using UnityEngine;
 using System.Collections;
 
@@ -25,9 +29,7 @@ namespace AC
 	public class BackgroundImage : MonoBehaviour
 	{
 
-		#if UNITY_WEBGL || UNITY_PS4
-		#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-		#elif UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE
+		#if ALLOW_MOVIETEXTURES
 		/** If True, then any MovieTexture set as the background will be looped */
 		public bool loopMovie = true;
 		/** If True, then any MovieTexture set as the background will start from the beginning when the associated Camera is activated */
@@ -74,9 +76,7 @@ namespace AC
 				ACDebug.LogWarning (this.name + " has no GUITexture component");
 			}
 
-			#if UNITY_WEBGL || UNITY_PS4
-			#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS
-			#elif UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE			
+			#if ALLOW_MOVIETEXTURES			
 			if (GetComponent <GUITexture>().texture != null && GetComponent <GUITexture>().texture is MovieTexture)
 			{
 				MovieTexture movieTexture = (MovieTexture) GetComponent <GUITexture>().texture;

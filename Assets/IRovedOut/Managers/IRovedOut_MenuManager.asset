@@ -359,6 +359,7 @@ MonoBehaviour:
   limitToDefinedInteractions: 1
   categoryID: -1
   categoryIDs: 
+  linkUIGraphic: 0
   items: []
   selectItemsAfterTaking: 1
   displayType: 1
@@ -424,6 +425,7 @@ MonoBehaviour:
   limitToDefinedInteractions: 1
   categoryID: -1
   categoryIDs: 
+  linkUIGraphic: 0
   items: []
   selectItemsAfterTaking: 1
   displayType: 1
@@ -563,6 +565,7 @@ MonoBehaviour:
   limitToDefinedInteractions: 1
   categoryID: -1
   categoryIDs: 
+  linkUIGraphic: 0
   items: []
   selectItemsAfterTaking: 1
   displayType: 1
@@ -727,6 +730,7 @@ MonoBehaviour:
   limitToDefinedInteractions: 1
   categoryID: -1
   categoryIDs: 
+  linkUIGraphic: 0
   items: []
   selectItemsAfterTaking: 1
   displayType: 1
@@ -987,6 +991,7 @@ MonoBehaviour:
   showActive: 0
   uiHideStyle: 0
   autoHandle: 1
+  linkUIGraphic: 0
   fixedOption: 0
   optionToShow: 0
   parameterID: -1
@@ -3348,6 +3353,7 @@ MonoBehaviour:
   displayType: 1
   uiHideStyle: 0
   actionListOnWrongIngredients: {fileID: 0}
+  linkUIGraphic: 0
 --- !u!114 &114669406721138272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3630,6 +3636,7 @@ MonoBehaviour:
   showNewSaveOption: 1
   autoHandle: 1
   uiHideStyle: 0
+  linkUIGraphic: 0
 --- !u!114 &114702631384286054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4133,6 +4140,7 @@ MonoBehaviour:
   showNewSaveOption: 1
   autoHandle: 1
   uiHideStyle: 0
+  linkUIGraphic: 0
 --- !u!114 &114825487477682168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4694,6 +4702,7 @@ MonoBehaviour:
   displayType: 1
   uiHideStyle: 0
   actionListOnWrongIngredients: {fileID: 0}
+  linkUIGraphic: 0
 --- !u!114 &114947271600438366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4766,6 +4775,7 @@ MonoBehaviour:
   alreadyChosenFontHighlightedColour: {r: 1, g: 1, b: 1, a: 1}
   showIndexNumbers: 0
   uiHideStyle: 0
+  linkUIGraphic: 0
 --- !u!114 &114947956508749216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5061,6 +5071,7 @@ MonoBehaviour:
   limitToDefinedInteractions: 1
   categoryID: -1
   categoryIDs: 
+  linkUIGraphic: 0
   items: []
   selectItemsAfterTaking: 1
   displayType: 1

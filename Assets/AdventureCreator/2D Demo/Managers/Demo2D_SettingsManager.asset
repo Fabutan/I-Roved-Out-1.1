@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFileName: AdventureCreator_Demo2D
   saveTimeDisplay: 0
+  customSaveFormat: MMMM dd, yyyy
   takeSaveScreenshots: 0
   useProfiles: 0
   maxSaves: 8

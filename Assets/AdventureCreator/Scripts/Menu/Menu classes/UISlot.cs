@@ -91,9 +91,11 @@ namespace AC
 
 
 		/**
-		 * Links the UI GameObjects to the class, based on the supplied uiButtonID.
+		 * <summary>Links the UI GameObjects to the class, based on the supplied uiButtonID.</summary>
+		 * <param name = "canvas">The Canvas that contains the UI GameObjects</param>
+		 * <param name = "linkUIGraphic">What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic)</param>
 		 */
-		public void LinkUIElements (Canvas canvas)
+		public void LinkUIElements (Canvas canvas, LinkUIGraphic linkUIGraphic)
 		{
 			if (canvas != null)
 			{
@@ -114,9 +116,27 @@ namespace AC
 				{
 					uiRawImage = uiButton.GetComponentInChildren <RawImage>();
 				}
-				if (uiButton.GetComponentInChildren <Image>())
+				if (linkUIGraphic == LinkUIGraphic.ImageComponent && uiButton.GetComponentInChildren <Image>())
 				{
 					uiImage = uiButton.GetComponentInChildren <Image>();
+				}
+				else if (linkUIGraphic == LinkUIGraphic.ButtonTargetGraphic)
+				{
+					if (uiButton.targetGraphic != null)
+					{
+						if (uiButton.targetGraphic is Image)
+						{
+							uiImage = uiButton.targetGraphic as Image;
+						}
+						else
+						{
+							ACDebug.LogWarning ("Cannot assign UI Image for " + uiButton.name + "'s target graphic as " + uiButton.targetGraphic + " is not an Image component.", canvas);
+						}
+					}
+					else
+					{
+						ACDebug.LogWarning ("Cannot assign UI Image for " + uiButton.name + "'s target graphic because it has none.", canvas);
+					}
 				}
 
 				originalColour = uiButton.colors.normalColor;

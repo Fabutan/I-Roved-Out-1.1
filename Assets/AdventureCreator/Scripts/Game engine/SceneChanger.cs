@@ -167,9 +167,13 @@ namespace AC
 		 */
 		public void LoadPreviousScene ()
 		{
-			if (previousSceneInfo != null)
+			if (previousSceneInfo != null && !previousSceneInfo.IsNull)
 			{
 				ChangeScene (previousSceneInfo, true);
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot load previous scene - no scene data present!");
 			}
 		}
 
@@ -283,7 +287,14 @@ namespace AC
 			PrepareSceneForExit (true, false);
 			if (loadAsynchronously)
 			{
-				yield return new WaitForSeconds (KickStarter.settingsManager.loadingDelay);
+				if (KickStarter.settingsManager.loadingDelay > 0f)
+				{
+					float waitForTime = Time.realtimeSinceStartup + KickStarter.settingsManager.loadingDelay;
+					while (Time.realtimeSinceStartup < waitForTime)
+					{
+						yield return null;
+					}
+				}
 
 				AsyncOperation aSync = null;
 				if (nextSceneInfo.Matches (preloadSceneInfo))
@@ -306,7 +317,16 @@ namespace AC
 					}
 				
 					isLoading = false;
-					yield return new WaitForSeconds (KickStarter.settingsManager.loadingDelay);
+
+					if (KickStarter.settingsManager.loadingDelay > 0f)
+					{
+						float waitForTime = Time.realtimeSinceStartup + KickStarter.settingsManager.loadingDelay;
+						while (Time.realtimeSinceStartup < waitForTime)
+						{
+							yield return null;
+						}
+					}
+
 					aSync.allowSceneActivation = true;
 				}
 				else
@@ -317,6 +337,7 @@ namespace AC
 						yield return null;
 					}
 				}
+
 				KickStarter.stateHandler.GatherObjects ();
 			}
 			else
@@ -671,6 +692,28 @@ namespace AC
 
 
 		/**
+		 * <summary>A Constructor where only the scene's name is defined.</summary>
+		 * <param name = "_name">The scene's name</param>
+		 */
+		public SceneInfo (string _name)
+		{
+			name = _name;
+			number = -1;
+		}
+
+
+		/**
+		 * <summary>A Constructor where only the scene's number is defined.</summary>
+		 * <param name = "_name">The scene's build index number</param>
+		 */
+		public SceneInfo (int _number)
+		{
+			number = _number;
+			name = "";
+		}
+
+
+		/**
 		 * <summary>A Constructor.</summary>
 		 * <param name = "chooseSeneBy">The method by which the scene is referenced (Name, Number)</param>
 		 * <param name = "_name">The scene's name</param>
@@ -792,6 +835,22 @@ namespace AC
 		public AsyncOperation LoadLevelASync ()
 		{
 			return UnityVersionHandler.LoadLevelAsync (number, name);
+		}
+
+
+		/**
+		 * Returns True if the scene data is empty
+		 */
+		public bool IsNull
+		{
+			get
+			{
+				if (string.IsNullOrEmpty (name) && number == -1)
+				{
+					return true;
+				}
+				return false;
+			}
 		}
 
 	}

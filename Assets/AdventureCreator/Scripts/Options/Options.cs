@@ -31,7 +31,9 @@ namespace AC
 
 		/** The maximum number of profiles that can be created */
 		public static int maxProfiles = 50;
-		
+
+		private static iOptionsFileHandler optionsFileHandlerOverride;
+
 		
 		public void OnStart ()
 		{
@@ -117,11 +119,7 @@ namespace AC
 			string optionsSerialized = Serializer.SerializeObject <OptionsData> (_optionsData, true);
 			if (optionsSerialized != "")
 			{
-				PlayerPrefs.SetString (GetPrefKeyName (ID), optionsSerialized);
-				if (showLog)
-				{
-					ACDebug.Log ("PlayerPrefs Key '" + GetPrefKeyName (ID) + "' saved");
-				}
+				OptionsFileHandler.SaveOptions (ID, optionsSerialized, showLog);
 			}
 		}
 		
@@ -140,24 +138,25 @@ namespace AC
 			if (optionsData == null)
 			{
 				ACDebug.LogWarning ("No Options Data found!");
-				return;
 			}
-
-			int numLanguages = (Application.isPlaying) ? KickStarter.runtimeLanguages.Languages.Count : AdvGame.GetReferences ().speechManager.languages.Count;
-			if (optionsData.language >= numLanguages)
+			else
 			{
-				if (numLanguages != 0)
+				int numLanguages = (Application.isPlaying) ? KickStarter.runtimeLanguages.Languages.Count : AdvGame.GetReferences ().speechManager.languages.Count;
+				if (optionsData.language >= numLanguages)
 				{
-					ACDebug.LogWarning ("Language set to an invalid index - reverting to original language.");
+					if (numLanguages != 0)
+					{
+						ACDebug.LogWarning ("Language set to an invalid index - reverting to original language.");
+					}
+					optionsData.language = 0;
+					SavePrefs (false);
 				}
-				optionsData.language = 0;
-				SavePrefs (false);
-			}
-			if (optionsData.language == 0 && KickStarter.speechManager && KickStarter.speechManager.ignoreOriginalText && KickStarter.speechManager.languages.Count > 1)
-			{
-				// Ignore original language
-				optionsData.language = 1;
-				SavePrefs (false);
+				if (optionsData.language == 0 && KickStarter.speechManager && KickStarter.speechManager.ignoreOriginalText && KickStarter.speechManager.languages.Count > 1)
+				{
+					// Ignore original language
+					optionsData.language = 1;
+					SavePrefs (false);
+				}
 			}
 			
 			if (Application.isPlaying)
@@ -179,13 +178,9 @@ namespace AC
 		{
 			if (DoesProfileIDExist (profileID))
 			{
-				string optionsSerialized = PlayerPrefs.GetString (GetPrefKeyName (profileID));
-				if (optionsSerialized != null && optionsSerialized.Length > 0)
+				string optionsSerialized = OptionsFileHandler.LoadOptions (profileID, showLog);
+				if (!string.IsNullOrEmpty (optionsSerialized))
 				{
-					if (showLog)
-					{
-						ACDebug.Log ("PlayerPrefs Key '" + GetPrefKeyName (profileID) + "' loaded");
-					}
 					return Serializer.DeserializeOptionsData (optionsSerialized);
 				}
 			}
@@ -266,7 +261,7 @@ namespace AC
 		{
 			if (KickStarter.settingsManager != null && KickStarter.settingsManager.useProfiles)
 			{
-				return PlayerPrefs.GetInt ("AC_ActiveProfile", 0);
+				return OptionsFileHandler.GetActiveProfile ();
 			}
 			return 0;
 		}
@@ -274,11 +269,11 @@ namespace AC
 
 		/**
 		 * <summary>Sets the ID number of the active profile.</summary>
-		 * <param name = "ID">A unique identifier for the profile</param>
+		 * <param name = "profileID">A unique identifier for the profile</param>
 		 */
-		public static void SetActiveProfileID (int ID)
+		public static void SetActiveProfileID (int profileID)
 		{
-			PlayerPrefs.SetInt ("AC_ActiveProfile", ID);
+			OptionsFileHandler.SetActiveProfile (profileID);
 		}
 		
 		
@@ -461,19 +456,14 @@ namespace AC
 
 		/**
 		 * <summary>Deletes the PlayerPrefs key associated with a specfic profile</summary>
-		 * <param name = "ID">The unique identifier of the profile to delete</param>
+		 * <param name = "profileID">The unique identifier of the profile to delete</param>
 		 */
-		public static void DeleteProfilePrefs (int ID)
+		public static void DeleteProfilePrefs (int profileID)
 		{
-			bool isDeletingCurrentProfile = false;
-			if (ID == GetActiveProfileID ())
-			{
-				isDeletingCurrentProfile = true;
-			}
+			bool isDeletingCurrentProfile = (profileID == GetActiveProfileID ());
 
-			ACDebug.Log ("PlayerPrefs Key '" + GetPrefKeyName (ID) + "' deleted");
-			PlayerPrefs.DeleteKey (GetPrefKeyName (ID));
-			
+			OptionsFileHandler.DeleteOptions (profileID);
+
 			if (isDeletingCurrentProfile)
 			{
 				for (int i=0; i<maxProfiles; i++)
@@ -518,7 +508,7 @@ namespace AC
 				profileID = 0;
 			}
 
-			return PlayerPrefs.HasKey (GetPrefKeyName (profileID));
+			return OptionsFileHandler.DoesProfileExist (profileID);
 		}
 		
 
@@ -551,24 +541,6 @@ namespace AC
 		
 
 		/**
-		 * <summary>Gets the name of the PlayerPrefs key associated with a specific profile.</summary>
-		 * <param name = "ID">The unique identifier of the profile to find</param>
-		 * <returns>The name of the PlayerPrefs key associated with the profile</returns>
-		 */
-		public static string GetPrefKeyName (int ID)
-		{
-			string profileName = "Profile";
-			if (AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.saveFileName != "")
-			{
-				profileName = AdvGame.GetReferences ().settingsManager.saveFileName;
-				profileName = profileName.Replace (" ", "_");
-			}
-
-			return ("AC_" + profileName + "_" + ID.ToString ());
-		}
-
-
-		/**
 		 * <summary>Updates the labels of all save files by storing them in the profile's OptionsData.</summary>
 		 * <param name = "foundSaveFiles">An array of SaveFile instances, that represent the found save game files found on disk</param>
 		 */
@@ -580,7 +552,7 @@ namespace AC
 			{
 				foreach (SaveFile saveFile in foundSaveFiles)
 				{
-					newSaveNameData.Append (saveFile.ID.ToString ());
+					newSaveNameData.Append (saveFile.saveID.ToString ());
 					newSaveNameData.Append (SaveSystem.colon);
 					newSaveNameData.Append (saveFile.GetSafeLabel ());
 					newSaveNameData.Append (SaveSystem.pipe);
@@ -860,6 +832,28 @@ namespace AC
 			ISaveOptions[] ret = new ISaveOptions[list.Count];
 			list.CopyTo (ret, 0);
 			return ret;
+		}
+
+
+		/**
+		 * The iSaveFileHandler class that handles the creation, loading, and deletion of save files
+		 */
+		public static iOptionsFileHandler OptionsFileHandler
+		{
+			get
+			{
+				if (optionsFileHandlerOverride != null)
+				{
+					return optionsFileHandlerOverride;
+				}
+
+				return new OptionsFileHandler_PlayerPrefs ();
+			}
+			set
+			{
+				optionsFileHandlerOverride = value;
+				LoadPrefs ();
+			}
 		}
 		
 	}

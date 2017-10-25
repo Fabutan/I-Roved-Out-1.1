@@ -99,23 +99,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuToggle that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuToggle with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuToggle newElement = CreateInstance <MenuToggle>();
 			newElement.Declare ();
-			newElement.CopyToggle (this);
+			newElement.CopyToggle (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyToggle (MenuToggle _element)
+		private void CopyToggle (MenuToggle _element, bool ignoreUnityUI)
 		{
-			uiToggle = _element.uiToggle;
+			if (ignoreUnityUI)
+			{
+				uiToggle = null;
+			}
+			else
+			{
+				uiToggle = _element.uiToggle;
+			}
+
 			uiText = null;
 			label = _element.label;
 			isOn = _element.isOn;
@@ -255,15 +258,7 @@ namespace AC
 			}
 			else if (toggleType == AC_ToggleType.Variable)
 			{
-				varID = AdvGame.GlobalVariableGUI ("Global boolean var:", varID);
-				if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-				{
-					GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-					if (_var != null && _var.type != VariableType.Boolean)
-					{
-						EditorGUILayout.HelpBox ("The chosen Variable must be a Boolean.", MessageType.Warning);
-					}
-				}
+				varID = AdvGame.GlobalVariableGUI ("Global boolean var:", varID, VariableType.Boolean);
 			}
 
 			isClickable = CustomGUILayout.Toggle ("User can change value?", isClickable, apiPrefix + ".isClickable");

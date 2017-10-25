@@ -337,6 +337,10 @@ namespace AC
 		 */
 		public void Play (bool loop)
 		{
+			if (audioSource == null)
+			{
+				return;
+			}
 			audioSource.loop = loop;
 			audioSource.timeSamples = 0;
 			Play ();
@@ -351,6 +355,10 @@ namespace AC
 		 */
 		public void Play (AudioClip clip, bool loop, int _timeSamples = 0)
 		{
+			if (audioSource == null)
+			{
+				return;
+			}
 			audioSource.clip = clip;
 			audioSource.loop = loop;
 			audioSource.timeSamples = _timeSamples;
@@ -365,6 +373,10 @@ namespace AC
 		 */
 		public void PlayAtPoint (bool loop, int samplePoint)
 		{
+			if (audioSource == null)
+			{
+				return;
+			}
 			audioSource.loop = loop;
 			audioSource.timeSamples = samplePoint;
 			Play ();

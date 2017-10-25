@@ -29,12 +29,16 @@ namespace AC
 
 		/** The _Camera to align the GameObject to */
 		public _Camera cameraToAlignTo;
+		/** If True, the distance from the camera will be fixed (though adjustable in the Inspector) */
+		public bool lockDistance = true;
 		/** How far to place the GameObject away from the cameraToAlignTo, once set */
 		public float distanceToCamera;
 		/** If True, the percieved scale of the GameObject, as seen through the cameraToAlignTo, will be fixed even if the distance between the two changes */
 		public bool lockScale;
 		/** If lockScale is True, this GameObject's scale will be multiplied by this value */
-		public float scaleFactor = 0f;
+		public Vector2 scaleFactor = Vector2.zero;
+		/** How the object is aligned (YAxisOnly, CopyFullRotation) */
+		public AlignType alignType = AlignType.YAxisOnly;
 
 
 		private void Awake ()
@@ -63,9 +67,12 @@ namespace AC
 			{
 				return;
 			}
-			
-			Vector3 newPosition = cameraToAlignTo.transform.position + (cameraToAlignTo.transform.forward * distanceFromCamera);
-			transform.position = newPosition;
+
+			if (lockDistance)
+			{
+				Vector3 newPosition = cameraToAlignTo.transform.position + (cameraToAlignTo.transform.forward * distanceFromCamera);
+				transform.position = newPosition;
+			}
 		}
 		#endif
 
@@ -74,60 +81,70 @@ namespace AC
 		{
 			if (cameraToAlignTo)
 			{
-				transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, cameraToAlignTo.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-
-				if (distanceToCamera > 0f)
+				if (alignType == AlignType.YAxisOnly)
 				{
-					Vector3 relativePosition = transform.position - cameraToAlignTo.transform.position;
-					float currentDistance = relativePosition.magnitude;
-					if (currentDistance != distanceToCamera)
+					transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, cameraToAlignTo.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+				}
+				else
+				{
+					transform.rotation = cameraToAlignTo.transform.rotation;
+				}
+
+				if (lockDistance)
+				{
+					if (distanceToCamera > 0f)
 					{
-						if (currentDistance != 0)
+						Vector3 relativePosition = transform.position - cameraToAlignTo.transform.position;
+						float currentDistance = relativePosition.magnitude;
+						if (currentDistance != distanceToCamera)
 						{
-							transform.position = cameraToAlignTo.transform.position + (relativePosition * distanceToCamera / currentDistance);
+							if (currentDistance != 0)
+							{
+								transform.position = cameraToAlignTo.transform.position + (relativePosition * distanceToCamera / currentDistance);
+							}
+							else
+							{
+								transform.position = cameraToAlignTo.transform.position + cameraToAlignTo.transform.forward * distanceToCamera;
+							}
 						}
-						else
+
+						if (lockScale)
 						{
-							transform.position = cameraToAlignTo.transform.position + cameraToAlignTo.transform.forward * distanceToCamera;
+							CalculateScale ();
+
+							if (scaleFactor != Vector2.zero)
+							{
+								transform.localScale = scaleFactor * distanceToCamera;
+							}
 						}
 					}
-
-					if (lockScale)
+					else if (distanceToCamera < 0f)
 					{
-						CalculateScale ();
-
-						if (scaleFactor != 0f)
+						distanceToCamera = 0f;
+					}
+					else if (distanceToCamera == 0f)
+					{
+						Vector3 relativePosition = transform.position - cameraToAlignTo.transform.position;
+						if (relativePosition.magnitude != 0f)
 						{
-							transform.localScale = Vector3.one * scaleFactor * distanceToCamera;
+							distanceToCamera = relativePosition.magnitude;
 						}
 					}
 				}
-				else if (distanceToCamera < 0f)
+				
+				if (!lockScale || cameraToAlignTo == null)
 				{
-					distanceToCamera = 0f;
+					scaleFactor = Vector2.zero;
 				}
-				else if (distanceToCamera == 0f)
-				{
-					Vector3 relativePosition = transform.position - cameraToAlignTo.transform.position;
-					if (relativePosition.magnitude != 0f)
-					{
-						distanceToCamera = relativePosition.magnitude;
-					}
-				}
-			}
-
-			if (!lockScale || cameraToAlignTo == null)
-			{
-				scaleFactor = 0f;
 			}
 		}
 
 
 		private void CalculateScale ()
 		{
-			if (scaleFactor == 0f)
+			if (scaleFactor == Vector2.zero)
 			{
-				scaleFactor = transform.localScale.y / distanceToCamera;
+				scaleFactor = new Vector2 (transform.localScale.x / distanceToCamera, transform.localScale.y / distanceToCamera);
 			}
 		}
 

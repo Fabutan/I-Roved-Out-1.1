@@ -11,6 +11,10 @@
  * 
  */
 
+#if !UNITY_2017_2_OR_NEWER
+#define ALLOW_LEGACY_UI
+#endif
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -125,10 +129,12 @@ namespace AC
 				}
 			}
 
+			#if ALLOW_LEGACY_UI
 			if (GetComponent <GUITexture>())
 			{
 				originalColors.Add (GetComponent <GUITexture>().color);
 			}
+			#endif
 		}
 		
 
@@ -332,6 +338,7 @@ namespace AC
 				}
 			}
 
+			#if ALLOW_LEGACY_UI
 			if (GetComponent <GUITexture>())
 			{
 				alpha = Mathf.Lerp (0.2f, 1f, highlight - 1f); // highlight is between 1 and 2
@@ -339,6 +346,7 @@ namespace AC
 				newColor.a = alpha;
 				GetComponent <GUITexture>().color = newColor;
 			}
+			#endif
 		}
 
 

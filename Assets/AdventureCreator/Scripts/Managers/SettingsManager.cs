@@ -10,6 +10,10 @@
  * 
  */
 
+#if !(UNITY_WEBPLAYER || UNITY_ANDROID || UNITY_WINRT || UNITY_WII || UNITY_WEBGL || UNITY_PS4)
+#define ADVANCED_SAVING
+#endif
+
 using UnityEngine;
 #if UNITY_5 || UNITY_2017_1_OR_NEWER
 using UnityEngine.Audio;
@@ -62,8 +66,10 @@ namespace AC
 
 		/** The name to give save game files */
 		public string saveFileName = "";			
-		/** How the time of a save file should be displayed (None, DateOnly, TimeAndDate) */
+		/** How the time of a save file should be displayed (None, DateOnly, TimeAndDate, CustomFormat) */
 		public SaveTimeDisplay saveTimeDisplay = SaveTimeDisplay.DateOnly;
+		/** The format of time display for save game labels, if saveTimeDisplay = SaveTimeDisplay.CustomFormat */
+		public string customSaveFormat = "MMMM dd, yyyy";
 		/** If True, then a screenshot of the game will be taken whenever the game is saved */
 		public bool takeSaveScreenshots;
 		/** If True, then multiple save profiles - each with its own save files and options data - can be created */
@@ -507,11 +513,7 @@ namespace AC
 			showSave = CustomGUILayout.ToggleHeader (showSave, "Save game settings");
 			if (showSave)
 			{
-				if (saveFileName == "")
-				{
-					saveFileName = SaveSystem.SetProjectName ();
-				}
-
+				saveFileName = SavePrefix;
 				maxSaves = CustomGUILayout.IntField ("Max. number of saves:", maxSaves, "AC.KickStarter.settingsManager.maxSaves");
 
 				saveFileName = CustomGUILayout.TextField ("Save filename:", saveFileName, "AC.KickStarter.settingsManager.saveFileName");
@@ -534,12 +536,16 @@ namespace AC
 				}
 
 				useProfiles = CustomGUILayout.ToggleLeft ("Enable save game profiles?", useProfiles, "AC.KickStarter.settingsManager.useProfiles");
-				#if !UNITY_WEBPLAYER && !UNITY_ANDROID && !UNITY_WINRT && !UNITY_WII && !UNITY_WEBGL && !UNITY_PS4
+				#if ADVANCED_SAVING
 				saveTimeDisplay = (SaveTimeDisplay) CustomGUILayout.EnumPopup ("Time display:", saveTimeDisplay, "AC.KickStarter.settingsManager.saveTimeDisplay");
+				if (saveTimeDisplay == SaveTimeDisplay.CustomFormat)
+				{
+					customSaveFormat = CustomGUILayout.TextField ("Time display format:", customSaveFormat, "AC.KickStarter.settingsManager.customSaveFormat");
+				}
 				takeSaveScreenshots = CustomGUILayout.ToggleLeft ("Take screenshot when saving?", takeSaveScreenshots, "AC.KickStarter.settingsManager.takeSaveScreenshots");
 				orderSavesByUpdateTime = CustomGUILayout.ToggleLeft ("Order save lists by update time?", orderSavesByUpdateTime, "AC.KickStarter.settingsManager.orderSavesByUpdateTime");
 				#else
-				EditorGUILayout.HelpBox ("Save-game screenshots are disabled for WebPlayer, WeBGL, Windows Store and Android platforms.", MessageType.Info);
+				EditorGUILayout.HelpBox ("Save-game screenshots are disabled for the current platform.", MessageType.Info);
 				takeSaveScreenshots = false;
 				#endif
 
@@ -951,6 +957,14 @@ namespace AC
 				{
 					EditorGUILayout.HelpBox ("If the 'Pathfinding update time' is non-zero, the Player will pathfind to the cursor when moving.", MessageType.Info);
 				}
+
+				if (cameraPerspective == CameraPerspective.TwoD)
+				{
+					if (movingTurning == MovingTurning.TopDown || movingTurning == MovingTurning.Unity2D)
+					{
+						verticalReductionFactor = CustomGUILayout.Slider ("Vertical movement factor:", verticalReductionFactor, 0.1f, 1f, "AC.KickStarter.settingsManager.verticalReductionFactor");
+					}
+				}
 			}
 		}
 
@@ -997,10 +1011,6 @@ namespace AC
 				if (cameraPerspective == CameraPerspective.TwoD)
 				{
 					movingTurning = (MovingTurning) CustomGUILayout.EnumPopup ("Moving and turning:", movingTurning, "AC.KickStarter.settingsManager.movingTurning");
-					if (movingTurning == MovingTurning.TopDown || movingTurning == MovingTurning.Unity2D)
-					{
-						verticalReductionFactor = CustomGUILayout.Slider ("Vertical movement factor:", verticalReductionFactor, 0.1f, 1f, "AC.KickStarter.settingsManager.verticalReductionFactor");
-					}
 					if (movingTurning == MovingTurning.TopDown)
 					{
 						EditorGUILayout.HelpBox ("This mode is now deprecated - use Unity 2D mode instead.", MessageType.Warning);
@@ -1214,6 +1224,23 @@ namespace AC
 		}
 		
 		#endif
+
+
+		/**
+		 * The prefix of the project's save-game filesnames, before the save / profile ID
+		 */
+		public string SavePrefix
+		{
+			get
+			{
+				if (string.IsNullOrEmpty (saveFileName))
+				{
+					string[] s = Application.dataPath.Split ('/');
+					saveFileName = s[s.Length - 2];
+				}
+				return saveFileName;
+			}
+		}
 
 
 		private string SmartAddInput (string existingResult, string newInput)
@@ -2160,8 +2187,8 @@ namespace AC
 	 * The KickStarter class also has functions that can be used to turn AC off or on completely:
 	 * 
 	 * \code
-	 * AC.KickStarter.TurnOff ();
-	 * AC.KickStarter.TurnOn ();
+	 * AC.KickStarter.TurnOffAC ();
+	 * AC.KickStarter.TurnOnAC ();
 	 * \endcode
 	 * 
 	 * You can detect the game's current state (cutscene or gameplay) from the StateHandler:

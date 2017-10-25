@@ -34,6 +34,7 @@ namespace AC
 		private int replaceInvNumber;
 		
 		public bool setAmount = false;
+		public int amountParameterID = -1;
 		public int amount = 1;
 
 		public bool setPlayer = false;
@@ -60,6 +61,7 @@ namespace AC
 		{
 			invID = AssignInvItemID (parameters, parameterID, invID);
 			invIDReplace = AssignInvItemID (parameters, replaceParameterID, invIDReplace);
+			amount = AssignInteger (parameters, amountParameterID, amount);
 		}
 		
 		
@@ -182,13 +184,12 @@ namespace AC
 					
 						if (setAmount)
 						{
-							if (invAction == InvAction.Remove)
+							string _label = (invAction == InvAction.Remove) ? "Reduce count by:" : "Increase count by:";
+
+							amountParameterID = Action.ChooseParameterGUI (_label, parameters, amountParameterID, ParameterType.Integer);
+							if (parameterID < 0)
 							{
-								amount = EditorGUILayout.IntField ("Reduce count by:", amount);
-							}
-							else
-							{
-								amount = EditorGUILayout.IntField ("Increase count by:", amount);
+								amount = EditorGUILayout.IntField (_label, amount);
 							}
 						}
 					}

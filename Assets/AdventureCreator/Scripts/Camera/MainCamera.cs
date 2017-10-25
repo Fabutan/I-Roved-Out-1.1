@@ -14,8 +14,15 @@
  * 
  */
 
+#if !UNITY_5_0 && (UNITY_5 || UNITY_2017) && (UNITY_STANDALONE || UNITY_ANDROID || UNITY_IOS)
+#define ALLOW_VR
+#endif
+
 using UnityEngine;
 using System.Collections;
+#if ALLOW_VR
+using UnityEngine.VR;
+#endif
 
 namespace AC
 {
@@ -129,6 +136,11 @@ namespace AC
 		
 		private Camera _camera;
 		private AudioListener _audioListener;
+
+		#if ALLOW_VR
+		/** If True, the camera's position and rotation will be restored when loading (VR only) */
+		public bool restoreTransformOnLoadVR = false;
+		#endif
 
 
 		public void OnAwake ()
@@ -567,6 +579,12 @@ namespace AC
 			{
 				transform.position = attachedCamera.transform.position;
 				transform.rotation = attachedCamera.transform.rotation;
+
+				perspectiveOffset = attachedCamera.GetPerspectiveOffset ();
+				if (!_camera.orthographic)
+				{
+					_camera.projectionMatrix = AdvGame.SetVanishingPoint (_camera, perspectiveOffset);
+				}
 			}
 
 			else if (attachedCamera == null && manualRotation)
@@ -739,16 +757,8 @@ namespace AC
 				transform.rotation = attachedCamera.transform.rotation;
 				focalDistance = attachedCamera.focalDistance;
 				
-				if (attachedCamera is GameCamera2D)
-				{
-					GameCamera2D cam2D = (GameCamera2D) attachedCamera;
-					perspectiveOffset = cam2D.GetPerspectiveOffset ();
-				}
-				else
-				{
-					perspectiveOffset = new Vector2 (0f, 0f);
-				}
-				
+				perspectiveOffset = attachedCamera.GetPerspectiveOffset ();
+
 				if (KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.settingsManager.movementMethod == MovementMethod.Direct && KickStarter.settingsManager.directMovementType == DirectMovementType.RelativeToCamera && /*KickStarter.settingsManager.inputMethod != InputMethod.TouchScreen &&*/ KickStarter.playerInput != null)
 				{
 					if (KickStarter.player != null && 
@@ -1868,7 +1878,6 @@ namespace AC
 				_attachedCamera.MoveCameraInstant ();
 				SetGameCamera (_attachedCamera);
 			}
-			//else if (KickStarter.settingsManager.IsInFirstPerson ())
 			else if (KickStarter.settingsManager.movementMethod == MovementMethod.FirstPerson && KickStarter.settingsManager.IsInFirstPerson ())
 			{
 				SetFirstPerson ();
@@ -1878,9 +1887,20 @@ namespace AC
 			lastNavCamera2 = Serializer.returnComponent <_Camera> (playerData.lastNavCamera2);
 			ResetMoving ();
 
-			transform.position = new Vector3 (playerData.mainCameraLocX, playerData.mainCameraLocY, playerData.mainCameraLocZ);
-			transform.eulerAngles = new Vector3 (playerData.mainCameraRotX, playerData.mainCameraRotY, playerData.mainCameraRotZ);
-			ResetProjection ();
+			#if ALLOW_VR
+				#if UNITY_2017_2_OR_NEWER
+				if (!UnityEngine.XR.XRSettings.enabled || restoreTransformOnLoadVR) {
+				#else
+				if (!VRSettings.enabled || restoreTransformOnLoadVR) {
+				#endif
+			#endif
+				transform.position = new Vector3 (playerData.mainCameraLocX, playerData.mainCameraLocY, playerData.mainCameraLocZ);
+				transform.eulerAngles = new Vector3 (playerData.mainCameraRotX, playerData.mainCameraRotY, playerData.mainCameraRotZ);
+				ResetProjection ();
+			#if ALLOW_VR
+			}
+			#endif
+
 			SnapToAttached ();
 
 			isSplitScreen = playerData.isSplitScreen;

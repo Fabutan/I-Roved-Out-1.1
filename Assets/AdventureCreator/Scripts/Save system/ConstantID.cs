@@ -111,16 +111,6 @@ namespace AC
 				retainInPrefab = false;
 				SetNewID ();
 			}
-			/*else if (gameObject.activeInHierarchy)
-			{
-				retainInPrefab = false;
-				SetNewID ();
-			}
-			else
-			{
-				retainInPrefab = true;
-				SetNewID_Prefab ();
-			}*/
 			return constantID;
 		}
 
@@ -301,7 +291,24 @@ namespace AC
 	 */
 	[System.Serializable]
 	public class Remember : ConstantID
-	{}
+	{
+
+		protected bool savePrevented = false;
+
+		/** If True, saving is prevented */
+		public bool SavePrevented
+		{
+			get
+			{
+				return savePrevented;
+			}
+			set
+			{
+				savePrevented = value;
+			}
+		}
+
+	}
 	
 
 	/**
@@ -313,6 +320,8 @@ namespace AC
 
 		/** The ConstantID number of the object being saved */
 		public int objectID;
+		/** If True, saving is prevented */
+		public bool savePrevented;
 
 		/**
 		 * The base constructor.

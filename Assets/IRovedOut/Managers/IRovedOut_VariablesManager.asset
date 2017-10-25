@@ -19,6 +19,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
@@ -33,6 +34,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
@@ -47,6 +49,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
@@ -61,6 +64,22 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 0
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+  - label: BeeFollowing
+    id: 4
+    type: 0
+    val: 0
+    floatVal: 0
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0

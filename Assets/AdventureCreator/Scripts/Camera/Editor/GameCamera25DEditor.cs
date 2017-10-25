@@ -44,6 +44,15 @@ namespace AC
 			}
 			
 			EditorGUILayout.EndHorizontal ();
+
+			if (!_target.GetComponent <Camera>().orthographic)
+			{
+				EditorGUILayout.Space ();
+				EditorGUILayout.LabelField ("Perspective offset", EditorStyles.boldLabel);
+				_target.perspectiveOffset.x = EditorGUILayout.Slider ("Horizontal:", _target.perspectiveOffset.x, -0.05f, 0.05f);
+				_target.perspectiveOffset.y = EditorGUILayout.Slider ("Vertical:", _target.perspectiveOffset.y, -0.05f, 0.05f);
+			}
+
 			EditorGUILayout.EndVertical ();
 
 			if (_target.isActiveEditor)
@@ -67,6 +76,11 @@ namespace AC
 				Camera.main.farClipPlane = _target.GetComponent <Camera>().farClipPlane;
 				Camera.main.nearClipPlane = _target.GetComponent <Camera>().nearClipPlane;
 				Camera.main.orthographicSize = _target.GetComponent <Camera>().orthographicSize;
+
+				if (!Camera.main.orthographic)
+				{
+					Camera.main.projectionMatrix = AdvGame.SetVanishingPoint (Camera.main, _target.perspectiveOffset);
+				}
 			}
 		}
 		

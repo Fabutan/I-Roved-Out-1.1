@@ -141,6 +141,30 @@ namespace AC
 
 
 		/**
+		 * <summary>A constructor for a runtime-generated Conversation's dialogue option.</summary>
+		 * <param name = "_ID">An ID number unique to this instance of ButtonDialog within a Conversation</param>
+		 * <param name = "_label">The option's display text</param>
+		 * <param name = "_isOn">If True, the option will be enabled</param>
+		 */
+		public ButtonDialog (int _ID, string _label, bool _isOn)
+		{
+			label = _label;
+			icon = null;
+			isOn = _isOn;
+			isLocked = false;
+
+			conversationAction = ConversationAction.Stop;
+
+			assetFile = null;
+			newConversation = null;
+			dialogueOption = null;
+			lineID = -1;
+			ID = _ID;
+			isEditing = false;
+		}
+
+
+		/**
 		 * <summary>Checks if the dialogue option can be currently shown.</summary>
 		 * <returns>True if the dialogue option can be currently shown</returns>
 		 */

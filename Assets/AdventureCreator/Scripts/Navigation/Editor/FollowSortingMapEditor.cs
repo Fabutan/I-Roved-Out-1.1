@@ -23,7 +23,17 @@ namespace AC
 			{
 				_target.offsetOriginal = EditorGUILayout.Toggle ("Offset original Order?", _target.offsetOriginal);
 				_target.affectChildren = EditorGUILayout.Toggle ("Also affect children?", _target.affectChildren);
+
+				bool oldPreviewValue = _target.livePreview;
 				_target.livePreview = EditorGUILayout.Toggle ("Edit-mode preview?", _target.livePreview);
+				if (oldPreviewValue && !_target.livePreview)
+				{
+					// Just unchecked, so reset scale
+					if (!Application.isPlaying && _target.GetComponentInParent <Char>() != null && _target.GetComponentInParent <Char>().spriteChild != null)
+					{
+						_target.GetComponentInParent <Char>().transform.localScale = Vector3.one;
+					}
+				}
 			}
 
 			UnityVersionHandler.CustomSetDirty (_target);

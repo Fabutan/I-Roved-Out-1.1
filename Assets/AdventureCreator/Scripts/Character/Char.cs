@@ -205,6 +205,7 @@ namespace AC
 		/** The directional suffix to face (e.g. "L" for "Left"), if lockDirection = True */
 		public string spriteDirection = "D";
 		
+		private FollowSortingMap followSortingMap;
 		private float spriteAngle = 0f;	
 		
 		/** If True, sprite-based characters will play different animations depending on which direction they are facing */
@@ -386,7 +387,8 @@ namespace AC
 			{
 				ownPath = GetComponent <Paths>();
 			}
-			
+
+
 			if (GetComponentInChildren <FollowSortingMap>())
 			{
 				transform.localScale = Vector3.one;
@@ -420,7 +422,16 @@ namespace AC
 					ACDebug.LogWarning ("The sprite child of '" + gameObject.name + "' is not positioned at (0,0,0) - is this correct?");
 				}
 			}
-			
+
+			if (spriteChild && spriteChild.GetComponent <FollowSortingMap>())
+			{
+				followSortingMap = spriteChild.GetComponent <FollowSortingMap>();
+			}
+			else if (GetComponentInChildren <FollowSortingMap>())
+			{
+				followSortingMap = GetComponentInChildren <FollowSortingMap>();
+			}
+
 			if (speechAudioSource == null && GetComponent <AudioSource>())
 			{
 				speechAudioSource = GetComponent <AudioSource>();
@@ -519,6 +530,7 @@ namespace AC
 			{
 				UpdateSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
 			}
+			UpdateScale ();
 		}
 
 
@@ -630,7 +642,9 @@ namespace AC
 					{
 						direction.z = 0f;
 						SetMoveDirection (direction);
-						lookDir = new Vector3 (direction.x, 0f, direction.y);
+
+						lookDir = new Vector3 (direction.x, 0f, direction.y); 
+
 						SetLookDirection (lookDir, false);
 					}
 					else if (activePath.affectY)
@@ -976,7 +990,7 @@ namespace AC
 		}
 
 
-		private void MoveRigidbody ()
+	/*	private void MoveRigidbody ()
 		{
 			if (GetMotionControl () == MotionControl.Manual || GetMotionControl () == MotionControl.JustTurning)
 			{
@@ -1028,6 +1042,73 @@ namespace AC
 					_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
 				}
 				else
+				{
+					_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+				}
+				#endif
+			}
+		}*/
+
+
+		private void MoveRigidbody ()
+		{
+			if (GetMotionControl () == MotionControl.Manual || GetMotionControl () == MotionControl.JustTurning)
+			{
+				return;
+			}
+
+			if (DoRigidbodyMovement ())
+			{
+				if (GetRootMotionType () == RootMotionType.None)
+				{
+					if (_rigidbody.isKinematic)
+					{
+						_rigidbody.MovePosition (transform.position + newVel * Time.deltaTime);
+					}
+					else
+					{
+						Vector3 force = CalcForce (newVel, _rigidbody.velocity.y, _rigidbody.mass, _rigidbody.velocity);
+						_rigidbody.AddForce (force);
+					}
+				}
+			}
+			else if (DoRigidbodyMovement2D ())
+			{
+				if (GetRootMotionType () == RootMotionType.None)
+				{
+					if (_rigidbody2D.isKinematic)
+					{
+						_rigidbody2D.MovePosition (transform.position + newVel * Time.deltaTime);
+					}
+					else
+					{
+						Vector3 force = CalcForce (newVel, 0f, _rigidbody2D.mass, _rigidbody2D.velocity);
+						_rigidbody2D.AddForce (force);
+					}
+				}
+			}
+
+			if (freezeRigidbodyWhenIdle && !isJumping && (charState == CharState.Custom || charState == CharState.Idle))
+			{
+				if (_rigidbody != null)
+				{
+					_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+				}
+				#if UNITY_5_3 || UNITY_5_4 || UNITY_5_3_OR_NEWER
+				else if (_rigidbody2D != null)
+				{
+					_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+				}
+				#endif
+			}
+			else
+			{
+				if (_rigidbody != null)
+				{
+					_rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+				}
+				#if UNITY_5_3 || UNITY_5_4 || UNITY_5_3_OR_NEWER
+				else if (_rigidbody2D != null)
 				{
 					_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 				}
@@ -1320,7 +1401,16 @@ namespace AC
 		{
 			if (activePath)
 			{
-				Vector3 idealDir = GetSmartPosition (GetTargetPosition ()) - transform.position;
+				Vector3 idealDir = Vector3.zero;
+				if (KickStarter.settingsManager.IsUnity2D ())
+				{
+					Vector2 idealDir2D = GetTargetPosition () - transform.position;
+					idealDir = new Vector3 (idealDir2D.x, 0f, idealDir2D.y);
+				}
+				else
+				{
+					idealDir = GetSmartPosition (GetTargetPosition ()) - transform.position;
+				}
 				float scale = Vector3.Dot (transform.forward, idealDir.normalized);
 				scale = (scale * scale);
 				return Mathf.Clamp01 (scale);
@@ -1418,6 +1508,16 @@ namespace AC
 		public void SetLookDirection (Vector3 _direction, bool isInstant)
 		{
 			lookDirection = new Vector3 (_direction.x, 0f, _direction.z);
+
+			if (KickStarter.settingsManager.IsUnity2D () && KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick)
+			{
+				if (_direction != transform.forward)
+				{
+					// Modify 3D direction so that it appears more correct in 2D
+					lookDirection.z /= KickStarter.sceneSettings.GetVerticalReductionFactor ();
+				}
+			}
+			
 			if (isInstant)
 			{
 				Turn (isInstant);
@@ -2055,7 +2155,6 @@ namespace AC
 			{
 				return;
 			}
-
 			Paths path = ownPath;
 			if (path)
 			{
@@ -2488,12 +2587,16 @@ namespace AC
 					spriteChild.rotation = Quaternion.Euler (KickStarter.mainCamera.transform.rotation.eulerAngles.x, KickStarter.mainCamera.transform.rotation.eulerAngles.y, KickStarter.mainCamera.transform.rotation.eulerAngles.z);
 				}
 			}
-			
-			if (spriteChild.GetComponent <FollowSortingMap>())
+		}
+
+
+		protected void UpdateScale ()
+		{
+			if (followSortingMap)
 			{	
 				if (!lockScale)
 				{
-					spriteScale = spriteChild.GetComponent <FollowSortingMap>().GetLocalScale ();
+					spriteScale = followSortingMap.GetLocalScale ();
 				}
 				
 				if (spriteScale != 0f)
@@ -2506,7 +2609,7 @@ namespace AC
 					}
 					else
 					{
-						sortingMapScale = spriteChild.GetComponent <FollowSortingMap>().GetLocalSpeed ();
+						sortingMapScale = followSortingMap.GetLocalSpeed ();
 					}
 				}
 			}
@@ -2519,28 +2622,13 @@ namespace AC
 		 */
 		public void SetSorting (int order)
 		{
-			if (spriteChild)
+			if (followSortingMap)
 			{
-				if (spriteChild.GetComponent <FollowSortingMap>())
-				{
-					spriteChild.GetComponent <FollowSortingMap>().LockSortingOrder (order);
-				}
-				else
-				{
-					spriteChild.GetComponent <Renderer>().sortingOrder = order;
-				}
+				followSortingMap.LockSortingOrder (order);
 			}
-			
-			if (GetComponent <Renderer>())
+			else if (GetComponentInChildren <Renderer>())
 			{
-				if (GetComponent <FollowSortingMap>())
-				{
-					GetComponent <FollowSortingMap>().LockSortingOrder (order);
-				}
-				else
-				{
-					GetComponent <Renderer>().sortingOrder = order;
-				}
+				GetComponentInChildren <Renderer>().sortingOrder = order;
 			}
 		}
 		
@@ -2551,28 +2639,13 @@ namespace AC
 		 */
 		public void SetSorting (string layer)
 		{
-			if (spriteChild)
+			if (followSortingMap)
 			{
-				if (spriteChild.GetComponent <FollowSortingMap>())
-				{
-					spriteChild.GetComponent <FollowSortingMap>().LockSortingLayer (layer);
-				}
-				else
-				{
-					spriteChild.GetComponent <Renderer>().sortingLayerName = layer;
-				}
+				followSortingMap.LockSortingLayer (layer);
 			}
-			
-			if (GetComponent <Renderer>())
+			else if (GetComponentInChildren <Renderer>())
 			{
-				if (GetComponent <FollowSortingMap>())
-				{
-					GetComponent <FollowSortingMap>().LockSortingLayer (layer);
-				}
-				else
-				{
-					GetComponent <Renderer>().sortingLayerName = layer;
-				}
+				GetComponentInChildren <Renderer>().sortingLayerName = layer;
 			}
 		}
 		
@@ -2582,14 +2655,9 @@ namespace AC
 		 */
 		public void ReleaseSorting ()
 		{
-			if (spriteChild && spriteChild.GetComponent <Renderer>() && spriteChild.GetComponent <FollowSortingMap>())
+			if (followSortingMap)
 			{
-				spriteChild.GetComponent <FollowSortingMap>().lockSorting = false;
-			}
-			
-			if (GetComponent <Renderer>() && GetComponent <FollowSortingMap>())
-			{
-				GetComponent <FollowSortingMap>().lockSorting = false;
+				followSortingMap.lockSorting = false;
 			}
 		}
 		
@@ -2611,7 +2679,6 @@ namespace AC
 				float targetNonFacingFactor = GetNonFacingReductionFactor ();
 				nonFacingFactor = nonFacingFactorLerp.Update (nonFacingFactor, targetNonFacingFactor, 10f);
 			}
-
 			return moveSpeed * 
 					((reduceNonFacing) ? nonFacingFactor : 1f) * 
 					((doWallReduction) ? wallReductionFactor : 1f);
@@ -2945,7 +3012,7 @@ namespace AC
 		
 		private bool DoRigidbodyMovement ()
 		{
-			if (_rigidbody && useRigidbodyForMovement && (spriteChild == null || spriteChild.GetComponent <FollowSortingMap>() == null))
+			if (_rigidbody && useRigidbodyForMovement && followSortingMap == null)
 			{
 				// Don't use Rigidbody's MovePosition etc if the localScale is being set - Unity bug 
 				return true;

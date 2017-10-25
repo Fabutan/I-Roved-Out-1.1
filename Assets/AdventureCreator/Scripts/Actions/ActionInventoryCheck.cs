@@ -33,6 +33,7 @@ namespace AC
 		private enum InvCheckType { CarryingSpecificItem, NumberOfItemsCarrying };
 		
 		public bool doCount;
+		public int intValueParameterID = -1;
 		public int intValue = 1;
 		public enum IntCondition { EqualTo, NotEqualTo, LessThan, MoreThan };
 		public IntCondition intCondition;
@@ -58,6 +59,7 @@ namespace AC
 		override public void AssignValues (List<ActionParameter> parameters)
 		{
 			invID = AssignInvItemID (parameters, parameterID, invID);
+			intValue = AssignInteger (parameters, intValueParameterID, intValue);
 		}
 
 		
@@ -148,11 +150,13 @@ namespace AC
 			invCheckType = (InvCheckType) EditorGUILayout.EnumPopup ("Check to make:", invCheckType);
 			if (invCheckType == InvCheckType.NumberOfItemsCarrying)
 			{
-				EditorGUILayout.BeginHorizontal ();
-				EditorGUILayout.LabelField ("Count is:", GUILayout.MaxWidth (70));
-				intCondition = (IntCondition) EditorGUILayout.EnumPopup (intCondition);
-				intValue = EditorGUILayout.IntField (intValue);
-				EditorGUILayout.EndHorizontal ();
+				intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Count is:", intCondition);
+
+				intValueParameterID = Action.ChooseParameterGUI (intCondition.ToString () + ":", parameters, intValueParameterID, ParameterType.Integer);
+				if (intValueParameterID < 0)
+				{
+					intValue = EditorGUILayout.IntField (intCondition.ToString () + ":", intValue);
+				}
 
 				SetPlayerGUI ();
 				return;
@@ -214,16 +218,17 @@ namespace AC
 					
 						if (doCount)
 						{
-							EditorGUILayout.BeginHorizontal ();
-							EditorGUILayout.LabelField ("Count is:", GUILayout.MaxWidth (70));
-							intCondition = (IntCondition) EditorGUILayout.EnumPopup (intCondition);
-							intValue = EditorGUILayout.IntField (intValue);
-						
-							if (intValue < 1)
+							intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Count is:", intCondition);
+							intValueParameterID = Action.ChooseParameterGUI (intCondition.ToString () + ":", parameters, intValueParameterID, ParameterType.Integer);
+							if (intValueParameterID < 0)
 							{
-								intValue = 1;
+								intValue = EditorGUILayout.IntField (intCondition.ToString () + ":", intValue);
+						
+								if (intValue < 1)
+								{
+									intValue = 1;
+								}
 							}
-							EditorGUILayout.EndHorizontal ();
 						}
 					}
 					else

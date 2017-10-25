@@ -58,23 +58,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuTimer that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuTimer with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuTimer newElement = CreateInstance <MenuTimer>();
 			newElement.Declare ();
-			newElement.CopyTimer (this);
+			newElement.CopyTimer (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyTimer (MenuTimer _element)
+		private void CopyTimer (MenuTimer _element, bool ignoreUnityUI)
 		{
-			uiSlider = _element.uiSlider;
+			if (ignoreUnityUI)
+			{
+				uiSlider = null;
+			}
+			else
+			{
+				uiSlider = _element.uiSlider;
+			}
+
 			doInvert = _element.doInvert;
 			timerTexture = _element.timerTexture;
 			timerType = _element.timerType;

@@ -22,8 +22,7 @@ namespace AC
 
 		// Main Reference resource
 		public const string references = "References";
-		public const string managersDirectory = "AdventureCreator/Managers";
-		
+
 		// Created by Kickstarter on Awake
 		public const string persistentEngine = "PersistentEngine";
 

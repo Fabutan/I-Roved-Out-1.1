@@ -116,7 +116,7 @@ namespace AC
 		{
 			#if !UltimateFPSIsPresent
 			
-			ACDebug.LogWarning ("'UltimateFPSIsPresent' must be listed in your Unity Player Setting's 'Scripting define symbols' for AC's UFPS integration to work.");
+			ACDebug.LogError ("'UltimateFPSIsPresent' must be listed in your Unity Player Setting's 'Scripting define symbols' for AC's UFPS integration to work.", this);
 			return;
 			
 			#else

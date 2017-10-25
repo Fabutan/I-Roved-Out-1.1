@@ -510,6 +510,12 @@ MonoBehaviour:
       it useful for tutorial sections.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionTransformRecord
+    category: 11
+    title: Record transform
+    description: Records the transform values of a GameObject.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionSendMessage
     category: 11
     title: Send message
@@ -634,6 +640,17 @@ MonoBehaviour:
       but the last frame of the current scene can instead be overlayed. This allows
       for cinematic effects: if the next scene fades in, it will cause a crossfade
       effect; if the next scene doesn''t fade, it will cause a straight cut.'
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionSceneSwitchPrevious
+    category: 14
+    title: Switch previous
+    description: 'Moves the Player to the previously-loaded scene. The scene must
+      be listed in Unity''s Build Settings. By default, the screen will cut to black
+      during the transition, but the last frame of the current scene can instead be
+      overlayed. This allows for cinematic effects: if the next scene fades in, it
+      will cause a crossfade effect; if the next scene doesn''t fade, it will cause
+      a straight cut.'
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionFootstepSounds
@@ -1238,6 +1255,12 @@ MonoBehaviour:
       it useful for tutorial sections.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionTransformRecord
+    category: 11
+    title: Record transform
+    description: Records the transform values of a GameObject.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionSendMessage
     category: 11
     title: Send message
@@ -1362,6 +1385,17 @@ MonoBehaviour:
       but the last frame of the current scene can instead be overlayed. This allows
       for cinematic effects: if the next scene fades in, it will cause a crossfade
       effect; if the next scene doesn''t fade, it will cause a straight cut.'
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionSceneSwitchPrevious
+    category: 14
+    title: Switch previous
+    description: 'Moves the Player to the previously-loaded scene. The scene must
+      be listed in Unity''s Build Settings. By default, the screen will cut to black
+      during the transition, but the last frame of the current scene can instead be
+      overlayed. This allows for cinematic effects: if the next scene fades in, it
+      will cause a crossfade effect; if the next scene doesn''t fade, it will cause
+      a straight cut.'
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionFootstepSounds

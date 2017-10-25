@@ -42,6 +42,7 @@ namespace AC
 		{
 			AnimatorData animatorData = new AnimatorData ();
 			animatorData.objectID = constantID;
+			animatorData.savePrevented = savePrevented;
 			
 			animatorData.parameterData = ParameterValuesToString (_animator.parameters);
 			animatorData.layerWeightData = LayerWeightsToString ();
@@ -55,6 +56,7 @@ namespace AC
 		{
 			AnimatorData data = Serializer.LoadScriptData <AnimatorData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 			
 			StringToParameterValues (_animator.parameters, data.parameterData);
 			StringToLayerWeights (data.layerWeightData);

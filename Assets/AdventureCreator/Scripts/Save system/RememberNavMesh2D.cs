@@ -36,7 +36,8 @@ namespace AC
 			NavMesh2DData navMesh2DData = new NavMesh2DData ();
 			
 			navMesh2DData.objectID = constantID;
-			
+			navMesh2DData.savePrevented = savePrevented;
+
 			if (GetComponent <NavigationMesh>())
 			{
 				NavigationMesh navMesh = GetComponent <NavigationMesh>();
@@ -69,6 +70,7 @@ namespace AC
 		{
 			NavMesh2DData data = Serializer.LoadScriptData <NavMesh2DData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <NavigationMesh>())
 			{

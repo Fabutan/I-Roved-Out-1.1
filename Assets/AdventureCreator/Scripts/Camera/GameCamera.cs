@@ -517,7 +517,7 @@ namespace AC
 			{
 				if (target)
 				{
-					if (xLocConstrainType != CameraLocConstrainType.SideScrolling)
+					if (yLocConstrainType != CameraLocConstrainType.SideScrolling)
 					{
 						desiredPosition.y = GetDesiredPosition (originalPosition.y, yGradientLoc, yOffsetLoc, yLocConstrainType);
 					}

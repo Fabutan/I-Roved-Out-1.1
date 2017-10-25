@@ -10,7 +10,14 @@ namespace AC
 	public interface ISave
 	{
 
+		/**
+		 * <summary>Called before the saving occurs.</summary>
+		 */
 		void PreSave ();
+
+		/**
+		 * <summary>Called after loading occurs.</summary>
+		 */
 		void PostLoad ();
 
 	}
@@ -21,8 +28,15 @@ namespace AC
 	 */
 	public interface ISaveOptions
 	{
-		
+
+		/**
+		 * <summary>Called before options are saved.</summary>
+		 */
 		void PreSaveOptions ();
+
+		/**
+		 * <summary>Called after options are loaded.</summary>
+		 */
 		void PostLoadOptions ();
 		
 	}

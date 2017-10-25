@@ -10,6 +10,10 @@
  * 
  */
 
+#if !UNITY_2017_2_OR_NEWER
+#define ALLOW_LEGACY_UI
+#endif
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -166,10 +170,12 @@ namespace AC
 			{
 				gameObject.GetComponent <SpriteRenderer>().enabled = state;
 			}
+			#if ALLOW_LEGACY_UI
 			if (gameObject.GetComponent <GUITexture>())
 			{
 				gameObject.GetComponent <GUITexture>().enabled = state;
 			}
+			#endif
 
 			if (affectChildren)
 			{
@@ -185,11 +191,13 @@ namespace AC
 					child.enabled = state;
 				}
 
+				#if ALLOW_LEGACY_UI
 				GUITexture[] textureChildren = GetComponentsInChildren <GUITexture>();
 				foreach (GUITexture child in textureChildren)
 				{
 					child.enabled = state;
 				}
+				#endif
 			}
 
 			isVisible = state;

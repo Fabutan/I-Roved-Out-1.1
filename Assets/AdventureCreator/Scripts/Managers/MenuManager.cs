@@ -648,7 +648,7 @@ namespace AC
 
 				int[] idArray = GetElementIDArray (i);
 
-				MenuElement newElement = MenuManager.copiedElement.DuplicateSelf (true);
+				MenuElement newElement = MenuManager.copiedElement.DuplicateSelf (true, false);
 				newElement.linkedUiID = 0;
 
 				foreach (MenuElement menuElement in menus[i].elements)
@@ -840,7 +840,7 @@ namespace AC
 				switch (obj.ToString ())
 				{
 				case "Copy":
-					MenuManager.copiedElement = menus[sideMenu].elements[sideElement].DuplicateSelf (true);
+					MenuManager.copiedElement = menus[sideMenu].elements[sideElement].DuplicateSelf (true, false);
 					break;
 					
 				case "Paste after":

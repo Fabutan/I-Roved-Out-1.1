@@ -14,10 +14,17 @@
  * 
  */
 
+#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
+#define SAVE_IN_PLAYERPREFS
+#endif
+
+#if UNITY_IPHONE || UNITY_WP8 || UNITY_WINRT || UNITY_WII || UNITY_PS4
+#define SAVE_USING_XML
+#endif
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 
 namespace AC
 {
@@ -33,14 +40,10 @@ namespace AC
 
 		/** What type of load is being performed (No, InNewScene, InSameScene, JustSwitchingPlayer) */
 		public LoadingGame loadingGame;
-		/** A List of SaveFile variables, storing all available save files. */
+		/** An List of SaveFile variables, storing all available save files. */
 		public List<SaveFile> foundSaveFiles = new List<SaveFile>();
 		/** A List of SaveFile variables, storing all available import files. */
 		public List<SaveFile> foundImportFiles = new List<SaveFile>();
-
-		#if !UNITY_WEBPLAYER && !UNITY_WINRT && !UNITY_WII && !UNITY_PS4
-		private string saveDirectory;
-		#endif
 
 		public const string pipe = "|";
 		public const string colon = ":";
@@ -48,6 +51,13 @@ namespace AC
 		private float gameplayInvokeTime = 0.01f;
 		private SaveData saveData = new SaveData ();
 		private SelectiveLoad activeSelectiveLoad = new SelectiveLoad ();
+
+		private static iSaveFileHandler saveFileHandlerOverride = null;
+		private static iFileFormatHandler fileFormatHandlerOverride = null;
+
+		private SaveFile requestedLoad = null;
+		private SaveFile requestedImport = null;
+		private SaveFile requestedSave = null;
 
 
 		#if UNITY_5_4_OR_NEWER
@@ -75,15 +85,6 @@ namespace AC
 		}
 		#endif
 
-		
-		public void OnStart ()
-		{
-			#if !UNITY_WEBPLAYER && !UNITY_WINRT && !UNITY_WII && !UNITY_PS4
-			saveDirectory = Application.persistentDataPath;
-			#endif
-			GatherSaveFiles ();
-		}
-
 
 		/**
 		 * <summary>Sets the delay after loading a saved game before gameplay is resumed. This is useful in games with custom systems, e.g. weapons, where we want to prevent firing being possible immediately after loading.</summary>
@@ -100,78 +101,19 @@ namespace AC
 		 */
 		public void GatherSaveFiles ()
 		{
-			foundSaveFiles = new List<SaveFile>();
-
-			for (int i=0; i<50; i++)
-			{
-				bool isAutoSave = false;
-
-				#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			
-				if (PlayerPrefs.HasKey (GetProjectName () + GetSaveIDFile (i)))
-				{
-					string label = "Save " + i.ToString ();
-					if (i == 0)
-					{
-						label = "Autosave";
-						isAutoSave = true;
-					}
-					foundSaveFiles.Add (new SaveFile (i, label, null, "", isAutoSave, 0));
-				}
-			
-				#else
-			
-				string filename = saveDirectory + Path.DirectorySeparatorChar.ToString () + GetProjectName () + GetSaveIDFile (i) + GetSaveExtension ();
-				if (File.Exists (filename))
-				{
-					int updateTime = 0;
-					string label = "Save " + i.ToString ();
-					if (i == 0)
-					{
-						label = "Autosave";
-						isAutoSave = true;
-					}
-
-					if (KickStarter.settingsManager.saveTimeDisplay != SaveTimeDisplay.None)
-					{
-						DirectoryInfo dir = new DirectoryInfo (saveDirectory);
-						FileInfo[] info = dir.GetFiles (GetProjectName () + GetSaveIDFile (i) + GetSaveExtension ());
-
-						if (info != null && info.Length > 0)
-						{
-							if (!isAutoSave)
-							{
-								System.TimeSpan t = info[0].LastWriteTime - new System.DateTime (2015, 1, 1);
-								updateTime = (int) t.TotalSeconds;
-							}
-
-							string creationTime = info[0].LastWriteTime.ToShortDateString ();
-							if (KickStarter.settingsManager.saveTimeDisplay == SaveTimeDisplay.TimeAndDate)
-							{
-								creationTime += " " + info[0].LastWriteTime.ToShortTimeString ();
-							}
-
-							label += " (" + creationTime + ")";
-						}
-					}
-
-					Texture2D screenShot = null;
-					if (KickStarter.settingsManager.takeSaveScreenshots)
-					{
-						screenShot = Serializer.LoadScreenshot (GetSaveScreenshotName (i));
-					}
-
-					foundSaveFiles.Add (new SaveFile (i, label, screenShot, filename, isAutoSave, updateTime));
-				}
-
-				#endif
-			}
+			foundSaveFiles = SaveFileHandler.GatherSaveFiles (Options.GetActiveProfileID ());
 
 			if (KickStarter.settingsManager != null && KickStarter.settingsManager.orderSavesByUpdateTime)
 			{
 				foundSaveFiles.Sort (delegate (SaveFile a, SaveFile b) {return a.updatedTime.CompareTo (b.updatedTime);});
 			}
 
+			UpdateSaveFileLabels ();
+		}
+
+
+		private void UpdateSaveFileLabels ()
+		{
 			// Now get save file labels
 			if (Options.optionsData != null && Options.optionsData.saveFileNames != "")
 			{
@@ -186,7 +128,7 @@ namespace AC
 
 					for (int i=0; i<Mathf.Min (50, foundSaveFiles.Count); i++)
 					{
-						if (foundSaveFiles[i].ID == _id)
+						if (foundSaveFiles[i].saveID == _id)
 						{
 							SaveFile newSaveFile = new SaveFile (foundSaveFiles [i]);
 							newSaveFile.SetLabel (_label);
@@ -199,209 +141,28 @@ namespace AC
 
 
 		/**
-		 * <summary>Returns the default label of a save file.</summary>
-		 * <param name = "saveID">The ID number of the save game</param>
-		 * <returns>The save file's default label</returns>
-		 */
-		public string GetDefaultSaveLabel (int saveID)
-		{
-			string label = "Save " + saveID.ToString ();
-			if (saveID == 0)
-			{
-				label = "Autosave";
-			}
-		
-			#if !UNITY_WEBPLAYER && !UNITY_ANDROID && !UNITY_WINRT && !UNITY_WII && !UNITY_PS4
-
-			if (KickStarter.settingsManager.saveTimeDisplay != SaveTimeDisplay.None)
-			{
-				string creationTime = System.DateTime.Now.ToShortDateString ();
-				if (KickStarter.settingsManager.saveTimeDisplay == SaveTimeDisplay.TimeAndDate)
-				{
-					creationTime += " " + System.DateTime.Now.ToShortTimeString ();
-				}
-				label += " (" + creationTime + ")";
-			}
-
-			#endif
-
-			return label;
-		}
-
-
-		#if UNITY_STANDALONE
-
-		private string GetImportDirectory (string importProjectName)
-		{
-			string[] s = Application.persistentDataPath.Split ('/');
-			string currentProjectName = s[s.Length - 1];
-			string importDirectory = saveDirectory.Replace (currentProjectName, importProjectName);
-			return importDirectory;
-		}
-
-		#endif
-
-
-		/**
 		 * <summary>Searches the filesystem for all available import files, and stores them in foundImportFiles.</summary>
 		 * <param name = "projectName">The project name of the game whose save files we're looking to import</param>
-		 * <param name = "saveFilename">The "save filename" of the game whose save files we're looking to import</param>
+		 * <param name = "filePrefix">The "save filename" of the game whose save files we're looking to import, as set in the Settings Manager</param>
 		 * <param name = "boolID">If >= 0, the ID of the boolean Global Variable that must be True for the file to be considered valid for import</param>
 		 */
-		public void GatherImportFiles (string projectName, string saveFilename, int boolID)
+		public void GatherImportFiles (string projectName, string filePrefix, int boolID)
 		{
 			#if !UNITY_STANDALONE
 			ACDebug.LogWarning ("Cannot import save files unless running on Windows, Mac or Linux standalone platforms.");
-			return;
 			#else
-
-			foundImportFiles = new List<SaveFile>();
-
-			if (projectName == "" || saveFilename == "")
-			{
-				return;
-			}
-			string importDirectory = GetImportDirectory (projectName);
-			SettingsManager settingsManager = KickStarter.settingsManager;
-			
-			for (int i=0; i<50; i++)
-			{
-				string filename = importDirectory + Path.DirectorySeparatorChar.ToString () + saveFilename + GetSaveIDFile (i) + GetSaveExtension ();
-				if (File.Exists (filename))
-				{
-					if (boolID >= 0 && !DoImportCheck (filename, boolID))
-					{
-						continue;
-					}
-
-					bool isAutoSave = false;
-					string label = "Import " + i.ToString ();
-					if (i == 0)
-					{
-						label = "Autosave";
-						isAutoSave = true;
-					}
-
-					if (settingsManager.saveTimeDisplay != SaveTimeDisplay.None)
-					{
-						DirectoryInfo dir = new DirectoryInfo (importDirectory);
-						FileInfo[] info = dir.GetFiles (saveFilename + GetSaveIDFile (i) + GetSaveExtension ());
-						
-						string creationTime = info [0].LastWriteTime.ToString ();
-						if (settingsManager.saveTimeDisplay == SaveTimeDisplay.DateOnly)
-						{
-							creationTime = creationTime.Substring (0, creationTime.IndexOf (" "));
-						}
-						
-						label += " (" + creationTime + ")";
-					}
-					
-					Texture2D screenShot = null;
-					if (settingsManager.takeSaveScreenshots)
-					{
-						screenShot = Serializer.LoadScreenshot (GetImportScreenshotName (i, importDirectory, saveFilename));
-					}
-				
-					foundImportFiles.Add (new SaveFile (i, label, screenShot, filename, isAutoSave));
-				}
-			}
+			foundImportFiles = SaveFileHandler.GatherImportFiles (Options.GetActiveProfileID (), boolID, projectName, filePrefix);
 			#endif
-		}
-
-
-		private bool DoImportCheck (string filename, int boolID)
-		{
-			string allData = Serializer.LoadSaveFile (filename, false);
-			if (allData.ToString () != "")
-			{
-				int divider = allData.IndexOf ("||");
-				string mainData = allData.Substring (0, divider);
-
-				SaveData tempSaveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
-				if (tempSaveData == null)
-				{
-					tempSaveData = new SaveData ();
-				}
-
-				string varData = tempSaveData.mainData.runtimeVariablesData;
-				if (!string.IsNullOrEmpty (varData))
-				{
-					string[] varsArray = varData.Split (SaveSystem.pipe[0]);
-					
-					foreach (string chunk in varsArray)
-					{
-						string[] chunkData = chunk.Split (SaveSystem.colon[0]);
-						
-						int _id = 0;
-						int.TryParse (chunkData[0], out _id);
-
-						if (_id == boolID)
-						{
-							int _value = 0;
-							int.TryParse (chunkData[1], out _value);
-
-							if (_value == 1)
-							{
-								return true;
-							}
-							return false;
-						}
-					}
-				}
-			}
-			return false;
-		}
-
-
-		private IEnumerator TakeScreenshot (string fileName)
-		{
-			KickStarter.stateHandler.PreScreenshotBackup ();
-
-			yield return new WaitForEndOfFrame ();
-			
-			Texture2D screenshotTex = new Texture2D (Screen.width, Screen.height, TextureFormat.RGB24, false);
-			
-			screenshotTex.ReadPixels (new Rect (0f, 0f, Screen.width, Screen.height), 0, 0);
-			screenshotTex.Apply ();
-
-			Serializer.SaveScreenshot (screenshotTex, fileName);
-			Destroy (screenshotTex);
-			
-			KickStarter.stateHandler.PostScreenshotBackup ();
-			GatherSaveFiles ();
-		}
-
-
-		private string GetSaveExtension ()
-		{
-			if (GetSaveMethod () == SaveMethod.XML)
-			{
-				return ".savx";
-			}
-			else if (GetSaveMethod () == SaveMethod.Json)
-			{
-				return ".savj";
-			}
-			return ".save";
 		}
 
 
 		/**
-		 * <summary>Gets the SaveMethod for the current platform.  This is XML for iPhone, Windows Phone and Wii platforms, and Binary for all others</summary>
-		 * <returns>The SaveMethod (XML, Binary) for the current platform</returns>
+		 * <summary>Gets the extension of the current save method.</summary>
+		 * <returns>The extension of the current save method</returns>
 		 */
-		public static SaveMethod GetSaveMethod ()
+		public string GetSaveExtension ()
 		{
-			if (UnityVersionHandler.CanUseJson () && KickStarter.settingsManager != null && KickStarter.settingsManager.useJsonSerialization)
-			{
-				return SaveMethod.Json;
-			}
-
-			#if UNITY_IPHONE || UNITY_WP8 || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			return SaveMethod.XML;
-			#else
-			return SaveMethod.Binary;
-			#endif
+			return FileFormatHandler.GetSaveExtension ();
 		}
 
 
@@ -416,7 +177,7 @@ namespace AC
 			{
 				foreach (SaveFile file in KickStarter.saveSystem.foundImportFiles)
 				{
-					if (file.ID == saveID)
+					if (file.saveID == saveID)
 					{
 						return true;
 					}
@@ -439,7 +200,7 @@ namespace AC
 			{
 				if (elementSlot >= 0 && KickStarter.saveSystem.foundSaveFiles.Count > elementSlot)
 				{
-					saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].ID;
+					saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].saveID;
 				}
 				else
 				{
@@ -451,7 +212,7 @@ namespace AC
 			{
 				foreach (SaveFile file in KickStarter.saveSystem.foundSaveFiles)
 				{
-					if (file.ID == saveID)
+					if (file.saveID == saveID)
 					{
 						return true;
 					}
@@ -479,13 +240,13 @@ namespace AC
 		{
 			if (KickStarter.saveSystem)
 			{
-				if (File.Exists (KickStarter.saveSystem.GetSaveFileName (0)))
+				if (DoesSaveExist (0))
 				{
-					KickStarter.saveSystem.LoadSaveGame (0);
+					SaveSystem.LoadGame (0);
 				}
 				else
 				{
-					ACDebug.LogWarning ("Could not load game: file " + KickStarter.saveSystem.GetSaveFileName (0) + " does not exist.");
+					ACDebug.LogWarning ("Could not load autosave - file does not exist.");
 				}
 			}
 		}
@@ -496,9 +257,8 @@ namespace AC
 		 * <param name = "elementSlot">The slot index of the MenuProfilesList element that was clicked on</param>
 		 * <param name = "saveID">The save ID to import</param>
 		 * <param name = "useSaveID">If True, the saveID overrides the elementSlot to determine which file to import</param>
-		 * <returns>True if the import was successful</returns>
 		 */
-		public static bool ImportGame (int elementSlot, int saveID, bool useSaveID)
+		public static void ImportGame (int elementSlot, int saveID, bool useSaveID)
 		{
 			if (KickStarter.saveSystem)
 			{
@@ -506,17 +266,15 @@ namespace AC
 				{
 					if (KickStarter.saveSystem.foundImportFiles.Count > elementSlot)
 					{
-						saveID = KickStarter.saveSystem.foundImportFiles[elementSlot].ID;
+						saveID = KickStarter.saveSystem.foundImportFiles[elementSlot].saveID;
 					}
 				}
 				
 				if (saveID >= 0)
 				{
 					KickStarter.saveSystem.ImportSaveGame (saveID);
-					return true;
 				}
 			}
-			return false;
 		}
 
 
@@ -537,7 +295,7 @@ namespace AC
 		{
 			if (Options.optionsData != null && Options.optionsData.lastSaveID >= 0)
 			{
-				KickStarter.saveSystem.LoadSaveGame (Options.optionsData.lastSaveID);
+				SaveSystem.LoadGame (Options.optionsData.lastSaveID);
 			}
 		}
 
@@ -545,11 +303,10 @@ namespace AC
 		/**
 		 * <summary>Loads a save game file.</summary>
 		 * <param name = "saveID">The save ID of the file to load</param>
-		 * <returns>True if the load was successful</returns>
 		 */
-		public static bool LoadGame (int saveID)
+		public static void LoadGame (int saveID)
 		{
-			return LoadGame (0, saveID, true);
+			LoadGame (0, saveID, true);
 		}
 
 
@@ -558,9 +315,8 @@ namespace AC
 		 * <param name = "elementSlot">The slot index of the MenuSavesList element that was clicked on</param>
 		 * <param name = "saveID">The save ID to load</param>
 		 * <param name = "useSaveID">If True, the saveID overrides the elementSlot to determine which file to load</param>
-		 * <returns>True if the load was successful</returns>
 		 */
-		public static bool LoadGame (int elementSlot, int saveID, bool useSaveID)
+		public static void LoadGame (int elementSlot, int saveID, bool useSaveID)
 		{
 			if (KickStarter.saveSystem)
 			{
@@ -568,25 +324,26 @@ namespace AC
 				{
 					if (elementSlot >= 0 && KickStarter.saveSystem.foundSaveFiles.Count > elementSlot)
 					{
-						saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].ID;
+						saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].saveID;
 					}
 					else
 					{
 						ACDebug.LogWarning ("Can't select save slot " + elementSlot + " because only " + KickStarter.saveSystem.foundSaveFiles.Count + " have been found!");
 					}
 				}
+
+				foreach (SaveFile foundSaveFile in KickStarter.saveSystem.foundSaveFiles)
+				{
+					if (foundSaveFile.saveID == saveID)
+					{
+						SaveFile saveFileToLoad = foundSaveFile;
+						KickStarter.saveSystem.LoadSaveGame (saveFileToLoad);
+						return;
+					}
+				}
 				
-				if (saveID == -1)
-				{
-					ACDebug.LogWarning ("Could not load game: file " + KickStarter.saveSystem.GetSaveFileName (saveID) + " does not exist.");
-				}
-				else
-				{
-					KickStarter.saveSystem.LoadSaveGame (saveID);
-					return true;
-				}
+				ACDebug.LogWarning ("Could not load game: file with ID " + saveID + " does not exist.");
 			}
-			return false;
 		}
 		
 
@@ -600,110 +357,138 @@ namespace AC
 
 
 		/**
-		 * <summary>Imports a save file from another Adventure Creator game, once found to exist.</summary>
+		 * <summary>Requests that a save game from another AC game be imported. This will call the iSaveFileHandler's Import function, which in turn will call ReceiveDataToImport once complete.</summary>
 		 * <param name = "saveID">The ID number of the save file to import</param>
 		 */
-		public void ImportSaveGame (int saveID)
+		private void ImportSaveGame (int saveID)
 		{
-			string allData = "";
-
-			foreach (SaveFile saveFile in foundImportFiles)
+			foreach (SaveFile foundImportFile in foundImportFiles)
 			{
-				if (saveFile.ID == saveID)
+				if (foundImportFile.saveID == saveID)
 				{
-					allData = Serializer.LoadSaveFile (saveFile.fileName, true);
+					requestedImport = new SaveFile (foundImportFile);
+					SaveFileHandler.Load (foundImportFile, true);
+					return;
 				}
-			}
-
-			if (allData.ToString () != "")
-			{
-				KickStarter.eventManager.Call_OnImport (FileAccessState.Before);
-
-				int divider = allData.IndexOf ("||");
-				string mainData = allData.Substring (0, divider);
-
-				saveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
-				
-				// Stop any current-running ActionLists, dialogs and interactions
-				KillActionLists ();
-				SaveSystem.AssignVariables (saveData.mainData.runtimeVariablesData);
-
-				KickStarter.eventManager.Call_OnImport (FileAccessState.After);
-			}
-			else
-			{
-				KickStarter.eventManager.Call_OnImport (FileAccessState.Fail);
 			}
 		}
 
 
 		/**
-		 * <summary>Loads a save game, once found to exist.</summary>
-		 * <param name = "saveID">The save ID of the file to load</param>
+		 * <summary>Processes the save data requested by ImportSaveGame</summary>
+		 * <param name = "saveFile">A data container for information about the save file to import.  Its saveID and profileID need to match up with that requested in the iSaveFileHandler's Import function in order for the data to be processed</param>
+		 * <param name = "saveFileContents">The file contents of the save file. This is empty if the import failed.</param>
 		 */
-		public void LoadSaveGame (int saveID)
+		public void ReceiveDataToImport (SaveFile saveFile, string saveFileContents)
 		{
-			string allData = Serializer.LoadSaveFile (GetSaveFileName (saveID), true);
-
-			if (allData.ToString () != "")
+			if (requestedImport != null && saveFile != null && requestedImport.saveID == saveFile.saveID && requestedImport.profileID == saveFile.profileID)
 			{
-				KickStarter.eventManager.Call_OnLoad (FileAccessState.Before);
+				// Received data matches requested
+				requestedImport = null;
 
-				int divider = allData.IndexOf ("||");
-				string mainData = allData.Substring (0, divider);
-				string roomData = allData.Substring (divider + 2);
-
-				if (activeSelectiveLoad.loadSceneObjects)
+				if (!string.IsNullOrEmpty (saveFileContents))
 				{
+					KickStarter.eventManager.Call_OnImport (FileAccessState.Before);
+
+					int divider = saveFileContents.IndexOf ("||");
+					string mainData = saveFileContents.Substring (0, divider);
+
 					saveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
-					KickStarter.levelStorage.allLevelData = Serializer.DeserializeAllRoomData (roomData);
-				}
+					
+					// Stop any current-running ActionLists, dialogs and interactions
+					KillActionLists ();
+					SaveSystem.AssignVariables (saveData.mainData.runtimeVariablesData);
 
-				// Stop any current-running ActionLists, dialogs and interactions
-				KillActionLists ();
-				
-				// If player has changed, destroy the old one and load in the new one
-				if (KickStarter.settingsManager.playerSwitching == PlayerSwitching.Allow)
-				{
-					if ((KickStarter.player == null && saveData.mainData.currentPlayerID != KickStarter.settingsManager.GetEmptyPlayerID ()) ||
-						(KickStarter.player != null && KickStarter.player.ID != saveData.mainData.currentPlayerID))
-					{
-						KickStarter.ResetPlayer (GetPlayerByID (saveData.mainData.currentPlayerID), saveData.mainData.currentPlayerID, true, Quaternion.identity, false, true);
-					}
-				}
-
-				int newScene = GetPlayerScene (saveData.mainData.currentPlayerID, saveData.playerData);
-				
-				// Load correct scene
-				bool forceReload = KickStarter.settingsManager.reloadSceneWhenLoading;
-				if (forceReload || (newScene != UnityVersionHandler.GetCurrentSceneNumber () && activeSelectiveLoad.loadScene))
-				{
-					loadingGame = LoadingGame.InNewScene;
-					KickStarter.sceneChanger.ChangeScene (new SceneInfo ("", newScene), false, forceReload);
+					KickStarter.eventManager.Call_OnImport (FileAccessState.After);
 				}
 				else
 				{
-					loadingGame = LoadingGame.InSameScene;
+					KickStarter.eventManager.Call_OnImport (FileAccessState.Fail);
+				}
+			}
+		}
 
-					// Already in the scene
-					Sound[] sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
-					foreach (Sound sound in sounds)
+
+		private void LoadSaveGame (SaveFile saveFile)
+		{
+			requestedLoad = new SaveFile (saveFile);
+			SaveFileHandler.Load (saveFile, true);
+		}
+
+
+		/**
+		 * <summary>Processes the save data requested by LoadSaveGame</summary>
+		 * <param name = "saveFile">A data container for information about the save file to load.  Its saveID and profileID need to match up with that requested in the iSaveFileHandler's Load function in order for the data to be processed</param>
+		 * <param name = "saveFileContents">The file contents of the save file. This is empty if the load failed.</param>
+		 */
+		public void ReceiveDataToLoad (SaveFile saveFile, string saveFileContents)
+		{
+			if (requestedLoad != null && saveFile != null && requestedLoad.saveID == saveFile.saveID && requestedLoad.profileID == saveFile.profileID)
+			{
+				// Received data matches requested
+				requestedLoad = null;
+
+				if (!string.IsNullOrEmpty (saveFileContents))
+				{
+					KickStarter.eventManager.Call_OnLoad (FileAccessState.Before);
+
+					int divider = saveFileContents.IndexOf ("||");
+					string mainData = saveFileContents.Substring (0, divider);
+					string roomData = saveFileContents.Substring (divider + 2);
+
+					if (activeSelectiveLoad.loadSceneObjects)
 					{
-						if (sound.GetComponent <AudioSource>())
+						saveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
+						KickStarter.levelStorage.allLevelData = FileFormatHandler.DeserializeAllRoomData (roomData);
+
+					}
+
+					// Stop any current-running ActionLists, dialogs and interactions
+					KillActionLists ();
+					
+					// If player has changed, destroy the old one and load in the new one
+					if (KickStarter.settingsManager.playerSwitching == PlayerSwitching.Allow)
+					{
+						if ((KickStarter.player == null && saveData.mainData.currentPlayerID != KickStarter.settingsManager.GetEmptyPlayerID ()) ||
+							(KickStarter.player != null && KickStarter.player.ID != saveData.mainData.currentPlayerID))
 						{
-							if (sound.soundType != SoundType.Music && !sound.GetComponent <AudioSource>().loop)
-							{
-								sound.Stop ();
-							}
+							KickStarter.ResetPlayer (GetPlayerByID (saveData.mainData.currentPlayerID), saveData.mainData.currentPlayerID, true, Quaternion.identity, false, true);
 						}
 					}
 
-					_OnLevelWasLoaded ();
+					int newScene = GetPlayerScene (saveData.mainData.currentPlayerID, saveData.playerData);
+					
+					// Load correct scene
+					bool forceReload = KickStarter.settingsManager.reloadSceneWhenLoading;
+					if (forceReload || (newScene != UnityVersionHandler.GetCurrentSceneNumber () && activeSelectiveLoad.loadScene))
+					{
+						loadingGame = LoadingGame.InNewScene;
+						KickStarter.sceneChanger.ChangeScene (new SceneInfo ("", newScene), false, forceReload);
+					}
+					else
+					{
+						loadingGame = LoadingGame.InSameScene;
+
+						// Already in the scene
+						Sound[] sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
+						foreach (Sound sound in sounds)
+						{
+							if (sound.GetComponent <AudioSource>())
+							{
+								if (sound.soundType != SoundType.Music && !sound.GetComponent <AudioSource>().loop)
+								{
+									sound.Stop ();
+								}
+							}
+						}
+
+						_OnLevelWasLoaded ();
+					}
 				}
-			}
-			else
-			{
-				KickStarter.eventManager.Call_OnLoad (FileAccessState.Fail);
+				else
+				{
+					KickStarter.eventManager.Call_OnLoad (FileAccessState.Fail);
+				}
 			}
 		}
 
@@ -843,25 +628,17 @@ namespace AC
 		 * <summary>Create a new save game file.</summary>
 		 * <param name = "overwriteLabel">True if the label should be updated</param>
 		 * <param name = "newLabel">The new label, if it can be set</param>
-		 * <returns>True if the save is successful</returns>
 		 */
-		public static bool SaveNewGame (bool overwriteLabel = true, string newLabel = "")
+		public static void SaveNewGame (bool overwriteLabel = true, string newLabel = "")
 		{
 			if (KickStarter.saveSystem)
 			{
-				return KickStarter.saveSystem.SaveNewSaveGame (overwriteLabel, newLabel);
+				KickStarter.saveSystem.SaveNewSaveGame (overwriteLabel, newLabel);
 			}
-			return false;
 		}
 		
 
-		/**
-		 * <summary>Create a new save game file.</summary>
-		 * <param name = "overwriteLabel">True if the label should be updated</param>
-		 * <param name = "newLabel">The new label, if it can be set</param>
-		 * <returns>True if the save is successful</returns>
-		 */
-		public bool SaveNewSaveGame (bool overwriteLabel = true, string newLabel = "")
+		private void SaveNewSaveGame (bool overwriteLabel = true, string newLabel = "")
 		{
 			if (foundSaveFiles != null && foundSaveFiles.Count > 0)
 			{
@@ -869,34 +646,35 @@ namespace AC
 
 				for (int i=0; i<foundSaveFiles.Count; i++)
 				{
-					if (expectedID != -1 && expectedID != foundSaveFiles[i].ID)
+					if (expectedID != -1 && expectedID != foundSaveFiles[i].saveID)
 					{
-						return SaveSaveGame (expectedID, overwriteLabel, newLabel);
+						SaveSaveGame (expectedID, overwriteLabel, newLabel);
+						return;
 					}
 
-					expectedID = foundSaveFiles[i].ID + 1;
+					expectedID = foundSaveFiles[i].saveID + 1;
 				}
 
 				// Saves present, but no gap
-				int newSaveID = (foundSaveFiles [foundSaveFiles.Count-1].ID+1);
-				return SaveSaveGame (newSaveID, overwriteLabel, newLabel);
+				int newSaveID = (foundSaveFiles [foundSaveFiles.Count-1].saveID+1);
+				SaveSaveGame (newSaveID, overwriteLabel, newLabel);
 			}
-
-			return SaveSaveGame (1, overwriteLabel, newLabel);
+			else
+			{
+				SaveSaveGame (1, overwriteLabel, newLabel);
+			}
 		}
 
 
 		/**
 		 * <summary>Overwrites the AutoSave file.</summary>
-		 * <returns>True if the save is successful</returns>
 		 */
-		public static bool SaveAutoSave ()
+		public static void SaveAutoSave ()
 		{
 			if (KickStarter.saveSystem)
 			{
-				return KickStarter.saveSystem.SaveSaveGame (0);
+				KickStarter.saveSystem.SaveSaveGame (0);
 			}
-			return false;
 		}
 
 
@@ -905,11 +683,10 @@ namespace AC
 		 * <param name = "saveID">The save ID to save</param>
 		 * <param name = "overwriteLabel">True if the label should be updated</param>
 		 * <param name = "newLabel">The new label, if it can be set. If blank, a default label will be generated.</param>
-		 * <returns>True if the save was successful</returns>
 		 */
-		public static bool SaveGame (int saveID, bool overwriteLabel = true, string newLabel = "")
+		public static void SaveGame (int saveID, bool overwriteLabel = true, string newLabel = "")
 		{
-			return SaveSystem.SaveGame (0, saveID, true, overwriteLabel, newLabel);
+			SaveSystem.SaveGame (0, saveID, true, overwriteLabel, newLabel);
 		}
 		
 
@@ -920,9 +697,8 @@ namespace AC
 		 * <param name = "useSaveID">If True, the saveID overrides the elementSlot to determine which file to save</param>
 		 * <param name = "overwriteLabel">True if the label should be updated</param>
 		 * <param name = "newLabel">The new label, if it can be set. If blank, a default label will be generated.</param>
-		 * <returns>True if the save was successful</returns>
 		 */
-		public static bool SaveGame (int elementSlot, int saveID, bool useSaveID, bool overwriteLabel = true, string newLabel = "")
+		public static void SaveGame (int elementSlot, int saveID, bool useSaveID, bool overwriteLabel = true, string newLabel = "")
 		{
 			if (KickStarter.saveSystem)
 			{
@@ -930,7 +706,7 @@ namespace AC
 				{
 					if (KickStarter.saveSystem.foundSaveFiles.Count > elementSlot)
 					{
-						saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].ID;
+						saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].saveID;
 					}
 					else
 					{
@@ -940,12 +716,13 @@ namespace AC
 
 				if (saveID == -1)
 				{
-					return SaveSystem.SaveNewGame (overwriteLabel, newLabel);
+					SaveSystem.SaveNewGame (overwriteLabel, newLabel);
 				}
-
-				return KickStarter.saveSystem.SaveSaveGame (saveID, overwriteLabel, newLabel);
+				else
+				{
+					KickStarter.saveSystem.SaveSaveGame (saveID, overwriteLabel, newLabel);
+				}
 			}
-			return false;
 		}
 
 
@@ -954,15 +731,14 @@ namespace AC
 		 * <param name = "saveID">The save ID to save</param>
 		 * <param name = "overwriteLabel">True if the label should be updated</param>
 		 * <param name = "newLabel">The new label, if it can be set. If blank, a default label will be generated.</param>
-		 * <returns>True if the save was successful</returns>
 		 */
-		public bool SaveSaveGame (int saveID, bool overwriteLabel = true, string newLabel = "")
+		private void SaveSaveGame (int saveID, bool overwriteLabel = true, string newLabel = "")
 		{
 			if (GetNumSaves () >= KickStarter.settingsManager.maxSaves && !DoesSaveExist (saveID))
 			{
 				ACDebug.LogWarning ("Cannot save - maximum number of save files has already been reached.");
 				KickStarter.eventManager.Call_OnSave (FileAccessState.Fail);
-				return false;
+				return;
 			}
 
 			KickStarter.eventManager.Call_OnSave (FileAccessState.Before);
@@ -1020,51 +796,29 @@ namespace AC
 				saveData.mainData.activeAssetLists = KickStarter.actionListAssetManager.GetSaveData ();
 
 				string mainData = Serializer.SerializeObject <SaveData> (saveData, true);
-				string levelData = Serializer.SerializeAllRoomData (KickStarter.levelStorage.allLevelData);
+
+				string levelData = FileFormatHandler.SerializeAllRoomData (KickStarter.levelStorage.allLevelData);
 
 				string allData = mainData + "||" + levelData;
-		
-				Serializer.CreateSaveFile (GetSaveFileName (saveID), allData);
 
 				// Update label
 				if (overwriteLabel)
 				{
-					GatherSaveFiles ();
-					for (int i=0; i<Mathf.Min (50, foundSaveFiles.Count); i++)
+					if (string.IsNullOrEmpty (newLabel))
 					{
-						if (foundSaveFiles[i].ID == saveID)
-						{
-							SaveFile newSaveFile = new SaveFile (foundSaveFiles [i]);
-							if (newLabel.Length > 0)
-							{
-								newSaveFile.SetLabel (newLabel);
-							}
-							else
-							{
-								newSaveFile.SetLabel (GetDefaultSaveLabel (saveID));
-							}
-							foundSaveFiles[i] = newSaveFile;
-							break;
-						}
+						newLabel = SaveFileHandler.GetDefaultSaveLabel (saveID);
 					}
-				}
-
-				// Update PlayerPrefs
-				Options.optionsData.lastSaveID = saveID;
-				Options.UpdateSaveLabels (foundSaveFiles.ToArray ());
-
-				#if !UNITY_WEBPLAYER && !UNITY_WINRT && !UNITY_WII && !UNITY_PS4
-				if (KickStarter.settingsManager.takeSaveScreenshots)
-				{
-					StartCoroutine ("TakeScreenshot", GetSaveScreenshotName (saveID));
 				}
 				else
 				{
-					GatherSaveFiles ();
+					newLabel = "";
 				}
-				#else
-				GatherSaveFiles ();
-				#endif
+
+				int profileID = Options.GetActiveProfileID ();
+				SaveFile prepareSave = new SaveFile (saveID, profileID, newLabel, "", false, null, "");
+
+				StopAllCoroutines ();
+				StartCoroutine (PrepareSaveCoroutine (prepareSave, allData));
 			}
 			else
 			{
@@ -1085,9 +839,83 @@ namespace AC
 					ACDebug.LogWarning ("Save failed - no Settings Manager found.");
 				}
 			}
+		}
 
-			KickStarter.eventManager.Call_OnSave (FileAccessState.After);
-			return true;
+
+		private IEnumerator PrepareSaveCoroutine (SaveFile saveFile, string allData)
+		{
+			#if !SAVE_IN_PLAYERPREFS
+			if (KickStarter.settingsManager.takeSaveScreenshots)
+			{
+				KickStarter.stateHandler.PreScreenshotBackup ();
+
+				yield return new WaitForEndOfFrame ();
+				
+				Texture2D screenshotTex = new Texture2D (Screen.width, Screen.height, TextureFormat.RGB24, false);
+				
+				screenshotTex.ReadPixels (new Rect (0f, 0f, Screen.width, Screen.height), 0, 0);
+				screenshotTex.Apply ();
+
+				saveFile.screenShot = screenshotTex;
+
+				SaveFileHandler.SaveScreenshot (saveFile);
+				saveFile.screenShot = screenshotTex;
+				Destroy (screenshotTex);
+				
+				KickStarter.stateHandler.PostScreenshotBackup ();
+			}
+			#endif
+
+			requestedSave = new SaveFile (saveFile);
+
+			SaveFileHandler.Save (requestedSave, allData);
+			yield return null;
+		}
+
+
+		/**
+		 * <summary>Handles the what happens once a save file has been written</summary>
+		 * <param name = "saveFile">A data container for information about the save file to that was loaded.  Its saveID and profileID need to match up with that requested in the iSaveFileHandler's Save function in order for the data to be processed</param>
+		 * <param name = "wasSuccesful">True if the file saving was succesful</param>
+		 */
+		public void OnFinishSaveRequest (SaveFile saveFile, bool wasSuccesful)
+		{
+			if (requestedSave != null && saveFile != null && requestedSave.saveID == saveFile.saveID && requestedSave.profileID == saveFile.profileID)
+			{
+				// Received data matches requested
+				requestedSave = null;
+
+				if (!wasSuccesful)
+				{
+					KickStarter.eventManager.Call_OnSave (FileAccessState.Fail);
+					return;
+				}
+			
+				GatherSaveFiles ();
+
+				// Update label
+				if (!string.IsNullOrEmpty (saveFile.label))
+				{
+					for (int i=0; i<Mathf.Min (50, foundSaveFiles.Count); i++)
+					{
+						if (foundSaveFiles[i].saveID == saveFile.saveID)
+						{
+							SaveFile newSaveFile = new SaveFile (foundSaveFiles [i]);
+							newSaveFile.SetLabel (saveFile.label);
+							foundSaveFiles[i] = newSaveFile;
+							break;
+						}
+					}
+				}
+
+				// Update PlayerPrefs
+				Options.optionsData.lastSaveID = saveFile.saveID;
+				Options.UpdateSaveLabels (foundSaveFiles.ToArray ());
+
+				UpdateSaveFileLabels ();
+			
+				KickStarter.eventManager.Call_OnSave (FileAccessState.After);
+			}
 		}
 
 
@@ -1170,39 +998,62 @@ namespace AC
 		}
 
 
-		private string GetProjectName ()
+		/**
+		 * <summary>Checks that another game's save file data is OK to import, by checking the state of a given boolean variable</summary>
+		 * <param name = "fileData">The de-serialized data string from the file</param>
+		 * <param name = "boolID">The ID number of the Boolean Global Variable that must be True in the fileData for the import check to pass</param>
+		 * <returns>True if the other game's save file data is OK to import</returns>
+		 */
+		public bool DoImportCheck (string fileData, int boolID)
 		{
-			SettingsManager settingsManager = KickStarter.settingsManager;
-			if (settingsManager)
+			if (fileData.ToString () != "")
 			{
-				if (settingsManager.saveFileName == "")
+				int divider = fileData.IndexOf ("||");
+				string mainData = fileData.Substring (0, divider);
+
+				SaveData tempSaveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
+				if (tempSaveData == null)
 				{
-					settingsManager.saveFileName = SetProjectName ();
+					tempSaveData = new SaveData ();
 				}
-				
-				if (settingsManager.saveFileName != "")
+
+				string varData = tempSaveData.mainData.runtimeVariablesData;
+				if (!string.IsNullOrEmpty (varData))
 				{
-					return settingsManager.saveFileName;
+					string[] varsArray = varData.Split (SaveSystem.pipe[0]);
+					
+					foreach (string chunk in varsArray)
+					{
+						string[] chunkData = chunk.Split (SaveSystem.colon[0]);
+						
+						int _id = 0;
+						int.TryParse (chunkData[0], out _id);
+
+						if (_id == boolID)
+						{
+							int _value = 0;
+							int.TryParse (chunkData[1], out _value);
+
+							if (_value == 1)
+							{
+								return true;
+							}
+							return false;
+						}
+					}
 				}
 			}
-			
-			return SetProjectName ();
+			return false;
 		}
-		
-		
+
+
 		/**
-		 * <summary>Generates a default name for the project, based on the project's folder name.</summary>
-		 * <returns>The name of the project's folder</returns>
+		 * <summary>Creates a suffix for save filenames based on a given save slot and profile</summary>
+		 * <param name = "saveID">The ID of the save slot</param>
+		 * <param name = "profileID">The ID of the profile</param>
+		 * <return>A save file suffix based on the slot and profile</returns>
 		 */
-		public static string SetProjectName ()
-		{
-			string[] s = Application.dataPath.Split ('/');
-			string projectName = s[s.Length - 2];
-			return projectName;
-		}
-
-
-		private string GetSaveIDFile (int saveID, int profileID = -1)
+		public string GenerateSaveSuffix (int saveID, int profileID = -1)
 		{
 			if (KickStarter.settingsManager != null && KickStarter.settingsManager.useProfiles)
 			{
@@ -1217,40 +1068,6 @@ namespace AC
 		}
 
 
-		private string GetSaveFileName (int saveID, int profileID = -1)
-		{
-			string fileName = "";
-
-			#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			fileName = GetProjectName () + GetSaveIDFile (saveID);
-			#else
-			fileName = saveDirectory + Path.DirectorySeparatorChar.ToString () + GetProjectName () + GetSaveIDFile (saveID, profileID) + GetSaveExtension ();
-			#endif
-
-			return (fileName);
-		}
-
-
-		private string GetImportScreenshotName (int saveID, string importDirectory, string saveFileName)
-		{
-			return (importDirectory + Path.DirectorySeparatorChar.ToString () + saveFileName + GetSaveIDFile (saveID) + ".jpg");
-		}
-
-
-		private string GetSaveScreenshotName (int saveID, int profileID = -1)
-		{
-			string fileName = "";
-			
-			#if UNITY_WEBPLAYER || UNITY_WINRT || UNITY_WII || UNITY_PS4
-			fileName = GetProjectName () + GetSaveIDFile (saveID);
-			#else
-			fileName = saveDirectory + Path.DirectorySeparatorChar.ToString () + GetProjectName () + GetSaveIDFile (saveID, profileID) + ".jpg";
-			#endif
-			
-			return (fileName);
-		}
-		
-		
 		private void KillActionLists ()
 		{
 			KickStarter.actionListManager.KillAllLists ();
@@ -1289,24 +1106,16 @@ namespace AC
 		 */
 		public static string GetSaveSlotLabel (int elementSlot, int saveID, bool useSaveID)
 		{
-			if (Application.isPlaying && KickStarter.saveSystem.foundSaveFiles != null)
+			if (!Application.isPlaying)
+			{
+				return SaveFileHandler.GetDefaultSaveLabel (elementSlot);
+			}
+			else if (KickStarter.saveSystem.foundSaveFiles != null)
 			{
 				return KickStarter.saveSystem.GetSlotLabel (elementSlot, saveID, useSaveID, KickStarter.saveSystem.foundSaveFiles.ToArray ());
 			}
 
-			if (AdvGame.GetReferences ().settingsManager)
-			{
-				if (AdvGame.GetReferences ().settingsManager.saveTimeDisplay == SaveTimeDisplay.DateOnly)
-				{
-					return ("Save test (01/01/2001)");
-				}
-				else if (AdvGame.GetReferences ().settingsManager.saveTimeDisplay == SaveTimeDisplay.None)
-				{
-					return ("Save test");
-				}
-			}
-
-			return ("Save test (01/01/2001 12:00:00)"); 
+			return ("Save game file"); 
 		}
 
 
@@ -1326,7 +1135,7 @@ namespace AC
 				{
 					foreach (SaveFile saveFile in saveFiles)
 					{
-						if (saveFile.ID == saveID)
+						if (saveFile.saveID == saveID)
 						{
 							return saveFile.label;
 						}
@@ -1395,7 +1204,7 @@ namespace AC
 				{
 					foreach (SaveFile saveFile in saveFiles)
 					{
-						if (saveFile.ID == saveID)
+						if (saveFile.saveID == saveID)
 						{
 							return saveFile.screenShot;
 						}
@@ -1493,7 +1302,6 @@ namespace AC
 				KickStarter.playerMenus.LoadMainData (saveData.mainData);
 
 				KickStarter.mainCamera.HideScene ();
-				KickStarter.playerMenus.HideSaveMenus ();
 				KickStarter.sceneSettings.UnpauseGame (KickStarter.playerInput.timeScale);//
 				KickStarter.stateHandler.gameState = GameState.Cutscene;
 				KickStarter.mainCamera.FadeIn (0.5f);
@@ -1722,7 +1530,6 @@ namespace AC
 			{
 				return;
 			}
-
 			KickStarter.runtimeVariables.ClearSpeechLog ();
 
 			if (!string.IsNullOrEmpty (runtimeVariablesData))
@@ -1756,6 +1563,29 @@ namespace AC
 						float _value = 0f;
 						float.TryParse (chunkData[1], out _value);
 						var.SetFloatValue (_value, SetVarMethod.SetValue);
+					}
+					else if (var.type == VariableType.Vector3)
+					{
+						string _text = chunkData[1];
+						_text = AdvGame.PrepareStringForLoading (_text);
+
+						Vector3 _value = Vector3.zero;
+						string[] valuesArray = _text.Split (","[0]);
+						if (valuesArray != null && valuesArray.Length == 3)
+						{
+							float xValue = 0f;
+							float.TryParse (valuesArray[0], out xValue);
+
+							float yValue = 0f;
+							float.TryParse (valuesArray[1], out yValue);
+
+							float zValue = 0f;
+							float.TryParse (valuesArray[2], out zValue);
+
+							_value = new Vector3 (xValue, yValue, zValue);
+						}
+
+						var.SetVector3Value (_value);
 					}
 					else
 					{
@@ -1846,6 +1676,12 @@ namespace AC
 					else if (_var.type == VariableType.Float)
 					{
 						variablesString.Append (_var.floatVal.ToString ());
+					}
+					else if (_var.type == VariableType.Vector3)
+					{
+						string vector3Val = _var.vector3Val.x.ToString () + "," + _var.vector3Val.y.ToString () + "," + _var.vector3Val.z.ToString ();
+						vector3Val = AdvGame.PrepareStringForSaving (vector3Val);
+						variablesString.Append (vector3Val);
 					}
 					else
 					{
@@ -2034,15 +1870,7 @@ namespace AC
 			}
 
 			// Delete save files
-			for (int i=0; i<50; i++)
-			{
-				string fileName = GetSaveFileName (i, profileID);
-				Serializer.DeleteSaveFile (fileName);
-				if (KickStarter.settingsManager.takeSaveScreenshots)
-				{
-					Serializer.DeleteScreenshot (GetSaveScreenshotName (i, profileID));
-				}
-			}
+			SaveFileHandler.DeleteAll (profileID);
 
 			bool isActive = (profileID == Options.GetActiveProfileID ()) ? true : false;
 			Options.DeleteProfilePrefs (profileID);
@@ -2058,29 +1886,41 @@ namespace AC
 
 		/**
 		 * <summary>Deletes a save game file.</summary>
+		 * <param name = "saveID">The save ID of the file to load</param>
+		 */
+		public static void DeleteSave (int saveID)
+		{
+			KickStarter.saveSystem.DeleteSave (0, saveID, true);
+		}
+
+
+		/**
+		 * <summary>Deletes a save game file.</summary>
 		 * <param name = "elementSlot">The slot index of the MenuProfilesList element that was clicked on</param>
-		 * <param name = "saveID">The save ID to import</param>
-		 * <param name = "useSaveID">If True, the saveID overrides the elementSlot to determine which file to import</param>
+		 * <param name = "saveID">The save ID to delete</param>
+		 * <param name = "useSaveID">If True, the saveID overrides the elementSlot to determine which file to delete</param>
 		 */
 		public void DeleteSave (int elementSlot, int saveID, bool useSaveID)
 		{
 			if (!useSaveID)
 			{
 				// For this to work, must have loaded the list of saves into a SavesList
-				saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].ID;
+				saveID = KickStarter.saveSystem.foundSaveFiles[elementSlot].saveID;
 			}
 
-			Serializer.DeleteSaveFile (GetSaveFileName (saveID));
-			if (KickStarter.settingsManager.takeSaveScreenshots)
+			foreach (SaveFile saveFile in foundSaveFiles)
 			{
-				Serializer.DeleteScreenshot (GetSaveScreenshotName (saveID));
+				if (saveFile.saveID == saveID)
+				{
+					SaveFileHandler.Delete (saveFile);
+				}
 			}
 
 			// Also remove save label
 			GatherSaveFiles ();
 			foreach (SaveFile saveFile in foundSaveFiles)
 			{
-				if (saveFile.ID == saveID)
+				if (saveFile.saveID == saveID)
 				{
 					foundSaveFiles.Remove (saveFile);
 					Options.UpdateSaveLabels (foundSaveFiles.ToArray ());
@@ -2165,82 +2005,59 @@ namespace AC
 			KickStarter.kickStarter.AfterLoad ();
 		}
 
-	}
-
-
-	/**
-	 * A data container for save game files found in the file system.  Instances of this struct are listed in the foundSaveFiles List in SaveSystem.
-	 */
-	public struct SaveFile
-	{
-
-		/** A unique identifier for the save file */
-		public int ID;
-		/** The save's label, as displayed in a MenuSavesList element */
-		public string label;
-		/** The save's screenshot, if save game screenshots are enabled */
-		public Texture2D screenShot;
-		/** The complete filename of the file, including the filepath */
-		public string fileName;
-		/** If True, then the file is considered to be an AutoSave */
-		public bool isAutoSave;
-		/** The timestamp of the file's last-updated time */
-		public int updatedTime;
-
 
 		/**
-		 * The default Constructor.
+		 * The iSaveFileHandler class that handles the creation, loading, and deletion of save files
 		 */
-		public SaveFile (int _ID, string _label, Texture2D _screenShot, string _fileName, bool _isAutoSave, int _updatedTime = 0)
+		public static iSaveFileHandler SaveFileHandler
 		{
-			ID = _ID;
-			label = _label;
-			screenShot = _screenShot;
-			fileName = _fileName;
-			isAutoSave = _isAutoSave;
+			get
+			{
+				if (saveFileHandlerOverride != null)
+				{
+					return saveFileHandlerOverride;
+				}
 
-			if (_updatedTime > 0)
-			{
-				updatedTime = 200000000 - _updatedTime;
+				#if SAVE_IN_PLAYERPREFS
+				return new SaveFileHandler_PlayerPrefs ();
+				#else
+				return new SaveFileHandler_SystemFile ();
+				#endif
 			}
-			else
+			set
 			{
-				updatedTime = 0;
+				saveFileHandlerOverride = value;
 			}
 		}
 
 
 		/**
-		 * <summary>Sets the save file's label in a safe format. Pipe's and colons are converted so that they can be stored.</summary>
-		 * <param name = "_label">The new label for the file.</param>
+		 * The iFileFormatHandler class that handles the serialization and deserialzation of data
 		 */
-		public void SetLabel (string _label)
+		public static iFileFormatHandler FileFormatHandler
 		{
-			label = AdvGame.PrepareStringForLoading (_label);
-		}
+			get
+			{
+				if (fileFormatHandlerOverride != null)
+				{
+					return fileFormatHandlerOverride;
+				}
 
+				if (UnityVersionHandler.CanUseJson () && KickStarter.settingsManager != null && KickStarter.settingsManager.useJsonSerialization)
+				{
+					return new FileFormatHandler_Json ();
+				}
 
-		/**
-		 * <summary>Gets the save file's label.  Pipes and colons are converted back so that they can be read as expected.</summary>
-		 * <returns>The file's label</returns>
-		 */
-		public string GetSafeLabel ()
-		{
-			return AdvGame.PrepareStringForSaving (label);
-		}
-
-
-		/**
-		 * A Constructor that copies the values of another SaveFile.
-		 */
-		public SaveFile (SaveFile _saveFile)
-		{
-			ID = _saveFile.ID;
-			label = _saveFile.label;
-			screenShot = _saveFile.screenShot;
-			fileName = _saveFile.fileName;
-			isAutoSave = _saveFile.isAutoSave;
-			updatedTime = _saveFile.updatedTime;
+				#if SAVE_USING_XML
+				return new FileFormatHandler_Xml ();
+				#else
+				return new FileFormatHandler_Binary ();
+				#endif
+			}
+			set
+			{
+				fileFormatHandlerOverride = value;
+			}
 		}
 
 	}

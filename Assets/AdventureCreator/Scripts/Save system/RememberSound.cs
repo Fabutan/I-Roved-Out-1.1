@@ -38,6 +38,8 @@ namespace AC
 
 			SoundData soundData = new SoundData();
 			soundData.objectID = constantID;
+			soundData.savePrevented = savePrevented;
+
 			soundData = sound.GetSaveData (soundData);
 
 			return Serializer.SaveScriptData <SoundData> (soundData);
@@ -53,7 +55,8 @@ namespace AC
 		{
 			SoundData data = Serializer.LoadScriptData <SoundData> (stringData);
 			if (data == null) return;
-			
+			SavePrevented = data.savePrevented; if (savePrevented) return;
+
 			Sound sound = GetComponent <Sound>();
 			if (sound is Music) return;
 

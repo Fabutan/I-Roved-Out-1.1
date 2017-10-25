@@ -72,6 +72,7 @@ namespace AC
 		public void Interact (ActionConversation actionConversation)
 		{
 			KickStarter.actionListManager.SetConversationPoint (actionConversation);
+			KickStarter.eventManager.Call_OnStartConversation (this);
 
 			CancelInvoke ("RunDefault");
 			int numPresent = 0;
@@ -172,6 +173,8 @@ namespace AC
 					KickStarter.stateHandler.gameState = GameState.Normal;
 				}
 			}
+
+			KickStarter.eventManager.Call_OnClickConversation (this, _option.ID);
 		}
 		
 
@@ -228,8 +231,15 @@ namespace AC
 			}
 
 			KickStarter.playerInput.EndConversation ();
-			
-			StartCoroutine (RunOptionCo (i));
+
+			if (interactionSource == InteractionSource.CustomScript)
+			{
+				RunOption (options[i]);
+			}
+			else
+			{
+				StartCoroutine (RunOptionCo (i));
+			}
 		}
 		
 

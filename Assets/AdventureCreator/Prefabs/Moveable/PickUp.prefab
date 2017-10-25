@@ -168,6 +168,7 @@ MonoBehaviour:
   pullbackDistance: 0.6
   throwForce: 400
   interactionOnGrab: {fileID: 0}
+  initialLift: 0.05
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

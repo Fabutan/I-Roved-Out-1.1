@@ -31,11 +31,11 @@ namespace AC
 		}
 
 
-		public static void LogError (object message)
+		public static void LogError (object message, UnityEngine.Object context = null)
 		{
 			if (CanDisplay ())
 			{
-				Debug.LogError (message + hr);
+				Debug.LogError (message + hr, context);
 			}
 		}
 

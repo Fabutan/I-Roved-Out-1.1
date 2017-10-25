@@ -483,6 +483,10 @@ namespace AC
 				{
 					selectedVar.floatVal = CustomGUILayout.FloatField ("Initial value:", selectedVar.floatVal, apiPrefix + ".floatVal");
 				}
+				else if (selectedVar.type == VariableType.Vector3)
+				{
+					selectedVar.vector3Val = CustomGUILayout.Vector3Field ("Initial value:", selectedVar.vector3Val, apiPrefix + ".vector3Val");
+				}
 
 				if (_varPresets != null)
 				{
@@ -516,6 +520,10 @@ namespace AC
 						else if (selectedVar.type == VariableType.Float)
 						{
 							presetValue.floatVal = CustomGUILayout.FloatField (label, presetValue.floatVal, apiPrefix2 + ".floatVal");
+						}
+						else if (selectedVar.type == VariableType.Vector3)
+						{
+							presetValue.vector3Val = CustomGUILayout.Vector3Field (label, presetValue.vector3Val, apiPrefix2 + ".vector3Val");
 						}
 					}
 				}

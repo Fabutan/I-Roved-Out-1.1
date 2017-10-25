@@ -34,6 +34,7 @@ namespace AC
 		{
 			ContainerData containerData = new ContainerData();
 			containerData.objectID = constantID;
+			containerData.savePrevented = savePrevented;
 			
 			if (GetComponent <Container>())
 			{
@@ -66,6 +67,7 @@ namespace AC
 		{
 			ContainerData data = Serializer.LoadScriptData <ContainerData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <Container>())
 			{

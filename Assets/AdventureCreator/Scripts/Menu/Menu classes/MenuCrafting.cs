@@ -42,6 +42,8 @@ namespace AC
 		public UIHideStyle uiHideStyle = UIHideStyle.DisableObject;
 		/** If craftingType = CraftingElementType.Output, the ActionList to run if a crafting attempt is made but no succesful recipe is possible. This only works if crafting is performed manually via the Inventory: Crafting Action. */
 		public ActionListAsset actionListOnWrongIngredients;
+		/** What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic) */
+		public LinkUIGraphic linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 		private Recipe activeRecipe;
 		private bool[] isFilled;
@@ -64,6 +66,7 @@ namespace AC
 			displayType = ConversationDisplayType.IconOnly;
 			uiHideStyle = UIHideStyle.DisableObject;
 			actionListOnWrongIngredients = null;
+			linkUIGraphic = LinkUIGraphic.ImageComponent;
 			items = new List<InvItem>();
 		}
 
@@ -73,18 +76,26 @@ namespace AC
 		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
 		 * <returns>A new MenuCrafting with the same values as itself</returns>
 		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuCrafting newElement = CreateInstance <MenuCrafting>();
 			newElement.Declare ();
-			newElement.CopyCrafting (this);
+			newElement.CopyCrafting (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyCrafting (MenuCrafting _element)
+		private void CopyCrafting (MenuCrafting _element, bool ignoreUnityUI)
 		{
-			uiSlots = _element.uiSlots;
+			if (ignoreUnityUI)
+			{
+				uiSlots = null;
+			}
+			else
+			{
+				uiSlots = _element.uiSlots;
+			}
+
 			isClickable = _element.isClickable;
 			textEffects = _element.textEffects;
 			outlineSize = _element.outlineSize;
@@ -93,6 +104,7 @@ namespace AC
 			displayType = _element.displayType;
 			uiHideStyle = _element.uiHideStyle;
 			actionListOnWrongIngredients = _element.actionListOnWrongIngredients;
+			linkUIGraphic = _element.linkUIGraphic;
 
 			PopulateList (MenuSource.AdventureCreator);
 			
@@ -109,7 +121,7 @@ namespace AC
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
-				uiSlot.LinkUIElements (canvas);
+				uiSlot.LinkUIElements (canvas, linkUIGraphic);
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
@@ -211,6 +223,8 @@ namespace AC
 				{
 					uiSlots[i].LinkedUiGUI (i, source);
 				}
+
+				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
 			}
 
 			isClickable = true;

@@ -58,7 +58,7 @@ namespace AC
 		{
 			HotspotData hotspotData = new HotspotData ();
 			hotspotData.objectID = constantID;
-
+			hotspotData.savePrevented = savePrevented;
 
 			if (GetComponent <Hotspot>())
 			{
@@ -86,6 +86,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (data.isOn)
 			{

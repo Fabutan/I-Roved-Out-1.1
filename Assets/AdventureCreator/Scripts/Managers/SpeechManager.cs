@@ -143,6 +143,9 @@ namespace AC
 		private int sceneFilter;
 		private int sideLanguage;
 
+		private AudioFilter audioFilter;
+		private enum AudioFilter { None, OnlyWithAudio, OnlyWithoutAudio };
+
 		private enum TransferComment { NotAsked, Yes, No };
 		private TransferComment transferComment;
 
@@ -408,7 +411,14 @@ namespace AC
 				int slashPoint = sceneFile.LastIndexOf ("/") + 1;
 				string sceneName = sceneFile.Substring (slashPoint);
 
-				sceneNames.Add (sceneName.Substring (0, sceneName.Length - 6));
+				if (sceneName.Length > 6)
+				{
+					sceneNames.Add (sceneName.Substring (0, sceneName.Length - 6));
+				}
+				else
+				{
+					ACDebug.LogError ("Invalid scene file name '" + sceneFile + "' is this saved and named properly in the Assets folder?");
+				}
 			}
 			return sceneNames.ToArray ();
 		}
@@ -449,6 +459,42 @@ namespace AC
 						if (tagFilter <= 0
 						|| ((tagFilter-1) < speechTags.Count && line.tagID == speechTags[tagFilter-1].ID))
 						{
+							if (typeFilter == AC_TextType.Speech && !autoNameSpeechFiles)
+							{
+								if (audioFilter == AudioFilter.OnlyWithAudio)
+								{
+									if (translateAudio && languages != null && languages.Count > 1)
+									{
+										for (int i=0; i<(languages.Count-1); i++)
+										{
+											if (line.customTranslationAudioClips.Count > i)
+											{
+												if (line.customTranslationAudioClips[i] == null) continue;
+											}
+										}
+									}
+									if (line.customAudioClip == null) continue;
+								}
+								else if (audioFilter == AudioFilter.OnlyWithoutAudio)
+								{
+									bool hasAllAudio = true;
+
+									if (translateAudio && languages != null && languages.Count > 1)
+									{
+										for (int i=0; i<(languages.Count-1); i++)
+										{
+											if (line.customTranslationAudioClips.Count > i)
+											{
+												if (line.customTranslationAudioClips[i] == null) hasAllAudio = false;
+											}
+										}
+									}
+									if (line.customAudioClip == null) hasAllAudio = false;
+
+									if (hasAllAudio) continue;
+								}
+							}
+						
 							displayedLinesDictionary.Add (line.lineID, line);
 						}
 					}
@@ -498,6 +544,14 @@ namespace AC
 			else
 			{
 				tagFilter = 0;
+			}
+
+			if (typeFilter == AC_TextType.Speech && !autoNameSpeechFiles)
+			{
+				EditorGUILayout.BeginHorizontal ();
+				EditorGUILayout.LabelField ("Audio filter:", GUILayout.Width (65f));
+				audioFilter = (AudioFilter) EditorGUILayout.EnumPopup (audioFilter);
+				EditorGUILayout.EndHorizontal ();
 			}
 
 			EditorGUILayout.BeginHorizontal ();
@@ -555,24 +609,24 @@ namespace AC
 			{
 				SyncLanguageData ();
 
-				if (lines.Count > 0 && languages.Count > 1)
+				if (languages.Count > 1)
 				{
 					ignoreOriginalText = CustomGUILayout.ToggleLeft ("Prevent original language from being used?", ignoreOriginalText, "AC.KickStarter.speechManager.ignoreOriginalText");
 				}
 
-				if (!(lines.Count > 0 && languages.Count > 1) || !ignoreOriginalText)
+				if (languages.Count < 1 || !ignoreOriginalText)
 				{
 					EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+					EditorGUILayout.BeginHorizontal ();
 					languages[0] = EditorGUILayout.TextField ("Original language:", languages[0]);
+
+					if (GUILayout.Button (Resource.CogIcon, GUILayout.Width (20f), GUILayout.Height (15f)))
+					{
+						SideMenu (0);
+					}
+					EditorGUILayout.EndHorizontal ();
 					languageIsRightToLeft[0] = CustomGUILayout.Toggle ("Reads right-to-left?", languageIsRightToLeft[0], "AC.KickStarter.speechManager.languageIsRightToLeft[0]");
 					EditorGUILayout.EndVertical ();
-				}
-
-				if (lines.Count == 0)
-				{
-					EditorGUILayout.HelpBox ("No text has been gathered for translations - add your scenes to the build, and click 'Gather text' below.", MessageType.Info);
-					EditorGUILayout.EndVertical ();
-					return;
 				}
 
 				if (languages.Count == 0)
@@ -606,7 +660,18 @@ namespace AC
 						CreateLanguage ("New " + languages.Count.ToString ());
 					}
 				}
+
+				if (lines.Count == 0)
+				{
+					EditorGUILayout.HelpBox ("No text has been gathered for translations - add your scenes to the build, and click 'Gather text' below.", MessageType.Warning);
+				}
 			}
+
+			if (Application.isPlaying)
+			{
+				EditorGUILayout.HelpBox ("Changes made will not be updated until the game is restarted.", MessageType.Info);
+			}
+
 			EditorGUILayout.EndVertical ();
 		}
 
@@ -616,9 +681,13 @@ namespace AC
 			GenericMenu menu = new GenericMenu ();
 
 			sideLanguage = i;
-			menu.AddItem (new GUIContent ("Import"), false, MenuCallback, "Import translation");
-			menu.AddItem (new GUIContent ("Export"), false, MenuCallback, "Export translation");
-			menu.AddItem (new GUIContent ("Delete"), false, MenuCallback, "Delete translation");
+
+			if (i > 0)
+			{
+				menu.AddItem (new GUIContent ("Import"), false, MenuCallback, "Import translation");
+				menu.AddItem (new GUIContent ("Export"), false, MenuCallback, "Export translation");
+				menu.AddItem (new GUIContent ("Delete"), false, MenuCallback, "Delete translation");
+			}
 
 			if (lines.Count > 0)
 			{
@@ -644,7 +713,6 @@ namespace AC
 
 				case "Export translation":
 					ExportWizardWindow.Init (this, i);
-					//ExportTranslation (i);
 					break;
 
 				case "Delete translation":
@@ -1978,7 +2046,7 @@ namespace AC
 			
 			if (File.Exists (fileName))
 			{
-				string csvText = Serializer.LoadSaveFile (fileName, true);
+				string csvText = Serializer.LoadFile (fileName);
 				string [,] csvOutput = CSVReader.SplitCsvGrid (csvText);
 
 				ImportWizardWindow.Init (this, csvOutput, i);
@@ -2018,7 +2086,7 @@ namespace AC
 			
 			if (File.Exists (fileName))
 			{
-				string csvText = Serializer.LoadSaveFile (fileName, true);
+				string csvText = Serializer.LoadFile (fileName);
 				string [,] csvOutput = CSVReader.SplitCsvGrid (csvText);
 
 				ImportWizardWindow.Init (this, csvOutput);
@@ -2998,42 +3066,6 @@ namespace AC
 					languageIsRightToLeft.Add (false);
 				}
 			}
-		}
-
-
-		/**
-		 * <summary>Checks if a given language reads right-to-left, Hebrew/Arabic-style</summary>
-		 * <param name = "languageIndex">The index number of the language to check, where 0 is the game's original language</param>
-		 * <returns>True if the given language reads right-to-left</returns>
-		 */
-		public bool LanguageReadsRightToLeft (int languageIndex)
-		{
-			if (languageIndex > 0 && languageIsRightToLeft != null && languageIsRightToLeft.Count > languageIndex)
-			{
-				return languageIsRightToLeft [languageIndex];
-			}
-			return false;
-		}
-
-
-		/**
-		 * <summary>Checks if a given language reads right-to-left, Hebrew/Arabic-style</summary>
-		 * <param name = "languageName">The name of the language to check, as written in the Speech Manager</param>
-		 * <returns>True if the given language reads right-to-left</returns>
-		 */
-		public bool LanguageReadsRightToLeft (string languageName)
-		{
-			if (!string.IsNullOrEmpty (languageName))
-			{
-				if (languages.Contains (languageName))
-				{
-					int i = languages.IndexOf (languageName);
-					return languageIsRightToLeft [i];
-				}
-			}
-
-			SyncLanguageData ();
-			return languageIsRightToLeft[0];
 		}
 
 

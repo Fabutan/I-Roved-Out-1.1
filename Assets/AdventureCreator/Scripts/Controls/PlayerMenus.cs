@@ -1002,7 +1002,7 @@ namespace AC
 				if (menu.pauseWhenEnabled)
 				{
 					if ((KickStarter.stateHandler.gameState == GameState.Paused || KickStarter.stateHandler.gameState == GameState.Normal)
-						&& (!menu.isLocked && menu.IsPointInside (invertedMouse)))
+						&& (!menu.isLocked && menu.IsPointInside (invertedMouse) && KickStarter.playerInput.GetDragState () != DragState.Moveable))
 					{
 						if (menu.IsOff ())
 						{
@@ -1021,7 +1021,7 @@ namespace AC
 				}
 				else
 				{
-					if (KickStarter.stateHandler.gameState == GameState.Normal && !menu.isLocked && menu.IsPointInside (invertedMouse))
+					if (KickStarter.stateHandler.gameState == GameState.Normal && !menu.isLocked && menu.IsPointInside (invertedMouse) && KickStarter.playerInput.GetDragState () != DragState.Moveable)
 					{
 						if (menu.IsOff ())
 						{
@@ -1912,7 +1912,7 @@ namespace AC
 				
 				if (KickStarter.stateHandler.gameState == GameState.Paused)
 				{
-					if (Time.timeScale != 0f)
+					if (Time.timeScale != 0f && KickStarter.stateHandler.IsACEnabled ())
 					{
 						KickStarter.sceneSettings.PauseGame ();
 					}
@@ -2519,7 +2519,7 @@ namespace AC
 		 */
 		public static bool IsSavingLocked (Action _actionToIgnore = null)
 		{
-			if (KickStarter.stateHandler.gameState == GameState.DialogOptions)
+			if (KickStarter.stateHandler.gameState == GameState.DialogOptions || (KickStarter.stateHandler.gameState == GameState.Paused && KickStarter.playerInput.activeConversation != null))
 			{
 				return true;
 			}
@@ -2698,29 +2698,6 @@ namespace AC
 			if (KickStarter.mainCamera)
 			{
 				KickStarter.mainCamera.SetCameraRect ();
-			}
-		}
-
-
-		/**
-		 * Instantly turns off all Menus that contain a MenuSaveList with savesListType = AC_SavesListType.Save.
-		 */
-		public void HideSaveMenus ()
-		{
-			foreach (AC.Menu menu in menus)
-			{
-				foreach (MenuElement element in menu.elements)
-				{
-					if (element is MenuSavesList && menu.IsManualControlled ())
-					{
-						MenuSavesList saveList = (MenuSavesList) element;
-						if (saveList.saveListType == AC_SaveListType.Save)
-						{
-							menu.ForceOff (true);
-							break;
-						}
-					}
-				}
 			}
 		}
 
@@ -3082,13 +3059,24 @@ namespace AC
 						{
 							if (_menu.IsManualControlled ())
 							{
-								if (_lock)
+								if (_menu.ShouldTurnOffWhenLoading ())
 								{
-									_menu.TurnOn (false);
+									if (_menu.IsOn () && _menu.actionListOnTurnOff)
+									{
+										ACDebug.LogWarning ("The '" +_menu.title + "' menu's 'ActionList On Turn Off' (" + _menu.actionListOnTurnOff.name + ") was not run because the menu was turned off as a result of loading.  The SavesList element's 'ActionList after loading' can be used to run the same Actions instead.");
+									}
+									_menu.ForceOff (true);
 								}
 								else
 								{
-									_menu.TurnOff (false);
+									if (_lock)
+									{
+										_menu.TurnOn (false);
+									}
+									else
+									{
+										_menu.TurnOff (false);
+									}
 								}
 							}
 							break;

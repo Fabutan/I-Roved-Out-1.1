@@ -29,7 +29,7 @@ namespace AC
 
 		/** The Unity UI Button this is linked to (Unity UI Menus only) */
 		public UnityEngine.UI.Button uiButton;
-		/** What pointer state registers as a 'click' for Unity UI Menus (PointerClick, PointerDown) */
+		/** What pointer state registers as a 'click' for Unity UI Menus (PointerClick, PointerDown, PointerEnter) */
 		public UIPointerState uiPointerState = UIPointerState.PointerClick;
 
 		/** The text that's displayed on-screen */
@@ -131,29 +131,29 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuButton that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuButton with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuButton newElement = CreateInstance <MenuButton>();
 			newElement.Declare ();
-			newElement.CopyButton (this);
+			newElement.CopyButton (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 
-		/**
-		 * <summary>Copies the values from another MenuButton instance.</summary>
-		 * <param name = "_element">The MenuButton to copy values from</param>
-		 */
-		public void CopyButton (MenuButton _element)
+		private void CopyButton (MenuButton _element, bool ignoreUnityUI)
 		{
-			uiButton = _element.uiButton;
+			if (ignoreUnityUI)
+			{
+				uiButton = null;
+				uiText = null;
+			}
+			else
+			{
+				uiButton = _element.uiButton;
+				uiText = _element.uiText;
+			}
 			uiPointerState = _element.uiPointerState;
-			uiText = _element.uiText;
+
 			label = _element.label;
 			hotspotLabel = _element.hotspotLabel;
 			hotspotLabelID = _element.hotspotLabelID;

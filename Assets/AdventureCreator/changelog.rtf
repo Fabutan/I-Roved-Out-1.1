@@ -5,7 +5,149 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww20440\viewh15160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Version 1.58a:\
+\f0\fs24 \cf0 Version 1.59f (Unity 2017.1 only):\
+\
+-Fixed: Critical bug that caused New Game Wizard to fail in Unity 2017\
+\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Version 1.59e:\
+\
+Upgrade note:\
+-Due to deprecation, GUITexture and GUIText components are no longer recognised by the Highlight and LimitVisibility components in Unity 2017.2 or later\
+\
+-Changed: The "Engine: Play movie clip" Action now defaults to the Video Player method on platforms that support it\
+-Changed: Due to deprecation, GUITexture and GUIText components are no longer recognised by the Highlight and LimitVisibility components in Unity 2017.2 or later\
+-Changed: When a Follow Sorting Map component's "Edit-mode preview?" is unchecked, the character's scale is only reset once\
+-Fixed: 2D camera offset bug introduced in v1.59b\
+-Fixed: Walk cursor sometimes showing at wrong times\
+-Fixed: Compatibility issues with Unity 2017.2 and 2017.3 betas\
+-Fixed: "Freeze Rigidbody when Idle?" character setting ignored if "Move with Rigidbody?" is unchecked\
+\
+\
+Version 1.59d:\
+\
+-Fixed: Critical bug that caused Unity to occasionally crash when playing speech text\
+\
+\
+Version 1.59c:\
+\
+-Fixed: 2.5D cameras not previewing correct "Field of View" in v1.59b\
+-Fixed: Incorrect Hotspot labels in rare circumstances\
+\
+\
+Version 1.59b:\
+\
+-Added: Ability to give 2.5D cameras a perspective offset\
+-Added: Ability to snap 2D camera movement to grid\
+-Added: Smoother 2D camera movement\
+-Added: When ActionLists are listed in the debug Game window, the active camera is also listed\
+-Changed: The "Vertical movement factor" setting for 2D games has been moved from Camera to Movement settings in the Settings Manager\
+-Fixed: 3D characters in 2D scenes not animating correctly when moving vertically\
+-Fixed: Issues with the UI of the "Input: QTE" Action\
+-Fixed: Issues with Slider elements linked to Unity UI\
+-Fixed: Minor issues with Manager asset handling\
+-Fixed: Issue with SkipSpeech input button\
+-Fixed: Auto-creating a default PlayerStart resulting in a 3D one in 2D games\
+\
+\
+Version 1.59a:\
+\
+Upgrade note:\
+-Load menus turned off after loading a save file no longer run their "ActionList when turn off" - the "ActionList after loading" should be used instead\
+\
+-Added: "Scene: Switch previous" Action - use to switch to the previously-loaded scene\
+-Added: When used in 2.5D and 3D games, the GameCamera 2D prefab works for all orientations\
+-Added: Follow Sorting Map components can now scale characters that do not have a sprite child assigned (i.e. 3D characters)\
+-Added: Multi-slot menu elements linked to Unity UI can now connect their graphics to a Button\'92s "Target graphic" instead of the first-found Image component\
+-Added: Option for Button and Interaction menu elements linked to Unity UI to respond to "Pointer Enter" events\
+-Added: Additional options to the "Align To Camera" component\
+-Added: Options-related custom events to Section 9.10 of the Manual\
+-Added: Function to GameCamera to determine if it is currently the active camera\
+-Added: Get/Sets to GVar class to more easily read and write variable / inventory property values when accessing the GVar / InvVar classes\
+-Changed: Load menus turned off after loading a save file no longer run their "ActionList when turn off" - the "ActionList after loading" should be used instead\
+-Fixed: Error messages when playing speech in rare circumstances\
+-Fixed: Console warnings showing inappropriately when working with "Unity UI In Scene" Menus\
+-Fixed: Issues with the UI of the "Input: QTE" Action\
+-Fixed: Issues with Inventory properties of type "Vector3"\
+\
+\
+Version 1.59:\
+\
+= Upgrade notes =\
+-Save and load functions no longer return success as a bool - the OnFinish / OnFailSaving etc events must be used instead\
+-The SpeechManager script's LanguageReadsRightToLeft functions have been moved to RuntimeLanguages\
+-Removed "HasPausing" function from Speech class as it is no longer used\
+-Save and load functions no longer return success as a bool - the OnFinish / OnFailSaving etc events must be used instead\
+\
+= Variables =\
+-Added: Ability to declare Vector3 Variables and Parameters\
+-Added: "Object: Record transform" Action - use to store the position, rotation or scale of a GameObject as a Vector3 Variable\
+-Added: The "Object: Transform" Action can now take Vector3s when setting new Transform values\
+-Added: The "Object: Teleport" and "Object: Add or remove" Actions can now position objects relative to Vector3s\
+-Added: The "Variable: Run sequence" Action not longer requires an external Variable, though the current order will not be saved without one\
+-Added: The "Variable: Check random number" Action can now be prevented from generating the same value in succession\
+\
+= Save games =\
+-Added: Ability to implement custom save formats and file handling through scripting interfaces\
+-Added: Ability to customise the time display of save game files\
+-Added: Ability to prevent saving of individual Remember components through script with the PreventSaving bool\
+-Added: Option to allow multiple instances of objects with RememberTransform components\
+-Changed: Save and load functions no longer return success as a bool - the OnFinish / OnFailSaving etc events must be used instead\
+-Fixed: Using the "Save: Check" Action's "Is Saving Possible" method sometimes giving false positives\
+\
+= QTEs =\
+-Added: The "Input: QTE" Action now supports axis-based QTEs\
+-Fixed: Error if the "Input: QTE: Action refers to a Menu that does not exist\
+\
+= Editor =\
+-Added: Variable and Parameter selector fields now only show those appropriate for the situation\
+-Added: Scroll bar to Active Inputs Editor window\
+-Fixed: BackgroundImage Inspectors not working with Unity 2017\
+-Fixed: "Hotspot: Check interaction enabled" Action showing unused output socket\
+\
+= Speech and language =\
+-Added: Ability to script event token keys that trigger custom events when placed in speech text \
+-Added: "OnClickConversation" and "OnStartConversation" events\
+-Added: Constructor to ButtonDialog class with no ActionList requirements (useful for scripted Conversations)\
+-Added: Ability to filter speech text listed in the Speech Manager to those with or without associated audio, provided audio is manually assigned\
+-Added: Ability to only include lines with no associated audio in script sheets, provided audio is manually assigned\
+-Changed: Removed "HasPausing" function from Speech class as it is no longer used\
+-Fixed: Script sheets not showing line ID numbers\
+\
+= Translations =\
+-Added: Ability to create languages before gathering text\
+-Changed: The SpeechManager script's LanguageReadsRightToLeft functions have been moved to RuntimeLanguages\
+-Changed: The RuntimeLanguages' ImportRuntimeTranslation function now requires the text column to import as an integer parameter\
+-Fixed: Issue with Hotspot labels when the game's original language reads right-to-left\
+\
+= Physics =\
+-Added: Ability to set the initial lift of PickUp objects when grabbed\
+-Fixed: Handling issues with PickUp objects in first-person\
+-Changed: The "Player movement reduction factor" of Draggable and PickUp objects now also affects free-aiming speed\
+\
+= Menus =\
+-Added: Slider element labels now support tokens\
+-Fixed: "Mouse over" Menus being able to open while the player is manipulating physics objects\
+\
+= Movement =\
+-Added: Smoother movement to first-person free-aiming\
+-Fixed: "Straight To Cursor" movement not making use of the NavMesh search fields\
+\
+= Cameras =\
+-Added: The restoration of the MainCamera transform when loading in VR is now optional\
+-Fixed: GameCameras not being able to move vertically if the X-axis movement option is set to "Side Scrolling"\
+-Fixed: Warning message when using GameCamera 2D Drag prefabs\
+\
+= Misc =\
+-Fixed: 2D Demo sharing assets from Demo folder\
+-Fixed: Hotspots not being interactive when inventory items are selected in rare circumstances\
+-Added: Integer parameter support for the item count fields in the "Inventory: Check" and "Inventory: Add or remove" Actions\
+-Fixed: Loading scenes not exiting correctly in some circumstances\
+\
+\
+Version 1.58a:\
 \
 -Added: Events for character head-turning\
 -Added: The disabling of inventory items when used in defined Interactions is now optional\

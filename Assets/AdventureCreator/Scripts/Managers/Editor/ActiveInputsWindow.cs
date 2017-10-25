@@ -9,6 +9,7 @@ namespace AC
 	{
 		
 		private SettingsManager settingsManager;
+		private Vector2 scrollPos;
 		
 		[MenuItem ("Adventure Creator/Editors/Active Inputs Editor", false, 0)]
 		public static void Init ()
@@ -46,7 +47,9 @@ namespace AC
 		private List<ActiveInput> ShowActiveInputsGUI (List<ActiveInput> activeInputs)
 		{
 			EditorGUILayout.HelpBox ("Active Inputs are used to trigger ActionList assets when an input key is pressed under certain gameplay conditions.", MessageType.Info);
-			
+
+			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
+
 			for (int i=0; i<activeInputs.Count; i++)
 			{
 				EditorGUILayout.BeginVertical (CustomStyles.thinBox);
@@ -92,7 +95,10 @@ namespace AC
 					activeInputs.Add (new ActiveInput (1));
 				}
 			}
-			
+
+			EditorGUILayout.Space ();
+
+			EditorGUILayout.EndScrollView ();
 			return activeInputs;
 		}
 		

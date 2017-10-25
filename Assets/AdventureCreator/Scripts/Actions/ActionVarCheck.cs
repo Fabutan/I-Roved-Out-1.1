@@ -45,6 +45,9 @@ namespace AC
 		public string stringValue;
 		public bool checkCase = true;
 
+		public Vector3 vector3Value;
+		public VectorCondition vectorCondition = VectorCondition.EqualTo;
+
 		public VariableLocation location = VariableLocation.Global;
 		private LocalVariables localVariables;
 
@@ -65,6 +68,7 @@ namespace AC
 			intValue = AssignInteger (parameters, checkParameterID, intValue);
 			boolValue = AssignBoolean (parameters, checkParameterID, boolValue);
 			floatValue = AssignFloat (parameters, checkParameterID, floatValue);
+			vector3Value = AssignVector3 (parameters, checkParameterID, vector3Value);
 			stringValue = AssignString (parameters, checkParameterID, stringValue);
 			compareVariableID = AssignVariableID (parameters, checkParameterID, compareVariableID);
 		}
@@ -283,6 +287,18 @@ namespace AC
 					}
 				}
 			}
+
+			else if (_var.type == VariableType.Vector3)
+			{
+				if (vectorCondition == VectorCondition.EqualTo)
+				{
+					return (_var.vector3Val == vector3Value);
+				}
+				else if (vectorCondition == VectorCondition.MagnitudeGreaterThan)
+				{
+					return (_var.vector3Val.magnitude > floatValue);
+				}
+			}
 			
 			return false;
 		}
@@ -385,14 +401,9 @@ namespace AC
 				variableNumber = Mathf.Min (variableNumber, vars.Count-1);
 				getVarMethod = (GetVarMethod) EditorGUILayout.EnumPopup ("Compare with:", getVarMethod);
 
-				if (parameters == null || parameters.Count == 0)
-				{
-					EditorGUILayout.BeginHorizontal ();
-				}
-
 				if (vars [variableNumber].type == VariableType.Boolean)
 				{
-					boolCondition = (BoolCondition) EditorGUILayout.EnumPopup (boolCondition);
+					boolCondition = (BoolCondition) EditorGUILayout.EnumPopup ("Condition:", boolCondition);
 					if (getVarMethod == GetVarMethod.EnteredValue)
 					{
 						checkParameterID = Action.ChooseParameterGUI ("Boolean:", parameters, checkParameterID, ParameterType.Boolean);
@@ -405,53 +416,75 @@ namespace AC
 				}
 				else if (vars [variableNumber].type == VariableType.Integer)
 				{
-					intCondition = (IntCondition) EditorGUILayout.EnumPopup (intCondition);
+					intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Condition:", intCondition);
 					if (getVarMethod == GetVarMethod.EnteredValue)
 					{
 						checkParameterID = Action.ChooseParameterGUI ("Integer:", parameters, checkParameterID, ParameterType.Integer);
 						if (checkParameterID < 0)
 						{
-							EditorGUILayout.LabelField ("Integer:", GUILayout.MaxWidth (60f));
-							intValue = EditorGUILayout.IntField (intValue);
+							intValue = EditorGUILayout.IntField ("Integer:", intValue);
 						}
 					}
 				}
 				else if (vars [variableNumber].type == VariableType.PopUp)
 				{
-					intCondition = (IntCondition) EditorGUILayout.EnumPopup (intCondition);
+					intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Condition:", intCondition);
 					if (getVarMethod == GetVarMethod.EnteredValue)
 					{
 						checkParameterID = Action.ChooseParameterGUI ("Value:", parameters, checkParameterID, ParameterType.Integer);
 						if (checkParameterID < 0)
 						{
-							EditorGUILayout.LabelField ("Value:", GUILayout.MaxWidth (60f));
-							intValue = EditorGUILayout.Popup (intValue, vars [variableNumber].popUps);
+							intValue = EditorGUILayout.Popup ("Value:", intValue, vars [variableNumber].popUps);
 						}
 					}
 				}
 				else if (vars [variableNumber].type == VariableType.Float)
 				{
-					intCondition = (IntCondition) EditorGUILayout.EnumPopup (intCondition);
+					intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Condition:", intCondition);
 					if (getVarMethod == GetVarMethod.EnteredValue)
 					{
 						checkParameterID = Action.ChooseParameterGUI ("Float:", parameters, checkParameterID, ParameterType.Float);
 						if (checkParameterID < 0)
 						{
-							EditorGUILayout.LabelField ("Float:", GUILayout.MaxWidth (60f));
-							floatValue = EditorGUILayout.FloatField (floatValue);
+							floatValue = EditorGUILayout.FloatField ("Float:", floatValue);
 						}
 					}
 				}
 				else if (vars [variableNumber].type == VariableType.String)
 				{
-					boolCondition = (BoolCondition) EditorGUILayout.EnumPopup (boolCondition);
+					boolCondition = (BoolCondition) EditorGUILayout.EnumPopup ("Condition:", boolCondition);
 					if (getVarMethod == GetVarMethod.EnteredValue)
 					{
 						checkParameterID = Action.ChooseParameterGUI ("String:", parameters, checkParameterID, ParameterType.String);
 						if (checkParameterID < 0)
 						{
-							EditorGUILayout.LabelField ("String:", GUILayout.MaxWidth (60f));
-							stringValue = EditorGUILayout.TextField (stringValue);
+							stringValue = EditorGUILayout.TextField ("String:", stringValue);
+						}
+					}
+				}
+				else if (vars [variableNumber].type == VariableType.Vector3)
+				{
+					vectorCondition = (VectorCondition) EditorGUILayout.EnumPopup ("Condition:", vectorCondition);
+					if (getVarMethod == GetVarMethod.EnteredValue)
+					{
+						if (vectorCondition == VectorCondition.MagnitudeGreaterThan)
+						{
+							checkParameterID = Action.ChooseParameterGUI ("Float:", parameters, checkParameterID, ParameterType.Float);
+							if (checkParameterID < 0)
+							{
+								floatValue = EditorGUILayout.FloatField ("Float:", floatValue);
+							}
+						}
+						else if (vectorCondition == VectorCondition.EqualTo)
+						{
+							checkParameterID = Action.ChooseParameterGUI ("Vector3:", parameters, checkParameterID, ParameterType.Vector3);
+							if (checkParameterID < 0)
+							{
+								EditorGUILayout.BeginHorizontal ();
+								EditorGUILayout.LabelField ("Vector3:", GUILayout.MaxWidth (60f));
+								vector3Value = EditorGUILayout.Vector3Field ("", vector3Value);
+								EditorGUILayout.EndHorizontal ();
+							}
 						}
 					}
 				}
@@ -485,11 +518,6 @@ namespace AC
 							compareVariableID = ShowVarSelectorGUI (localVariables.localVars, compareVariableID);
 						}
 					}
-				}
-
-				if (parameters == null || parameters.Count == 0)
-				{
-					EditorGUILayout.EndHorizontal ();
 				}
 
 				if (vars [variableNumber].type == VariableType.String)

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿#if UNITY_ANDROID || UNITY_IOS
+#define ON_MOBILE
+#endif
+
+using UnityEngine;
 using UnityEditor;
 
 namespace AC
@@ -110,17 +114,6 @@ namespace AC
 			}
 			else
 			{
-				/*if (pageNumber == numPages)
-				{
-					GUI.enabled = false;
-				}
-				if (GUILayout.Button ("Finish", EditorStyles.miniButtonRight))
-				{
-					pageNumber ++;
-					Finish ();
-				}
-				GUI.enabled = true;*/
-
 				if (pageNumber == numPages)
 				{
 					if (GUILayout.Button ("Close", EditorStyles.miniButtonRight))
@@ -193,9 +186,10 @@ namespace AC
 			{
 				System.IO.Directory.CreateDirectory (Application.dataPath + "/" + managerPath);
 			}
-			catch
+			catch (System.Exception e)
 			{
 				ACDebug.LogError ("Wizard aborted - Could not create directory: " + Application.dataPath + "/" + managerPath + ". Please make sure the Assets direcrory is writeable, and that the intended game name contains no special characters.");
+				Debug.LogException (e, this);
 				pageNumber --;
 				return;
 			}
@@ -212,11 +206,11 @@ namespace AC
 
 				references.settingsManager.saveFileName = gameName;
 				references.settingsManager.cameraPerspective = cameraPerspective;
+				references.settingsManager.movingTurning = movingTurning;
 				references.settingsManager.movementMethod = movementMethod;
 				references.settingsManager.inputMethod = inputMethod;
 				references.settingsManager.interactionMethod = interactionMethod;
 				references.settingsManager.hotspotDetection = hotspotDetection;
-				references.settingsManager.movingTurning = movingTurning;
 				if (cameraPerspective == CameraPerspective.TwoPointFiveD)
 				{
 					references.settingsManager.forceAspectRatio = true;
@@ -285,7 +279,6 @@ namespace AC
 					{
 						ACDebug.LogWarning ("Cannot find Default_CursorManager asset to copy from!");
 					}	
-
 					references.cursorManager.allowMainCursor = true;
 					EditorUtility.SetDirty (references.cursorManager);
 
@@ -302,7 +295,6 @@ namespace AC
 						{
 							System.IO.Directory.CreateDirectory (Application.dataPath + "/" + gameName + "/UI");
 						}
-
 						foreach (Menu defaultMenu in defaultMenuManager.menus)
 						{
 							Menu newMenu = ScriptableObject.CreateInstance <Menu>();
@@ -320,27 +312,28 @@ namespace AC
 
 							if (defaultMenu.canvas)
 							{
-								string oldCanvasPath = AssetDatabase.GetAssetPath (defaultMenu.canvas);
 								string newCanvasPath = "Assets/" + gameName + "/UI/" + defaultMenu.canvas.name + ".prefab";
-								if (AssetDatabase.CopyAsset (oldCanvasPath, newCanvasPath))
-								{
-									AssetDatabase.ImportAsset (newCanvasPath);
-									newMenu.canvas = (Canvas) AssetDatabase.LoadAssetAtPath (newCanvasPath, typeof (Canvas));
-								}
+
+								GameObject canvasObInScene = (GameObject) PrefabUtility.InstantiatePrefab (defaultMenu.canvas.gameObject);
+								PrefabUtility.DisconnectPrefabInstance (canvasObInScene);
+								GameObject canvasObNewPrefab = PrefabUtility.CreatePrefab (newCanvasPath, canvasObInScene);
+
+								newMenu.canvas = canvasObNewPrefab.GetComponent <Canvas>();
+								DestroyImmediate (canvasObInScene);
 
 								newMenu.rectTransform = null;
 							}
 
-							newMenu.hideFlags = HideFlags.HideInHierarchy;
-							references.menuManager.menus.Add (newMenu);
-							EditorUtility.SetDirty (references.menuManager);
 							foreach (MenuElement newElement in newMenu.elements)
 							{
-								newElement.hideFlags = HideFlags.HideInHierarchy;
 								AssetDatabase.AddObjectToAsset (newElement, references.menuManager);
 							}
 							AssetDatabase.AddObjectToAsset (newMenu, references.menuManager);
+
+							references.menuManager.menus.Add (newMenu);
 						}
+
+						EditorUtility.SetDirty (references.menuManager);
 					}
 					else
 					{
@@ -355,11 +348,11 @@ namespace AC
 				{
 					references.sceneManager.InitialiseObjects ();
 				}
-				//pageNumber = 0;
 			}
-			catch
+			catch (System.Exception e)
 			{
-				ACDebug.LogWarning ("Could not create Manager. Does the subdirectory " + Resource.managersDirectory + " exist?");
+				ACDebug.LogWarning ("Could not create Manager. Does the subdirectory " + managerPath + " exist?");
+				Debug.LogException (e, this);
 				pageNumber --;
 			}
 		}
@@ -429,6 +422,10 @@ namespace AC
 					}
 				}
 			}
+
+			#if ON_MOBILE
+			inputMethod = InputMethod.TouchScreen;
+			#endif
 		}
 
 
@@ -590,6 +587,7 @@ namespace AC
 			managerPackage.cursorManager = references.cursorManager;
 			managerPackage.menuManager = references.menuManager;
 
+			managerPackage.AssignManagers ();
 			EditorUtility.SetDirty (managerPackage);
 			AssetDatabase.SaveAssets ();
 

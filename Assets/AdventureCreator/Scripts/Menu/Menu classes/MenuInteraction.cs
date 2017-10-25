@@ -29,7 +29,7 @@ namespace AC
 
 		/** The Unity UI Button this is linked to (Unity UI Menus only) */
 		public UnityEngine.UI.Button uiButton;
-		/** What pointer state registers as a 'click' for Unity UI Menus (PointerClick, PointerDown) */
+		/** What pointer state registers as a 'click' for Unity UI Menus (PointerClick, PointerDown, PointerEnter) */
 		public UIPointerState uiPointerState = UIPointerState.PointerClick;
 
 		/** How interactions are displayed (IconOnly, TextOnly, IconAndText) */
@@ -80,25 +80,29 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuInteraction that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuInteraction with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuInteraction newElement = CreateInstance <MenuInteraction>();
 			newElement.Declare ();
-			newElement.CopyInteraction (this);
+			newElement.CopyInteraction (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyInteraction (MenuInteraction _element)
+		private void CopyInteraction (MenuInteraction _element, bool ignoreUnityUI)
 		{
-			uiButton = _element.uiButton;
+			if (ignoreUnityUI)
+			{
+				uiButton = null;
+			}
+			else
+			{
+				uiButton = _element.uiButton;
+			}
+
 			uiPointerState = _element.uiPointerState;
 			uiText = null;
+
 			displayType = _element.displayType;
 			anchor = _element.anchor;
 			textEffects = _element.textEffects;

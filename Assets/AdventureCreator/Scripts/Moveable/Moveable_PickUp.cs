@@ -40,6 +40,8 @@ namespace AC
 		public float throwForce = 400f;
 		/** The Interaction to run whenever the object is picked up by the player */
 		public Interaction interactionOnGrab;
+		/** The lift to give objects picked up, so that they aren't touching the ground when initially held */
+		public float initialLift = 0.05f;
 
 		private bool isChargingThrow = false;
 		private float throwCharge = 0f;
@@ -47,7 +49,10 @@ namespace AC
 		private bool inRotationMode = false;
 		private FixedJoint fixedJoint;
 		private float originalDistanceToCamera;
-		private Vector3 lastPosition;
+
+		private Vector3 worldMousePosition;
+		private Vector3 deltaMovement;
+		private LerpUtils.Vector3Lerp fixedJointLerp = new LerpUtils.Vector3Lerp ();
 
 		
 		protected override void Awake ()
@@ -106,7 +111,6 @@ namespace AC
 			_rigidbody.drag = originalDrag;
 			_rigidbody.angularDrag = originalAngularDrag;
 
-			//isHeld = false;
 			Vector3 moveVector = (transform.position - cameraTransform.position).normalized;
 			_rigidbody.AddForce (throwForce * throwCharge * moveVector);
 		}
@@ -120,7 +124,7 @@ namespace AC
 			body.useGravity = false;
 			fixedJoint = go.AddComponent <FixedJoint>();
 			fixedJoint.breakForce = fixedJoint.breakTorque = breakForce;
-			//fixedJoint.enableCollision = false;
+
 			go.AddComponent <JointBreaker>();
 		}
 		
@@ -131,8 +135,6 @@ namespace AC
 		 */
 		public override void Grab (Vector3 grabPosition)
 		{
-			base.Grab (grabPosition);
-
 			inRotationMode = false;
 			isChargingThrow = false;
 			throwCharge = 0f;
@@ -142,10 +144,13 @@ namespace AC
 				CreateFixedJoint ();
 			}
 			fixedJoint.transform.position = grabPosition;
+			fixedJointOffset = Vector3.zero;
+			deltaMovement = Vector3.zero;
 
 			_rigidbody.velocity = _rigidbody.angularVelocity = Vector3.zero;
-			lastPosition = transform.position;
 			originalDistanceToCamera = (grabPosition - cameraTransform.position).magnitude;
+
+			base.Grab (grabPosition);
 
 			if (interactionOnGrab)
 			{
@@ -178,12 +183,13 @@ namespace AC
 			}
 			else if (!isChargingThrow)
 			{
-				Vector3 deltaPosition = transform.position - lastPosition;
-				_rigidbody.AddForce (deltaPosition * Time.deltaTime * 100000f);
+				_rigidbody.AddForce (deltaMovement * Time.deltaTime / Time.fixedDeltaTime * 10f);
 			}
 
 			_rigidbody.useGravity = true;
 			isHeld = false;
+
+			KickStarter.eventManager.Call_OnDropMoveable (this);
 		}
 
 
@@ -200,6 +206,7 @@ namespace AC
 		}
 
 
+		private Vector3 fixedJointOffset;
 		private void SetRotationMode (bool on)
 		{
 			_rigidbody.velocity = Vector3.zero;
@@ -215,6 +222,12 @@ namespace AC
 				else
 				{
 					KickStarter.playerInput.forceGameplayCursor = ForceGameplayCursor.None;
+
+					if (!KickStarter.playerInput.GetInGameCursorState ())
+					{
+						fixedJointOffset = GetWorldMousePosition () - fixedJoint.transform.position;
+						deltaMovement = Vector3.zero;
+					}
 				}
 			}
 
@@ -225,12 +238,38 @@ namespace AC
 		/**
 		 * <summary>Applies a drag force on the object, based on the movement of the cursor.</summary>
 		 * <param name = "force">The force vector to apply</param>
-		 * <param name = "mousePos">The position of the mouse</param>
+		 * <param name = "_screenMousePosition">The position of the mouse</param>
 		 * <param name = "_distanceToCamera">The distance between the object's centre and the camera</param>
 		 */
-		public override void ApplyDragForce (Vector3 force, Vector3 mousePos, float _distanceToCamera)
+		public override void ApplyDragForce (Vector3 force, Vector3 _screenMousePosition, float _distanceToCamera)
 		{
 			distanceToCamera = _distanceToCamera;
+
+			if (inRotationMode)
+			{
+				// Scale force
+				force *= speedFactor * _rigidbody.drag * distanceToCamera * Time.deltaTime;
+				
+				// Limit magnitude
+				if (force.magnitude > maxSpeed)
+				{
+					force *= maxSpeed / force.magnitude;
+				}
+
+				Vector3 newRot = Vector3.Cross (force, cameraTransform.forward);
+				newRot /= Mathf.Sqrt ((grabPoint.position - transform.position).magnitude) * 2.4f * rotationFactor;
+				_rigidbody.AddTorque (newRot);
+			}
+			else
+			{
+				UpdateFixedJoint ();
+			}
+		}
+
+
+		private void Update ()
+		{
+			if (!isHeld) return;
 
 			if (allowThrow)
 			{
@@ -255,7 +294,7 @@ namespace AC
 					SetRotationMode (false);
 					return;
 				}
-			
+
 				if (KickStarter.playerInput.InputGetButtonDown ("RotateMoveableToggle"))
 				{
 					SetRotationMode (!inRotationMode);
@@ -266,35 +305,34 @@ namespace AC
 				}
 			}
 
-			// Scale force
-			force *= speedFactor * _rigidbody.drag * distanceToCamera * Time.deltaTime;
-			
-			// Limit magnitude
-			if (force.magnitude > maxSpeed)
-			{
-				force *= maxSpeed / force.magnitude;
-			}
-
-			lastPosition = transform.position;
-
-			if (inRotationMode)
-			{
-				Vector3 newRot = Vector3.Cross (force, cameraTransform.forward);
-				newRot /= Mathf.Sqrt ((grabPoint.position - transform.position).magnitude) * 2.4f * rotationFactor;
-				_rigidbody.AddTorque (newRot);
-			}
-			else
-			{
-				mousePos.z = originalDistanceToCamera - (throwCharge * pullbackDistance);
-				Vector3 worldPos = Camera.main.ScreenToWorldPoint (mousePos);
-
-				fixedJoint.transform.position = worldPos;
-				fixedJoint.connectedBody = _rigidbody;
-			}
-
 			if (allowZooming)
 			{
 				UpdateZoom ();
+			}
+		}
+
+
+		private void LateUpdate ()
+		{
+			if (!isHeld || inRotationMode) return;
+
+			worldMousePosition = GetWorldMousePosition ();
+		
+			Vector3 deltaPositionRaw = (worldMousePosition - fixedJointOffset - fixedJoint.transform.position) * 100f;
+			deltaMovement = Vector3.Lerp (deltaMovement, deltaPositionRaw, Time.deltaTime * 2f);
+		}
+
+
+		private void UpdateFixedJoint ()
+		{
+			if (fixedJoint)
+			{
+				fixedJoint.transform.position = fixedJointLerp.Update (fixedJoint.transform.position, worldMousePosition - fixedJointOffset, 10f);
+
+				if (!inRotationMode && fixedJoint.connectedBody != _rigidbody)
+				{
+					fixedJoint.connectedBody = _rigidbody;
+				}
 			}
 		}
 
@@ -366,6 +404,31 @@ namespace AC
 				Destroy (fixedJoint.gameObject);
 				fixedJoint = null;
 			}
+		}
+
+
+		private Vector3 GetWorldMousePosition ()
+		{
+			Vector3 screenMousePosition = KickStarter.playerInput.GetMousePosition ();
+			float alignedDistance = GetAlignedDistance (screenMousePosition);
+
+			screenMousePosition.z = alignedDistance - (throwCharge * pullbackDistance);
+
+			Vector3 pos = Camera.main.ScreenToWorldPoint (screenMousePosition);
+			pos += Vector3.up * initialLift;
+
+			return pos;
+		}
+
+
+		private float GetAlignedDistance (Vector3 screenMousePosition)
+		{
+			screenMousePosition.z = 1f;
+			Vector3 tempWorldMousePosition = Camera.main.ScreenToWorldPoint (screenMousePosition);
+
+			float angle = Vector3.Angle (Camera.main.transform.forward, tempWorldMousePosition - Camera.main.transform.position);
+
+			return originalDistanceToCamera * Mathf.Cos (angle * Mathf.Deg2Rad);
 		}
 
 	}

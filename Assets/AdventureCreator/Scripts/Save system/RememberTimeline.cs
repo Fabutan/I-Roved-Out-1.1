@@ -42,6 +42,7 @@ namespace AC
 		{
 			TimelineData timelineData = new TimelineData ();
 			timelineData.objectID = constantID;
+			timelineData.savePrevented = savePrevented;
 
 			#if UNITY_2017_1_OR_NEWER
 			PlayableDirector director = GetComponent <PlayableDirector>();
@@ -64,6 +65,7 @@ namespace AC
 		{
 			TimelineData data = Serializer.LoadScriptData <TimelineData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			#if UNITY_2017_1_OR_NEWER
 			PlayableDirector director = GetComponent <PlayableDirector>();

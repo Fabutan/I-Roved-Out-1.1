@@ -37,6 +37,13 @@ namespace AC
 		public int relativeGameObjectID = 0;
 		public int relativeGameObjectParameterID = -1;
 
+		public int relativeVectorParameterID = -1;
+		public Vector3 relativeVector = Vector3.zero;
+
+		public int vectorVarParameterID = -1;
+		public int vectorVarID;
+		public VariableLocation variableLocation = VariableLocation.Global;
+
 		public InvAction invAction;
 		public PositionRelativeTo positionRelativeTo = PositionRelativeTo.Nothing;
 		private GameObject _gameObject;
@@ -70,6 +77,9 @@ namespace AC
 			{
 				_gameObject = AssignFile (parameters, parameterID, constantID, gameObject);
 			}
+
+			relativeVector = AssignVector3 (parameters, relativeVectorParameterID, relativeVector);
+			vectorVarID = AssignVariableID (parameters, vectorVarParameterID, vectorVarID);
 		}
 		
 		
@@ -87,8 +97,17 @@ namespace AC
 				GameObject oldOb = AssignFile (constantID, _gameObject);
 				if (_gameObject.activeInHierarchy || (oldOb != null && oldOb.activeInHierarchy))
 				{
-					ACDebug.Log (gameObject.name + " won't be instantiated, as it is already present in the scene.");
-					return 0f;
+					RememberTransform rememberTransform = oldOb.GetComponent <RememberTransform>();
+
+					if (rememberTransform != null && rememberTransform.saveScenePresence && rememberTransform.linkedPrefabID != 0)
+					{
+						// Bypass this check
+					}
+					else
+					{
+						ACDebug.LogWarning (gameObject.name + " won't be instantiated, as it is already present in the scene.");
+						return 0f;
+					}
 				}
 
 				Vector3 position = _gameObject.transform.position;
@@ -124,10 +143,31 @@ namespace AC
 							rotation.eulerAngles += relativeTransform.rotation.eulerAngles;
 						}
 					}
+					else if (positionRelativeTo == PositionRelativeTo.EnteredValue)
+					{
+						position += relativeVector;
+					}
+					else if (positionRelativeTo == PositionRelativeTo.VectorVariable)
+					{
+						if (variableLocation == VariableLocation.Global)
+						{
+							position += GlobalVariables.GetVector3Value (vectorVarID);
+						}
+						else if (variableLocation == VariableLocation.Local && !isAssetFile)
+						{
+							position += LocalVariables.GetVector3Value (vectorVarID);
+						}
+					}
 				}
 
 				GameObject newObject = (GameObject) Instantiate (_gameObject, position, rotation);
 				newObject.name = _gameObject.name;
+
+				if (newObject.GetComponent <RememberTransform>())
+				{
+					newObject.GetComponent <RememberTransform>().OnSpawn ();
+				}
+
 				KickStarter.stateHandler.GatherObjects ();
 			}
 			else if (invAction == InvAction.Remove)
@@ -208,6 +248,42 @@ namespace AC
 						
 						relativeGameObjectID = FieldToID (relativeGameObject, relativeGameObjectID);
 						relativeGameObject = IDToField (relativeGameObject, relativeGameObjectID, false);
+					}
+				}
+				else if (positionRelativeTo == PositionRelativeTo.EnteredValue)
+				{
+					relativeVectorParameterID = Action.ChooseParameterGUI ("Value:", parameters, relativeVectorParameterID, ParameterType.Vector3);
+					if (relativeVectorParameterID < 0)
+					{
+						relativeVector = EditorGUILayout.Vector3Field ("Value:", relativeVector);
+					}
+				}
+				else if (positionRelativeTo == PositionRelativeTo.VectorVariable)
+				{
+					if (isAssetFile)
+					{
+						variableLocation = VariableLocation.Global;
+					}
+					else
+					{
+						variableLocation = (VariableLocation) EditorGUILayout.EnumPopup ("Source:", variableLocation);
+					}
+
+					if (variableLocation == VariableLocation.Global)
+					{
+						vectorVarParameterID = Action.ChooseParameterGUI ("Vector3 variable:", parameters, vectorVarParameterID, ParameterType.GlobalVariable);
+						if (vectorVarParameterID < 0)
+						{
+							vectorVarID = AdvGame.GlobalVariableGUI ("Vector3 variable:", vectorVarID, VariableType.Vector3);
+						}
+					}
+					else if (variableLocation == VariableLocation.Local)
+					{
+						vectorVarParameterID = Action.ChooseParameterGUI ("Vector3 variable:", parameters, vectorVarParameterID, ParameterType.LocalVariable);
+						if (vectorVarParameterID < 0)
+						{
+							vectorVarID = AdvGame.LocalVariableGUI ("Vector3 variable:", vectorVarID, VariableType.Vector3);
+						}
 					}
 				}
 			}

@@ -35,6 +35,7 @@ namespace AC
 		{
 			ConversationData conversationData = new ConversationData();
 			conversationData.objectID = constantID;
+			conversationData.savePrevented = savePrevented;
 
 			if (GetComponent <Conversation>())
 			{
@@ -76,6 +77,7 @@ namespace AC
 		{
 			ConversationData data = Serializer.LoadScriptData <ConversationData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <Conversation>())
 			{

@@ -1062,7 +1062,7 @@ namespace AC
 				{
 					for (int i=0; i<invButtons.Count; i++)
 					{
-						if (!invButtons[0].isDisabled && invButtons[0].invID == invItem.id)
+						if (!invButtons[i].isDisabled && invButtons[i].invID == invItem.id)
 						{
 							return true;
 						}

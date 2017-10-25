@@ -110,6 +110,7 @@ namespace AC
 				PrepareSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
 				UpdateSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
 			}
+			UpdateScale ();
 			GetAnimEngine ().PlayIdle ();
 		}
 

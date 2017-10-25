@@ -42,6 +42,8 @@ namespace AC
 
 		public Object unityObjectValue;
 
+		public Vector3 vector3Value;
+
 		public SetParamMethod setParamMethod = SetParamMethod.EnteredHere;
 		public int globalVariableID;
 		
@@ -61,7 +63,7 @@ namespace AC
 		
 		
 		override public void AssignValues (List<ActionParameter> parameters)
-		{
+		{	
 			if (!changeOwn)
 			{
 				if (actionListSource == ActionListSource.InScene)
@@ -149,6 +151,10 @@ namespace AC
 					{
 						_parameter.floatValue = gVar.floatVal;
 					}
+					else if (_parameter.parameterType == ParameterType.Vector3)
+					{
+						_parameter.vector3Value = gVar.vector3Val;
+					}
 					else if (_parameter.parameterType == ParameterType.String)
 					{
 						_parameter.stringValue = GlobalVariables.GetStringValue (globalVariableID, true, Options.GetLanguage ());
@@ -181,6 +187,10 @@ namespace AC
 				else if (_parameter.parameterType == ParameterType.UnityObject)
 				{
 					_parameter.objectValue = unityObjectValue;
+				}
+				else if (_parameter.parameterType == ParameterType.Vector3)
+				{
+					_parameter.vector3Value = vector3Value;
 				}
 			}
 
@@ -349,16 +359,26 @@ namespace AC
 						intValue = ShowVarSelectorGUI (KickStarter.localVariables.localVars, intValue);
 					}
 				}
+				else if (_parameter.parameterType == ParameterType.Vector3)
+				{
+					vector3Value = EditorGUILayout.Vector3Field ("Set as:", vector3Value);
+				}
 			}
 			else
 			{
 				if (AdvGame.GetReferences () != null && AdvGame.GetReferences ().variablesManager != null && AdvGame.GetReferences ().variablesManager.vars != null && AdvGame.GetReferences ().variablesManager.vars.Count > 0)
 				{
-					globalVariableID = ShowVarSelectorGUI (AdvGame.GetReferences ().variablesManager.vars, globalVariableID);
-
-					if (_parameter.parameterType == ParameterType.GameObject || _parameter.parameterType == ParameterType.GlobalVariable || _parameter.parameterType == ParameterType.InventoryItem || _parameter.parameterType == ParameterType.LocalVariable || _parameter.parameterType == ParameterType.UnityObject)
+					if (_parameter.parameterType == ParameterType.Vector3)
+					{
+						globalVariableID = AdvGame.GlobalVariableGUI ("Vector3 variable:", globalVariableID, VariableType.Vector3);
+					}
+					else if (_parameter.parameterType == ParameterType.GameObject || _parameter.parameterType == ParameterType.GlobalVariable || _parameter.parameterType == ParameterType.InventoryItem || _parameter.parameterType == ParameterType.LocalVariable || _parameter.parameterType == ParameterType.UnityObject)
 					{
 						EditorGUILayout.HelpBox ("Parameters of type '" + _parameter.parameterType + "' cannot have values transferred from Global Variables.", MessageType.Warning);
+					}
+					else
+					{
+						globalVariableID = AdvGame.GlobalVariableGUI ("Variable:", globalVariableID);
 					}
 				}
 				else

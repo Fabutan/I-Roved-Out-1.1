@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  *
  *	Adventure Creator
  *	by Chris Burton, 2013-2016
@@ -45,6 +46,7 @@ namespace AC
 			popUps = null;
 			textValLineID = -1;
 			popUpsLineID = -1;
+			vector3Val = Vector3.zero;
 
 			// Update id based on array
 			foreach (int _id in idArray)
@@ -73,6 +75,7 @@ namespace AC
 			textValLineID = -1;
 			popUpsLineID = -1;
 			label = "";
+			vector3Val = Vector3.zero;
 		}
 
 
@@ -96,6 +99,7 @@ namespace AC
 			limitToCategories = assetVar.limitToCategories;
 			textValLineID = assetVar.textValLineID;
 			popUpsLineID = assetVar.popUpsLineID;
+			vector3Val = assetVar.vector3Val;
 		}
 
 
@@ -109,6 +113,7 @@ namespace AC
 			floatVal = invVar.floatVal;
 			textVal = invVar.textVal;
 			textValLineID = invVar.textValLineID;
+			vector3Val = invVar.vector3Val;
 		}
 
 
@@ -158,6 +163,10 @@ namespace AC
 					return KickStarter.runtimeLanguages.GetTranslation (textVal, textValLineID, languageNumber);
 				}
 				return textVal;
+			}
+			else if (type == VariableType.Vector3)
+			{
+				return "(" + vector3Val.x.ToString () + ", " + vector3Val.y.ToString () + ", " + vector3Val.z.ToString () + ")";
 			}
 			return "";
 		}

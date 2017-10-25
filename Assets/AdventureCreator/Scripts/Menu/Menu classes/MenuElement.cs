@@ -126,9 +126,10 @@ namespace AC
 		/**
 		 * <summary>Creates and returns a new MenuElement that has the same values as itself.</summary>
 		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
+		 * <param name = "ignoreUnityUI">If True, variables associated with Unity UI will not be transferred</param>
 		 * <returns>A new MenuElement with the same values as itself</returns>
 		 */
-		public virtual MenuElement DuplicateSelf (bool fromEditor)
+		public virtual MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			return null;
 		}
@@ -212,7 +213,15 @@ namespace AC
 				}
 
 				EventTrigger.Entry entry = new EventTrigger.Entry ();
-				entry.eventID = EventTriggerType.PointerDown;
+
+				if (uiPointerState == UIPointerState.PointerDown)
+				{
+					entry.eventID = EventTriggerType.PointerDown;
+				}
+				else if (uiPointerState == UIPointerState.PointerEnter)
+				{
+					entry.eventID = EventTriggerType.PointerEnter;
+				}
 
 				entry.callback.AddListener ((eventData) => {
 					ProcessClickUI (_menu, 0, KickStarter.playerInput.GetMouseState ());
@@ -1047,9 +1056,13 @@ namespace AC
 			if (canvas != null)
 			{
 				T field = Serializer.GetGameObjectComponent <T> (linkedUiID, canvas.gameObject);
+
+				if (field == null)
+				{
+					ACDebug.LogWarning ("Cannot find linked UI Element for " + title, canvas);
+				}
 				return field;
 			}
-			ACDebug.LogWarning ("Cannot find linked UI Element for " + title);
 			return null;
 		}
 

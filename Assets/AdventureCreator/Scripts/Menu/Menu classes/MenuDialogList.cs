@@ -54,6 +54,8 @@ namespace AC
 		public bool showIndexNumbers = false;
 		/** The method which this element (or slots within it) are hidden from view when made invisible (DisableObject, ClearContent) */
 		public UIHideStyle uiHideStyle = UIHideStyle.DisableObject;
+		/** What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic) */
+		public LinkUIGraphic linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 		private int numOptions = 0;
 		private string[] labels = null;
@@ -85,28 +87,31 @@ namespace AC
 			alreadyChosenFontHighlightedColour = Color.white;
 			showIndexNumbers = false;
 			uiHideStyle = UIHideStyle.DisableObject;
+			linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 			base.Declare ();
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuCrafting that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuCrafting with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuDialogList newElement = CreateInstance <MenuDialogList>();
 			newElement.Declare ();
-			newElement.CopyDialogList (this);
+			newElement.CopyDialogList (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyDialogList (MenuDialogList _element)
+		private void CopyDialogList (MenuDialogList _element, bool ignoreUnityUI)
 		{
-			uiSlots = _element.uiSlots;
+			if (ignoreUnityUI)
+			{
+				uiSlots = null;
+			}
+			else
+			{
+				uiSlots = _element.uiSlots;
+			}
 
 			textEffects = _element.textEffects;
 			outlineSize = _element.outlineSize;
@@ -122,6 +127,7 @@ namespace AC
 			alreadyChosenFontHighlightedColour = _element.alreadyChosenFontHighlightedColour;
 			showIndexNumbers = _element.showIndexNumbers;
 			uiHideStyle = _element.uiHideStyle;
+			linkUIGraphic = _element.linkUIGraphic;
 
 			base.Copy (_element);
 		}
@@ -145,7 +151,7 @@ namespace AC
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
-				uiSlot.LinkUIElements (canvas);
+				uiSlot.LinkUIElements (canvas, linkUIGraphic);
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
@@ -257,6 +263,8 @@ namespace AC
 				{
 					uiSlots[i].LinkedUiGUI (i, source);
 				}
+
+				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
 			}
 
 			if (displayType == ConversationDisplayType.TextOnly || displayType == ConversationDisplayType.IconAndText)

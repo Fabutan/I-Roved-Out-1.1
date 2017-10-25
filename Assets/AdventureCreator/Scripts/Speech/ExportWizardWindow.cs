@@ -423,7 +423,7 @@ namespace AC
 					sb.AppendLine (string.Join (CSVReader.csvDelimiter, output[j]));
 				}
 				
-				if (Serializer.CreateSaveFile (fileName, sb.ToString ()))
+				if (Serializer.SaveFile (fileName, sb.ToString ()))
 				{
 					ACDebug.Log ((exportLines.Count-1).ToString () + " lines exported.");
 				}

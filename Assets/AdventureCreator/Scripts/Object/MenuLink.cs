@@ -10,6 +10,10 @@
  * 
  */
 
+#if !UNITY_2017_2_OR_NEWER
+#define ALLOW_LEGACY_UI
+#endif
+
 using UnityEngine;
 using System.Collections;
 
@@ -63,10 +67,12 @@ namespace AC
 			if (element && setTextLabels)
 			{
 				int languageNumber = Options.GetLanguage ();
+				#if ALLOW_LEGACY_UI
 				if (GetComponent <GUIText>())
 				{
 					GetComponent <GUIText>().text = GetLabel (languageNumber);
 				}
+				#endif
 				if (GetComponent <TextMesh>())
 				{
 					GetComponent <TextMesh>().text = GetLabel (languageNumber);

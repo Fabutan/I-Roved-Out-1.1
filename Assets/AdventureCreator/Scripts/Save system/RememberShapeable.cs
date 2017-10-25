@@ -35,7 +35,8 @@ namespace AC
 		{
 			ShapeableData shapeableData = new ShapeableData();
 			shapeableData.objectID = constantID;
-			
+			shapeableData.savePrevented = savePrevented;
+
 			if (GetComponent <Shapeable>())
 			{
 				Shapeable shapeable = GetComponent <Shapeable>();
@@ -64,6 +65,7 @@ namespace AC
 		{
 			ShapeableData data = Serializer.LoadScriptData <ShapeableData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <Shapeable>())
 			{

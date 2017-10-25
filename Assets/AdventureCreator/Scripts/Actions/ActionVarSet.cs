@@ -28,6 +28,9 @@ namespace AC
 		public SetVarMethodString setVarMethodString = SetVarMethodString.EnteredHere;
 		public SetVarMethodIntBool setVarMethodIntBool = SetVarMethodIntBool.EnteredHere;
 
+		public SetVarMethodVector setVarMethodVector = SetVarMethodVector.SetValue;
+		public enum SetVarMethodVector { SetValue, IncreaseByValue };
+
 		public int parameterID = -1;
 		public int variableID;
 		public int variableNumber;
@@ -41,6 +44,7 @@ namespace AC
 		public BoolValue boolValue;
 		public string stringValue;
 		public string formula;
+		public Vector3 vector3Value;
 
 		public VariableLocation location;
 
@@ -69,6 +73,7 @@ namespace AC
 			intValue = AssignInteger (parameters, setParameterID, intValue);
 			boolValue = AssignBoolean (parameters, setParameterID, boolValue);
 			floatValue = AssignFloat (parameters, setParameterID, floatValue);
+			vector3Value = AssignVector3 (parameters, setParameterID, vector3Value);
 			stringValue = AssignString (parameters, setParameterID, stringValue);
 			formula = AssignString (parameters, setParameterID, formula);
 			slotNumber = AssignInteger (parameters, slotNumberParameterID, slotNumber);
@@ -227,10 +232,18 @@ namespace AC
 
 				var.SetValue (_value, SetVarMethod.SetValue);
 			}
+			else if (var.type == VariableType.Vector3)
+			{
+				Vector3 newValue = vector3Value;
+				if (setVarMethodVector == SetVarMethodVector.IncreaseByValue)
+				{
+					newValue += var.vector3Val;
+				}
+
+				var.SetVector3Value (newValue);
+			}
 			else if (var.type == VariableType.PopUp)
 			{
-			//	var.SetValue (intValue);
-
 				int _value = 0;
 				
 				if (setVarMethod == SetVarMethod.Formula)
@@ -279,7 +292,7 @@ namespace AC
 							MenuInput menuInput = (MenuInput) menuElement;
 							_value = menuInput.GetContents ();
 
-							if (KickStarter.speechManager.LanguageReadsRightToLeft (Options.GetLanguage ()) && _value.Length > 0)
+							if (KickStarter.runtimeLanguages.LanguageReadsRightToLeft (Options.GetLanguage ()) && _value.Length > 0)
 							{
 								// Invert
 								char[] charArray = _value.ToCharArray ();
@@ -597,6 +610,25 @@ namespace AC
 						{
 							slotNumber = EditorGUILayout.IntField ("Slot # (optional):", slotNumber);
 						}
+					}
+				}
+				else if (vars [variableNumber].type == VariableType.Vector3)
+				{
+					setVarMethodVector = (SetVarMethodVector) EditorGUILayout.EnumPopup ("Method:", setVarMethodVector);
+
+					if (setVarMethodVector == SetVarMethodVector.IncreaseByValue)
+					{
+						label += "+=";
+					}
+					else if (setVarMethodVector == SetVarMethodVector.SetValue)
+					{
+						label += "=";
+					}
+
+					setParameterID = Action.ChooseParameterGUI (label, parameters, setParameterID, ParameterType.Vector3);
+					if (setParameterID < 0)
+					{
+						vector3Value = EditorGUILayout.Vector3Field (label, vector3Value);
 					}
 				}
 

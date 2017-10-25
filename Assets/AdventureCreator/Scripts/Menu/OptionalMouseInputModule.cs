@@ -58,6 +58,8 @@ namespace AC
 		}
 
 
+		#if !UNITY_5_0
+
 		public override void Process ()
 		{
 			bool usedEvent = SendUpdateEventToSelectedObject ();
@@ -80,6 +82,8 @@ namespace AC
 				ProcessMouseEvent ();
 			}
 		}
+
+		#endif
 
 	}
 

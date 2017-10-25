@@ -176,6 +176,22 @@ namespace AC
 			CreateMenu (api);
 			return (value);
 		}
+
+
+		public static Vector3 Vector3Field (string label, Vector3 value, string api = "")
+		{
+			value = EditorGUILayout.Vector3Field (label, value);
+			CreateMenu (api);
+			return (value);
+		}
+
+
+		public static Vector3 Vector2Field (string label, Vector3 value, GUILayoutOption layoutOption, string api = "")
+		{
+			value = EditorGUILayout.Vector3Field (label, value, layoutOption);
+			CreateMenu (api);
+			return (value);
+		}
 		
 
 		public static AnimationCurve CurveField (string label, AnimationCurve value, string api = "")

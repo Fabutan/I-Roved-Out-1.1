@@ -24,8 +24,11 @@ namespace AC
 
 			if (_target.cameraToAlignTo)
 			{
+				_target.alignType = (AlignType) EditorGUILayout.EnumPopup ("Align type:", _target.alignType);
+				_target.lockDistance = EditorGUILayout.BeginToggleGroup ("Lock distance?", _target.lockDistance);
 				_target.distanceToCamera = EditorGUILayout.FloatField ("Distance from camera:", _target.distanceToCamera);
-				_target.lockScale = EditorGUILayout.Toggle ("Lock scale?", _target.lockScale);
+				_target.lockScale = EditorGUILayout.Toggle ("Lock perceived scale?", _target.lockScale);
+				EditorGUILayout.EndToggleGroup ();
 
 				if (GUILayout.Button ("Centre to camera"))
 				{

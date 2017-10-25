@@ -68,6 +68,8 @@ namespace AC
 		public bool autoHandle = true;
 		/** The method which this element (or slots within it) are hidden from view when made invisible (DisableObject, ClearContent) */
 		public UIHideStyle uiHideStyle = UIHideStyle.DisableObject;
+		/** What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic) */
+		public LinkUIGraphic linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 		private string[] labels = null;
 		private bool newSaveSlot = false;
@@ -110,28 +112,31 @@ namespace AC
 
 			parameterID = -1;
 			uiHideStyle = UIHideStyle.DisableObject;
+			linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 			base.Declare ();
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuSavesList that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuSavesList with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuSavesList newElement = CreateInstance <MenuSavesList>();
 			newElement.Declare ();
-			newElement.CopySavesList (this);
+			newElement.CopySavesList (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopySavesList (MenuSavesList _element)
+		private void CopySavesList (MenuSavesList _element, bool ignoreUnityUI)
 		{
-			uiSlots = _element.uiSlots;
+			if (ignoreUnityUI)
+			{
+				uiSlots = null;
+			}
+			else
+			{
+				uiSlots = _element.uiSlots;
+			}
 
 			newSaveText = _element.newSaveText;
 			textEffects = _element.textEffects;
@@ -152,6 +157,7 @@ namespace AC
 			showNewSaveOption = _element.showNewSaveOption;
 			autoHandle = _element.autoHandle;
 			uiHideStyle = _element.uiHideStyle;
+			linkUIGraphic = _element.linkUIGraphic;
 			
 			base.Copy (_element);
 		}
@@ -166,7 +172,7 @@ namespace AC
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
-				uiSlot.LinkUIElements (canvas);
+				uiSlot.LinkUIElements (canvas, linkUIGraphic);
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
@@ -257,7 +263,7 @@ namespace AC
 			{
 				autoHandle = true;
 				#if UNITY_STANDALONE
-				importProductName = CustomGUILayout.TextField ("Import project name:", importProductName, apiPrefix + ".importProductName");
+				importProductName = CustomGUILayout.TextField ("Import product name:", importProductName, apiPrefix + ".importProductName");
 				importSaveFilename = CustomGUILayout.TextField ("Import save filename:", importSaveFilename, apiPrefix + ".importSaveFilename");
 				ActionListGUI ("ActionList after import:", menu.title, "After_Import");
 				checkImportBool = CustomGUILayout.Toggle ("Require Bool to be true?", checkImportBool, apiPrefix + ".checkImportBool");
@@ -323,6 +329,8 @@ namespace AC
 				{
 					uiSlots[i].LinkedUiGUI (i, source);
 				}
+
+				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
 			}
 				
 			EditorGUILayout.EndVertical ();
@@ -616,56 +624,137 @@ namespace AC
 
 			base.ProcessClick (_menu, _slot, _mouseState);
 
-			bool isSuccess = true;
-			if (saveListType == AC_SaveListType.Save && autoHandle)
-			{
-				if (newSaveSlot && _slot == (numSlots - 1))
-				{
-					isSuccess = SaveSystem.SaveNewGame ();
+			eventMenu = _menu;
+			eventSlot = _slot;
+			ClearAllEvents ();
 
-					if (KickStarter.settingsManager.orderSavesByUpdateTime)
+			if (saveListType == AC_SaveListType.Save)
+			{
+				if (autoHandle)
+				{
+					EventManager.OnFinishSaving += OnCompleteSave;
+					EventManager.OnFailSaving += OnFailSave;
+
+					if (newSaveSlot && _slot == (numSlots - 1))
 					{
-						offset = 0;
+						SaveSystem.SaveNewGame ();
+
+						if (KickStarter.settingsManager.orderSavesByUpdateTime)
+						{
+							offset = 0;
+						}
+						else
+						{
+							Shift (AC_ShiftInventory.ShiftNext, 1);
+						}
 					}
 					else
 					{
-						Shift (AC_ShiftInventory.ShiftNext, 1);
+						SaveSystem.SaveGame (_slot + offset, optionToShow, fixedOption);
 					}
 				}
 				else
 				{
-					isSuccess = SaveSystem.SaveGame (_slot + offset, optionToShow, fixedOption);
+					RunActionList (_slot);
 				}
 			}
-			else if (saveListType == AC_SaveListType.Load && autoHandle)
-			{
-				isSuccess = SaveSystem.LoadGame (_slot + offset, optionToShow, fixedOption);
-			}
-			else if (saveListType == AC_SaveListType.Import)
-			{
-				isSuccess = SaveSystem.ImportGame (_slot + offset, optionToShow, fixedOption);
-			}
-
-			if (isSuccess)
+			else if (saveListType == AC_SaveListType.Load)
 			{
 				if (autoHandle)
 				{
-					if (saveListType == AC_SaveListType.Save)
-					{
-						_menu.TurnOff (true);
-					}
-					else if (saveListType == AC_SaveListType.Load)
-					{
-						_menu.TurnOff (false);
-					}
-				}
+					EventManager.OnFinishLoading += OnCompleteLoad;
+					EventManager.OnFailLoading += OnFailLoad;
 
-				RunActionList (_slot);
+					SaveSystem.LoadGame (_slot + offset, optionToShow, fixedOption);
+				}
+				else
+				{
+					RunActionList (_slot);
+				}
 			}
-			else if (!autoHandle && saveListType != AC_SaveListType.Import)
+			else if (saveListType == AC_SaveListType.Import)
 			{
-				RunActionList (_slot);
+				EventManager.OnFinishImporting += OnCompleteImport;
+				EventManager.OnFailImporting += OnFailImport;
+
+				SaveSystem.ImportGame (_slot + offset, optionToShow, fixedOption);
 			}
+		}
+
+		private Menu eventMenu;
+		private int eventSlot;
+
+		private void OnCompleteSave ()
+		{
+			ClearAllEvents ();
+
+			if (autoHandle)
+			{
+				eventMenu.TurnOff (true);
+			}
+
+			RunActionList (eventSlot);
+		}
+
+
+		private void OnCompleteLoad ()
+		{
+			ClearAllEvents ();
+			if (autoHandle)
+			{
+				eventMenu.TurnOff (false);
+			}
+
+			RunActionList (eventSlot);
+		}
+
+
+		private void OnCompleteImport ()
+		{
+			ClearAllEvents ();
+
+			RunActionList (eventSlot);
+		}
+
+
+		private void OnFailSave ()
+		{
+			ClearAllEvents ();
+
+			if (!autoHandle)
+			{
+				RunActionList (eventSlot);
+			}
+		}
+
+
+		private void OnFailLoad ()
+		{
+			ClearAllEvents ();
+
+			if (!autoHandle)
+			{
+				RunActionList (eventSlot);
+			}
+		}
+
+
+		private void OnFailImport ()
+		{
+			ClearAllEvents ();
+		}
+
+
+		private void ClearAllEvents ()
+		{
+			EventManager.OnFinishSaving -= OnCompleteSave;
+			EventManager.OnFailSaving -= OnFailSave;
+
+			EventManager.OnFinishLoading -= OnCompleteLoad;
+			EventManager.OnFailLoading -= OnFailLoad;
+
+			EventManager.OnFinishImporting -= OnCompleteImport;
+			EventManager.OnFailImporting -= OnFailImport;
 		}
 
 

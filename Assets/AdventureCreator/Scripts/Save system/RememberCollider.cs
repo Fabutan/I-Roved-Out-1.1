@@ -62,6 +62,7 @@ namespace AC
 			ColliderData colliderData = new ColliderData ();
 
 			colliderData.objectID = constantID;
+			colliderData.savePrevented = savePrevented;
 			colliderData.isOn = false;
 
 			if (GetComponent <Collider>())
@@ -89,6 +90,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <Collider>())
 			{

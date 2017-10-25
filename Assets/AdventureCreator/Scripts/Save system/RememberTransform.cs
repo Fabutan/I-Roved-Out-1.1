@@ -30,6 +30,40 @@ namespace AC
 		public bool saveParent;
 		/** True if the GameObject's change in scene presence should be recorded */
 		public bool saveScenePresence;
+		/** If non-zero, the Constant ID number of the prefab to re-spawn if not present in the scene, but saveScenePresence = true.  If zero, the prefab will be assumed to have the same ID as this. */
+		public int linkedPrefabID;
+
+		private bool savePrevented = false;
+
+
+		/** If True, saving is prevented */
+		public bool SavePrevented
+		{
+			get
+			{
+				return savePrevented;
+			}
+			set
+			{
+				savePrevented = value;
+			}
+		}
+
+
+		public void OnSpawn ()
+		{
+			if (linkedPrefabID != 0)
+			{
+				int newID = GetInstanceID ();
+				ConstantID[] idScripts = GetComponents <ConstantID>();
+				foreach (ConstantID idScript in idScripts)
+				{
+					idScript.constantID = newID;
+				}
+
+				ACDebug.Log ("Spawned new instance of " + gameObject.name + ", given new ID: " + newID, this);
+			}
+		}
 
 
 		/**
@@ -41,7 +75,8 @@ namespace AC
 			TransformData transformData = new TransformData();
 			
 			transformData.objectID = constantID;
-			
+			transformData.savePrevented = savePrevented;
+
 			transformData.LocX = transform.position.x;
 			transformData.LocY = transform.position.y;
 			transformData.LocZ = transform.position.z;
@@ -55,6 +90,7 @@ namespace AC
 			transformData.ScaleZ = transform.localScale.z;
 
 			transformData.bringBack = saveScenePresence;
+			transformData.linkedPrefabID = (saveScenePresence) ? linkedPrefabID : 0;
 
 			if (saveParent)
 			{
@@ -131,6 +167,7 @@ namespace AC
 		public void LoadTransformData (TransformData data)
 		{
 			if (data == null) return;
+			savePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (data.parentIsPlayer)
 			{
@@ -191,6 +228,8 @@ namespace AC
 
 		/** The ConstantID number of the object being saved */
 		public int objectID;
+		/** If True, saving is prevented */
+		public bool savePrevented;
 
 		/** The X position */
 		public float LocX;
@@ -215,6 +254,8 @@ namespace AC
 
 		/** True if the GameObject should be re-instantiated if removed from the scene */
 		public bool bringBack;
+		/** The Constant ID number of the Resources prefab this is linked to */
+		public int linkedPrefabID;
 
 		/** The Constant ID number of the GameObject's parent */
 		public int parentID;

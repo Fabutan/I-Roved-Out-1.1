@@ -20,6 +20,7 @@ namespace AC
 				_target.playerMovementReductionFactor = EditorGUILayout.Slider ("Player movement reduction:", _target.playerMovementReductionFactor, 0f, 1f);
 				_target.invertInput = EditorGUILayout.Toggle ("Invert input?", _target.invertInput);
 				_target.breakForce = EditorGUILayout.FloatField ("Break force:", _target.breakForce);
+				_target.initialLift = EditorGUILayout.Slider ("Initial lift:", _target.initialLift, 0f, 1f);
 
 				EditorGUILayout.BeginHorizontal ();
 				_target.interactionOnGrab = (Interaction) EditorGUILayout.ObjectField ("Interaction on grab:", _target.interactionOnGrab, typeof (Interaction), true);
@@ -83,19 +84,19 @@ namespace AC
 			if (_target.allowRotation)
 			{
 				result += "\n";
-				result += "- RotateMovable";
+				result += "- RotateMoveable (Button)";
 				result += "\n";
-				result += "- RotateMoveableToggle";
+				result += "- RotateMoveableToggle (Button";
 			}
 			if (_target.allowZooming)
 			{
 				result += "\n";
-				result += "- ZoomMoveable";
+				result += "- ZoomMoveable (Axis)";
 			}
 			if (_target.allowThrow)
 			{
 				result += "\n";
-				result += "- ThrowMoveable";
+				result += "- ThrowMoveable (Button)";
 			}
 
 			if (result != "")

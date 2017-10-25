@@ -1947,7 +1947,6 @@ namespace AC
 		private void LetGo (bool unlockFPSCamera)
 		{
 			dragObject.LetGo ();
-			KickStarter.eventManager.Call_OnDropMoveable (dragObject);
 			dragObject = null;
 		}
 		
@@ -1957,7 +1956,6 @@ namespace AC
 			if (dragObject)
 			{
 				dragObject.LetGo ();
-				KickStarter.eventManager.Call_OnDropMoveable (dragObject);
 				dragObject = null;
 			}
 			else if (canDragMoveable)
@@ -2327,9 +2325,16 @@ namespace AC
 		}
 
 
+		private LerpUtils.Vector2Lerp freeAimLerp = new LerpUtils.Vector2Lerp ();
 		private Vector2 GetSmoothFreeAim (Vector2 targetFreeAim)
 		{
-			return Vector2.Lerp (freeAim, targetFreeAim, Time.deltaTime * KickStarter.settingsManager.freeAimSmoothSpeed);
+			float factor = 1f;
+			if (dragObject != null)
+			{
+				factor = 1f - dragObject.playerMovementReductionFactor;
+			}
+
+			return freeAimLerp.Update (freeAim, targetFreeAim * factor, KickStarter.settingsManager.freeAimSmoothSpeed);
 		}
 
 

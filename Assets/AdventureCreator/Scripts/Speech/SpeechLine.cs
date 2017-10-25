@@ -564,6 +564,7 @@ namespace AC
 			int i = languageIndex;
 			
 			string result = "<table>\n";
+			result += "<tr><td><b>Line ID:</b></td><td>" + lineID + "</td></tr>\n";
 			result += "<tr><td width=150><b>Character:</b></td><td>" + GetSpeakerName () + "</td></tr>\n";
 
 			string lineText = text;

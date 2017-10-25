@@ -642,7 +642,7 @@ namespace AC
 				return AdvGame.CombineLanguageString (itemName, prefix2, languageNumber);
 			}
 
-			if (KickStarter.speechManager.LanguageReadsRightToLeft (languageNumber))
+			if (KickStarter.runtimeLanguages.LanguageReadsRightToLeft (languageNumber))
 			{
 				return (prefix2 + " " + itemName + " " + prefix1);
 			}

@@ -274,6 +274,7 @@ namespace AC
 							globalVar.val = presetValue.val;
 							globalVar.floatVal = presetValue.floatVal;
 							globalVar.textVal = presetValue.textVal;
+							globalVar.vector3Val = presetValue.vector3Val;
 						}
 					}
 				}

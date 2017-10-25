@@ -65,26 +65,28 @@ namespace AC
 		}
 		
 
-		/**
-		 * <summary>Creates and returns a new MenuGraphic that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuGraphic with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuGraphic newElement = CreateInstance <MenuGraphic>();
 			newElement.Declare ();
-			newElement.CopyGraphic (this);
+			newElement.CopyGraphic (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyGraphic (MenuGraphic _element)
+		private void CopyGraphic (MenuGraphic _element, bool ignoreUnityUI)
 		{
-			uiImage = _element.uiImage;
+			if (ignoreUnityUI)
+			{
+				uiImage = null;
+			}
+			else
+			{
+				uiImage = _element.uiImage;
+			}
 			uiRawImage = _element.uiRawImage;
 			uiImageType = _element.uiImageType;
-			
+
 			graphicType = _element.graphicType;
 			graphic = new CursorIconBase ();
 			graphic.Copy (_element.graphic);

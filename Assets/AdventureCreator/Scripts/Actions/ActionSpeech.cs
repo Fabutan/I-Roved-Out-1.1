@@ -195,36 +195,11 @@ namespace AC
 					}
 					else
 					{
-						if ((!isBackground && KickStarter.speechManager.displayForever) || 
-							(!isBackground && speech.GetSpeakingCharacter () == null && KickStarter.speechManager.displayNarrationForever) ||
-							speech.IsPaused ())
-						{
-							return defaultPauseTime;
-						}
-						
-						if (KickStarter.speechManager.separateLines)
-						{
-							return defaultPauseTime;
-						}
-						
-					/*	if (!speech.HasPausing ())
-						{
-							// Ignore this if we're using [wait] tokens
-							if (Time.time < endTime)
-							{
-								return defaultPauseTime;
-							}
-							else
-							{
-								Debug.Log ("END");
-								isRunning = false;
-								return 0f;
-							}
-						}*/
+						return defaultPauseTime;
 					}
 				}
 			}
-			
+
 			return 0f;
 		}
 		

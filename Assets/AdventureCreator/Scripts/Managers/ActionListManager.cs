@@ -329,6 +329,11 @@ namespace AC
 			GUI.skin = testSkin;
 			
 			GUILayout.Label ("Current game state: " + KickStarter.stateHandler.gameState.ToString ());
+
+			if (KickStarter.mainCamera != null && KickStarter.mainCamera.attachedCamera != null && KickStarter.mainCamera.IsEnabled ())
+			{
+				GUILayout.Label ("Current camera: " + KickStarter.mainCamera.attachedCamera.name);
+			}
 			
 			if (KickStarter.stateHandler.gameState == GameState.DialogOptions && KickStarter.playerInput.activeConversation != null)
 			{

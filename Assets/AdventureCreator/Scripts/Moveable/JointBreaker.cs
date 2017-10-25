@@ -25,9 +25,18 @@ namespace AC
 	public class JointBreaker : MonoBehaviour
 	{
 
+		private FixedJoint fixedJoint;
+
+
+		private void Awake ()
+		{
+			fixedJoint = GetComponent <FixedJoint>();
+		}
+
+
 		private void OnJointBreak (float breakForce)
 		{
-			GetComponent <FixedJoint>().connectedBody.GetComponent <Moveable_PickUp>().UnsetFixedJoint ();
+			fixedJoint.connectedBody.GetComponent <Moveable_PickUp>().UnsetFixedJoint ();
 			Destroy (this.gameObject);
 		}
 

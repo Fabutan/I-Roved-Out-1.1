@@ -95,24 +95,27 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuCycle that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuCycle with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuCycle newElement = CreateInstance <MenuCycle>();
 			newElement.Declare ();
-			newElement.CopyCycle (this);
+			newElement.CopyCycle (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyCycle (MenuCycle _element)
+		private void CopyCycle (MenuCycle _element, bool ignoreUnityUI)
 		{
-			uiButton = _element.uiButton;
+			if (ignoreUnityUI)
+			{
+				uiButton = null;
+			}
+			else
+			{
+				uiButton = _element.uiButton;
+			}
 			uiText = null;
+
 			label = _element.label;
 			textEffects = _element.textEffects;
 			outlineSize = _element.outlineSize;
@@ -282,17 +285,7 @@ namespace AC
 				}
 				else if (cycleType == AC_CycleType.Variable)
 				{
-					//varID = CustomGUILayout.IntField ("Global Variable ID:", varID, apiPrefix + ".varID");
-
-					varID = AdvGame.GlobalVariableGUI ("Global integer var:", varID);
-					if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-					{
-						GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-						if (_var != null && _var.type != VariableType.Integer)
-						{
-							EditorGUILayout.HelpBox ("The chosen Variable must be a Integer.", MessageType.Warning);
-						}
-					}
+					varID = AdvGame.GlobalVariableGUI ("Global integer var:", varID, VariableType.Integer);
 				}
 
 				actionListOnClick = (ActionListAsset) CustomGUILayout.ObjectField <ActionListAsset> ("ActionList on click:", actionListOnClick, false, apiPrefix + ".actionListOnClick");

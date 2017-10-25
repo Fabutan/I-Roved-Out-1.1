@@ -256,7 +256,8 @@ namespace AC
 					return;
 				}
 
-				Vector3 clickPoint = ClickPoint (KickStarter.playerInput.GetMousePosition ());
+				//Vector3 clickPoint = ClickPoint (KickStarter.playerInput.GetMousePosition ());
+				Vector3 clickPoint = GetStraightToCursorClickPoint ();
 				Vector3 moveDirection = clickPoint - KickStarter.player.transform.position;
 				
 				if (clickPoint != Vector3.zero)
@@ -298,7 +299,8 @@ namespace AC
 			}
 			else if (KickStarter.playerInput.GetDragState () == DragState.Player && moveStraightToCursorHoldTime == 0f && (!KickStarter.settingsManager.singleTapStraight || KickStarter.playerInput.CanClick ()))
 			{
-				Vector3 clickPoint = ClickPoint (KickStarter.playerInput.GetMousePosition ());
+				//Vector3 clickPoint = ClickPoint (KickStarter.playerInput.GetMousePosition ());
+				Vector3 clickPoint = GetStraightToCursorClickPoint ();
 				Vector3 moveDirection = clickPoint - KickStarter.player.transform.position;
 
 				if (clickPoint != Vector3.zero)
@@ -407,6 +409,71 @@ namespace AC
 		}
 
 
+		private Vector3 GetStraightToCursorClickPoint ()
+		{
+			Vector2 simulatedMouse = KickStarter.playerInput.GetMousePosition ();
+
+			Vector3 clickPoint = ClickPoint (simulatedMouse);
+			if (clickPoint == Vector3.zero)
+			{
+				// Move Ray down screen until we hit something
+				if (KickStarter.settingsManager.walkableClickRange > 0f && ((int) Screen.height * KickStarter.settingsManager.walkableClickRange) > 1)
+				{
+					if (KickStarter.settingsManager.navMeshSearchDirection == NavMeshSearchDirection.StraightDownFromCursor)
+					{
+						for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+						{
+							// Down
+							clickPoint = ClickPoint (new Vector2 (simulatedMouse.x, simulatedMouse.y - i));
+							if (clickPoint != Vector3.zero) return clickPoint;
+						}
+					}
+
+					for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+					{
+						// Up
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x, simulatedMouse.y + i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// Down
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x, simulatedMouse.y - i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// Left
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x - i, simulatedMouse.y));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// Right
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x + i, simulatedMouse.y));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// UpLeft
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x - i, simulatedMouse.y - i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// UpRight
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x + i, simulatedMouse.y - i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// DownLeft
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x - i, simulatedMouse.y + i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+
+						// DownRight
+						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x + i, simulatedMouse.y + i));
+						if (clickPoint != Vector3.zero) return clickPoint;
+					}
+				}
+			}
+			else
+			{
+				return clickPoint;
+			}
+
+			return Vector3.zero;
+		}
+
+
 		/**
 		 * <summary>Gets the point in world space that a point in screen space is above.</summary>
 		 * <param name = "screenPosition">The position in screen space</returns>
@@ -425,17 +492,16 @@ namespace AC
 						hit = UnityVersionHandler.Perform2DRaycast (
 							Camera.main.ScreenToWorldPoint (new Vector2 (screenPosition.x, screenPosition.y)),
 							Vector2.zero,
-							KickStarter.settingsManager.navMeshRaycastLength
+							KickStarter.settingsManager.navMeshRaycastLength,
+							1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
 							);
 					}
 					else
 					{
-
 						hit = UnityVersionHandler.Perform2DRaycast (
 							Camera.main.ScreenToWorldPoint (new Vector2 (screenPosition.x, screenPosition.y)),
 							Vector2.zero,
-							KickStarter.settingsManager.navMeshRaycastLength,
-							1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
+							KickStarter.settingsManager.navMeshRaycastLength
 							);
 					}
 				}
@@ -449,7 +515,8 @@ namespace AC
 						hit = UnityVersionHandler.Perform2DRaycast (
 							Camera.main.ScreenToWorldPoint (pos),
 							Vector2.zero,
-							KickStarter.settingsManager.navMeshRaycastLength
+							KickStarter.settingsManager.navMeshRaycastLength,
+							1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
 							);
 					}
 					else
@@ -457,8 +524,7 @@ namespace AC
 						hit = UnityVersionHandler.Perform2DRaycast (
 							Camera.main.ScreenToWorldPoint (pos),
 							Vector2.zero,
-							KickStarter.settingsManager.navMeshRaycastLength,
-							1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
+							KickStarter.settingsManager.navMeshRaycastLength
 							);
 					}
 				}
@@ -951,7 +1017,7 @@ namespace AC
 
 		
 		// First-person functions
-		
+
 		private void FirstPersonControlPlayer ()
 		{
 			if (firstPersonCamera)

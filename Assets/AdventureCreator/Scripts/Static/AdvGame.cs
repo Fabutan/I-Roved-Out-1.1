@@ -379,7 +379,7 @@ namespace AC
 				return string1;
 			}
 
-			if (KickStarter.speechManager.LanguageReadsRightToLeft (langugeIndex))
+			if (KickStarter.runtimeLanguages.LanguageReadsRightToLeft (langugeIndex))
 			{
 				if (separateWithSpace)
 				{
@@ -612,6 +612,7 @@ namespace AC
 			if (AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
 			{
 				VariablesManager variablesManager = AdvGame.GetReferences ().variablesManager;
+
 				// Create a string List of the field's names (for the PopUp box)
 				List<string> labelList = new List<string>();
 				
@@ -653,6 +654,136 @@ namespace AC
 			else
 			{
 				EditorGUILayout.HelpBox ("No Variables Manager exists!", MessageType.Info);
+				variableID = -1;
+			}
+
+			return variableID;
+		}
+
+
+		/**
+		 * <summary>Generates a Global Variable selector GUI (Unity Editor only).</summary>
+		 * <param name = "label">The label of the popup GUI</param>
+		 * <param name = "variableID">The currently-selected global variable's ID number</param>
+		 * <param name = "variableType">The variable type to restrict choices to</param>
+		 * <returns>The newly-selected global variable's ID number</returns>
+		 */
+		public static int GlobalVariableGUI (string label, int variableID, VariableType variableType)
+		{
+			if (AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
+			{
+				VariablesManager variablesManager = AdvGame.GetReferences ().variablesManager;
+
+				if (variablesManager.vars.Count > 0)
+				{
+					int variableNumber = 0;
+
+					List<PopupSelectData> popupSelectDataList = new List<PopupSelectData>();
+					for (int i=0; i<variablesManager.vars.Count; i++)
+					{
+						if (variablesManager.vars[i].type == variableType)
+						{
+							PopupSelectData popupSelectData = new PopupSelectData (variablesManager.vars[i].id, variablesManager.vars[i].label, i);
+							popupSelectDataList.Add (popupSelectData);
+
+							if (popupSelectData.ID == variableID)
+							{
+								variableNumber = popupSelectDataList.Count-1;
+							}
+						}
+					}
+
+					List<string> labelList = new List<string>();
+					foreach (PopupSelectData popupSelectData in popupSelectDataList)
+					{
+						labelList.Add (popupSelectData.label);
+					}
+
+					if (labelList.Count > 0)
+					{
+						variableNumber = EditorGUILayout.Popup (label, variableNumber, labelList.ToArray ());
+						int rootIndex = popupSelectDataList[variableNumber].rootIndex;
+						variableID = variablesManager.vars [rootIndex].id;
+					}
+					else
+					{
+						EditorGUILayout.HelpBox ("No global variables of the type '" + variableType.ToString () + "' exist!", MessageType.Info);
+						variableID = -1;
+					}
+				}
+				else
+				{
+					EditorGUILayout.HelpBox ("No global variables exist!", MessageType.Info);
+					variableID = -1;
+				}
+			}
+			else
+			{
+				EditorGUILayout.HelpBox ("No Variables Manager exists!", MessageType.Info);
+				variableID = -1;
+			}
+
+			return variableID;
+		}
+
+
+		/**
+		 * <summary>Generates a Local Variable selector GUI (Unity Editor only).</summary>
+		 * <param name = "label">The label of the popup GUI</param>
+		 * <param name = "variableID">The currently-selected local variable's ID number</param>
+		 * <param name = "variableType">The variable type to restrict choices to</param>
+		 * <returns>The newly-selected local variable's ID number</returns>
+		 */
+		public static int LocalVariableGUI (string label, int variableID, VariableType variableType)
+		{
+			if (KickStarter.localVariables != null && KickStarter.localVariables.localVars != null)
+			{
+				if (KickStarter.localVariables.localVars.Count > 0)
+				{
+					int variableNumber = 0;
+
+					List<PopupSelectData> popupSelectDataList = new List<PopupSelectData>();
+					for (int i=0; i<KickStarter.localVariables.localVars.Count; i++)
+					{
+						if (KickStarter.localVariables.localVars[i].type == variableType)
+						{
+							PopupSelectData popupSelectData = new PopupSelectData (KickStarter.localVariables.localVars[i].id, KickStarter.localVariables.localVars[i].label, i);
+							popupSelectDataList.Add (popupSelectData);
+
+							if (popupSelectData.ID == variableID)
+							{
+								variableNumber = popupSelectDataList.Count-1;
+							}
+						}
+					}
+
+					List<string> labelList = new List<string>();
+					foreach (PopupSelectData popupSelectData in popupSelectDataList)
+					{
+						labelList.Add (popupSelectData.label);
+					}
+
+					if (labelList.Count > 0)
+					{
+						variableNumber = EditorGUILayout.Popup (label, variableNumber, labelList.ToArray ());
+						int rootIndex = popupSelectDataList[variableNumber].rootIndex;
+						variableID = KickStarter.localVariables.localVars [rootIndex].id;
+					}
+					else
+					{
+						EditorGUILayout.HelpBox ("No local variables of the type '" + variableType.ToString () + "' exist!", MessageType.Info);
+						variableID = -1;
+					}
+				}
+				else
+				{
+					EditorGUILayout.HelpBox ("No local variables exist!", MessageType.Info);
+					variableID = -1;
+				}
+			}
+			else
+			{
+				EditorGUILayout.HelpBox ("No LocalVariables component exists!", MessageType.Info);
 				variableID = -1;
 			}
 

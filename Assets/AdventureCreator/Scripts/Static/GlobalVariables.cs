@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  *
  *	Adventure Creator
  *	by Chris Burton, 2013-2016
@@ -201,6 +202,29 @@ namespace AC
 			ACDebug.LogWarning ("Variable with ID=" + _id + " not found!");
 			return 0f;
 		}
+
+
+		/**
+		 * <summary>Returns the value of a global Vector3 variable.</summary>
+		 * <param name = "_id">The ID number of the variable</param>
+		 * <param name = "synchronise">If True, then the variable's value will be synchronised with any external link it may have.</param>
+		 * <returns>The Vector3 value of the variable</returns>
+		 */
+		public static Vector3 GetVector3Value (int _id, bool synchronise = true)
+		{
+			GVar var = GetVariable (_id);
+			if (var != null)
+			{
+				if (synchronise)
+				{
+					var.Download ();
+				}
+				return var.vector3Val;
+			}
+			
+			ACDebug.LogWarning ("Variable with ID=" + _id + " not found!");
+			return Vector3.zero;
+		}
 		
 
 		/**
@@ -309,6 +333,27 @@ namespace AC
 			if (var != null)
 			{
 				var.floatVal = _value;
+				
+				if (synchronise)
+				{
+					var.Upload ();
+				}
+			}
+		}
+
+
+		/**
+		 * <summary>Sets the value of a global Vector3 variable.</summary>
+		 * <param name = "_id">The ID number of the variable</param>
+		 * <param name = "_value">The new float value of the variable</param>
+		 * <param name = "synchronise">If True, then the variable's value will be synchronised with any external link it may have.</param>
+		 */
+		public static void SetVector3Value (int _id, Vector3 _value, bool synchronise = true)
+		{
+			GVar var = GetVariable (_id);
+			if (var != null)
+			{
+				var.vector3Val = _value;
 				
 				if (synchronise)
 				{

@@ -35,7 +35,16 @@ namespace AC
 		public int parameterID = -1;
 		public int constantID = 0;
 		public Moveable linkedProp;
+
+		public enum SetVectorMethod { EnteredHere, FromVector3Variable };
+		public SetVectorMethod setVectorMethod = SetVectorMethod.EnteredHere;
+
+		public int newVectorParameterID = -1;
 		public Vector3 newVector;
+
+		public int vectorVarParameterID = -1;
+		public int vectorVarID;
+		public VariableLocation variableLocation = VariableLocation.Global;
 
 		public float transitionTime;
 		public int transitionTimeParameterID = -1;
@@ -63,6 +72,8 @@ namespace AC
 			linkedProp = AssignFile <Moveable> (parameters, parameterID, constantID, linkedProp);
 			marker = AssignFile <Marker> (parameters, markerParameterID, markerID, marker);
 			transitionTime = AssignFloat (parameters, transitionTimeParameterID, transitionTime);
+			newVector = AssignVector3 (parameters, newVectorParameterID, newVector);
+			vectorVarID = AssignVariableID (parameters, vectorVarParameterID, vectorVarID);
 		}
 		
 		
@@ -121,8 +132,24 @@ namespace AC
 			}
 			else
 			{
-				Vector3 targetVector = newVector;
-				
+				Vector3 targetVector = Vector3.zero;
+
+				if (setVectorMethod == SetVectorMethod.FromVector3Variable)
+				{
+					if (variableLocation == VariableLocation.Global)
+					{
+						targetVector = GlobalVariables.GetVector3Value (vectorVarID);
+					}
+					else if (variableLocation == VariableLocation.Local && !isAssetFile)
+					{
+						targetVector = LocalVariables.GetVector3Value (vectorVarID);
+					}
+				}
+				else if (setVectorMethod == SetVectorMethod.EnteredHere)
+				{
+					targetVector = newVector;
+				}
+
 				if (transformType == TransformType.Translate)
 				{
 					if (toBy == ToBy.By)
@@ -130,7 +157,6 @@ namespace AC
 						targetVector = SetRelativeTarget (targetVector, isSkipping, linkedProp.transform.localPosition);
 					}
 				}
-				
 				else if (transformType == TransformType.Rotate)
 				{
 					if (toBy == ToBy.By)
@@ -153,7 +179,6 @@ namespace AC
 						}
 					}
 				}
-				
 				else if (transformType == TransformType.Scale)
 				{
 					if (toBy == ToBy.By)
@@ -233,7 +258,44 @@ namespace AC
 			}
 			else
 			{
-				newVector = EditorGUILayout.Vector3Field ("Vector:", newVector);
+				setVectorMethod = (SetVectorMethod) EditorGUILayout.EnumPopup ("Vector is: ", setVectorMethod);
+				if (setVectorMethod == SetVectorMethod.EnteredHere)
+				{
+					newVectorParameterID = Action.ChooseParameterGUI ("Value:", parameters, newVectorParameterID, ParameterType.Vector3);
+					if (newVectorParameterID < 0)
+					{
+						newVector = EditorGUILayout.Vector3Field ("Value:", newVector);
+					}
+				}
+				else if (setVectorMethod == SetVectorMethod.FromVector3Variable)
+				{
+					if (isAssetFile)
+					{
+						variableLocation = VariableLocation.Global;
+					}
+					else
+					{
+						variableLocation = (VariableLocation) EditorGUILayout.EnumPopup ("Source:", variableLocation);
+					}
+
+					if (variableLocation == VariableLocation.Global)
+					{
+						vectorVarParameterID = Action.ChooseParameterGUI ("Vector3 variable:", parameters, vectorVarParameterID, ParameterType.GlobalVariable);
+						if (vectorVarParameterID < 0)
+						{
+							vectorVarID = AdvGame.GlobalVariableGUI ("Vector3 variable:", vectorVarID, VariableType.Vector3);
+						}
+					}
+					else if (variableLocation == VariableLocation.Local)
+					{
+						vectorVarParameterID = Action.ChooseParameterGUI ("Vector3 variable:", parameters, vectorVarParameterID, ParameterType.LocalVariable);
+						if (vectorVarParameterID < 0)
+						{
+							vectorVarID = AdvGame.LocalVariableGUI ("Vector3 variable:", vectorVarID, VariableType.Vector3);
+						}
+					}
+				}
+
 				clearExisting = EditorGUILayout.Toggle ("Stop existing transforms?", clearExisting);
 			}
 

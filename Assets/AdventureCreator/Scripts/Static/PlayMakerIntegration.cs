@@ -142,6 +142,21 @@ namespace AC
 			return 0f;
 			#endif
 		}
+
+
+		/**
+		 * <summary>Gets the value of a PlayMaker global Vector3.</summary>
+		 * <param name = "_name">The name of the PlayMaker global Vector3 to search for</param>
+		 * <returns>The value of the PlayMaker global Vector3</returns>
+		 */
+		public static Vector3 GetGlobalVector3 (string _name)
+		{
+			#if PlayMakerIsPresent
+			return (FsmVariables.GlobalVariables.GetFsmVector3 (_name).Value);
+			#else
+			return Vector3.zero;
+			#endif
+		}
 		
 
 		/**
@@ -192,6 +207,19 @@ namespace AC
 		{
 			#if PlayMakerIsPresent
 			FsmVariables.GlobalVariables.FindFsmFloat (_name).Value = _val;
+			#endif
+		}
+
+
+		/**
+		 * <summary>Sets the value of a PlayMaker global Vector3.</summary>
+		 * <param name = "_name">The name of the PlayMaker global Vector3 to update</param>
+		 * <param name = "_val">The new value to assign the PlayMaker global Vector3</param>
+		 */
+		public static void SetGlobalVector3 (string _name, Vector3 _val)
+		{
+			#if PlayMakerIsPresent
+			FsmVariables.GlobalVariables.FindFsmVector3 (_name).Value = _val;
 			#endif
 		}
 		

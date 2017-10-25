@@ -35,6 +35,7 @@ namespace AC
 		{
 			MaterialData materialData = new MaterialData ();
 			materialData.objectID = constantID;
+			materialData.savePrevented = savePrevented;
 
 			List<string> materialIDs = new List<string>();
 			Material[] mats = GetComponent <Renderer>().materials;
@@ -57,6 +58,7 @@ namespace AC
 		{
 			MaterialData data = Serializer.LoadScriptData <MaterialData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			Material[] mats = GetComponent <Renderer>().materials;
 

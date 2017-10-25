@@ -91,7 +91,6 @@ namespace AC
 			KickStarter.options.OnStart ();
 			KickStarter.runtimeVariables.OnStart ();
 			KickStarter.runtimeInventory.OnStart ();
-			KickStarter.saveSystem.OnStart ();
 		}
 
 
@@ -165,6 +164,12 @@ namespace AC
 				{
 					activeInput.SetDefaultState ();
 				}
+			}
+
+			if (gameState != GameState.Paused)
+			{
+				// Fix for audio pausing on start
+				AudioListener.pause = false;
 			}
 
 			if (KickStarter.settingsManager.actionListOnStart)

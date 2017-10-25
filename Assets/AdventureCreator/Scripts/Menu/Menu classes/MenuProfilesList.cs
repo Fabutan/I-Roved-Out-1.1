@@ -43,6 +43,8 @@ namespace AC
 		public UIHideStyle uiHideStyle = UIHideStyle.DisableObject;
 		/** If True, then the profile will be switched to once its slot is clicked on */
 		public bool autoHandle = true;
+		/** What Image component the Element's Graphics should be linked to (ImageComponent, ButtonTargetGraphic) */
+		public LinkUIGraphic linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 		/** If True, then only one profile slot will be shown */
 		public bool fixedOption;
@@ -79,28 +81,31 @@ namespace AC
 			optionToShow = 0;
 			autoHandle = true;
 			parameterID = -1;
+			linkUIGraphic = LinkUIGraphic.ImageComponent;
 
 			base.Declare ();
 		}
 		
 
-		/**
-		 * <summary>Creates and returns a new MenuProfilesList that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuProfilesList with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuProfilesList newElement = CreateInstance <MenuProfilesList>();
 			newElement.Declare ();
-			newElement.CopyProfilesList (this);
+			newElement.CopyProfilesList (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyProfilesList (MenuProfilesList _element)
+		private void CopyProfilesList (MenuProfilesList _element, bool ignoreUnityUI)
 		{
-			uiSlots = _element.uiSlots;
+			if (ignoreUnityUI)
+			{
+				uiSlots = null;
+			}
+			else
+			{
+				uiSlots = _element.uiSlots;
+			}
 			
 			textEffects = _element.textEffects;
 			outlineSize = _element.outlineSize;
@@ -113,6 +118,7 @@ namespace AC
 			parameterID = _element.parameterID;
 			fixedOption = _element.fixedOption;
 			optionToShow = _element.optionToShow;
+			linkUIGraphic = _element.linkUIGraphic;
 
 			base.Copy (_element);
 		}
@@ -127,7 +133,7 @@ namespace AC
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
-				uiSlot.LinkUIElements (canvas);
+				uiSlot.LinkUIElements (canvas, linkUIGraphic);
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
@@ -240,6 +246,8 @@ namespace AC
 				{
 					uiSlots[i].LinkedUiGUI (i, source);
 				}
+
+				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
 			}
 			
 			EditorGUILayout.EndVertical ();

@@ -311,18 +311,6 @@ namespace AC
 				}
 			}
 
-			
-			#if UNITY_EDITOR
-			if (!Application.isPlaying && !livePreview && sortingMap != null && sortingMap.affectScale)
-			{
-				if (GetComponentInParent <Char>() != null && GetComponentInParent <Char>().spriteChild != null)
-				{
-					GetComponentInParent <Char>().transform.localScale = Vector3.one;
-					return;
-				}
-			}
-			#endif
-			
 			sortingMap.UpdateSimilarFollowers (this);
 
 			if (sortingMap.sortingAreas.Count > 0)

@@ -91,7 +91,7 @@ namespace AC
 		 */
 		public Speech (Char _speaker, string _message, int lineID, string _language, bool _isBackground, bool _noAnimation)
 		{
-			isRTL = KickStarter.speechManager.LanguageReadsRightToLeft (_language);
+			isRTL = KickStarter.runtimeLanguages.LanguageReadsRightToLeft (_language);
 
 			// Clear rich text
 			boldTagIndex = italicTagIndex = sizeTagIndex = colorTagIndex = -1;
@@ -462,6 +462,8 @@ namespace AC
 						{
 							pauseEndTime = waitTime;
 							pauseGap = true;
+
+							speechGaps[gapIndex].CallEvent (speaker, log.lineID);
 						}
 						else if (speechGaps[gapIndex].expressionID >= 0)
 						{
@@ -683,15 +685,24 @@ namespace AC
 								// Stop scrolling
 								StopScrolling ();
 
-								// Find last non-encountered expression
 								if (speechGaps != null && speechGaps.Count > gapIndex)
 								{
+									// Call events
+									for (int i=gapIndex; i<speechGaps.Count; i++)
+									{
+										if (gapIndex >= 0)
+										{
+											speechGaps[i].CallEvent (speaker, log.lineID);
+										}
+									}
+
+									// Find last non-encountered expression
 									for (int i=speechGaps.Count-1; i>=gapIndex; i--)
 									{
 										if (i >= 0 && speechGaps[i].expressionID >= 0)
 										{
 											speaker.SetExpression (speechGaps[i].expressionID);
-											return;
+											break; // was return
 										}
 									}
 								}
@@ -735,6 +746,8 @@ namespace AC
 								{
 									while (gapIndex < speechGaps.Count && speechGaps[gapIndex].waitTime >= 0)
 									{
+										speechGaps[gapIndex].CallEvent (speaker, log.lineID);
+
 										// Find next wait
 										gapIndex ++;
 									}
@@ -812,6 +825,7 @@ namespace AC
 			float waitTime = speechGaps [gapIndex].waitTime;
 			pauseGap = true;
 			pauseIsIndefinite = false;
+
 			if (speechGaps [gapIndex].pauseIsIndefinite)
 			{
 				pauseEndTime = 0f;
@@ -820,6 +834,7 @@ namespace AC
 			else if (waitTime >= 0f)
 			{
 				pauseEndTime = waitTime;
+				speechGaps[gapIndex].CallEvent (speaker, log.lineID);
 			}
 			else if (speechGaps [gapIndex].expressionID >= 0)
 			{
@@ -879,7 +894,29 @@ namespace AC
 						}
 					}
 				}
-				
+
+				string[] eventKeys = KickStarter.dialog.SpeechEventTokenKeys;
+				if (eventKeys != null)
+				{
+					foreach (string eventKey in eventKeys)
+					{
+						if (string.IsNullOrEmpty (eventKey)) continue;
+
+						string keyStart = "[" + eventKey + ":";
+						if (_text.Contains (keyStart))
+						{
+							while (_text.Contains (keyStart))
+							{
+								int startIndex = _text.IndexOf (keyStart);
+								int endIndex = _text.IndexOf ("]", startIndex);
+								string eventValue = _text.Substring (startIndex + keyStart.Length, endIndex - startIndex - keyStart.Length);
+								speechGaps.Add (new SpeechGap (startIndex, eventKey, eventValue));
+								_text = _text.Substring (0, startIndex) + _text.Substring (endIndex + 1);
+							}
+						}
+					}
+				}
+
 				if (_text.Contains ("[continue]"))
 				{
 					continueIndex = _text.IndexOf ("[continue]");
@@ -1040,20 +1077,6 @@ namespace AC
 		public bool IsPaused ()
 		{
 			return pauseGap;
-		}
-
-
-		/**
-		 * <summary>Checks if the line has any pause gaps.</summary>
-		 * <returns>True if there are any line gaps</returns>
-		 */
-		public bool HasPausing ()
-		{
-			if (speechGaps.Count > 0)
-			{
-				return true;
-			}
-			return false;
 		}
 
 

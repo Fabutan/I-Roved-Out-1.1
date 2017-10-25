@@ -32,6 +32,7 @@ namespace AC
 		public IntCondition intCondition;
 		public string stringValue;
 		public int compareVariableID;
+		public Vector3 vector3Value;
 
 		public GameObject compareObject;
 		public int compareObjectConstantID;
@@ -40,6 +41,8 @@ namespace AC
 
 		public BoolValue boolValue = BoolValue.True;
 		public BoolCondition boolCondition;
+
+		public VectorCondition vectorCondition = VectorCondition.EqualTo;
 
 		private ActionParameter _parameter;
 		#if UNITY_EDITOR
@@ -209,6 +212,18 @@ namespace AC
 					}
 				}
 			}
+
+			else if (_parameter.parameterType == ParameterType.Vector3)
+			{
+				if (vectorCondition == VectorCondition.EqualTo)
+				{
+					return (_parameter.vector3Value == vector3Value);
+				}
+				else if (vectorCondition == VectorCondition.MagnitudeGreaterThan)
+				{
+					return (_parameter.vector3Value.magnitude > floatValue);
+				}
+			}
 			
 			else if (_parameter.parameterType == ParameterType.String)
 			{
@@ -362,6 +377,25 @@ namespace AC
 				else
 				{
 					compareVariableID = ShowVarSelectorGUI (KickStarter.localVariables.localVars, compareVariableID);
+				}
+			}
+			else if (parameter.parameterType == ParameterType.Vector3)
+			{
+				vectorCondition = (VectorCondition) EditorGUILayout.EnumPopup ("Condition:", vectorCondition);
+
+				EditorGUILayout.EndHorizontal ();
+				EditorGUILayout.BeginHorizontal ();
+
+				if (vectorCondition == VectorCondition.MagnitudeGreaterThan)
+				{
+					floatValue = EditorGUILayout.FloatField ("Float:", floatValue);
+				}
+				else if (vectorCondition == VectorCondition.EqualTo)
+				{
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.LabelField ("Vector3:", GUILayout.MaxWidth (60f));
+					vector3Value = EditorGUILayout.Vector3Field ("", vector3Value);
+					EditorGUILayout.EndHorizontal ();
 				}
 			}
 

@@ -66,12 +66,7 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuDrag that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuDrag with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuDrag newElement = CreateInstance <MenuDrag>();
 			newElement.Declare ();

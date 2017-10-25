@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFileName: IRovedOut
   saveTimeDisplay: 1
+  customSaveFormat: MMMM dd, yyyy
   takeSaveScreenshots: 1
   useProfiles: 0
   maxSaves: 5

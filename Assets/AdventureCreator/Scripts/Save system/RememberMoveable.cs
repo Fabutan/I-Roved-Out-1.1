@@ -71,6 +71,7 @@ namespace AC
 			MoveableData moveableData = new MoveableData ();
 			
 			moveableData.objectID = constantID;
+			moveableData.savePrevented = savePrevented;
 
 			if (gameObject.layer == LayerMask.NameToLayer (KickStarter.settingsManager.hotspotLayer))
 			{
@@ -121,6 +122,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <DragBase>())
 			{

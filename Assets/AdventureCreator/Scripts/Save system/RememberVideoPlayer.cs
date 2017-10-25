@@ -42,6 +42,7 @@ namespace AC
 		{
 			VideoPlayerData videoPlayerData = new VideoPlayerData ();
 			videoPlayerData.objectID = constantID;
+			videoPlayerData.savePrevented = savePrevented;
 
 			if (GetComponent <VideoPlayer>())
 			{
@@ -66,6 +67,7 @@ namespace AC
 			{
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <VideoPlayer>())
 			{

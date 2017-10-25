@@ -34,6 +34,8 @@ namespace AC
 		{
 			NameData nameData = new NameData();
 			nameData.objectID = constantID;
+			nameData.savePrevented = savePrevented;
+
 			nameData.newName = gameObject.name;
 
 			return Serializer.SaveScriptData <NameData> (nameData);
@@ -48,6 +50,7 @@ namespace AC
 		{
 			NameData data = Serializer.LoadScriptData <NameData> (stringData);
 			if (data == null) return;
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			gameObject.name = data.newName;
 		}

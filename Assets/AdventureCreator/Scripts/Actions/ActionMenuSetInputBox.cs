@@ -110,15 +110,7 @@ namespace AC
 				varParameterID = Action.ChooseParameterGUI ("String variable:", parameters, varParameterID, ParameterType.String);
 				if (varParameterID == -1)
 				{
-					varID = AdvGame.GlobalVariableGUI ("String variable:", varID);
-					if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-					{
-						GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-						if (_var != null && _var.type != VariableType.String)
-						{
-							EditorGUILayout.HelpBox ("The chosen Variable must be a String.", MessageType.Warning);
-						}
-					}
+					varID = AdvGame.GlobalVariableGUI ("String variable:", varID, VariableType.String);
 				}
 			}
 

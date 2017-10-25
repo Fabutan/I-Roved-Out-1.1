@@ -41,6 +41,7 @@ namespace AC
 
 		public bool doSelectiveLoad = false;
 		public SelectiveLoad selectiveLoad = new SelectiveLoad ();
+		private bool recievedCallback;
 
 		
 		public ActionSaveHandle ()
@@ -60,6 +61,39 @@ namespace AC
 		
 		override public float Run ()
 		{
+			if (!isRunning)
+			{
+				isRunning = true;
+				recievedCallback = false;
+
+				PerformSaveOrLoad ();
+			}
+
+			if (recievedCallback)
+			{
+				isRunning = false;
+				return 0f;
+			}
+
+			return defaultPauseTime;
+		}
+
+
+		private void PerformSaveOrLoad ()
+		{
+			ClearAllEvents ();
+
+			if (saveHandling == SaveHandling.ContinueFromLastSave || saveHandling == SaveHandling.LoadGame)
+			{
+				EventManager.OnFinishLoading += OnComplete;
+				EventManager.OnFailLoading += OnComplete;
+			}
+			else if (saveHandling == SaveHandling.OverwriteExistingSave || saveHandling == SaveHandling.SaveNewGame)
+			{
+				EventManager.OnFinishSaving += OnComplete;
+				EventManager.OnFailSaving += OnComplete;
+			}
+
 			if ((saveHandling == SaveHandling.LoadGame || saveHandling == SaveHandling.ContinueFromLastSave) && doSelectiveLoad)
 			{
 				KickStarter.saveSystem.SetSelectiveLoadOptions (selectiveLoad);
@@ -73,13 +107,12 @@ namespace AC
 					GVar gVar = GlobalVariables.GetVariable (varID);
 					if (gVar != null)
 					{
-						//newSaveLabel = gVar.textVal;
 						newSaveLabel = gVar.GetValue (Options.GetLanguage ());
 					}
 					else
 					{
 						ACDebug.LogWarning ("Could not " + saveHandling.ToString () + " - no variable found.");
-						return 0f;
+						return;
 					}
 				}
 			}
@@ -89,7 +122,7 @@ namespace AC
 			if (saveHandling == SaveHandling.ContinueFromLastSave)
 			{
 				SaveSystem.ContinueGame ();
-				return 0f;
+				return;
 			}
 
 			if (saveHandling == SaveHandling.LoadGame || saveHandling == SaveHandling.OverwriteExistingSave)
@@ -99,7 +132,7 @@ namespace AC
 					if (saveHandling == SaveHandling.LoadGame)
 					{
 						SaveSystem.LoadAutoSave ();
-						return 0f;
+						return;
 					}
 					else
 					{
@@ -111,7 +144,7 @@ namespace AC
 						{
 							ACDebug.LogWarning ("Cannot save at this time - either blocking ActionLists, a Conversation is active, or saving has been manually locked.");
 						}
-						return 0f;
+						return;
 					}
 				}
 				else if (selectSaveType == SelectSaveType.SlotIndexFromVariable)
@@ -124,7 +157,7 @@ namespace AC
 					else
 					{
 						ACDebug.LogWarning ("Could not get save slot index - no variable found.");
-						return 0f;
+						return;
 					}
 				}
 			}
@@ -169,7 +202,24 @@ namespace AC
 					ACDebug.LogWarning ("Cannot save at this time - either blocking ActionLists, a Conversation is active, or saving has been manually locked.");
 				}
 			}
-			return 0f;
+		}
+
+
+
+		private void OnComplete ()
+		{
+			ClearAllEvents ();
+			recievedCallback = true;
+		}
+
+
+		private void ClearAllEvents ()
+		{
+			EventManager.OnFinishLoading -= OnComplete;
+			EventManager.OnFailLoading -= OnComplete;
+
+			EventManager.OnFinishLoading -= OnComplete;
+			EventManager.OnFailLoading -= OnComplete;
 		}
 
 
@@ -208,15 +258,7 @@ namespace AC
 				}
 				else if (selectSaveType == SelectSaveType.SlotIndexFromVariable)
 				{
-					slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID);
-					if (slotVarID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-					{
-						GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (slotVarID);
-						if (_var != null && _var.type != VariableType.Integer)
-						{
-							EditorGUILayout.HelpBox ("The chosen Variable must be an Integer.", MessageType.Warning);
-						}
-					}
+					slotVarID = AdvGame.GlobalVariableGUI ("Integer variable:", slotVarID, VariableType.Integer);
 				}
 
 				if (selectSaveType != SelectSaveType.Autosave)
@@ -241,15 +283,7 @@ namespace AC
 						customLabel = EditorGUILayout.Toggle ("With custom label?", customLabel);
 						if (customLabel)
 						{
-							varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID);
-							if (varID >= 0 && AdvGame.GetReferences () && AdvGame.GetReferences ().variablesManager)
-							{
-								GVar _var = AdvGame.GetReferences ().variablesManager.GetVariable (varID);
-								if (_var != null && _var.type != VariableType.String)
-								{
-									EditorGUILayout.HelpBox ("The chosen Variable must be a String.", MessageType.Warning);
-								}
-							}
+							varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID, VariableType.String);
 						}
 					}
 				}

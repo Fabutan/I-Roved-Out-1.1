@@ -19,6 +19,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
@@ -33,6 +34,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
@@ -47,6 +49,7 @@ MonoBehaviour:
     floatVal: 0
     textVal: 
     popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0

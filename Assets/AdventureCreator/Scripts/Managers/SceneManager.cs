@@ -164,7 +164,16 @@ namespace AC
 				{
 					if (GUILayout.Button ("Create", GUILayout.MaxWidth (60f)))
 					{
-						PlayerStart newPlayerStart = AddPrefab ("Navigation", "PlayerStart", true, false, true).GetComponent <PlayerStart>();
+						PlayerStart newPlayerStart = null;
+						if (settingsManager != null && settingsManager.IsUnity2D ())
+						{
+							newPlayerStart = AddPrefab ("Navigation", "PlayerStart2D", true, false, true).GetComponent <PlayerStart>();
+						}
+						else
+						{
+							newPlayerStart = AddPrefab ("Navigation", "PlayerStart", true, false, true).GetComponent <PlayerStart>();
+						}
+
 						newPlayerStart.gameObject.name = "Default PlayerStart";
 						KickStarter.sceneSettings.defaultPlayerStart = newPlayerStart;
 						EditorGUIUtility.PingObject (newPlayerStart.gameObject);

@@ -388,6 +388,8 @@ namespace AC
 			{
 				_rigidbody.velocity = Vector3.zero;
 			}
+			
+			KickStarter.eventManager.Call_OnDropMoveable (this);
 		}
 
 

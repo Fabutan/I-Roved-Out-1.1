@@ -59,7 +59,8 @@ namespace AC
 			NPCData npcData = new NPCData();
 
 			npcData.objectID = constantID;
-			
+			npcData.savePrevented = savePrevented;
+
 			if (gameObject.layer == LayerMask.NameToLayer (KickStarter.settingsManager.hotspotLayer))
 			{
 				npcData.isOn = true;
@@ -103,6 +104,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (data.isOn)
 			{

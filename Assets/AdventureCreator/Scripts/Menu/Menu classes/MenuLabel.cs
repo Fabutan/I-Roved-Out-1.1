@@ -103,23 +103,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuLabel that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuLabel with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuLabel newElement = CreateInstance <MenuLabel>();
 			newElement.Declare ();
-			newElement.CopyLabel (this);
+			newElement.CopyLabel (this, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyLabel (MenuLabel _element)
+		private void CopyLabel (MenuLabel _element, bool ignoreUnityUI)
 		{
-			uiText = _element.uiText;
+			if (ignoreUnityUI)
+			{
+				uiText = null;
+			}
+			else
+			{
+				uiText = _element.uiText;
+			}
+
 			label = _element.label;
 			anchor = _element.anchor;
 			textEffects = _element.textEffects;

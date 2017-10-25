@@ -161,8 +161,6 @@ namespace AC
 			{
 				EditorGUILayout.HelpBox ("A Settings Manager is required for this Action.", MessageType.Warning);
 			}
-			
-			AfterRunningOption ();
 		}
 
 

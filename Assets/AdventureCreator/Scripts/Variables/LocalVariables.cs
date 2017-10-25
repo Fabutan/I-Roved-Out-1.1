@@ -144,6 +144,17 @@ namespace AC
 			return LocalVariables.GetVariable (_id).floatVal;
 		}
 
+
+		/**
+		 * <summary>Returns the value of a local Vector3 variable.</summary>
+		 * <param name = "_id">The ID number of the variable</param>
+		 * <returns>The Vector3 value of the variable</returns>
+		 */
+		public static Vector3 GetVector3Value (int _id)
+		{
+			return LocalVariables.GetVariable (_id).vector3Val;
+		}
+
 		
 		/**
 		 * <summary>Returns the value of a local Popup variable.</summary>
@@ -209,6 +220,17 @@ namespace AC
 
 
 		/**
+		 * <summary>Sets the value of a local Vector3 variable.</summary>
+		 * <param name = "_id">The ID number of the variable</param>
+		 * <param name = "_value">The new Vector3 value of the variable</param>
+		 */
+		public static void SetVector3Value (int _id, Vector3 _value)
+		{
+			LocalVariables.GetVariable (_id).vector3Val = _value;
+		}
+
+
+		/**
 		 * <summary>Sets the value of a local PopUp variable.</summary>
 		 * <param name = "_id">The ID number of the variable</param>
 		 * <param name = "_value">The new index value of the variable</param>
@@ -234,6 +256,7 @@ namespace AC
 						localVar.val = presetValue.val;
 						localVar.floatVal = presetValue.floatVal;
 						localVar.textVal = presetValue.textVal;
+						localVar.vector3Val = presetValue.vector3Val;
 					}
 				}
 			}

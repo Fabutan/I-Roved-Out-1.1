@@ -75,6 +75,7 @@ namespace AC
 		{
 			VisibilityData visibilityData = new VisibilityData ();
 			visibilityData.objectID = constantID;
+			visibilityData.savePrevented = savePrevented;
 
 			if (GetComponent <SpriteFader>())
 			{
@@ -143,6 +144,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <SpriteFader>())
 			{

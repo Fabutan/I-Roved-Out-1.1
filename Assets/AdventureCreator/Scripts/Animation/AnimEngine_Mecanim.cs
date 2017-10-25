@@ -613,7 +613,7 @@ namespace AC
 						}
 						else
 						{
-							ACDebug.LogError ("Cannot play clip " + action.clip2D + " on " + action.animator.name);
+							ACDebug.LogError ("Cannot play clip " + action.clip2D + " on " + action.animator.name, action.animator);
 						}
 						
 						#else

@@ -138,17 +138,6 @@ namespace AC
 						}
 					}
 				}
-
-				/*Remember saveObject = Serializer.returnComponent <Remember> (_scriptData.objectID, sceneSettings.gameObject);
-				if (saveObject != null && _scriptData.data != null && _scriptData.data.Length > 0)
-				{
-					// May have more than one Remember script on the same object, so check all
-					Remember[] saveScripts = saveObject.gameObject.GetComponents <Remember>();
-					foreach (Remember saveScript in saveScripts)
-					{
-						saveScript.LoadData (_scriptData.data, restoringSaveFile);
-					}
-				}*/
 			}
 
 			UnloadVariablesData (levelData.localVariablesData, localVariables);
@@ -375,7 +364,8 @@ namespace AC
 					{
 						if (_transform.objectID == transformOb.constantID)
 						{
-							found = true;
+							//found = true;
+							found = !_transform.savePrevented;
 						}
 					}
 
@@ -387,33 +377,59 @@ namespace AC
 				}
 			}
 
+			Object[] prefabAssets = Resources.LoadAll ("SaveableData/Prefabs", typeof (GameObject));
+			if (prefabAssets == null || prefabAssets.Length == 0)
+			{
+				prefabAssets = Resources.LoadAll ("", typeof (GameObject));
+			}
+
 			foreach (TransformData _transform in _transforms)
 			{
 				RememberTransform saveObject = Serializer.returnComponent <RememberTransform> (_transform.objectID);
-
-				// Restore any deleted objects (if told to)
-				if (saveObject == null && _transform.bringBack)
+				if (saveObject == null)
 				{
-					Object[] assets = Resources.LoadAll ("SaveableData/Prefabs", typeof (GameObject));
-					if (assets == null || assets.Length == 0)
+					// Restore any deleted objects (if told to)
+					if (_transform.bringBack && !_transform.savePrevented)
 					{
-						assets = Resources.LoadAll ("", typeof (GameObject));
-					}
-
-					foreach (Object asset in assets)
-					{
-						if (asset is GameObject)
+						bool foundObject = false;
+						foreach (Object prefabAsset in prefabAssets)
 						{
-							GameObject assetObject = (GameObject) asset;
-							if (assetObject.GetComponent <RememberTransform>() && assetObject.GetComponent <RememberTransform>().constantID == _transform.objectID)
+							if (prefabAsset is GameObject)
 							{
-								GameObject newObject = (GameObject) Instantiate (assetObject.gameObject);
-								newObject.name = assetObject.name;
-								saveObject = newObject.GetComponent <RememberTransform>();
+								GameObject prefabGameObject = (GameObject) prefabAsset;
+								if (prefabGameObject.GetComponent <RememberTransform>())
+								{
+									int prefabID = prefabGameObject.GetComponent <ConstantID>().constantID;
+
+									if ((_transform.linkedPrefabID != 0 && prefabID == _transform.linkedPrefabID) ||
+										(_transform.linkedPrefabID == 0 && prefabID == _transform.objectID))
+									{
+										GameObject newObject = (GameObject) Instantiate (prefabGameObject);
+										newObject.name = prefabGameObject.name;
+										saveObject = newObject.GetComponent <RememberTransform>();
+										foundObject = true;
+
+										if (_transform.linkedPrefabID != 0 && prefabID == _transform.linkedPrefabID)
+										{
+											// Spawned object has wrong ID, re-assign it
+											ConstantID[] idScripts = saveObject.GetComponents <ConstantID>();
+											foreach (ConstantID idScript in idScripts)
+											{
+												idScript.constantID = _transform.objectID;
+											}
+										}
+
+										break;
+									}
+								}
 							}
 						}
+
+						if (!foundObject)
+						{
+							ACDebug.LogWarning ("Could not find Resources prefab with ID " + _transform.objectID + " - is it placed in a Resources folder?");
+						}
 					}
-					Resources.UnloadUnusedAssets ();
 				}
 
 				if (saveObject != null)
@@ -421,6 +437,8 @@ namespace AC
 					saveObject.LoadTransformData (_transform);
 				}
 			}
+
+			Resources.UnloadUnusedAssets ();
 			KickStarter.stateHandler.GatherObjects ();
 		}
 
@@ -483,7 +501,7 @@ namespace AC
 			{
 				return;
 			}
-			
+
 			if (data.Length > 0)
 			{
 				string[] varsArray = data.Split (SaveSystem.pipe[0]);
@@ -506,6 +524,29 @@ namespace AC
 						float _value = 0f;
 						float.TryParse (chunkData[1], out _value);
 						var.SetFloatValue (_value, SetVarMethod.SetValue);
+					}
+					else if (var.type == VariableType.Vector3)
+					{
+						string _text = chunkData[1];
+						_text = AdvGame.PrepareStringForLoading (_text);
+
+						Vector3 _value = Vector3.zero;
+						string[] valuesArray = _text.Split (","[0]);
+						if (valuesArray != null && valuesArray.Length == 3)
+						{
+							float xValue = 0f;
+							float.TryParse (valuesArray[0], out xValue);
+
+							float yValue = 0f;
+							float.TryParse (valuesArray[1], out yValue);
+
+							float zValue = 0f;
+							float.TryParse (valuesArray[2], out zValue);
+
+							_value = new Vector3 (xValue, yValue, zValue);
+						}
+
+						var.SetVector3Value (_value);
 					}
 					else
 					{

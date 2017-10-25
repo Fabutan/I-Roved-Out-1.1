@@ -10,6 +10,10 @@
  * 
  */
 
+#if UNITY_STANDALONE && (UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE)
+#define ALLOW_MOVIETEXTURES
+#endif
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -71,7 +75,7 @@ namespace AC
 		/** How much slower vertical movement is compared to horizontal movement, if the game is in 2D and overriderVerticalReductionFactor = True */
 		public float verticalReductionFactor = 0.7f;
 
-		#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
+		#if ALLOW_MOVIETEXTURES
 		private MovieTexture fullScreenMovie;
 		#endif
 		private IStateChange[] stateChangeHooks;
@@ -302,7 +306,7 @@ namespace AC
 			Time.timeScale = 0f;
 			AudioListener.pause = true;
 
-			#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS)
+			#if ALLOW_MOVIETEXTURES
 			if (fullScreenMovie != null)
 			{
 				fullScreenMovie.Pause ();
@@ -325,7 +329,7 @@ namespace AC
 		{
 			Time.timeScale = newScale;
 
-			#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS)
+			#if ALLOW_MOVIETEXTURES
 			if (fullScreenMovie != null)
 			{
 				fullScreenMovie.Play ();
@@ -356,7 +360,7 @@ namespace AC
 		}
 
 
-		#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
+		#if ALLOW_MOVIETEXTURES
 		/**
 		 * <summary>Assigns a MovieTexture as the one to pause when the game is paused.</summary>
 		 * <param name = "movieTexture">The MovieTexture to pause when the game is paused.</summary>
@@ -365,10 +369,8 @@ namespace AC
 		{
 			fullScreenMovie = movieTexture;
 		}
-		#endif
-		
 
-		#if !(UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_WEBGL || UNITY_TVOS || UNITY_PS4)
+
 		/**
 		 * <summary>Unassigns the currently-set MovieTexture to pause when the game is paused.
 		 * This should be called once the movie has finished playing.</summary>
@@ -377,6 +379,7 @@ namespace AC
 		{
 			fullScreenMovie = null;
 		}
+
 		#endif
 
 

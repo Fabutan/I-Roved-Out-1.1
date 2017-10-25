@@ -320,10 +320,9 @@ namespace AC
 		{
 			if (KickStarter.settingsManager.AutoDisableUnhandledHotspots && hotspot != null)
 			{
-				List<InvItem> selectedItems = KickStarter.runtimeInventory.GetSelected ();
-				if (selectedItems != null && selectedItems.Count > 0)
+				if (KickStarter.runtimeInventory.SelectedItem != null)
 				{
-					if (!hotspot.HasInventoryInteraction (selectedItems[0]))
+					if (!hotspot.HasInventoryInteraction (KickStarter.runtimeInventory.SelectedItem))
 					{
 						return null;
 					}
@@ -799,10 +798,11 @@ namespace AC
 		 * <summary>Runs a Hotspot's 'use inventory' interaction.</summary>
 		 * <param name = "_hotspot">The Hotspot to examine</param>
 		 * <param name = "inventoryItemID">The ID number of the inventory item (see InvItem)</param>
+		 * <param name = "requireCarry">If the SettingsManager's interactionMethod is CustomScript, the item must be carried by the player for the interaction to trigger</param>
 		 */
-		public void UseInventoryOnHotspot (Hotspot _hotspot, int inventoryItemID)
+		public void UseInventoryOnHotspot (Hotspot _hotspot, int inventoryItemID, bool requireCarry = true)
 		{
-			if (KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.CustomScript && !KickStarter.runtimeInventory.IsCarryingItem (inventoryItemID))
+			if (KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.CustomScript && requireCarry && !KickStarter.runtimeInventory.IsCarryingItem (inventoryItemID))
 			{
 				ACDebug.Log ("Cannot use item with ID " + inventoryItemID + " as the player is not carrying it.");
 				return;
@@ -1315,7 +1315,7 @@ namespace AC
 			{
 				if (KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ContextSensitive)
 				{
-					if (_hotspot && _hotspot.provideUseInteraction)
+					if (_hotspot && _hotspot.provideUseInteraction && KickStarter.runtimeInventory.SelectedItem == null)
 					{
 						Button _button = _hotspot.GetFirstUseButton ();
 						if (_button != null)

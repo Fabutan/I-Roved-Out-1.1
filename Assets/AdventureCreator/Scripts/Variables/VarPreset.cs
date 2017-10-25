@@ -186,6 +186,8 @@ namespace AC
 		public float floatVal;
 		/** Its value, if a string */
 		public string textVal;
+		/** Its value, if a Vector3 */
+		public Vector3 vector3Val;
 
 
 		/**
@@ -198,6 +200,7 @@ namespace AC
 			val = _gVar.val;
 			floatVal = _gVar.floatVal;
 			textVal = _gVar.textVal;
+			vector3Val = _gVar.vector3Val;
 		}
 
 	}

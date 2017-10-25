@@ -32,6 +32,7 @@ namespace AC
 
 		private AudioSource defaultAudioSource;
 		private AudioSource narratorAudioSource;
+		private string[] speechEventTokenKeys = new string[0];
 
 
 		public void OnAwake ()
@@ -54,14 +55,6 @@ namespace AC
 		 */
 		public void _Update ()
 		{
-			if (KickStarter.stateHandler.gameState != GameState.Paused)
-			{
-				for (int i=0; i<speechList.Count; i++)
-				{
-					speechList[i].UpdateInput ();
-				}
-			}
-
 			if (KickStarter.stateHandler.gameState != GameState.Paused)
 			{
 				for (int i=0; i<speechList.Count; i++)
@@ -740,6 +733,23 @@ namespace AC
 		}
 
 
+		/**
+		 * An array of string keys that can be inserted into speech text in the form [key:value].
+		 * When processed by the speech display, they will be removed from the speech, but will trigger the OnSpeechToken event.
+		 */
+		public string[] SpeechEventTokenKeys
+		{
+			get
+			{
+				return speechEventTokenKeys;
+			}
+			set
+			{
+				speechEventTokenKeys = value;
+			}
+		}
+
+
 		private void OnDestroy ()
 		{
 			defaultAudioSource = null;
@@ -763,6 +773,10 @@ namespace AC
 		public bool pauseIsIndefinite;
 		/** The ID number of the Expression */
 		public int expressionID;
+		/** The key, if a custom event token */
+		public string tokenKey;
+		/** The value, if a custom event token */
+		public string tokenValue;
 
 
 		/**
@@ -776,6 +790,7 @@ namespace AC
 			waitTime = _waitTime;
 			expressionID = -1;
 			pauseIsIndefinite = false;
+			tokenKey = tokenValue = "";
 		}
 
 
@@ -790,6 +805,7 @@ namespace AC
 			waitTime = -1f;
 			expressionID = -1;
 			pauseIsIndefinite = _pauseIsIndefinite;
+			tokenKey = tokenValue = "";
 		}
 
 
@@ -804,6 +820,32 @@ namespace AC
 			waitTime = -1f;
 			expressionID = _expressionID;
 			pauseIsIndefinite = false;
+			tokenKey = tokenValue = "";
+		}
+
+
+		/**
+		 * A Constructor for custom event tokens.</summary>
+		 * <param name = "_characterIndex</param>The character index of the gap</param>
+		 * <param name = "_expressionID</param>The ID number of the Expression</param>
+		 */
+		public SpeechGap (int _characterIndex, string _tokenKey, string _tokenValue)
+		{
+			characterIndex = _characterIndex;
+			waitTime = 0f;
+			expressionID = -1;
+			tokenKey = _tokenKey;
+			tokenValue = _tokenValue;
+			pauseIsIndefinite = false;
+		}
+
+
+		public void CallEvent (AC.Char speaker, int lineID)
+		{
+			if (!string.IsNullOrEmpty (tokenValue))
+			{
+				KickStarter.eventManager.Call_OnSpeechToken (speaker, lineID, tokenKey, tokenValue);
+			}
 		}
 		
 	}

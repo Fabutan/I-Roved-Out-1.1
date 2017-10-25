@@ -5,9 +5,7 @@ using UnityEditor;
 namespace AC
 {
 
-	#if UNITY_WEBGL
-	#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-	#elif UNITY_5 || UNITY_PRO_LICENSE
+	#if UNITY_STANDALONE && (UNITY_5 || UNITY_2017_1_OR_NEWER || UNITY_PRO_LICENSE)
 	[CustomEditor (typeof (BackgroundImage))]
 	public class BackgroundImageEditor : Editor
 	{

@@ -88,23 +88,26 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Creates and returns a new MenuJournal that has the same values as itself.</summary>
-		 * <param name = "fromEditor">If True, the duplication was done within the Menu Manager and not as part of the gameplay initialisation.</param>
-		 * <returns>A new MenuJournal with the same values as itself</returns>
-		 */
-		public override MenuElement DuplicateSelf (bool fromEditor)
+		public override MenuElement DuplicateSelf (bool fromEditor, bool ignoreUnityUI)
 		{
 			MenuJournal newElement = CreateInstance <MenuJournal>();
 			newElement.Declare ();
-			newElement.CopyJournal (this, fromEditor);
+			newElement.CopyJournal (this, fromEditor, ignoreUnityUI);
 			return newElement;
 		}
 		
 		
-		private void CopyJournal (MenuJournal _element, bool fromEditor)
+		private void CopyJournal (MenuJournal _element, bool fromEditor, bool ignoreUnityUI)
 		{
-			uiText = _element.uiText;
+			if (ignoreUnityUI)
+			{
+				uiText = null;
+			}
+			else
+			{
+				uiText = _element.uiText;
+			}
+
 			pages = new List<JournalPage>();
 			foreach (JournalPage page in _element.pages)
 			{

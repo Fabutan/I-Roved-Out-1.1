@@ -58,6 +58,7 @@ namespace AC
 		{
 			TriggerData triggerData = new TriggerData ();
 			triggerData.objectID = constantID;
+			triggerData.savePrevented = savePrevented;
 
 			if (GetComponent <Collider>())
 			{
@@ -88,6 +89,7 @@ namespace AC
 				loadedData = false;
 				return;
 			}
+			SavePrevented = data.savePrevented; if (savePrevented) return;
 
 			if (GetComponent <Collider>())
 			{

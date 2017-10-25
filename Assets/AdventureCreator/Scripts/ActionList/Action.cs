@@ -311,37 +311,43 @@ namespace AC
 			}
 			
 			int chosenNumber = 0;
-			List<string> labelList = new List<string>();
-			labelList.Add ("(No parameter)");
-			foreach (ActionParameter _parameter in _parameters)
+			List<PopupSelectData> popupSelectDataList = new List<PopupSelectData>();
+			for (int i=0; i<_parameters.Count; i++)
 			{
-				labelList.Add ("(" + _parameter.ID + ") " + _parameter.label);
-				if (_parameter.ID == _parameterID)
+				if (_parameters[i].parameterType == _expectedType)
 				{
-					chosenNumber = _parameters.IndexOf (_parameter)+1;
-					
-					if (_parameter.parameterType != _expectedType)
+					PopupSelectData popupSelectData = new PopupSelectData (_parameters[i].ID, "(" + _parameters[i].ID + ") " + _parameters[i].label, i);
+					popupSelectDataList.Add (popupSelectData);
+
+					if (popupSelectData.ID == _parameterID)
 					{
-						EditorGUILayout.HelpBox ("This parameter type is invalid: expecting " + _expectedType, MessageType.Warning);
+						chosenNumber = popupSelectDataList.Count;
 					}
 				}
 			}
 
+			List<string> labelList = new List<string>();
+			labelList.Add ("(No parameter)");
+			foreach (PopupSelectData popupSelectData in popupSelectDataList)
+			{
+				labelList.Add (popupSelectData.label);
+			}
+
 			if (label != "")
 			{
-				chosenNumber = EditorGUILayout.Popup ("-> " + label, chosenNumber, labelList.ToArray()) - 1;
+				chosenNumber = EditorGUILayout.Popup ("-> " + label, chosenNumber, labelList.ToArray ()) - 1;
 			}
 			else
 			{
-				chosenNumber = EditorGUILayout.Popup (chosenNumber, labelList.ToArray()) - 1;
+				chosenNumber = EditorGUILayout.Popup (chosenNumber, labelList.ToArray ()) - 1;
 			}
-			
+
 			if (chosenNumber < 0)
 			{
 				return -1;
 			}
-			
-			return _parameters [chosenNumber].ID;
+			int rootIndex = popupSelectDataList[chosenNumber].rootIndex;
+			return _parameters [rootIndex].ID;
 		}
 
 
@@ -783,6 +789,17 @@ namespace AC
 			if (parameter != null && parameter.parameterType == ParameterType.Float)
 			{
 				return (parameter.floatValue);
+			}
+			return field;
+		}
+
+
+		protected Vector3 AssignVector3 (List<ActionParameter> parameters, int _parameterID, Vector3 field)
+		{
+			ActionParameter parameter = GetParameterWithID (parameters, _parameterID);
+			if (parameter != null && parameter.parameterType == ParameterType.Vector3)
+			{
+				return (parameter.vector3Value);
 			}
 			return field;
 		}

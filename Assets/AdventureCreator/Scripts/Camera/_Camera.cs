@@ -217,6 +217,20 @@ namespace AC
 			return Vector2.zero;
 		}
 
+
+		/**
+		 * <summary>Checks if the _Camera is currently the MainCamera's active camera (attachedCamera)</summary>
+		 * <returns>True if the _Camera is currently the MainCamera's active camera (attachedCamera)</returns>
+		 */
+		public bool IsActive ()
+		{
+			if (KickStarter.mainCamera != null)
+			{
+				return (KickStarter.mainCamera.attachedCamera == this);
+			}
+			return false;
+		}
+
 	}
 
 }
