@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: Patches_Pose_Idle
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Idle/COG
+    localPosition: {x: -0.07626134, y: 2.0054471, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.7481133, w: 0.66357106}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1
+    localPosition: {x: 0.5933472, y: 0.000000059604645, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.01195377, w: 0.9999286}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2
+    localPosition: {x: 0.56992567, y: 0.0000000016484591, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.07421389, w: 0.99724233}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder
+    localPosition: {x: -0.066692576, y: 0.39794698, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.99114937, w: 0.13275167}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder/R_Elbow
+    localPosition: {x: 0.5437285, y: -0.00000020861626, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.24648583, w: 0.96914643}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder/R_Elbow/R_Wrist
+    localPosition: {x: 0.31921184, y: -0.00000008940697, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.08544419, w: -0.99634296}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder
+    localPosition: {x: -0.0073988736, y: -0.3251343, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.981316, w: 0.19240332}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder/L_Elbow
+    localPosition: {x: 0.575332, y: 0.00000014901146, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.48395285, w: 0.87509406}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder/L_Elbow/L_Wrist
+    localPosition: {x: 0.33074915, y: -0.00000017881393, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.22895965, w: 0.9734359}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/Head
+    localPosition: {x: 0.30940753, y: 0.0000000022118911, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.02426658, w: 0.99970555}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip
+    localPosition: {x: -0.12491385, y: -0.1339235, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9982693, w: 0.05880843}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip/L_Knee
+    localPosition: {x: 0.73487395, y: 0.000000022351742, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.015638348, w: 0.99987775}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip/L_Knee/L_Ankle
+    localPosition: {x: 0.8806674, y: -0.000000004434696, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.58184487, w: -0.81329983}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip
+    localPosition: {x: -0.07694017, y: 0.26517332, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.99555784, w: 0.094152346}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip/R_Knee
+    localPosition: {x: 0.72088414, y: -0.00000007450575, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.04120881, w: 0.9991506}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip/R_Knee/R_Ankle
+    localPosition: {x: 0.8924991, y: -0.000000062427716, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.5203637, w: -0.8539448}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Belt1
+    localPosition: {x: 0.035905212, y: -0.5069316, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9965983, w: -0.08241262}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Belt1/Belt2
+    localPosition: {x: 0.4038524, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.11126217, w: 0.9937911}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Belt1/Belt2/Belt3
+    localPosition: {x: 0.35255578, y: 0.000000015250407, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.15744948, w: 0.9875271}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Robe1
+    localPosition: {x: -0.3847557, y: 0.07888588, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9912205, w: 0.13221963}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Robe1/Robe2
+    localPosition: {x: 0.50636894, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.0035998672, w: 0.99999356}
+    localScale: {x: 1, y: 1, z: 1}

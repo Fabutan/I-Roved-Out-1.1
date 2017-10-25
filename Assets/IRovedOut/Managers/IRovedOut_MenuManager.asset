@@ -1,0 +1,5191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a67059743613d4dbb8de399ec529634f, type: 3}
+  m_Name: IRovedOut_MenuManager
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
+  menus:
+  - {fileID: 114376343534779052}
+  - {fileID: 114867763978049630}
+  - {fileID: 114297458027018282}
+  - {fileID: 114609318938083364}
+  - {fileID: 114211034847874292}
+  - {fileID: 114120807051002258}
+  - {fileID: 114751712013642656}
+  - {fileID: 114538913132389740}
+  - {fileID: 114601432147302560}
+  - {fileID: 114753925293384542}
+  - {fileID: 114230320929884274}
+  - {fileID: 114223388572025124}
+  - {fileID: 114829042957017566}
+  globalDepth: 0
+  pauseTexture: {fileID: 0}
+  scaleTextEffects: 0
+  keyboardControlWhenPaused: 1
+  keyboardControlWhenDialogOptions: 1
+  disableMouseIfKeyboardControlling: 1
+  doWindowsPreviewFix: 0
+  drawOutlines: 1
+  drawInEditor: 1
+--- !u!114 &114004988263467090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: ShiftRight
+  slotSize: {x: 2.5, y: 11}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 83
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 9786f1ddb7b7b43ef8de7dbc95b78bb1, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1781752
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 8.75
+    height: 35.420002
+  relativePosition: {x: 97, y: 9}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: InventoryBox
+  shiftInventory: 1
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 2800000, guid: 4c18e768f1bef4f0cb3c66642e3c2e2c, type: 3}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114009590650086196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: ResumeButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 66
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 318248
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Resume
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 0
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 1
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114014631277367770
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 7
+  isEditing: 0
+  title: ShiftContainerRight
+  slotSize: {x: 2, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 94
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 9786f1ddb7b7b43ef8de7dbc95b78bb1, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 354784
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 32.2
+  relativePosition: {x: 95, y: 13.5}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: ContainerItems
+  shiftInventory: 1
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114015457587790434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 5
+  isEditing: 0
+  title: InventoryLabel
+  slotSize: {x: 54.6, y: 2.8790786}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 92
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 345776
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 191.09999
+    height: 9.270634
+  relativePosition: {x: 1, y: 54}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Inventory
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114026345362763198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: Inventory
+  slotSize: {x: 9, y: 16}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 51.52
+  relativePosition: {x: 11.2, y: 66}
+  numSlots: 0
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 705200
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 710566
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 708650
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 707028
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 0
+  maxSlots: 4
+  limitToCategory: 0
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 
+  items: []
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 0
+--- !u!114 &114079955242442884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: InventoryBox
+  slotSize: {x: 3.8, y: 6}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2.5
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 99.78
+    y: 0.94500005
+    width: 0
+    height: 19.32
+  relativePosition: {x: 0, y: 0}
+  numSlots: 0
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 15087904
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 15093716
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 15091686
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 1
+  maxSlots: 3
+  limitToCategory: 0
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 
+  items: []
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 0
+--- !u!114 &114115961450519298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 6
+  isEditing: 0
+  title: BackButton
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 77
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 930818
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 108.85
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Back
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Pause
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114118276833780502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 0
+  title: PlayerInventory
+  slotSize: {x: 10, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 175
+    height: 32.2
+  relativePosition: {x: 6, y: 64}
+  numSlots: 5
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 320552
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 335472
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 333556
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 327508
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 325448
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 0
+  maxSlots: 5
+  limitToCategory: 0
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 
+  items: []
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 1
+--- !u!114 &114120807051002258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 10e5064ca985fbf479086062713f1117, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 1765320
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 3
+  title: Inventory
+  manualSize: {x: 100, y: 12.60303}
+  positionType: 1
+  manualPosition: {x: 175, y: 20.290878}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114642796292612378}
+  - {fileID: 114982711565691564}
+  - {fileID: 114004988263467090}
+  transitionProgress: 0
+  appearType: 1
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114642796292612378}
+  - {fileID: 114982711565691564}
+  - {fileID: 114004988263467090}
+  spacing: 0.5
+  sizeType: 1
+  autoSizeEveryFrame: 0
+  orientation: 0
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 0, y: 0}
+  rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 350
+    height: 40.581757
+--- !u!114 &114125365720592298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: ContainerItems
+  slotSize: {x: 10, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 5
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 175
+    height: 32.2
+  relativePosition: {x: 6, y: 13}
+  numSlots: 5
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 292394
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 301156
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 299036
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 297358
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 295142
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 5
+  maxSlots: 5
+  limitToCategory: 0
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 
+  items: []
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 1
+--- !u!114 &114136338574816182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: MenuButton
+  slotSize: {x: 6.3, y: 4.8}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 84
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 13963684
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 22.050001
+    height: 15.456
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Menu
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Pause
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114143657353682068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: HotspotLabel
+  slotSize: {x: 34, y: 12}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 85
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 14243318
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 119
+    height: 38.64
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Test
+  anchor: 4
+  textEffects: 1
+  outlineSize: 2
+  labelType: 1
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114148183571536652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: DeleteActiveProfileButton
+  slotSize: {x: 3, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 89d580b8dc11949de84e8136b9baf570, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 371314
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 10.5
+    height: 16.1
+  relativePosition: {x: 88.2, y: 15}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 591d780ae90874a03991d7fa69e706cb, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114149095212592062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b782860db111423486b2fbcd4e087e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 8
+  isEditing: 0
+  title: ProfilesList
+  slotSize: {x: 26.9, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 94.15
+    height: 64.4
+  relativePosition: {x: 11.5, y: 28}
+  numSlots: 4
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 377658
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 379704
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 381650
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 384238
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  maxSlots: 4
+  actionListOnClick: {fileID: 0}
+  showActive: 0
+  uiHideStyle: 0
+  autoHandle: 1
+  fixedOption: 0
+  optionToShow: 0
+  parameterID: -1
+--- !u!114 &114152185435708932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: CurrentProfile
+  slotSize: {x: 18.8, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 366448
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 65.799995
+    height: 16.1
+  relativePosition: {x: 27.5, y: 15}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Active save profile
+  anchor: 3
+  textEffects: 0
+  outlineSize: 2
+  labelType: 5
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114158696858717872
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf13557ef49841ec8e9700854a286f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: SFXSlider
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 74
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 776016
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 55.300003
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiSlider: {fileID: 0}
+  amount: 9
+  minValue: 0
+  maxValue: 1
+  label: SFX volume
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  sliderTexture: {fileID: 2800000, guid: 681d61a077bb84b4aa05cc6d42d19cfd, type: 3}
+  sliderDisplayType: 0
+  sliderType: 2
+  blockSize: {x: 0.05, y: 1}
+  useFullWidth: 0
+  varID: 0
+  numberOfSteps: 0
+  actionListOnChange: {fileID: 0}
+  uiSelectableHideStyle: 0
+--- !u!114 &114162298340378200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: ShiftRight
+  slotSize: {x: 2, y: 16}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 98
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 9786f1ddb7b7b43ef8de7dbc95b78bb1, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 730976
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 51.52
+  relativePosition: {x: 92, y: 66}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: Inventory
+  shiftInventory: 1
+  shiftAmount: 1
+  onlyShowWhenEffective: 1
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114169236353175930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40ecbe0a1e5041fa8d2703183379581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 5
+  isEditing: 0
+  title: SubtitlesToggle
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 76
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 860984
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 91
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiToggle: {fileID: 0}
+  toggleType: 0
+  actionListOnClick: {fileID: 0}
+  label: Subtitles
+  isOn: 1
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  varID: 0
+  appendState: 1
+  onTexture: {fileID: 0}
+  offTexture: {fileID: 0}
+  uiSelectableHideStyle: 0
+  onText: On
+  onTextLineID: -1
+  offText: Off
+  offTextLineID: -1
+--- !u!114 &114198801788813664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: BackButton
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 81
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1468400
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 85.75
+    width: 105
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Back
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Pause
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114207226535738822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: BackButton
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 79
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1189454
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 85.75
+    width: 105
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Back
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Pause
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114211034847874292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22306536, guid: 297ca204f631f0c43a0b12c3f8e44066, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 340762
+  uiTransitionType: 0
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 7
+  title: Profiles
+  manualSize: {x: 30.999998, y: 45}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 4
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 1
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 11400000, guid: f08f08e6520c746f289f229b9ffebade, type: 2}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114920085287471740}
+  - {fileID: 114988037649190756}
+  - {fileID: 114152185435708932}
+  - {fileID: 114148183571536652}
+  - {fileID: 114149095212592062}
+  - {fileID: 114312381871076482}
+  - {fileID: 114835259799253240}
+  - {fileID: 114669406721138272}
+  - {fileID: 114733261978013430}
+  transitionProgress: 0
+  appearType: 0
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114920085287471740}
+  - {fileID: 114988037649190756}
+  - {fileID: 114152185435708932}
+  - {fileID: 114148183571536652}
+  - {fileID: 114149095212592062}
+  - {fileID: 114312381871076482}
+  - {fileID: 114835259799253240}
+  - {fileID: 114669406721138272}
+  - {fileID: 114733261978013430}
+  spacing: 0.5
+  sizeType: 1
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 0, y: 0}
+  rect:
+    serializedVersion: 2
+    x: 120.75
+    y: 88.55
+    width: 108.49999
+    height: 144.9
+--- !u!114 &114223388572025124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 5687ae704ee84bf4a9f621bedc61148b, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 698818
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 10
+  title: Crafting
+  manualSize: {x: 45.28576, y: 69.2}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 5
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114026345362763198}
+  - {fileID: 114943453490682984}
+  - {fileID: 114526193718171226}
+  - {fileID: 114162298340378200}
+  - {fileID: 114649622738465064}
+  - {fileID: 114280383462839748}
+  - {fileID: 114673236118579546}
+  - {fileID: 114260681736973492}
+  - {fileID: 114306908059976782}
+  - {fileID: 114609626398823792}
+  transitionProgress: 0
+  appearType: 0
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114026345362763198}
+  - {fileID: 114943453490682984}
+  - {fileID: 114526193718171226}
+  - {fileID: 114162298340378200}
+  - {fileID: 114649622738465064}
+  - {fileID: 114280383462839748}
+  - {fileID: 114673236118579546}
+  - {fileID: 114260681736973492}
+  - {fileID: 114306908059976782}
+  - {fileID: 114609626398823792}
+  spacing: 1.35
+  sizeType: 1
+  autoSizeEveryFrame: 0
+  orientation: 0
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 0, y: 0}
+  rect:
+    serializedVersion: 2
+    x: 95.74992
+    y: 49.588005
+    width: 158.50015
+    height: 222.82399
+--- !u!114 &114230320929884274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 2f999255ab43c9040befe2a76c10bbc1, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 276360
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 8
+  title: Container
+  manualSize: {x: 55.656563, y: 40.297825}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 4
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114488186450766058}
+  - {fileID: 114125365720592298}
+  - {fileID: 114812199233761588}
+  - {fileID: 114590487278667224}
+  - {fileID: 114118276833780502}
+  - {fileID: 114015457587790434}
+  - {fileID: 114627632362010734}
+  - {fileID: 114014631277367770}
+  - {fileID: 114947956508749216}
+  - {fileID: 114839358404596760}
+  transitionProgress: 0
+  appearType: 8
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114488186450766058}
+  - {fileID: 114125365720592298}
+  - {fileID: 114812199233761588}
+  - {fileID: 114590487278667224}
+  - {fileID: 114118276833780502}
+  - {fileID: 114015457587790434}
+  - {fileID: 114627632362010734}
+  - {fileID: 114014631277367770}
+  - {fileID: 114947956508749216}
+  - {fileID: 114839358404596760}
+  spacing: 0.5
+  sizeType: 1
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 0, y: 0}
+  rect:
+    serializedVersion: 2
+    x: 77.60101
+    y: 96.12051
+    width: 194.79797
+    height: 129.75899
+--- !u!114 &114260681736973492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 7
+  isEditing: 0
+  title: IngredientsLabel
+  slotSize: {x: 11.714286, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 101
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 751298
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 41
+    height: 7
+  relativePosition: {x: 3, y: 3}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Ingredients
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114274173861569218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e338289c9b5c437cb702c29f4458bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: Look
+  slotSize: {x: 9.142858, y: 9.937888}
+  sizeType: 0
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 3.38
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 15193404
+  relativeRect:
+    serializedVersion: 2
+    x: 66.835
+    y: 0.94500005
+    width: 32
+    height: 32
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  displayType: 0
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  iconID: 2
+  uiSelectableHideStyle: 0
+  overrideTexture: 0
+  activeTexture: {fileID: 0}
+--- !u!114 &114280383462839748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 5
+  isEditing: 0
+  title: CreateButton
+  slotSize: {x: 6.571429, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 99
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 741978
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 23
+    height: 7
+  relativePosition: {x: 72, y: 37.9}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Create
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 7e291607709b64c05a5146e66857ebd9, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114289952490350444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf13557ef49841ec8e9700854a286f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: SpeechSlider
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 72
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 734554
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 19.6
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiSlider: {fileID: 0}
+  amount: 1
+  minValue: 0
+  maxValue: 1
+  label: Speech volume
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  sliderTexture: {fileID: 2800000, guid: 681d61a077bb84b4aa05cc6d42d19cfd, type: 3}
+  sliderDisplayType: 0
+  sliderType: 0
+  blockSize: {x: 0.05, y: 1}
+  useFullWidth: 0
+  varID: 0
+  numberOfSteps: 0
+  actionListOnChange: {fileID: 0}
+  uiSelectableHideStyle: 0
+--- !u!114 &114291458375759166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: SubsSpeakerLabel
+  slotSize: {x: 50, y: 7}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 86
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 14535516
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 175
+    height: 22.54
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Brain
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 3
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114297458027018282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 5c0ca6e12c8bf8e4a85532ff3c9f0698, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 1313004
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 1
+  title: Save
+  manualSize: {x: 31, y: 32.173912}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 1
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114533178075106014}
+  - {fileID: 114821748465558210}
+  - {fileID: 114207226535738822}
+  transitionProgress: 0
+  appearType: 0
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114533178075106014}
+  - {fileID: 114821748465558210}
+  - {fileID: 114207226535738822}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 106.75, y: 101.85}
+  rect:
+    serializedVersion: 2
+    x: 120.75
+    y: 109.2
+    width: 108.5
+    height: 103.6
+--- !u!114 &114306908059976782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 8
+  isEditing: 0
+  title: InventoryLabel
+  slotSize: {x: 10, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 102
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 755516
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 35
+    height: 7
+  relativePosition: {x: 3.7, y: 60}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Inventory
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114312381871076482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 0
+  title: ShiftUpButton
+  slotSize: {x: 3, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 13a1ccfbbd7634b4e9bac1cf83c3297e, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 395396
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 10.5
+    height: 16.1
+  relativePosition: {x: 1.7, y: 28}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: ProfilesList
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 1
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114320427897548078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: SubsLineLabel
+  slotSize: {x: 50, y: 4.8}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 87
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 1.5
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 14540120
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 22.54
+    width: 175
+    height: 15.456
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Hi!
+  anchor: 0
+  textEffects: 0
+  outlineSize: 2
+  labelType: 2
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114342169527236078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf13557ef49841ec8e9700854a286f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: MusicSlider
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 73
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 771812
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 37.45
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiSlider: {fileID: 0}
+  amount: 3
+  minValue: 0
+  maxValue: 1
+  label: Music volume
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  sliderTexture: {fileID: 2800000, guid: 681d61a077bb84b4aa05cc6d42d19cfd, type: 3}
+  sliderDisplayType: 0
+  sliderType: 1
+  blockSize: {x: 0.05, y: 1}
+  useFullWidth: 0
+  varID: 0
+  numberOfSteps: 0
+  actionListOnChange: {fileID: 0}
+  uiSelectableHideStyle: 0
+--- !u!114 &114376343534779052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 70763d9eaf11c524ba08771e63080bae, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 310968
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 12
+  title: Pause
+  manualSize: {x: 17, y: 28.26087}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 4
+  toggleKey: Menu
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 1
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 11400000, guid: c6e29f6ea3d084d049c474742119836c, type: 2}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114009590650086196}
+  - {fileID: 114854876709919368}
+  - {fileID: 114999364946553606}
+  - {fileID: 114951103289808588}
+  - {fileID: 114673053439136800}
+  transitionProgress: 0
+  appearType: 3
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114009590650086196}
+  - {fileID: 114854876709919368}
+  - {fileID: 114999364946553606}
+  - {fileID: 114951103289808588}
+  - {fileID: 114978905940740290}
+  - {fileID: 114673053439136800}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 57.75, y: 89.25}
+  rect:
+    serializedVersion: 2
+    x: 145.25
+    y: 115.5
+    width: 59.5
+    height: 91
+--- !u!114 &114453727678006544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e338289c9b5c437cb702c29f4458bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: Talk
+  slotSize: {x: 9.142858, y: 9.937888}
+  sizeType: 0
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 15191042
+  relativeRect:
+    serializedVersion: 2
+    x: 33.89
+    y: 0.94500005
+    width: 32
+    height: 32
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  displayType: 0
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  iconID: 1
+  uiSelectableHideStyle: 0
+  overrideTexture: 0
+  activeTexture: {fileID: 0}
+--- !u!114 &114488186450766058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: ContainerLabel
+  slotSize: {x: 54.6, y: 3.0710173}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 89
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 284394
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 191.09999
+    height: 9.888676
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Container
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114518934223463498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: TitleLabel
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 71
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 755294
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Options
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114526193718171226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: ShiftLeft
+  slotSize: {x: 2, y: 16}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 97
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: ef118e99a62af4f05ad8c9f331a04f27, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 727352
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 51.52
+  relativePosition: {x: 4, y: 66}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: Inventory
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 1
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114533178075106014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: TitleLabel
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 78
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1296636
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 105
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Save game
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114538913132389740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 79e8fbe1bad18944fa80aa4fb0f8edc8, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 14169666
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 5
+  title: Conversation
+  manualSize: {x: 36, y: 28.630436}
+  positionType: 2
+  manualPosition: {x: 24, y: 69.7}
+  positionSmoothing: 0
+  alignment: 6
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114947271600438366}
+  - {fileID: 114825487477682168}
+  transitionProgress: 0
+  appearType: 2
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114947271600438366}
+  - {fileID: 114825487477682168}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 124.25, y: 90.44}
+  rect:
+    serializedVersion: 2
+    x: 21
+    y: 178.33899
+    width: 126
+    height: 92.19
+--- !u!114 &114590487278667224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: TakeAllButton
+  slotSize: {x: 8, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 91
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 314016
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 28
+    height: 7
+  relativePosition: {x: 84.9, y: 43.6}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Take all
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 57583fbafdf1e4964a77aba6223bc687, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114601432147302560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 9373da042ce5c374a9a946b8d2b0968f, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 15198304
+  uiTransitionType: 1
+  uiPositionType: 2
+  isEditing: 0
+  isLocked: 0
+  id: 6
+  title: Interaction
+  manualSize: {x: 28.77857, y: 10.524844}
+  positionType: 4
+  manualPosition: {x: 50, y: 50}
+  positionSmoothing: 0
+  alignment: 4
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114633006106111224}
+  - {fileID: 114453727678006544}
+  - {fileID: 114274173861569218}
+  - {fileID: 114079955242442884}
+  transitionProgress: 0
+  appearType: 4
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114633006106111224}
+  - {fileID: 114453727678006544}
+  - {fileID: 114274173861569218}
+  - {fileID: 114079955242442884}
+  spacing: 0.27
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 0
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 99.78, y: 32.945}
+  rect:
+    serializedVersion: 2
+    x: 124.6375
+    y: 144.055
+    width: 100.725
+    height: 33.89
+--- !u!114 &114609318938083364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 8d48c58342cb51849a987c2cb00a6011, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 1386510
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 2
+  title: Load
+  manualSize: {x: 31, y: 32.173912}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 1
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114702631384286054}
+  - {fileID: 114681431180931698}
+  - {fileID: 114198801788813664}
+  transitionProgress: 0
+  appearType: 0
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114702631384286054}
+  - {fileID: 114681431180931698}
+  - {fileID: 114198801788813664}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 106.75, y: 101.85}
+  rect:
+    serializedVersion: 2
+    x: 120.75
+    y: 109.2
+    width: 108.5
+    height: 103.6
+--- !u!114 &114609626398823792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 9
+  isEditing: 0
+  title: OutputLabel
+  slotSize: {x: 6.571429, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 103
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 758614
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 23
+    height: 7
+  relativePosition: {x: 72, y: 3}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Output
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114627632362010734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 6
+  isEditing: 0
+  title: ShiftContainerLeft
+  slotSize: {x: 2, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 93
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: ef118e99a62af4f05ad8c9f331a04f27, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 351100
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 32.2
+  relativePosition: {x: 1.5, y: 13.5}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: ContainerItems
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114633006106111224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e338289c9b5c437cb702c29f4458bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: Use
+  slotSize: {x: 9.142858, y: 9.937888}
+  sizeType: 0
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2.03
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 15188550
+  relativeRect:
+    serializedVersion: 2
+    x: 0.94500005
+    y: 0.94500005
+    width: 32
+    height: 32
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  displayType: 0
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  iconID: 0
+  uiSelectableHideStyle: 0
+  overrideTexture: 0
+  activeTexture: {fileID: 0}
+--- !u!114 &114642796292612378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: ShiftLeft
+  slotSize: {x: 2.5, y: 11}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 82
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: ef118e99a62af4f05ad8c9f331a04f27, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1772982
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 8.75
+    height: 35.420002
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: InventoryBox
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 2800000, guid: 4c18e768f1bef4f0cb3c66642e3c2e2c, type: 3}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114649622738465064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fece851f2fa1834688c9328fc702da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 0
+  title: Crafting
+  slotSize: {x: 9, y: 16}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 31.5
+    height: 51.52
+  relativePosition: {x: 72, y: 10}
+  numSlots: 1
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 736686
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  craftingType: 1
+  items: []
+  displayType: 1
+  uiHideStyle: 0
+  actionListOnWrongIngredients: {fileID: 0}
+--- !u!114 &114669406721138272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 6
+  isEditing: 0
+  title: NewButton
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 405976
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 105
+    height: 16.1
+  relativePosition: {x: 1.6, y: 74}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Create new profile
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 0390d7199340c422da894cb624fdfddb, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114673053439136800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 0
+  title: QuitButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 70
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 335904
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 73.15
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Quit
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 673b36f59d83c4cc5b707d270f4ad87a, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114673236118579546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 6
+  isEditing: 0
+  title: CloseButton
+  slotSize: {x: 5.428571, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 100
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 745862
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 19
+    height: 7
+  relativePosition: {x: 84.7, y: 92}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Close
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 3
+  actionList: {fileID: 11400000, guid: 0bf9476cfba3b416c969199b54211877, type: 2}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114681431180931698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654db1a76394948108f9ceab511378a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: SavesList
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 108
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 19.6
+    width: 105
+    height: 64.4
+  relativePosition: {x: 0, y: 0}
+  numSlots: 4
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 1464016
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1462004
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1460350
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1411846
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1456030
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  anchor: 4
+  saveListType: 1
+  maxSlots: 5
+  actionListOnSave: {fileID: 0}
+  displayType: 0
+  blankSlotTexture: {fileID: 0}
+  importProductName: 
+  importSaveFilename: 
+  checkImportBool: 0
+  checkImportVar: 0
+  fixedOption: 0
+  optionToShow: 0
+  parameterID: -1
+  newSaveText: New save
+  showNewSaveOption: 1
+  autoHandle: 1
+  uiHideStyle: 0
+--- !u!114 &114702631384286054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: TitleLabel
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 80
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 1402734
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 105
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Load game
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114733261978013430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 7
+  isEditing: 0
+  title: BackButton
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 409594
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 105
+    height: 16.1
+  relativePosition: {x: 1.6, y: 87}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Back
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Pause
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114751712013642656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: a6922ba29d192c84f9e440e62d11d05b, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 13953742
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 4
+  title: InGame
+  manualSize: {x: 7.3, y: 5.8869567}
+  positionType: 1
+  manualPosition: {x: 12.775001, y: 312.522}
+  positionSmoothing: 0
+  alignment: 6
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114136338574816182}
+  transitionProgress: 0
+  appearType: 7
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114136338574816182}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 0
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.1
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 23.800001, y: 17.206001}
+  rect:
+    serializedVersion: 2
+    x: 0
+    y: 303.044
+    width: 25.550001
+    height: 18.956001
+--- !u!114 &114753925293384542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: b35a6448ea54ab447aa7827a4f480d6f, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 14532472
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 9
+  title: Subtitles
+  manualSize: {x: 50, y: 28}
+  positionType: 2
+  manualPosition: {x: 50, y: 79.9}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 1
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 0}
+  visibleElements:
+  - {fileID: 114291458375759166}
+  - {fileID: 114320427897548078}
+  transitionProgress: 0
+  appearType: 6
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114291458375759166}
+  - {fileID: 114320427897548078}
+  spacing: 0
+  sizeType: 1
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 0, y: 0}
+  rect:
+    serializedVersion: 2
+    x: 87.5
+    y: 212.19801
+    width: 175
+    height: 90.16
+--- !u!114 &114812199233761588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: CloseButton
+  slotSize: {x: 5.428571, y: 2.173913}
+  sizeType: 0
+  positionType: 2
+  slotSpacing: 0
+  lineID: 90
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 310492
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 19
+    height: 7
+  relativePosition: {x: 89.5, y: 90.2}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Close
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 0
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 1
+  switchMenuTitle: 
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114814562040598616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299fc094732cd49c7ae92dda3f837440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 0
+  title: LanguageCycle
+  slotSize: {x: 36, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 75
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 656120
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 73.15
+    width: 126
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiDropdown: {fileID: 0}
+  actionListOnClick: {fileID: 0}
+  label: Language
+  textEffects: 0
+  outlineSize: 2
+  anchor: 3
+  selected: 0
+  optionsArray: []
+  cycleType: 0
+  varID: 0
+  uiSelectableHideStyle: 0
+  cycleUIBasis: 0
+--- !u!114 &114821748465558210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654db1a76394948108f9ceab511378a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: SavesList
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 88
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 19.6
+    width: 105
+    height: 64.4
+  relativePosition: {x: 0, y: 0}
+  numSlots: 4
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 1327118
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1328802
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1330966
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1332986
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  anchor: 4
+  saveListType: 0
+  maxSlots: 5
+  actionListOnSave: {fileID: 0}
+  displayType: 0
+  blankSlotTexture: {fileID: 0}
+  importProductName: 
+  importSaveFilename: 
+  checkImportBool: 0
+  checkImportVar: 0
+  fixedOption: 0
+  optionToShow: 0
+  parameterID: -1
+  newSaveText: New save
+  showNewSaveOption: 1
+  autoHandle: 1
+  uiHideStyle: 0
+--- !u!114 &114825487477682168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d436055bf45cc449f8d6b44707d81e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: DialogueTimer
+  slotSize: {x: 35, y: 1}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 14192356
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 87.22
+    width: 122.5
+    height: 3.22
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiSlider: {fileID: 0}
+  doInvert: 0
+  timerTexture: {fileID: 2800000, guid: 681d61a077bb84b4aa05cc6d42d19cfd, type: 3}
+  timerType: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114829042957017566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: e72e56034b5e1cb49b7d5473d481ee39, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 87948
+  uiTransitionType: 1
+  uiPositionType: 1
+  isEditing: 0
+  isLocked: 0
+  id: 11
+  title: Hotspot
+  manualSize: {x: 34, y: 12}
+  positionType: 3
+  manualPosition: {x: 50, y: 44.4}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 1
+  pauseWhenEnabled: 0
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 0}
+  visibleElements:
+  - {fileID: 114143657353682068}
+  transitionProgress: 0
+  appearType: 5
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114143657353682068}
+  spacing: 0
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.1
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 119, y: 38.64}
+  rect:
+    serializedVersion: 2
+    x: 115.5
+    y: 123.648
+    width: 119
+    height: 38.64
+--- !u!114 &114835259799253240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 5
+  isEditing: 0
+  title: ShiftDownButton
+  slotSize: {x: 3, y: 5}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 403c7131fd05444f0af1c292d633a330, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 402318
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 10.5
+    height: 16.1
+  relativePosition: {x: 1.7, y: 61}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: ProfilesList
+  shiftInventory: 1
+  shiftAmount: 1
+  onlyShowWhenEffective: 1
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114839358404596760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 9
+  isEditing: 0
+  title: ShiftInventoryRight
+  slotSize: {x: 2, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 96
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: 9786f1ddb7b7b43ef8de7dbc95b78bb1, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 365634
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 32.2
+  relativePosition: {x: 95, y: 64}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: PlayerInventory
+  shiftInventory: 1
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114854876709919368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: OptionsButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 67
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 326570
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 19.6
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Options
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 1
+  switchMenuTitle: Options
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114867763978049630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f455f0e4a864975bf60bc153fbe20d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuSource: 0
+  canvas: {fileID: 22300000, guid: 8f1b793f3fbe55547a1114d25e5b4a62, type: 2}
+  canvasID: 0
+  rectTransform: {fileID: 0}
+  rectTransformID: 710880
+  uiTransitionType: 1
+  uiPositionType: 0
+  isEditing: 0
+  isLocked: 0
+  id: 0
+  title: Options
+  manualSize: {x: 37, y: 39.347824}
+  positionType: 0
+  manualPosition: {x: 175, y: 161}
+  positionSmoothing: 0
+  alignment: 0
+  toggleKey: 
+  ignoreMouseClicks: 0
+  pauseWhenEnabled: 1
+  showWhenPaused: 0
+  canClickInCutscene: 0
+  enabledOnStart: 0
+  actionListOnTurnOn: {fileID: 0}
+  actionListOnTurnOff: {fileID: 0}
+  updateWhenFadeOut: 1
+  fitWithinScreen: 1
+  backgroundTexture: {fileID: 2800000, guid: 5f4f3dd6223164fe49aea7eb6c0bc529, type: 3}
+  visibleElements:
+  - {fileID: 114518934223463498}
+  - {fileID: 114289952490350444}
+  - {fileID: 114342169527236078}
+  - {fileID: 114158696858717872}
+  - {fileID: 114814562040598616}
+  - {fileID: 114169236353175930}
+  - {fileID: 114115961450519298}
+  transitionProgress: 0
+  appearType: 0
+  speechMenuType: 0
+  speechMenuLimit: 0
+  limitToCharacters: 
+  forceSubtitles: 0
+  selected_element: {fileID: 0}
+  selected_slot: 0
+  autoSelectFirstVisibleElement: 0
+  firstSelectedElement: 
+  elements:
+  - {fileID: 114518934223463498}
+  - {fileID: 114289952490350444}
+  - {fileID: 114342169527236078}
+  - {fileID: 114158696858717872}
+  - {fileID: 114814562040598616}
+  - {fileID: 114169236353175930}
+  - {fileID: 114115961450519298}
+  spacing: 0.5
+  sizeType: 0
+  autoSizeEveryFrame: 0
+  orientation: 1
+  transitionType: 0
+  panDirection: 0
+  panMovement: 0
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panDistance: 0.5
+  fadeSpeed: 0.2
+  zoomAnchor: 4
+  zoomElements: 0
+  oneMenuPerSpeech: 0
+  biggestElementSize: {x: 127.75, y: 124.95}
+  rect:
+    serializedVersion: 2
+    x: 110.25
+    y: 97.65
+    width: 129.5
+    height: 126.7
+--- !u!114 &114920085287471740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: TitleLabel
+  slotSize: {x: 30, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 347198
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 105
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: Profiles
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114943453490682984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fece851f2fa1834688c9328fc702da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: Ingredients
+  slotSize: {x: 9, y: 16}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 2
+  gridWidth: 2
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 63
+    height: 103.04
+  relativePosition: {x: 3, y: 10}
+  numSlots: 4
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 722142
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 720480
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 718430
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 716824
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  craftingType: 0
+  items: []
+  displayType: 1
+  uiHideStyle: 0
+  actionListOnWrongIngredients: {fileID: 0}
+--- !u!114 &114947271600438366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6138e5bbd3645ceb56ec1bc347d03c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: DialogueList
+  slotSize: {x: 35, y: 5.2}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 1
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 1.75
+    width: 122.5
+    height: 83.72
+  relativePosition: {x: 0, y: 0}
+  numSlots: 5
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 14180912
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 14189098
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 14187036
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 14185420
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 0
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  displayType: 0
+  testIcon: {fileID: 0}
+  anchor: 3
+  fixedOption: 0
+  optionToShow: 1
+  maxSlots: 5
+  markAlreadyChosen: 0
+  alreadyChosenFontColour: {r: 1, g: 1, b: 1, a: 1}
+  alreadyChosenFontHighlightedColour: {r: 1, g: 1, b: 1, a: 1}
+  showIndexNumbers: 0
+  uiHideStyle: 0
+--- !u!114 &114947956508749216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 8
+  isEditing: 0
+  title: ShiftInventoryLeft
+  slotSize: {x: 2, y: 10}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: 95
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 2800000, guid: ef118e99a62af4f05ad8c9f331a04f27, type: 3}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 362232
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 7
+    height: 32.2
+  relativePosition: {x: 1.5, y: 64}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: 
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 2
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: 
+  inventoryBoxTitle: PlayerInventory
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114951103289808588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: LoadButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 69
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 332646
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 55.300003
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Load
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Load
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114978905940740290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 5
+  isEditing: 0
+  title: ProfilesButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 0
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 27694
+  relativeRect:
+    serializedVersion: 2
+    x: 4.845
+    y: 133.225
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Profiles
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Profiles
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0
+--- !u!114 &114982711565691564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  isEditing: 0
+  title: InventoryBox
+  slotSize: {x: 7, y: 11}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 1.34
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 12.25
+    y: 1.75
+    width: 318.5
+    height: 35.420002
+  relativePosition: {x: 0, y: 0}
+  numSlots: 13
+  uiSlots:
+  - uiButton: {fileID: 0}
+    uiButtonID: 1857130
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1855142
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1853254
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1850746
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1848530
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1846308
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1843542
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1802862
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1800814
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1798390
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1795704
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1792832
+    sprite: {fileID: 0}
+  - uiButton: {fileID: 0}
+    uiButtonID: 1790898
+    sprite: {fileID: 0}
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 0
+  maxSlots: 13
+  limitToCategory: 0
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 
+  items: []
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 1
+--- !u!114 &114988037649190756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ae5c94351944600a4b0aec144476b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 1
+  isEditing: 0
+  title: CurrentLabel
+  slotSize: {x: 8, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 353508
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 19.6
+    width: 28
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiText: {fileID: 0}
+  label: 'Current:'
+  anchor: 3
+  textEffects: 0
+  outlineSize: 2
+  labelType: 0
+  variableID: 0
+  useCharacterColour: 0
+  autoAdjustHeight: 1
+  updateIfEmpty: 0
+  itemPropertyID: 0
+  inventoryPropertyType: 0
+  itemSlotNumber: 0
+--- !u!114 &114999364946553606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64747f67d47cb4e04a88bea43b7c1cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 2
+  isEditing: 0
+  title: SaveButton
+  slotSize: {x: 16, y: 5}
+  sizeType: 1
+  positionType: 0
+  slotSpacing: 0
+  lineID: 68
+  alternativeInputButton: 
+  font: {fileID: 12800000, guid: c6e3b07edbe7e4f62837dde56356b819, type: 3}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 0
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 2800000, guid: ac2dde689ce194d9a81a41f09e6b56b4, type: 3}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 329416
+  relativeRect:
+    serializedVersion: 2
+    x: 1.75
+    y: 37.45
+    width: 56
+    height: 16.1
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  label: Save
+  hotspotLabel: 
+  hotspotLabelID: -1
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  buttonClickType: 1
+  actionList: {fileID: 0}
+  parameterID: -1
+  parameterValue: 0
+  doFade: 0
+  switchMenuTitle: Save
+  inventoryBoxTitle: 
+  shiftInventory: 0
+  shiftAmount: 1
+  onlyShowWhenEffective: 0
+  loopJournal: 0
+  inputAxis: 
+  simulateInput: 0
+  simulateValue: 1
+  clickTexture: {fileID: 0}
+  allowContinuousClick: 0
+  uiSelectableHideStyle: 0

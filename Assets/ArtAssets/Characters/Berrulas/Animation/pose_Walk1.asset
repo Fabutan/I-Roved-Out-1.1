@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: pose_Walk1
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Idle/COG
+    localPosition: {x: -0.03598404, y: 2.1683948, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.7915745, w: 0.61107284}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1
+    localPosition: {x: 0.7283038, y: 0.000000059604645, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.0022453899, w: 0.9999975}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2
+    localPosition: {x: 0.40525213, y: 9.683188e-10, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.27075306, w: 0.96264887}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/Neck
+    localPosition: {x: 0.27658817, y: 0.00000013969839, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.060787316, w: 0.99815077}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder
+    localPosition: {x: -0.016214058, y: -0.25843447, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.99964213, w: 0.02675174}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder/L_Elbow
+    localPosition: {x: 0.7418302, y: 0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.66169006, w: 0.7497775}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder/L_Elbow/L_Wrist
+    localPosition: {x: 0.35967183, y: -0.00000011920929, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.5269112, w: 0.8499204}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/L_Shoulder/L_Elbow/L_Wrist/L_Carry
+    localPosition: {x: 0.14642154, y: 0.00000025331974, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9071823, w: 0.4207379}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder
+    localPosition: {x: -0.023380425, y: 0.1660753, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9890057, w: 0.1478774}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder/R_Elbow
+    localPosition: {x: 0.7726181, y: -0.00000011920921, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.32375202, w: 0.946142}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder/R_Elbow/R_Wrist
+    localPosition: {x: 0.4960626, y: -0.00000029429793, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.72677624, w: 0.6868744}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/Spine1/Spine2/R_Shoulder/R_Elbow/R_Wrist/R_Carry
+    localPosition: {x: 0.39000013, y: -0.000000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.98165536, w: 0.19066402}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip
+    localPosition: {x: -0.1048347, y: -0.15211377, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9988718, w: -0.047488272}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip/L_Knee
+    localPosition: {x: 0.86437106, y: -0.00000013038516, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.18681744, w: 0.98239464}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/L_Hip/L_Knee/L_Ankle
+    localPosition: {x: 0.72003156, y: -0.000000023050234, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.6340402, w: -0.7733001}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip
+    localPosition: {x: -0.06437663, y: 0.20457117, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9804544, w: 0.19674672}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip/R_Knee
+    localPosition: {x: 0.87167025, y: 0.000000059604606, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.13435246, w: 0.9909336}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Idle/COG/R_Hip/R_Knee/R_Ankle
+    localPosition: {x: 0.75244355, y: 0.00000020640437, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.5567134, w: -0.8307047}
+    localScale: {x: 1, y: 1, z: 1}

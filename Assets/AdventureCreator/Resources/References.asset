@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bb4837106a44466aea61fef9b346fe, type: 3}
+  m_Name: References
+  m_EditorClassIdentifier: 
+  actionsManager: {fileID: 11400000, guid: 30f89440fde87034ebc97b3454d05e70, type: 2}
+  sceneManager: {fileID: 11400000, guid: e3ec425a5f08aa84993842358626f8f7, type: 2}
+  settingsManager: {fileID: 11400000, guid: 764eea364b917504f9202006944b5269, type: 2}
+  inventoryManager: {fileID: 11400000, guid: 6c7b4d391bcf6c548ac961d693d6fa2c, type: 2}
+  variablesManager: {fileID: 11400000, guid: 5987067f586c4d74aad12511720af65b, type: 2}
+  speechManager: {fileID: 11400000, guid: 762b8050d8e214e48a8df0d270de1c84, type: 2}
+  cursorManager: {fileID: 11400000, guid: c7f173ab1dabd4042a3e6acbc9eaee0f, type: 2}
+  menuManager: {fileID: 11400000, guid: 8f62e407661ac8048b67a3913080cfa2, type: 2}
+  viewingMenuManager: 0

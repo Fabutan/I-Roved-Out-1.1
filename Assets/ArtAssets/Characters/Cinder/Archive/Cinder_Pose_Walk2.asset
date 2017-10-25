@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: Cinder_Pose_Walk2
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Joints/Hips
+    localPosition: {x: -0.43, y: 0.5100002, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.58105177, w: 0.8138667}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1
+    localPosition: {x: 1.3514488, y: 0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.084926076, w: 0.99638724}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2
+    localPosition: {x: 1.138303, y: 0.00000009685755, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.20676011, w: 0.9783917}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3
+    localPosition: {x: 1.1227875, y: -0.000000040978193, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.10009182, w: 0.99497825}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Neck
+    localPosition: {x: 1.8547288, y: -0.0000000071013346, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.020318942, w: 0.9997936}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Neck/Head
+    localPosition: {x: 0.9486358, y: -0.00000030739466, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.19786684, w: 0.98022896}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Neck/Head/R_Ear
+    localPosition: {x: 1.2345288, y: -0.0000007264316, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.35972574, w: 0.93305814}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Neck/Head/R_Ear/R_Ear
+    localPosition: {x: 0.5314621, y: -0.0000005066395, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.07403007, w: 0.99725604}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Breast
+    localPosition: {x: 0.48151362, y: -0.3728089, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.939976, w: 0.34124073}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/Breast/Nipple
+    localPosition: {x: 1.0000002, y: 0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.15372999, w: 0.9881129}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/R_Shoulder
+    localPosition: {x: 1.1555688, y: 0.5864386, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.992106, w: 0.12540233}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/R_Shoulder/R_Elbow
+    localPosition: {x: 2.5757053, y: -0.00000011920929, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.17670302, w: 0.98426425}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/R_Shoulder/R_Elbow/R_Wrist
+    localPosition: {x: 2.9845257, y: -0.0000002682209, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.19836548, w: -0.98012817}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/L_Shoulder
+    localPosition: {x: 1.2120739, y: -0.034203213, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.90623736, w: 0.42276928}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/L_Shoulder/L_Elbow
+    localPosition: {x: 2.7809231, y: 0.00000023841858, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.27621272, w: 0.9610965}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/Spine1/Spine2/Spine3/L_Shoulder/L_Elbow/L_Wrist
+    localPosition: {x: 2.8423624, y: 0.00000018626451, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.017354159, w: -0.99984944}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/L_Hip
+    localPosition: {x: -0.52367145, y: -0.020445645, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9056183, w: 0.42409372}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/L_Hip/L_Knee
+    localPosition: {x: 4.7335057, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.25978512, w: 0.9656665}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/L_Hip/L_Knee/L_Ankle
+    localPosition: {x: 4.4015713, y: 0.000000022351742, z: 0}
+    localRotation: {x: -0, y: -0, z: 0.5218225, w: 0.8530541}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/L_Hip/L_Knee/L_Ankle/L_Toe
+    localPosition: {x: 1.4910429, y: 0.0000009536743, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.26742703, w: 0.9635781}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/R_Hip
+    localPosition: {x: -0.52367145, y: -0.020445615, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.99790245, w: -0.064735815}
+    localScale: {x: 1.0000006, y: 1.0000006, z: 1}
+  - path: Joints/Hips/R_Hip/R_Knee
+    localPosition: {x: 4.7335057, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.15180944, w: 0.98840976}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/R_Hip/R_Knee/R_Ankle
+    localPosition: {x: 4.4015713, y: 0.000000022351742, z: 0}
+    localRotation: {x: -0, y: -0, z: -0.55373937, w: -0.83269}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Joints/Hips/R_Hip/R_Knee/R_Ankle/R_Toe
+    localPosition: {x: 1.4910429, y: 0.0000009536743, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.26742703, w: 0.9635781}
+    localScale: {x: 1, y: 1, z: 1}
