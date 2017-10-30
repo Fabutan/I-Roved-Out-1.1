@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 87602338}
   - component: {fileID: 87602343}
   - component: {fileID: 87602341}
+  - component: {fileID: 87602342}
   m_Layer: 0
   m_Name: Cinder
   m_TagString: Player
@@ -287,7 +288,7 @@ MonoBehaviour:
   charState: 0
   animationEngine: 3
   customAnimationClass: 
-  motionControl: 0
+  motionControl: 2
   talkingAnimation: 0
   speechLabel: 
   lineID: -1
@@ -338,7 +339,7 @@ MonoBehaviour:
   rootTurningFactor: 0
   headLayer: 1
   mouthLayer: 2
-  customAnimator: {fileID: 0}
+  customAnimator: {fileID: 149439817}
   spriteChild: {fileID: 0}
   rotateSprite3D: 0
   idleAnimSprite: Cinder_idle
@@ -499,6 +500,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!50 &87602342
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 87602337}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &87602343
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -749,8 +770,8 @@ MonoBehaviour:
   affectChildren: 1
   followSortingMap: 1
   customSortingMap: {fileID: 0}
-  offsetOriginal: 1
-  livePreview: 0
+  offsetOriginal: 0
+  livePreview: 1
 --- !u!95 &149439817
 Animator:
   serializedVersion: 3
