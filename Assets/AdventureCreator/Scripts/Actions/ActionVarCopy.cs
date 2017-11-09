@@ -302,6 +302,56 @@ namespace AC
 			return labelAdd;
 		}
 
+
+		public override bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmended = base.ConvertLocalVariableToGlobal (oldLocalID, newGlobalID);
+
+			if (oldLocation == VariableLocation.Local && oldVariableID == oldLocalID)
+			{
+				oldLocation = VariableLocation.Global;
+				oldVariableID = newGlobalID;
+				wasAmended = true;
+			}
+
+			if (newLocation == VariableLocation.Local && newVariableID == oldLocalID)
+			{
+				newLocation = VariableLocation.Global;
+				newVariableID = newGlobalID;
+				wasAmended = true;
+			}
+
+			return wasAmended;
+		}
+
+
+		public override bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool wasAmended = base.ConvertGlobalVariableToLocal (oldGlobalID, newLocalID, isCorrectScene);
+
+			if (oldLocation == VariableLocation.Global && oldVariableID == oldGlobalID)
+			{
+				wasAmended = true;
+				if (isCorrectScene)
+				{
+					oldLocation = VariableLocation.Local;
+					oldVariableID = newLocalID;
+				}
+			}
+
+			if (newLocation == VariableLocation.Global && newVariableID == oldGlobalID)
+			{
+				wasAmended = true;
+				if (isCorrectScene)
+				{
+					newLocation = VariableLocation.Local;
+					newVariableID = newLocalID;
+				}
+			}
+
+			return wasAmended;
+		}
+
 		#endif
 
 	}

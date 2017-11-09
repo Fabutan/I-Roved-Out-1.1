@@ -1502,7 +1502,14 @@ namespace AC
 													{
 														if (KickStarter.runtimeInventory.hoverItem != null && KickStarter.runtimeInventory.hoverItem == KickStarter.runtimeInventory.SelectedItem)
 														{
-															hotspotLabel = inventoryBox.GetLabel (i, languageNumber);
+															if (KickStarter.settingsManager.selectInventoryDisplay != SelectInventoryDisplay.HideFromMenu)
+															{
+																hotspotLabel = inventoryBox.GetLabel (i, languageNumber);
+															}
+															else
+															{
+																hotspotLabel = "";
+															}
 														}
 													}
 												}
@@ -1638,8 +1645,9 @@ namespace AC
 		/**
 		 * <summary>De-selects the Unity UI EventSystem's selected gameobject if it is associated with a given Menu.</summary>
 		 * <param name = "_menu">The Menu to deselect</param>
+		 * <returns>True if the Unity UI EventSystem's selected gameobject was in the given Menu</returns>
 		 */
-		public void DeselectEventSystemMenu (Menu _menu)
+		public bool DeselectEventSystemMenu (Menu _menu)
 		{
 			if (eventSystem != null && eventSystem.currentSelectedGameObject != null)
 			{
@@ -1648,9 +1656,11 @@ namespace AC
 					if (eventSystem.currentSelectedGameObject.transform.IsChildOf (_menu.canvas.transform))
 					{
 						eventSystem.SetSelectedGameObject (null);
+						return true;
 					}
 				}
 			}
+			return false;
 		}
 
 
@@ -1782,12 +1792,12 @@ namespace AC
 							}
 							else if (KickStarter.playerInteraction.IsDroppingInventory () && CanElementBeDroppedOnto (menu.elements[j]))
 							{
-								if (menu.IsUnityUI () &&  KickStarter.settingsManager.InventoryDragDrop && (menu.elements[j] is MenuInventoryBox || menu.elements[j] is MenuCrafting))
+								if (menu.IsUnityUI () && KickStarter.settingsManager.InventoryDragDrop && (menu.elements[j] is MenuInventoryBox || menu.elements[j] is MenuCrafting))
 								{
 									// End UI drag drop
 									menu.elements[j].ProcessClick (menu, i, MouseState.SingleClick);
 								}
-								else
+								else if (!menu.IsUnityUI ())
 								{
 									DeselectInputBox ();
 									CheckClick (menu, menu.elements[j], i, MouseState.SingleClick);
@@ -2076,7 +2086,6 @@ namespace AC
 			}
 
 			KickStarter.playerInput.ResetMouseClick ();
-
 			if (_mouseState == MouseState.LetGo)
 			{
 				if (_menu.appearType == AppearType.OnInteraction)
@@ -2703,9 +2712,10 @@ namespace AC
 
 
 		/**
-		 * Selects the first element GameObject in a Unity UI-based Menu.
+		 * <summary>Selects the first element GameObject in a Unity UI-based Menu.</summary>
+		 * <param name = "menuToIgnore">If set, this menu will be ignored when searching</param>
 		 */
-		public void FindFirstSelectedElement ()
+		public void FindFirstSelectedElement (Menu menuToIgnore = null)
 		{
 			if (eventSystem == null || menus.Count == 0)
 			{
@@ -2716,6 +2726,11 @@ namespace AC
 			for (int i=menus.Count-1; i>=0; i--)
 			{
 				Menu menu = menus[i];
+
+				if (menuToIgnore != null && menu == menuToIgnore)
+				{
+					continue;
+				}
 
 				if (menu.IsEnabled ())
 				{
@@ -2769,6 +2784,15 @@ namespace AC
 		public bool IsMouseOverMenu ()
 		{
 			return mouseOverMenu;
+		}
+
+
+		/**
+		 * <summary>Checks if the cursor is hovering over an Inventory</summary>
+		 */
+		public bool IsMouseOverInventory ()
+		{
+			return mouseOverInventory;
 		}
 
 

@@ -5,8 +5,8 @@
  *	
  *	"AnimEngine_Legacy.cs"
  * 
- *	This script uses the Legacy
- *	system for 3D animation.
+ *	This script uses the Legacy system for 3D animation.
+ *	Additional code provided by ilmari.
  * 
  */
 
@@ -24,6 +24,10 @@ namespace AC
 	public class AnimEngine_Legacy : AnimEngine
 	{
 
+		public static string lastClipName = "";
+		public static Dictionary<int, string> animationStateDict = new Dictionary<int, string>();
+
+
 		public override void CharSettingsGUI ()
 		{
 			#if UNITY_EDITOR
@@ -31,7 +35,7 @@ namespace AC
 			EditorGUILayout.BeginVertical ("Button");
 			EditorGUILayout.LabelField ("Standard 3D animations:", EditorStyles.boldLabel);
 
-			if (AdvGame.GetReferences () && AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{
 				character.spriteChild = (Transform) EditorGUILayout.ObjectField ("Animation child:", character.spriteChild, typeof (Transform), true);
 			}
@@ -179,17 +183,8 @@ namespace AC
 				return 0f;
 			}
 			
-			Animation animation = null;
-			
-			if (action.animChar.spriteChild && action.animChar.spriteChild.GetComponent <Animation>())
-			{
-				animation = action.animChar.spriteChild.GetComponent <Animation>();
-			}
-			if (character.GetComponent <Animation>())
-			{
-				animation = action.animChar.GetComponent <Animation>();
-			}
-			
+			Animation animation = action.animChar.GetAnimation ();
+
 			if (!action.isRunning)
 			{
 				action.isRunning = true;
@@ -364,16 +359,7 @@ namespace AC
 				return;
 			}
 			
-			Animation animation = null;
-
-			if (action.animChar.spriteChild && action.animChar.spriteChild.GetComponent <Animation>())
-			{
-				animation = action.animChar.spriteChild.GetComponent <Animation>();
-			}
-			if (character.GetAnimation ())
-			{
-				animation = action.animChar.GetAnimation ();
-			}
+			Animation animation = action.animChar.GetAnimation ();
 
 			if (action.method == ActionCharAnim.AnimMethodChar.PlayCustom && action.clip)
 			{
@@ -542,16 +528,16 @@ namespace AC
 		{
 			if (action.Speaker != null && action.Speaker.talkingAnimation == TalkingAnimation.CustomFace && (action.headClip || action.mouthClip))
 			{
-				AdvGame.CleanUnusedClips (action.Speaker.GetComponent <Animation>());	
+				AdvGame.CleanUnusedClips (action.Speaker.GetAnimation ());
 				
 				if (action.headClip)
 				{
-					AdvGame.PlayAnimClip (action.Speaker.GetComponent <Animation>(), AdvGame.GetAnimLayerInt (AnimLayer.Head), action.headClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, false);
+					AdvGame.PlayAnimClip (action.Speaker.GetAnimation (), AdvGame.GetAnimLayerInt (AnimLayer.Head), action.headClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, false);
 				}
 				
 				if (action.mouthClip)
 				{
-					AdvGame.PlayAnimClip (action.Speaker.GetComponent <Animation>(), AdvGame.GetAnimLayerInt (AnimLayer.Mouth), action.mouthClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, false);
+					AdvGame.PlayAnimClip (action.Speaker.GetAnimation (), AdvGame.GetAnimLayerInt (AnimLayer.Mouth), action.mouthClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, false);
 				}
 			}
 		}
@@ -561,16 +547,16 @@ namespace AC
 		{
 			if (action.Speaker && action.Speaker.talkingAnimation == TalkingAnimation.CustomFace && (action.headClip || action.mouthClip))
 			{
-				AdvGame.CleanUnusedClips (action.Speaker.GetComponent <Animation>());	
+				AdvGame.CleanUnusedClips (action.Speaker.GetAnimation ());	
 				
 				if (action.headClip)
 				{
-					AdvGame.PlayAnimClipFrame (action.Speaker.GetComponent <Animation>(), AdvGame.GetAnimLayerInt (AnimLayer.Head), action.headClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, 1f);
+					AdvGame.PlayAnimClipFrame (action.Speaker.GetAnimation (), AdvGame.GetAnimLayerInt (AnimLayer.Head), action.headClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, 1f);
 				}
 				
 				if (action.mouthClip)
 				{
-					AdvGame.PlayAnimClipFrame (action.Speaker.GetComponent <Animation>(), AdvGame.GetAnimLayerInt (AnimLayer.Mouth), action.mouthClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, 1f);
+					AdvGame.PlayAnimClipFrame (action.Speaker.GetAnimation (), AdvGame.GetAnimLayerInt (AnimLayer.Mouth), action.mouthClip, AnimationBlendMode.Additive, WrapMode.Once, 0f, action.Speaker.neckBone, 1f);
 				}
 			}
 		}
@@ -909,16 +895,7 @@ namespace AC
 				return;
 			}
 
-			Animation animation = null;
-			
-			if (character.spriteChild && character.spriteChild.GetComponent <Animation>())
-			{
-				animation = character.spriteChild.GetComponent <Animation>();
-			}
-			if (character.GetComponent <Animation>())
-			{
-				animation = character.GetComponent <Animation>();
-			}
+			Animation animation = character.GetAnimation ();
 
 			if (animation == null)
 			{
@@ -982,22 +959,14 @@ namespace AC
 				return;
 			}
 
-			Animation animation = null;
-			
-			if (character.spriteChild && character.spriteChild.GetComponent <Animation>())
-			{
-				animation = character.spriteChild.GetComponent <Animation>();
-			}
-			if (character.GetComponent <Animation>())
-			{
-				animation = character.GetComponent <Animation>();
-			}
+			Animation animation = character.GetAnimation ();
 
 			if (animation != null)
 			{
-				if (clip != null && animation[clip.name] != null)
+				AnimationState animationState = animation[NonAllocAnimationClipName(clip)];
+				if (clip != null && animationState != null)
 				{
-					if (!animation [clip.name].enabled)
+					if (!animationState.enabled)
 					{
 						if (doLoop)
 						{
@@ -1021,6 +990,41 @@ namespace AC
 					}
 				}
 			}
+		}
+
+
+		public static string NonAllocAnimationClipName (AnimationClip clip)
+		{
+			if (clip == null)
+			{
+				return "";
+			}
+
+			int clipHash = clip.GetInstanceID ();
+			if (clipHash >= 0)
+			{
+				if (animationStateDict.TryGetValue (clipHash, out lastClipName))
+				{
+					if (lastClipName != "")
+					{
+						return lastClipName;
+					}
+					else
+					{
+						lastClipName = clip.name;
+						animationStateDict[clipHash] = lastClipName;
+						return lastClipName;
+					}
+				}
+				else
+				{
+					lastClipName = clip.name;
+					animationStateDict.Add (clipHash, lastClipName);
+					return lastClipName;
+				}
+			}
+
+			return "";
 		}
 
 	}

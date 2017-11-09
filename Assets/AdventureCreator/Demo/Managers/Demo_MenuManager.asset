@@ -1675,6 +1675,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -2313,6 +2314,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -2562,6 +2564,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -2892,6 +2895,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -3258,6 +3262,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -3387,6 +3392,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -3644,6 +3650,7 @@ MonoBehaviour:
       canTranslate: 1
       textValLineID: -1
       popUpsLineID: -1
+      description: 
       limitToCategories: 0
       categoryIDs: 
     canCarryMultiple: 0
@@ -4163,9 +4170,9 @@ MonoBehaviour:
   isLocked: 0
   id: 12
   title: Pause
-  manualSize: {x: 17, y: 30.333399}
+  manualSize: {x: 17, y: 30.333338}
   positionType: 0
-  manualPosition: {x: 451.5, y: 254}
+  manualPosition: {x: 424, y: 238.5}
   positionSmoothing: 0
   alignment: 4
   toggleKey: Menu
@@ -4232,13 +4239,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 148.995, y: 149.55779}
+  biggestElementSize: {x: 139.92, y: 140.45001}
   rect:
     serializedVersion: 2
-    x: 374.745
-    y: 176.96361
-    width: 153.51
-    height: 154.07278
+    x: 351.91998
+    y: 166.155
+    width: 144.16
+    height: 144.69002
 --- !u!114 &11400132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4276,10 +4283,10 @@ MonoBehaviour:
   linkedUiID: 318248
   relativeRect:
     serializedVersion: 2
-    x: 4.515
-    y: 4.515
-    width: 144.48
-    height: 25.396557
+    x: 4.24
+    y: 4.24
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -4344,10 +4351,10 @@ MonoBehaviour:
   linkedUiID: 326570
   relativeRect:
     serializedVersion: 2
-    x: 4.515
-    y: 34.426556
-    width: 144.48
-    height: 25.396557
+    x: 4.24
+    y: 32.33
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -4412,10 +4419,10 @@ MonoBehaviour:
   linkedUiID: 329416
   relativeRect:
     serializedVersion: 2
-    x: 4.515
-    y: 64.33811
-    width: 144.48
-    height: 25.396557
+    x: 4.24
+    y: 60.420002
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -4480,10 +4487,10 @@ MonoBehaviour:
   linkedUiID: 332646
   relativeRect:
     serializedVersion: 2
-    x: 4.515
-    y: 94.24967
-    width: 144.48
-    height: 25.396557
+    x: 4.24
+    y: 88.51
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -4548,10 +4555,10 @@ MonoBehaviour:
   linkedUiID: 335904
   relativeRect:
     serializedVersion: 2
-    x: 4.515
-    y: 124.16123
-    width: 144.48
-    height: 25.396557
+    x: 4.24
+    y: 116.600006
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -5179,8 +5186,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 3.695
     y: 101.675
-    width: 144.48
-    height: 25.396557
+    width: 135.68
+    height: 23.85
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}

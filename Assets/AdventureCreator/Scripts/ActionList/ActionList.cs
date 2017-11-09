@@ -352,11 +352,25 @@ namespace AC
 				{
 					while (action.isRunning)
 					{
+						bool runInRealtime = (this is RuntimeActionList && actionListType == ActionListType.PauseGameplay && !unfreezePauseMenus && KickStarter.playerMenus.ArePauseMenusOn (null));
+
 						if (waitTime < 0)
 						{
-							yield return new WaitForEndOfFrame ();
+							//yield return new WaitForEndOfFrame (); // OLD
+
+							if (!runInRealtime && Time.timeScale == 0f)
+							{
+								while (Time.timeScale == 0f)
+								{
+									yield return new WaitForEndOfFrame ();
+								}
+							}
+							else
+							{
+								yield return new WaitForEndOfFrame ();
+							}
 						}
-						else if (this is RuntimeActionList && actionListType == ActionListType.PauseGameplay && !unfreezePauseMenus)
+						else if (runInRealtime)
 						{
 							float endTime = Time.realtimeSinceStartup + waitTime;
 							while (Time.realtimeSinceStartup < endTime)
@@ -375,6 +389,7 @@ namespace AC
 							ResetList ();
 							break;
 						}
+
 						waitTime = action.Run ();
 					}
 				}

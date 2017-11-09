@@ -132,6 +132,21 @@ namespace AC
 			}
 		}
 
+
+		/**
+		 * Clears the internal Manager references.  Call this when changing the assigned Managers, so that other Inspectors/Editors get updated to reflect this
+		 */
+		public static void ClearManagerCache ()
+		{
+			sceneManagerPrefab = null;
+			settingsManagerPrefab = null;
+			actionsManagerPrefab = null;
+			variablesManagerPrefab = null;
+			inventoryManagerPrefab = null;
+			speechManagerPrefab = null;
+			cursorManagerPrefab = null;
+			menuManagerPrefab = null;
+		}
 		
 		
 		public static SceneManager sceneManager
@@ -925,12 +940,12 @@ namespace AC
 				
 				if (sceneManager == null)
 				{
-					ACDebug.LogError ("No Scene Manager found - please set one using the Adventure Creator Kit wizard");
+					ACDebug.LogError ("No Scene Manager found - please set one using the main Adventure Creator window");
 				}
 				
 				if (settingsManager == null)
 				{
-					ACDebug.LogError ("No Settings Manager found - please set one using the Adventure Creator Kit wizard");
+					ACDebug.LogError ("No Settings Manager found - please set one using the main Adventure Creator window");
 				}
 				else
 				{
@@ -953,14 +968,14 @@ namespace AC
 						}
 					}
 
-					if (!GameObject.FindGameObjectWithTag (Tags.player))
+					GameObject potentialPlayerOb = GameObject.FindGameObjectWithTag (Tags.player);
+					if (potentialPlayerOb == null || potentialPlayerOb.GetComponent <Player>() == null)
 					{
 						KickStarter.ResetPlayer (settingsManager.GetDefaultPlayer (), settingsManager.GetDefaultPlayerID (), false, Quaternion.identity, false, true);
 					}
 					else
 					{
-						KickStarter.playerPrefab = GameObject.FindWithTag (Tags.player).GetComponent <Player>();
-
+						KickStarter.playerPrefab = potentialPlayerOb.GetComponent <Player>();
 						SetPersistentEngine ();
 			
 						if (sceneChanger == null || sceneChanger.GetPlayerOnTransition () == null)

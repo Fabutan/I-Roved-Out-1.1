@@ -82,6 +82,7 @@ MonoBehaviour:
   experimentalAccuracy: 0
   pathfindUpdateFrequency: 0
   verticalReductionFactor: 1
+  rotationsAffectedByVerticalReduction: 1
   jumpSpeed: 4
   singleTapStraight: 0
   singleTapStraightPathfind: 0
@@ -147,6 +148,7 @@ MonoBehaviour:
   - ID: 2
     audioClip: {fileID: 8300000, guid: c6425b4a4281b48cb8a032fe89a8ab28, type: 3}
     relativeVolume: 1
+  ambienceStorages: []
   volumeControl: 0
   musicMixerGroup: {fileID: 0}
   sfxMixerGroup: {fileID: 0}

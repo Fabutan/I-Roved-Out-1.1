@@ -140,7 +140,7 @@ namespace AC
 			desiredOffset.y += afterOffset.y;
 			if (directionInfluence.y != 0f)
 			{
-				if (KickStarter.settingsManager.movingTurning == MovingTurning.TopDown)
+				if (SceneSettings.IsTopDown ())
 				{
 					desiredOffset.y += Vector3.Dot (target.forward, transform.up) * directionInfluence.y;
 				}
@@ -259,7 +259,7 @@ namespace AC
 			Vector2 targetOffset = new Vector2 ();
 			float forwardOffsetScale = 93 - (299 * _camera.nearClipPlane);
 
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{
 				if (_camera.orthographic)
 				{
@@ -302,13 +302,13 @@ namespace AC
 
 			if (KickStarter.settingsManager)
 			{
-				if (KickStarter.settingsManager.IsTopDown ())
+				if (SceneSettings.IsTopDown ())
 				{
 					transform.rotation = Quaternion.Euler (90f, 0, 0);
 					return;
 				}
 
-				if (KickStarter.settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					_camera.orthographic = true;
 				}
@@ -324,7 +324,7 @@ namespace AC
 		 */
 		public bool IsCorrectRotation ()
 		{
-			if (KickStarter.settingsManager != null && KickStarter.settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{
 				if (transform.rotation == Quaternion.Euler (90f, 0f, 0f))
 				{
@@ -334,7 +334,7 @@ namespace AC
 				return false;
 			}
 
-			if (KickStarter.settingsManager != null && KickStarter.settingsManager.cameraPerspective != CameraPerspective.TwoD)
+			if (SceneSettings.CameraPerspective != CameraPerspective.TwoD)
 			{
 				return true;
 			}

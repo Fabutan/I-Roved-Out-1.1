@@ -133,7 +133,9 @@ namespace AC
 					}
 					else if (KickStarter.speechManager.lipSyncMode == LipSyncMode.Salsa2D || KickStarter.speechManager.lipSyncMode == LipSyncMode.FromSpeechText || KickStarter.speechManager.lipSyncMode == LipSyncMode.ReadPamelaFile || KickStarter.speechManager.lipSyncMode == LipSyncMode.ReadSapiFile || KickStarter.speechManager.lipSyncMode == LipSyncMode.ReadPapagayoFile)
 					{
-						speaker.StartLipSync (KickStarter.dialog.GenerateLipSyncShapes (KickStarter.speechManager.lipSyncMode, lineID, speaker.name, _language, _message));
+						string filename = KickStarter.speechManager.GetLineFilename (lineID, speaker.name);
+						speaker.StartLipSync (KickStarter.dialog.GenerateLipSyncShapes (KickStarter.speechManager.lipSyncMode, lineID, filename, _language, _message));
+						//speaker.StartLipSync (KickStarter.dialog.GenerateLipSyncShapes (KickStarter.speechManager.lipSyncMode, lineID, speaker.name, _language, _message));
 					}
 					else if (KickStarter.speechManager.lipSyncMode == LipSyncMode.RogoLipSync)
 					{
@@ -169,14 +171,14 @@ namespace AC
 			}
 
 			// Play sound and time displayDuration to it
-			if (lineID > -1 && log.speakerName != "" && KickStarter.speechManager.searchAudioFiles)
+			if (lineID > -1 && !string.IsNullOrEmpty (log.speakerName) && KickStarter.speechManager.searchAudioFiles)
 			{
 				AudioClip clipObj = null;
 
 				if (KickStarter.speechManager.autoNameSpeechFiles)
 				{
 					string fullFilename = "Speech/";
-					string filename = KickStarter.speechManager.GetLineFilename (lineID);
+					string filename = KickStarter.speechManager.GetLineFilename (lineID, (speaker != null) ? _speaker.name : "");
 					if (_language != "" && KickStarter.speechManager.translateAudio)
 					{
 						// Not in original language
@@ -203,7 +205,7 @@ namespace AC
 
 					if (clipObj == null)
 					{
-						ACDebug.Log ("Cannot find audio file: " + fullFilename);
+						ACDebug.LogWarning ("Audio file 'Resources/" + fullFilename + "' not found.");
 					}
 				}
 				else
@@ -254,7 +256,7 @@ namespace AC
 					{
 						audioSource.clip = clipObj;
 						audioSource.loop = false;
-						audioSource.Play();
+						audioSource.Play ();
 						hasAudio = true;
 					}
 				}

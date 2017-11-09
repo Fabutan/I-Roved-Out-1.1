@@ -173,7 +173,7 @@ namespace AC
 				{
 					if (emptySprite == null)
 					{
-						emptySprite = Resources.Load <UnityEngine.Sprite> ("EmptySlot");
+						emptySprite = Resources.Load <UnityEngine.Sprite> (Resource.emptySlot);
 					}
 
 					sprite = emptySprite;

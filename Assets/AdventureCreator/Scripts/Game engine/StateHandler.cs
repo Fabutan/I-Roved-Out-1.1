@@ -29,6 +29,7 @@ namespace AC
 		private GameState _gameState = GameState.Normal;
 
 		private Music music;
+		private Ambience ambience;
 		private bool inScriptedCutscene;
 		private GameState previousUpdateState = GameState.Normal;
 		private GameState lastNonPausedState = GameState.Normal;
@@ -649,13 +650,12 @@ namespace AC
 				KickStarter.sceneSettings.UnpauseGame (KickStarter.playerInput.timeScale);
 			}
 
-			if (KickStarter.playerInteraction.inPreInteractionCutscene)
+			if (KickStarter.playerInteraction.InPreInteractionCutscene)
 			{
 				gameState = GameState.Cutscene;
 				return;
 			}
 
-			KickStarter.playerInteraction.inPreInteractionCutscene = false;
 			if (KickStarter.actionListManager.IsGameplayBlocked () || inScriptedCutscene)
 			{
 				gameState = GameState.Cutscene;
@@ -919,6 +919,11 @@ namespace AC
 				mainData = music.SaveMainData (mainData);
 			}
 
+			if (ambience != null)
+			{
+				mainData = ambience.SaveMainData (mainData);
+			}
+
 			return mainData;
 		}
 
@@ -943,6 +948,12 @@ namespace AC
 				CreateMusicEngine ();
 			}
 			music.LoadMainData (mainData);
+
+			if (ambience == null)
+			{
+				CreateAmbienceEngine ();
+			}
+			ambience.LoadMainData (mainData);
 		}
 
 
@@ -950,22 +961,39 @@ namespace AC
 		{
 			if (music == null)
 			{
-				GameObject musicOb = (GameObject) Instantiate (Resources.Load (Resource.musicEngine));
-				if (musicOb != null)
+				music = CreateSoundtrackEngine <Music> (Resource.musicEngine);
+			}
+		}
+
+
+		private void CreateAmbienceEngine ()
+		{
+			if (ambience == null)
+			{
+				ambience = CreateSoundtrackEngine <Ambience> (Resource.ambienceEngine);
+			}
+		}
+
+
+		private T CreateSoundtrackEngine <T> (string resourceName) where T : Soundtrack
+		{
+			GameObject soundtrackOb = (GameObject) Instantiate (Resources.Load (resourceName));
+			if (soundtrackOb != null)
+			{
+				soundtrackOb.name = AdvGame.GetName (resourceName);
+				if (GameObject.Find ("_Sound") && GameObject.Find ("_Sound").transform.parent == null)
 				{
-					musicOb.name = AdvGame.GetName (Resource.musicEngine);
-					if (GameObject.Find ("_Sound") && GameObject.Find ("_Sound").transform.parent == null)
-					{
-						musicOb.transform.parent = GameObject.Find ("_Sound").transform;
-					}
-					music = musicOb.GetComponent <Music>();
-				}
-				else
-				{
-					ACDebug.LogError ("Cannot find MusicEngine prefab in /AdventureCreator/Resources - did you import AC completely?");
+					soundtrackOb.transform.parent = GameObject.Find ("_Sound").transform;
 				}
 
 				GatherObjects ();
+
+				return soundtrackOb.GetComponent <T>();
+			}
+			else
+			{
+				ACDebug.LogError ("Cannot find " + resourceName + " prefab in /AdventureCreator/Resources - did you import AC completely?");
+				return null;
 			}
 		}
 
@@ -981,6 +1009,20 @@ namespace AC
 				CreateMusicEngine ();
 			}
 			return music;
+		}
+
+
+		/**
+		 * <summary>Gets the Ambience component used to handle AudioClips played using the 'Sound: Play ambience' Action.</summary>
+		 * <returns>The Ambience component used to handle AudioClips played using the 'Sound: Play ambience' Action.</returns>
+		 */
+		public Ambience GetAmbienceEngine ()
+		{
+			if (ambience == null)
+			{
+				CreateAmbienceEngine ();
+			}
+			return ambience;
 		}
 
 	}

@@ -63,7 +63,7 @@ namespace AC
 						KickStarter.player.Teleport (KickStarter.sceneChanger.GetStartPosition (this.transform.position));
 						KickStarter.player.SetLookDirection (this.transform.forward, true);
 
-						if (KickStarter.settingsManager.ActInScreenSpace () && !KickStarter.settingsManager.IsUnity2D ())
+						if (SceneSettings.ActInScreenSpace ())
 						{
 							KickStarter.player.transform.position = AdvGame.GetScreenNavMesh (KickStarter.player.transform.position);
 						}

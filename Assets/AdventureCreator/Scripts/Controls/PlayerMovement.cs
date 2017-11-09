@@ -178,6 +178,11 @@ namespace AC
 							FirstPersonControlPlayer ();
 							DragPlayerLook ();
 						}
+						else if (KickStarter.settingsManager.firstPersonTouchScreen == FirstPersonTouchScreen.CustomInput)
+						{
+							FirstPersonControlPlayer ();
+							DirectControlPlayer (true, KickStarter.playerInput.GetMoveKeys ());
+						}
 					}
 					else
 					{
@@ -264,7 +269,7 @@ namespace AC
 				{
 					if (moveDirection.magnitude > KickStarter.settingsManager.destinationAccuracy)
 					{
-						if (KickStarter.settingsManager.IsUnity2D ())
+						if (SceneSettings.IsUnity2D ())
 						{
 							moveDirection = new Vector3 (moveDirection.x, 0f, moveDirection.y);
 						}
@@ -307,7 +312,7 @@ namespace AC
 				{
 					if (moveDirection.magnitude > KickStarter.settingsManager.destinationAccuracy)
 					{
-						if (KickStarter.settingsManager.IsUnity2D ())
+						if (SceneSettings.IsUnity2D ())
 						{
 							moveDirection = new Vector3 (moveDirection.x, 0f, moveDirection.y);
 						}
@@ -419,9 +424,12 @@ namespace AC
 				// Move Ray down screen until we hit something
 				if (KickStarter.settingsManager.walkableClickRange > 0f && ((int) Screen.height * KickStarter.settingsManager.walkableClickRange) > 1)
 				{
+					float maxIterations = 100f;
+					float stepSize = Screen.height / maxIterations; // was fixed at 4f
+
 					if (KickStarter.settingsManager.navMeshSearchDirection == NavMeshSearchDirection.StraightDownFromCursor)
 					{
-						for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+						for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=stepSize)
 						{
 							// Down
 							clickPoint = ClickPoint (new Vector2 (simulatedMouse.x, simulatedMouse.y - i));
@@ -429,7 +437,7 @@ namespace AC
 						}
 					}
 
-					for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+					for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=stepSize)
 					{
 						// Up
 						clickPoint = ClickPoint (new Vector2 (simulatedMouse.x, simulatedMouse.y + i));
@@ -580,7 +588,7 @@ namespace AC
 			{
 				Vector3 moveDirectionInput = Vector3.zero;
 				
-				if (KickStarter.settingsManager.IsTopDown ())
+				if (SceneSettings.IsTopDown ())
 				{
 					moveDirectionInput = (moveKeys.y * Vector3.forward) + (moveKeys.x * Vector3.right);
 				}
@@ -667,13 +675,13 @@ namespace AC
 				{
 					Vector3 moveDirectionInput = Vector3.zero;
 
-					if (KickStarter.settingsManager.IsTopDown ())
+					if (SceneSettings.IsTopDown ())
 					{
 						moveDirectionInput = (moveKeys.y * Vector3.forward) + (moveKeys.x * Vector3.right);
 					}
 					else
 					{
-						if (!isFirstPerson && KickStarter.settingsManager.directMovementPerspective && KickStarter.settingsManager.cameraPerspective == CameraPerspective.ThreeD)
+						if (!isFirstPerson && KickStarter.settingsManager.directMovementPerspective && SceneSettings.CameraPerspective == CameraPerspective.ThreeD)
 						{
 							Vector3 forwardVector = (KickStarter.player.transform.position - Camera.main.transform.position).normalized;
 							Vector3 rightVector = -Vector3.Cross (forwardVector, Camera.main.transform.up);
@@ -769,7 +777,7 @@ namespace AC
 			{
 				Vector3 moveDirectionInput = Vector3.zero;
 
-				if (KickStarter.settingsManager.IsTopDown ())
+				if (SceneSettings.IsTopDown ())
 				{
 					moveDirectionInput = (moveKeys.y * Vector3.forward) + (moveKeys.x * Vector3.right);
 				}
@@ -822,7 +830,7 @@ namespace AC
 			{
 				if (KickStarter.playerCursor.GetSelectedCursor () < 0)
 				{
-					if (KickStarter.settingsManager.doubleClickMovement && KickStarter.playerInput.GetMouseState () == MouseState.SingleClick)
+					if (KickStarter.settingsManager.doubleClickMovement == DoubleClickMovement.RequiredToWalk && KickStarter.playerInput.GetMouseState () == MouseState.SingleClick)
 					{
 						return;
 					}
@@ -832,13 +840,13 @@ namespace AC
 						return;
 					}
 
-					if (KickStarter.runtimeInventory.SelectedItem != null && !KickStarter.settingsManager.canMoveWhenActive)
+					if (KickStarter.runtimeInventory.SelectedItem != null && !KickStarter.settingsManager.canMoveWhenActive && KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick && !KickStarter.settingsManager.inventoryDisableLeft)
 					{
 						return;
 					}
 
 					bool doubleClick = false;
-					if (KickStarter.playerInput.GetMouseState () == MouseState.DoubleClick && !KickStarter.settingsManager.doubleClickMovement)
+					if (KickStarter.playerInput.GetMouseState () == MouseState.DoubleClick && KickStarter.settingsManager.doubleClickMovement == DoubleClickMovement.MakesPlayerRun)
 					{
 						doubleClick = true;
 					}
@@ -854,29 +862,47 @@ namespace AC
 		
 						if (KickStarter.settingsManager.walkableClickRange > 0f && ((int) Screen.height * KickStarter.settingsManager.walkableClickRange) > 1)
 						{
+							float maxIterations = 100f;
+							float stepSize = Screen.height / maxIterations; // was fixed at 4f
+
 							if (KickStarter.settingsManager.navMeshSearchDirection == NavMeshSearchDirection.StraightDownFromCursor)
 							{
-								for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+								if (SceneSettings.IsUnity2D ())
 								{
 									// Down
-									if (RaycastNavMesh (new Vector2 (simulatedMouse.x, simulatedMouse.y - i), doubleClick))
+									if (SearchForNavMesh2D (simulatedMouse, Vector2.down, doubleClick))
 									{
 										return;
 									}
 								}
+								else
+								{
+									for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=stepSize)
+									{
+										// Down
+										if (RaycastNavMesh (new Vector2 (simulatedMouse.x, simulatedMouse.y - i), doubleClick))
+										{
+											return;
+										}
+									}
+								}
 							}
 
-							for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=4f)
+							for (float i=1f; i<Screen.height * KickStarter.settingsManager.walkableClickRange; i+=stepSize)
 							{
 								// Up
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x, simulatedMouse.y + i), doubleClick))
 								{
 									return;
 								}
-								// Down
-								if (RaycastNavMesh (new Vector2 (simulatedMouse.x, simulatedMouse.y - i), doubleClick))
+
+								if (KickStarter.settingsManager.navMeshSearchDirection == NavMeshSearchDirection.RadiallyOutwardsFromCursor)
 								{
-									return;
+									// Down
+									if (RaycastNavMesh (new Vector2 (simulatedMouse.x, simulatedMouse.y - i), doubleClick))
+									{
+										return;
+									}
 								}
 								// Left
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x - i, simulatedMouse.y), doubleClick))
@@ -888,22 +914,22 @@ namespace AC
 								{
 									return;
 								}
-								// UpLeft
+								// DownLeft
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x - i, simulatedMouse.y - i), doubleClick))
 								{
 									return;
 								}
-								// UpRight
+								// DownRight
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x + i, simulatedMouse.y - i), doubleClick))
 								{
 									return;
 								}
-								// DownLeft
+								// UpLeft
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x - i, simulatedMouse.y + i), doubleClick))
 								{
 									return;
 								}
-								// DownRight
+								// UpRight
 								if (RaycastNavMesh (new Vector2 (simulatedMouse.x + i, simulatedMouse.y + i), doubleClick))
 								{
 									return;
@@ -961,8 +987,48 @@ namespace AC
 		}
 
 
+		private bool SearchForNavMesh2D (Vector2 mousePosition, Vector2 direction, bool run)
+		{
+			RaycastHit2D hit;
+			if (KickStarter.mainCamera.IsOrthographic ())
+			{
+				hit = UnityVersionHandler.Perform2DRaycast (
+					Camera.main.ScreenToWorldPoint (mousePosition),
+					direction,
+					KickStarter.settingsManager.navMeshRaycastLength,
+					1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
+					);
+			}
+			else
+			{
+				Vector3 pos = mousePosition;
+				pos.z = KickStarter.player.transform.position.z - Camera.main.transform.position.z;
+
+				hit = UnityVersionHandler.Perform2DRaycast (
+					Camera.main.ScreenToWorldPoint (pos),
+					direction,
+					KickStarter.settingsManager.navMeshRaycastLength,
+					1 << LayerMask.NameToLayer (KickStarter.settingsManager.navMeshLayer)
+					);
+			}
+
+			if (hit.collider != null)
+			{
+				return ProcessHit (hit.point, hit.collider.gameObject, run);
+			}
+			
+			return false;
+		}
+
+
 		private bool RaycastNavMesh (Vector3 mousePosition, bool run)
 		{
+			if (mousePosition.x < 0f || mousePosition.y < 0f || mousePosition.x > Screen.width || mousePosition.y > Screen.height)
+			{
+				// Out of camera bounds, ignore
+				return false;
+			}
+
 			if (KickStarter.navigationManager.Is2D ())
 			{
 				RaycastHit2D hit;

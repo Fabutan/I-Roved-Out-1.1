@@ -106,7 +106,7 @@ namespace AC
 			character.wallReductionOnlyParameter = EditorGUILayout.Toggle ("Only affects Mecanim parameter?", character.wallReductionOnlyParameter);
 			EditorGUILayout.EndToggleGroup ();
 
-			if (KickStarter.settingsManager != null && KickStarter.settingsManager.cameraPerspective != CameraPerspective.TwoD)
+			if (SceneSettings.CameraPerspective != CameraPerspective.TwoD)
 			{
 				character.rotateSprite3D = (RotateSprite3D) EditorGUILayout.EnumPopup ("Rotate sprite to:", character.rotateSprite3D);
 			}

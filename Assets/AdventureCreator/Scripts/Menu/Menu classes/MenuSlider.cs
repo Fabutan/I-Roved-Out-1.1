@@ -293,6 +293,18 @@ namespace AC
 			sliderTexture = (Texture2D) EditorGUILayout.ObjectField (sliderTexture, typeof (Texture2D), false, GUILayout.Width (70f), GUILayout.Height (30f));
 			EditorGUILayout.EndHorizontal ();
 		}
+
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			if (sliderType == AC_SliderType.FloatVariable && varID == oldGlobalID)
+			{
+				return true;
+			}
+
+			string newLabel = AdvGame.ConvertGlobalVariableTokenToLocal (label, oldGlobalID, newLocalID);
+			return (label != newLabel);
+		}
 		
 		#endif
 

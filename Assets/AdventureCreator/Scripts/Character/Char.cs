@@ -77,7 +77,7 @@ namespace AC
 		/** The Transform at which to place Menus set to appear 'Above Speaking Character'. If this is not set, the placement will be set automatically. */
 		public Transform speechMenuPlacement;
 		private Expression currentExpression = null;
-		
+
 		protected Quaternion newRotation;
 		private float prevHeight;
 		private float prevHeight2;
@@ -147,6 +147,9 @@ namespace AC
 		public float animCrossfadeSpeed = 0.2f;
 		
 		private Vector3 exactDestination;
+
+		/** The layermask to use when Raycasting to determine if the character is grounded or not */
+		public LayerMask groundCheckLayerMask = 0;
 
 		// Mecanim variables
 		
@@ -450,7 +453,7 @@ namespace AC
 			{
 				_rigidbody2D = GetComponent <Rigidbody2D>();
 
-				if (KickStarter.settingsManager.cameraPerspective != CameraPerspective.TwoD)
+				if (SceneSettings.CameraPerspective != CameraPerspective.TwoD)
 				{
 					ACDebug.LogWarning ("In order to move a sprite-based character (" + gameObject.name + ") in 3D, there must not be a Rigidbody2D component on the base.", gameObject);
 				}
@@ -495,7 +498,7 @@ namespace AC
 			
 			if (!antiGlideMode && spriteChild != null && KickStarter.settingsManager != null)
 			{
-				PrepareSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
+				PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 			}
 			
 			AnimUpdate ();
@@ -522,13 +525,13 @@ namespace AC
 
 				if (spriteChild && KickStarter.settingsManager != null)
 				{
-					PrepareSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
+					PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 				}
 			}
 
 			if (spriteChild && KickStarter.settingsManager != null)
 			{
-				UpdateSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
+				UpdateSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 			}
 			UpdateScale ();
 		}
@@ -637,8 +640,8 @@ namespace AC
 
 					Vector3 direction = activePath.nodes[targetNode] - transform.position;
 					Vector3 lookDir = new Vector3 (direction.x, 0f, direction.z);
-					
-					if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+					//lookDir =direction;
+					if (SceneSettings.IsUnity2D ())
 					{
 						direction.z = 0f;
 						SetMoveDirection (direction);
@@ -676,7 +679,7 @@ namespace AC
 						nodeThreshold *= multiplier;
 					}
 
-					if ((KickStarter.settingsManager.IsUnity2D () && direction.magnitude < nodeThreshold) ||
+					if ((SceneSettings.IsUnity2D () && direction.magnitude < nodeThreshold) ||
 					    (activePath.affectY && direction.magnitude < nodeThreshold) ||
 					    (!activePath.affectY && lookDir.magnitude < nodeThreshold))
 					{
@@ -875,39 +878,36 @@ namespace AC
 					if (moveSpeed > 0f && rootMotionType != RootMotionType.ThreeD)
 					{
 						newVel = moveDirection * moveSpeed * walkSpeedScale * sortingMapScale;
-						if (KickStarter.settingsManager)
+						if (SceneSettings.IsTopDown ())
 						{
-							if (KickStarter.settingsManager.IsTopDown ())
-							{
-								float magnitude = newVel.magnitude;
+							float magnitude = newVel.magnitude;
 
-								if (magnitude > 0f)
-								{
-									float upAmount = Mathf.Abs (Vector3.Dot (newVel.normalized, Vector3.forward));
-									float mag = (magnitude * (1f - upAmount)) + (magnitude * KickStarter.sceneSettings.GetVerticalReductionFactor () * upAmount);
-									newVel *= mag / magnitude;
-								}
-							}
-							else if (KickStarter.settingsManager.IsUnity2D ())
+							if (magnitude > 0f)
 							{
-								newVel.z = 0f;
-								float magnitude = newVel.magnitude;
-
-								if (magnitude > 0f)
-								{
-									float upAmount = Mathf.Abs (Vector3.Dot (newVel.normalized, Vector3.up));
-									float mag = (magnitude * (1f - upAmount)) + (magnitude * KickStarter.sceneSettings.GetVerticalReductionFactor () * upAmount);
-									newVel *= mag / magnitude;
-								}
+								float upAmount = Mathf.Abs (Vector3.Dot (newVel.normalized, Vector3.forward));
+								float mag = (magnitude * (1f - upAmount)) + (magnitude * KickStarter.sceneSettings.GetVerticalReductionFactor () * upAmount);
+								newVel *= mag / magnitude;
 							}
-							else
-							{
-								newVel *= GetNonFacingReductionFactor ();
-								newVel *= (doWallReduction && !wallReductionOnlyParameter) ? wallReductionFactor : 1f;
-							}
-
-							newVel *= KickStarter.playerInput.GetDragMovementSlowDown ();
 						}
+						else if (SceneSettings.IsUnity2D ())
+						{
+							newVel.z = 0f;
+							float magnitude = newVel.magnitude;
+
+							if (magnitude > 0f)
+							{
+								float upAmount = Mathf.Abs (Vector3.Dot (newVel.normalized, Vector3.up));
+								float mag = (magnitude * (1f - upAmount)) + (magnitude * KickStarter.sceneSettings.GetVerticalReductionFactor () * upAmount);
+								newVel *= mag / magnitude;
+							}
+						}
+						else
+						{
+							newVel *= GetNonFacingReductionFactor ();
+							newVel *= (doWallReduction && !wallReductionOnlyParameter) ? wallReductionFactor : 1f;
+						}
+
+						newVel *= KickStarter.playerInput.GetDragMovementSlowDown ();
 
 						bool noMove = false;
 						if (rootMotionType == RootMotionType.TwoD)
@@ -1146,7 +1146,7 @@ namespace AC
 
 		private Vector3 GetSmartPosition (Vector3 targetPoint)
 		{
-			if (KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				targetPoint.z = transform.position.z;
 			}
@@ -1346,7 +1346,7 @@ namespace AC
 				
 				if (KickStarter.settingsManager != null && spriteChild)
 				{
-					PrepareSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
+					PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 				}
 				return;
 			}
@@ -1402,7 +1402,7 @@ namespace AC
 			if (activePath)
 			{
 				Vector3 idealDir = Vector3.zero;
-				if (KickStarter.settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					Vector2 idealDir2D = GetTargetPosition () - transform.position;
 					idealDir = new Vector3 (idealDir2D.x, 0f, idealDir2D.y);
@@ -1424,12 +1424,12 @@ namespace AC
 
 		private void UpdateWallReductionFactor ()
 		{
-			if (KickStarter.settingsManager.cameraPerspective == CameraPerspective.TwoD)
+			if (SceneSettings.CameraPerspective == CameraPerspective.TwoD)
 			{
 				// 2D
 
 				Vector2 forwardVector = transform.forward;
-				if (KickStarter.settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					forwardVector = new Vector2 (transform.forward.x, transform.forward.z);
 				}
@@ -1509,7 +1509,7 @@ namespace AC
 		{
 			lookDirection = new Vector3 (_direction.x, 0f, _direction.z);
 
-			if (KickStarter.settingsManager.IsUnity2D () && KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick)
+			if (KickStarter.settingsManager.rotationsAffectedByVerticalReduction && SceneSettings.IsUnity2D () && KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick)
 			{
 				if (_direction != transform.forward)
 				{
@@ -1547,7 +1547,7 @@ namespace AC
 		{
 			isReversing = false;
 			moveDirection = transform.forward;
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				moveDirection = new Vector3 (moveDirection.x, moveDirection.z, 0f);
 			}
@@ -1562,7 +1562,7 @@ namespace AC
 		{
 			isReversing = true;
 			moveDirection = -transform.forward;
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				moveDirection = new Vector3 (moveDirection.x, moveDirection.z, 0f);
 			}
@@ -1898,7 +1898,7 @@ namespace AC
 		{
 			Vector3 direction = activePath.nodes[1] - transform.position;
 
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				SetLookDirection (new Vector3 (direction.x, 0f, direction.y), false);
 			}
@@ -2981,7 +2981,7 @@ namespace AC
 					addedHeight *= spriteChild.localScale.y;
 				}
 				
-				if (KickStarter.settingsManager && KickStarter.settingsManager.IsTopDown ())
+				if (SceneSettings.IsTopDown ())
 				{
 					worldPosition.z += addedHeight;
 				}
@@ -3322,14 +3322,14 @@ namespace AC
 				return _characterController.isGrounded;
 			}
 			
+			if (_collider != null && _collider.enabled)
+			{
+				return Physics.CheckCapsule (transform.position + new Vector3 (0f, _collider.bounds.size.y, 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), _collider.bounds.size.x / 2f, groundCheckLayerMask);
+			}
+
 			if (_rigidbody != null && Mathf.Abs (_rigidbody.velocity.y) > 0.1f)
 			{
 				return false;
-			}
-
-			if (_collider != null && _collider.enabled)
-			{
-				return Physics.CheckCapsule (transform.position + new Vector3 (0f, _collider.bounds.size.y, 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), _collider.bounds.size.x / 2f);
 			}
 
 			if (spriteChild != null)

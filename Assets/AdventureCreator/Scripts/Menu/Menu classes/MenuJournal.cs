@@ -418,6 +418,23 @@ namespace AC
 			pages[a1] = pages[a2];
 			pages[a2] = tempPage;
 		}
+	
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			if (pages != null)
+			{
+				foreach (JournalPage page in pages)
+				{
+					string newPageText = AdvGame.ConvertGlobalVariableTokenToLocal (page.text, oldGlobalID, newLocalID);
+					if (page.text != newPageText)
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 		
 		#endif
 

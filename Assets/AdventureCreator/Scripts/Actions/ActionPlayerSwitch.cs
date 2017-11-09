@@ -130,7 +130,7 @@ namespace AC
 						KickStarter.ResetPlayer (KickStarter.settingsManager.players[playerNumber].playerOb, playerID, true, newRotation, keepInventory);
 						Player newPlayer = KickStarter.player;
 						PlayerMenus.ResetInventoryBoxes ();
-						
+
 						if (restorePreviousData && KickStarter.saveSystem.DoesPlayerDataExist (playerID, true))
 						{
 							int sceneToLoad = KickStarter.saveSystem.GetPlayerScene (playerID);
@@ -148,15 +148,6 @@ namespace AC
 									KickStarter.sceneChanger.ChangeScene (new SceneInfo (sceneToLoadName, -1), true);
 								}
 							}
-
-							/*int sceneToLoad = KickStarter.saveSystem.GetPlayerScene (playerID);
-							string sceneToLoadName = KickStarter.saveSystem.GetPlayerSceneName (playerID);
-
-							if (sceneToLoad != UnityVersionHandler.GetCurrentSceneNumber ())
-							{
-								KickStarter.saveSystem.loadingGame = LoadingGame.JustSwitchingPlayer;
-								KickStarter.sceneChanger.ChangeScene (new SceneInfo (sceneToLoadName, sceneToLoad), true);
-							}*/
 						}
 						else
 						{

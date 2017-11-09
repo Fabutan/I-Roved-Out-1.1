@@ -702,6 +702,43 @@ namespace AC
 			return field;
 		}
 
+
+		/**
+		 * <summary>Converts the Action's references from a given local variable to a given global variable</summary>
+		 * <param name = "oldLocalID">The ID number of the old local variable</param>
+		 * <param name = "newGlobalID">The ID number of the new global variable</param>
+		 * <returns>True if the Action was amended</returns>
+		 */
+		public virtual bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			string newComment = AdvGame.ConvertLocalVariableTokenToGlobal (comment, oldLocalID, newGlobalID);
+			bool wasAmended = (comment != newComment);
+			comment = newComment;
+			return wasAmended;
+		}
+
+
+		/**
+		 * <summary>Converts the Action's references from a given global variable to a given local variable</summary>
+		 * <param name = "oldGlobalID">The ID number of the old global variable</param>
+		 * <param name = "newLocalID">The ID number of the new local variable</param>
+		 * <param name = "isCorrectScene">If True, the local variable is in the same scene as this ActionList.  Otherwise, no change will made, but the return value will be the same</param>
+		 * <returns>True if the Action is affected</returns>
+		 */
+		public virtual bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			string newComment = AdvGame.ConvertGlobalVariableTokenToLocal (comment, oldGlobalID, newLocalID);
+			if (comment != newComment)
+			{
+				if (isCorrectScene)
+				{
+					comment = newComment;
+				}
+				return true;
+			}
+			return false;
+		}
+
 		#endif
 
 

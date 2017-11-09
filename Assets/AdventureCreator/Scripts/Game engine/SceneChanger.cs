@@ -79,11 +79,11 @@ namespace AC
 			else
 			{
 				relativePosition = KickStarter.player.transform.position - markerTransform.position;
-				if (KickStarter.settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					relativePosition.z = 0f;
 				}
-				else if (KickStarter.settingsManager.IsTopDown ())
+				else if (SceneSettings.IsTopDown ())
 				{
 					relativePosition.y = 0f;
 				}

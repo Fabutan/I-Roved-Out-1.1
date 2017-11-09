@@ -180,7 +180,7 @@ namespace AC
 				return;
 			}
 			
-			if (KickStarter.settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{
 				depthAxis = DepthAxis.Y;
 			}

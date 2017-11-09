@@ -58,11 +58,11 @@ namespace AC
 		}
 		
 		
-		private void FixedUpdate ()
+		private void LateUpdate ()
 		{
 			if (_audio.isPlaying)
 			{
-				_audio.GetOutputData(array, 0);
+				_audio.GetOutputData (array, 0);
 				float num3 = 0f;
 				for (int i = 0; i < width; i++)
 				{
@@ -70,7 +70,11 @@ namespace AC
 				    num3 += num4;
 				}
 				num3 /= (float) width;
-				
+				if (Options.GetSpeechVolume () > 0f)
+				{
+					num3 /= Options.GetSpeechVolume ();
+				}
+
 				// Only record changes big enough
 				if (Mathf.Abs (num3 - volume) > bin)
 					volume = num3;
@@ -84,12 +88,8 @@ namespace AC
 			{
 				output = 0f;
 			}
-		}
-		
-		
-		private void LateUpdate ()
-		{
-			if (_character != null && !_character.isTalking && output == 0f)
+
+				if (_character != null && !_character.isTalking && output == 0f)
 			{
 				return;
 			}

@@ -102,10 +102,8 @@ namespace AC
 					}
 				}
 
-				container.items.Clear ();
+				container.RemoveAll ();
 			}
-
-			PlayerMenus.ResetInventoryBoxes ();
 
 			return 0f;
 		}

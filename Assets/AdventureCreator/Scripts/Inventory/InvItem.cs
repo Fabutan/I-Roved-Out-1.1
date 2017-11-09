@@ -133,6 +133,40 @@ namespace AC
 			label = "Inventory item " + (id + 1).ToString ();
 			altLabel = "";
 		}
+
+
+		/**
+		 * <summary>A Constructor in which the id is explicitly set.</summary>
+		 * <param name = "_id">The ID number to assign</param>
+		 */
+		public InvItem (int _id)
+		{
+			count = 0;
+			tex = null;
+			activeTex = null;
+			selectedTex = null;
+			cursorIcon = new CursorIcon ();
+			id = _id;
+			binID = -1;
+			recipeSlot = -1;
+			useSeparateSlots = false;
+			carryOnStartNotDefault = false;
+			vars = new List<InvVar>();
+			canBeAnimated = false;
+			linkedPrefab = null;
+
+			interactions = new List<InvInteraction>();
+
+			combineActionList = new List<ActionListAsset>();
+			combineID = new List<int>();
+
+			overrideUseSyntax = false;
+			hotspotPrefix1 = new HotspotPrefix ("Use");
+			hotspotPrefix2 = new HotspotPrefix ("on");
+
+			label = "Inventory item " + (id + 1).ToString ();
+			altLabel = "";
+		}
 		
 
 		/**

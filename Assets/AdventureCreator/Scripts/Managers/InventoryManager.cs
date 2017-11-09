@@ -359,7 +359,7 @@ namespace AC
 						selectedItem.lookActionList = ActionListAssetMenu.AssetGUI ("Examine:", selectedItem.lookActionList, apiPrefix + ".lookActionList", autoName);
 					}
 					
-					if (settingsManager.CanSelectItems (false))
+					if (settingsManager != null && settingsManager.CanSelectItems (false))
 					{
 						EditorGUILayout.Space ();
 						EditorGUILayout.LabelField ("Unhandled interactions",  CustomStyles.subHeader);
@@ -530,6 +530,12 @@ namespace AC
 				{
 					selectedInvVar.label = CustomGUILayout.TextField ("Name:", selectedInvVar.label, apiPrefix + ".label");
 					selectedInvVar.type = (VariableType) CustomGUILayout.EnumPopup ("Type:", selectedInvVar.type, apiPrefix + ".type");
+
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.LabelField ("Internal description:", GUILayout.MaxWidth (146f));
+					selectedInvVar.description = EditorGUILayout.TextArea (selectedInvVar.description);
+					EditorGUILayout.EndHorizontal ();
+
 					if (selectedInvVar.type == VariableType.PopUp)
 					{
 						selectedInvVar.popUps = VariablesManager.PopupsGUI (selectedInvVar.popUps);
@@ -701,19 +707,74 @@ namespace AC
 					}
 				}
 				EditorGUILayout.EndScrollView ();
-				
+
+				EditorGUILayout.Space ();
+				EditorGUILayout.BeginHorizontal ();
 				if (GUILayout.Button ("Create new item"))
 				{
 					Undo.RecordObject (this, "Create inventory item");
 					
 					ResetFilter ();
-					InvItem newItem = new InvItem (GetIDArray ());
-					items.Add (newItem);
+					InvItem newItem = CreateNewItem ();
 					DeactivateAllItems ();
 					ActivateItem (newItem);
 				}
+
+				if (GUILayout.Button (Resource.CogIcon, GUILayout.Width (20f), GUILayout.Height (15f)))
+				{
+					ExportSideMenu ();
+				}
+				EditorGUILayout.EndHorizontal ();
 			}
 			EditorGUILayout.EndVertical ();
+		}
+
+
+		private void ImportItems ()
+		{
+			bool canProceed = EditorUtility.DisplayDialog ("Import inventory items", "AC will now prompt you for a CSV file to import. It is recommended to back up your project beforehand.", "OK", "Cancel");
+			if (!canProceed) return;
+
+			string fileName = EditorUtility.OpenFilePanel ("Import inventory item data", "Assets", "csv");
+			if (fileName.Length == 0)
+			{
+				return;
+			}
+			
+			if (System.IO.File.Exists (fileName))
+			{
+				string csvText = Serializer.LoadFile (fileName);
+				string [,] csvOutput = CSVReader.SplitCsvGrid (csvText);
+
+				InvItemImportWizardWindow.Init (this, csvOutput);
+			}
+		}
+
+
+		/**
+		 * <summary>Creates a new inventory item</summary>
+		 * <param name = "newID">If >= 0, the ID number of the item, if available.  If it is already taken, the item will not be created</param>
+		 * <returns>The newly-created item</returns>
+		 */
+		public InvItem CreateNewItem (int newID = -1)
+		{
+			List<int> idList = GetIDList ();
+			if (newID >= 0)
+			{
+				if (idList.Contains (newID))
+				{
+					return null;
+				}
+				InvItem newItem = new InvItem (newID);
+				items.Add (newItem);
+				return newItem;
+			}
+			else
+			{
+				InvItem newItem = new InvItem (idList.ToArray ());
+				items.Add (newItem);
+				return newItem;
+			}
 		}
 		
 		
@@ -818,6 +879,30 @@ namespace AC
 			}
 			selectedRecipe = null;
 		}
+
+
+		private void ExportSideMenu ()
+		{
+			GenericMenu menu = new GenericMenu ();
+			menu.AddItem (new GUIContent ("Import items..."), false, ExportCallback, "Import");
+			menu.AddItem (new GUIContent ("Export items..."), false, ExportCallback, "Export");
+			menu.ShowAsContext ();
+		}
+
+
+		private void ExportCallback (object obj)
+		{
+			switch (obj.ToString ())
+			{
+				case "Import":
+					ImportItems ();
+					break;
+
+				case "Export":
+					InvItemExportWizardWindow.Init (this);
+					break;
+			}
+		}
 		
 		
 		private void SideMenu (InvItem item)
@@ -889,7 +974,7 @@ namespace AC
 				{
 				case "Insert after":
 					Undo.RecordObject (this, "Insert item");
-					items.Insert (sideItem+1, new InvItem (GetIDArray ()));
+					items.Insert (sideItem+1, new InvItem (GetIDList ().ToArray ()));
 					break;
 					
 				case "Delete":
@@ -1117,16 +1202,17 @@ namespace AC
 		}
 		
 		
-		private int[] GetIDArray ()
+		private List<int> GetIDList ()
 		{
-			List<int> idArray = new List<int>();
+			List<int> idList = new List<int>();
 			foreach (InvItem item in items)
 			{
-				idArray.Add (item.id);
+				idList.Add (item.id);
 			}
 			
-			idArray.Sort ();
-			return idArray.ToArray ();
+			idList.Sort ();
+
+			return idList;
 		}
 		
 		

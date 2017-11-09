@@ -552,7 +552,7 @@ namespace AC
 		public static Delegate_Inventory OnInventoryDeselect;
 		/** An event triggered whenever an inventory item is interacted with */
 		public static Delegate_ChangeInventory OnInventoryInteract;
-		/** An event triggered whenever two inventory items are combined together */
+		/** An event triggered whenever two inventory items are combined together. This is triggered even if the item is "used" with itself */
 		public static Delegate_CombineInventory OnInventoryCombine;
 		/** An event triggered whenever an item is added to a Container */
 		public static Delegate_Container OnContainerAdd;
@@ -673,8 +673,12 @@ namespace AC
 
 		/** A delegate for the Delegate_OnSwitchCamera events */
 		public delegate void Delegate_OnSwitchCamera (_Camera fromCamera, _Camera toCamera, float transitionTime);
+		/** A delegate for the Delegate_OnShakeCamera events */
+		public delegate void Delegate_OnShakeCamera (float intensity, float duration);
 		/** An event triggered whenever the MainCamera switches to a new _Camera */
 		public static event Delegate_OnSwitchCamera OnSwitchCamera;
+		/** An event triggered whenever the MainCamera is shaken */
+		public static event Delegate_OnShakeCamera OnShakeCamera;
 		
 		/**
 		 * <summary>Triggers the OnSwitchCamera event.</summary>
@@ -685,6 +689,20 @@ namespace AC
 			if (OnSwitchCamera != null)
 			{
 				OnSwitchCamera (fromCamera, toCamera, transitionTime);
+			}
+		}
+
+
+		/**
+		 * <summary>Triggers the OnShakeCamera event.</summary>
+		 * <param name = "intensity">The intensity of the shake</param>
+		 * <param name = "duration">The duration, in seconds</param>
+		 */
+		public void Call_OnShakeCamera (float intensity, float duration)
+		{
+			if (OnShakeCamera != null)
+			{
+				OnShakeCamera (intensity, duration);
 			}
 		}
 

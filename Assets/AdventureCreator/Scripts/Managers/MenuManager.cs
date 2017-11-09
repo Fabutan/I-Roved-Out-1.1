@@ -107,14 +107,24 @@ namespace AC
 				globalDepth = CustomGUILayout.IntField ("GUI depth:", globalDepth, "AC.KickStarter.menuManager.globalDepth");
 				eventSystem = (UnityEngine.EventSystems.EventSystem) CustomGUILayout.ObjectField <UnityEngine.EventSystems.EventSystem> ("Event system prefab:", eventSystem, false, "AC.KickStarter.menuManager.eventSystem");
 
-				if (AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.inputMethod == InputMethod.KeyboardOrController)
+				if (AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.inputMethod != InputMethod.TouchScreen)
 				{
 					EditorGUILayout.Space ();
 					keyboardControlWhenPaused = CustomGUILayout.ToggleLeft ("Directly-navigate Menus when paused?", keyboardControlWhenPaused, "AC.KickStarter.menuManager.keyboardControlWhenPaused");
 					keyboardControlWhenDialogOptions = CustomGUILayout.ToggleLeft ("Directly-navigate Menus during Conversations?", keyboardControlWhenDialogOptions, "AC.KickStarter.menuManager.keyboardControlWhenDialogOptions");
 					if (eventSystem == null)
 					{
-						disableMouseIfKeyboardControlling = CustomGUILayout.ToggleLeft ("Disable mouse when keyboard-controlling Unity UI Menus?", disableMouseIfKeyboardControlling, "AC.KickStarter.menuManager.disableMouseIfKeyboardControlling");
+						disableMouseIfKeyboardControlling = CustomGUILayout.ToggleLeft ("Disable mouse when directly-controlling Unity UI Menus?", disableMouseIfKeyboardControlling, "AC.KickStarter.menuManager.disableMouseIfKeyboardControlling");
+					}
+				}
+
+				if (AdvGame.GetReferences ().settingsManager == null || AdvGame.GetReferences ().settingsManager.inputMethod != InputMethod.KeyboardOrController)
+				{
+					if (keyboardControlWhenPaused ||
+						keyboardControlWhenDialogOptions ||
+						(eventSystem == null && disableMouseIfKeyboardControlling))
+					{
+						EditorGUILayout.HelpBox ("When the 'Input method' is not 'Keyboard Or Controller', direct navigation of Menus is only available for Unity UI-based Menus.", MessageType.Info);
 					}
 				}
 
@@ -994,6 +1004,36 @@ namespace AC
 			}
 			
 			return null;
+		}
+
+
+		/**
+		 * <summary>Converts the Menu Managers's references from a given global variable to a given local variable</summary>
+		 * <param name = "oldGlobalID">The ID number of the old global variable</param>
+		 * <param name = "newLocalID">The ID number of the new local variable</param>
+		 */
+		public void CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			if (menus != null)
+			{
+				foreach (Menu menu in menus)
+				{
+					if (menu != null && menu.elements != null)
+					{
+						foreach (MenuElement element in menu.elements)
+						{
+							if (element != null)
+							{
+								bool isAffected = element.CheckConvertGlobalVariableToLocal (oldGlobalID, newLocalID);
+								if (isAffected)
+								{
+									ACDebug.LogWarning ("Menu Element '" + element.title + "' in Menu '" + menu.title + "' refers to removed the Global Variable, but cannot refer to Local Variables.");
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
 		#endif

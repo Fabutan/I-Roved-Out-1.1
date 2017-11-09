@@ -96,6 +96,11 @@ namespace AC
 					}
 				}
 			}
+
+			if (_target.GetComponent <Collider>() != null && _target.GetComponent <CharacterController>() == null)
+			{
+				_target.groundCheckLayerMask = EditorGUILayout.LayerField ("Grounded-check layer(s):", _target.groundCheckLayerMask);
+			}
 			EditorGUILayout.EndVertical ();
 			
 			

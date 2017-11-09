@@ -30,7 +30,7 @@ namespace AC
 		public override void SceneSettingsGUI ()
 		{
 			#if UNITY_EDITOR
-			if (AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				EditorGUILayout.HelpBox ("This method is not compatible with 'Unity 2D' mode.", MessageType.Warning);
 			}

@@ -26,8 +26,7 @@ namespace AC
 	public class PlayerInteraction : MonoBehaviour
 	{
 
-		/** If True, then gameplay is blocked because the Player prefab is moving towards a Hotspot before the Interaction is run */
-		[HideInInspector] public bool inPreInteractionCutscene = false;
+		private bool inPreInteractionCutscene = false;
 
 		private Hotspot hotspotMovingTo;
 		private Hotspot hotspot;
@@ -178,6 +177,11 @@ namespace AC
 		{
 			if (hotspot == null && button == null && IsDroppingInventory ())
 			{
+				if (KickStarter.playerMenus.IsMouseOverInventory ())
+				{
+					// Don't null if over inventory (Unity UI issue)
+					return;
+				}
 				KickStarter.runtimeInventory.SetNull ();
 			}
 		}
@@ -248,7 +252,7 @@ namespace AC
 				}
 			}
 
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				RaycastHit2D hit;
 				if (KickStarter.mainCamera.IsOrthographic ())
@@ -852,7 +856,7 @@ namespace AC
 			KickStarter.playerInput.ResetMouseClick ();
 			KickStarter.playerInput.ResetClick ();
 			button = null;
-			
+
 			if (_interactionType == InteractionType.Use)
 			{
 				if (selectedCursorID == -1)
@@ -905,11 +909,10 @@ namespace AC
 					button = hotspot.unhandledInvButton;
 				}
 			}
-			
 			if (button != null && button.isDisabled)
 			{
 				button = null;
-				
+
 				if (_interactionType != InteractionType.Inventory)
 				{
 					KickStarter.player.ClearHeadTurnTarget (false, HeadFacing.Hotspot);
@@ -989,7 +992,7 @@ namespace AC
 					Vector3 lookVector = Vector3.zero;
 					Vector3 targetPos = _hotspot.transform.position;
 					
-					if (KickStarter.settingsManager.ActInScreenSpace ())
+					if (SceneSettings.ActInScreenSpace ())
 					{
 						lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, _hotspot.transform.position);
 					}
@@ -1018,7 +1021,7 @@ namespace AC
 								Vector3[] pointArray;
 								Vector3 targetPosition = _hotspot.walkToMarker.transform.position;
 								
-								if (KickStarter.settingsManager.ActInScreenSpace ())
+								if (SceneSettings.ActInScreenSpace ())
 								{
 									targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 								}
@@ -1078,7 +1081,7 @@ namespace AC
 									targetPosition = _hotspot.walkToMarker.transform.position;
 								}
 								
-								if (KickStarter.settingsManager.ActInScreenSpace ())
+								if (SceneSettings.ActInScreenSpace ())
 								{
 									targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 								}
@@ -1121,7 +1124,7 @@ namespace AC
 
 						if (button.faceAfter)
 						{
-							if (KickStarter.settingsManager.ActInScreenSpace ())
+							if (SceneSettings.ActInScreenSpace ())
 							{
 								lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, _hotspot.transform.position);
 							}
@@ -1446,7 +1449,7 @@ namespace AC
 				return false;
 			}
 			
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				RaycastHit2D hit = new RaycastHit2D ();
 				
@@ -2052,6 +2055,15 @@ namespace AC
 				KickStarter.player.ClearHeadTurnTarget (false, HeadFacing.Hotspot);
 			}
 			StopInteraction ();
+		}
+
+
+		public bool InPreInteractionCutscene
+		{
+			get
+			{
+				return inPreInteractionCutscene;
+			}
 		}
 		
 	}

@@ -27,6 +27,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: Placed worm
     id: 1
     type: 0
@@ -42,6 +43,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: Lunch fallen
     id: 2
     type: 0
@@ -57,5 +59,6 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   varPresets: []
   updateRuntime: 1

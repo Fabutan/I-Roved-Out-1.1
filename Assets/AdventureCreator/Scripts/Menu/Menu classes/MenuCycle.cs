@@ -306,6 +306,16 @@ namespace AC
 				outlineSize = CustomGUILayout.Slider ("Effect size:", outlineSize, 1f, 5f, apiPrefix + ".outlineSize");
 			}
 		}
+
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			if (cycleType == AC_CycleType.Variable && varID == oldGlobalID)
+			{
+				return true;
+			}
+			return false;
+		}
 		
 		#endif
 		

@@ -34,7 +34,7 @@ namespace AC
 				GetComponent <Renderer>().enabled = false;
 			}
 			
-			if (KickStarter.settingsManager && KickStarter.settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				transform.RotateAround (transform.position, Vector3.right, 90f);
 				transform.RotateAround (transform.position, transform.right, -90f);

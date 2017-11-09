@@ -318,7 +318,7 @@ namespace AC
 				EditorGUILayout.EndHorizontal ();
 
 				_cursorIcon.label = CustomGUILayout.TextField ("Label:", _cursorIcon.label, "AC.KickStarter.cursorManager.GetCursorIconFromID (" + i + ").label");
-				if (KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot)
+				if (KickStarter.settingsManager != null && KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot)
 				{
 					EditorGUILayout.LabelField ("Input button:", _cursorIcon.GetButtonName ());
 				}

@@ -35,6 +35,7 @@ MonoBehaviour:
   keepTextInBuffer: 1
   relegateBackgroundSpeechAudio: 0
   usePlayerRealName: 0
+  separateSharedPlayerAudio: 0
   placeAudioInSubfolders: 0
   separateLines: 0
   separateLinePause: 0.1
@@ -1702,11 +1703,12 @@ MonoBehaviour:
   lipSyncSpeed: 1
   maxID: -1
   sceneFiles:
+  - Assets/IRovedOut/GameScenes/Title.unity
   - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Start.unity
-  - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_LeftPath.unity
-  - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Bees.unity
   - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_RightPath.unity
+  - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_LeftPath.unity
   - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Elk.unity
+  - Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Bees.unity
   activeLineID: 54
   mergeMatchingSpeechIDs: 0
   useSpeechTags: 0

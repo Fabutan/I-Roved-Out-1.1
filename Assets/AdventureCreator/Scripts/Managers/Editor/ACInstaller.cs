@@ -82,6 +82,9 @@ namespace AC
 				{
 					DefineInputs ();
 					DefineLayers ();
+
+					//Want to have this open, but Unity 2017.1 has a bug
+					//AboutWindow.Init ();
 				}
 			}
 		}

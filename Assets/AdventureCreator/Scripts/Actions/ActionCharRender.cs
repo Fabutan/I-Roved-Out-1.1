@@ -32,8 +32,11 @@ namespace AC
 
 		public RenderLock renderLock_sorting;
 		public SortingMapType mapType;
+
 		public int sortingOrder;
+		public int sortingOrderParameterID = -1;
 		public string sortingLayer;
+		public int sortingLayerParameterID = -1;
 
 		public RenderLock renderLock_scale;
 		public int scale;
@@ -57,11 +60,13 @@ namespace AC
 		override public void AssignValues (List<ActionParameter> parameters)
 		{
 			_char = AssignFile <Char> (parameters, parameterID, constantID, _char);
-
 			if (isPlayer)
 			{
 				_char = KickStarter.player;
 			}
+
+			sortingOrder = AssignInteger (parameters, sortingOrderParameterID, sortingOrder);
+			sortingLayer = AssignString (parameters, sortingLayerParameterID, sortingLayer);
 		}
 		
 		
@@ -137,11 +142,20 @@ namespace AC
 					mapType = (SortingMapType) EditorGUILayout.EnumPopup ("Sorting type:", mapType);
 					if (mapType == SortingMapType.OrderInLayer)
 					{
-						sortingOrder = EditorGUILayout.IntField ("New order:", sortingOrder);
+						sortingOrderParameterID = Action.ChooseParameterGUI ("New order:", parameters, sortingOrderParameterID, ParameterType.Integer);
+						if (sortingOrderParameterID < 0)
+						{
+							sortingOrder = EditorGUILayout.IntField ("New order:", sortingOrder);
+						}
+
 					}
 					else if (mapType == SortingMapType.SortingLayer)
 					{
-						sortingLayer = EditorGUILayout.TextField ("New layer:", sortingLayer);
+						sortingLayerParameterID = Action.ChooseParameterGUI ("New layer:", parameters, sortingLayerParameterID, ParameterType.String);
+						if (sortingLayerParameterID < 0)
+						{
+							sortingLayer = EditorGUILayout.TextField ("New layer:", sortingLayer);
+						}
 					}
 				}
 

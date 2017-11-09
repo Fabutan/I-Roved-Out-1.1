@@ -81,6 +81,8 @@ namespace AC
 		public bool relegateBackgroundSpeechAudio = false;
 		/** If True, then speech audio spoken by the player will expect the audio filenames to be named after the player's prefab, rather than just "Player" */
 		public bool usePlayerRealName = false;
+		/** If True, usePlayerRealName = True, autoNameSpeechFiles = True, and playerSwitching = PlayerSwitching.Allow in SettingsManager, then speech lines marked is Player lines will have audio entries for each player prefab. */
+		public bool separateSharedPlayerAudio = false;
 
 		/** If True, then speech audio files will need to be placed in subfolders named after the character who speaks */
 		public bool placeAudioInSubfolders = false;
@@ -271,6 +273,10 @@ namespace AC
 					fallbackAudio = CustomGUILayout.ToggleLeft ("Use original language audio if none found?", fallbackAudio, "AC.KickStarter.speechManager.fallbackAudio");
 				}
 				usePlayerRealName = CustomGUILayout.ToggleLeft ("Use Player prefab name in filenames?", usePlayerRealName, "AC.KickStarter.speechManager.usePlayerRealName");
+				if (autoNameSpeechFiles && usePlayerRealName && KickStarter.settingsManager != null && KickStarter.settingsManager.playerSwitching == PlayerSwitching.Allow)
+				{
+					separateSharedPlayerAudio = CustomGUILayout.ToggleLeft ("'Player' lines have separate audio for each player?", separateSharedPlayerAudio, "AC.KickStarter.speechManager.separateSharedPlayerAudio");
+				}
 				if (autoNameSpeechFiles)
 				{
 					placeAudioInSubfolders = CustomGUILayout.ToggleLeft ("Place audio files in speaker subfolders?", placeAudioInSubfolders, "AC.KickStarter.speechManager.placeAudioInSubfolders");
@@ -607,6 +613,11 @@ namespace AC
 			showTranslations = CustomGUILayout.ToggleHeader (showTranslations, "Languages");
 			if (showTranslations)
 			{
+				if (languages.Count == 0)
+				{
+					ClearLanguages ();
+				}
+
 				SyncLanguageData ();
 
 				if (languages.Count > 1)
@@ -629,36 +640,29 @@ namespace AC
 					EditorGUILayout.EndVertical ();
 				}
 
-				if (languages.Count == 0)
+				if (languages.Count > 1)
 				{
-					ClearLanguages ();
-				}
-				else
-				{
-					if (languages.Count > 1)
+					for (int i=1; i<languages.Count; i++)
 					{
-						for (int i=1; i<languages.Count; i++)
+						EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+						EditorGUILayout.BeginHorizontal ();
+						EditorGUILayout.LabelField ("Language #" + i.ToString () + ":", GUILayout.Width (146f));
+						languages[i] = EditorGUILayout.TextField (languages[i]);
+
+						if (GUILayout.Button (Resource.CogIcon, GUILayout.Width (20f), GUILayout.Height (15f)))
 						{
-							EditorGUILayout.BeginVertical (CustomStyles.thinBox);
-							EditorGUILayout.BeginHorizontal ();
-							EditorGUILayout.LabelField ("Language #" + i.ToString () + ":", GUILayout.Width (146f));
-							languages[i] = EditorGUILayout.TextField (languages[i]);
-
-							if (GUILayout.Button (Resource.CogIcon, GUILayout.Width (20f), GUILayout.Height (15f)))
-							{
-								SideMenu (i);
-							}
-							EditorGUILayout.EndHorizontal ();
-							languageIsRightToLeft[i] = CustomGUILayout.Toggle ("Reads right-to-left?", languageIsRightToLeft[i], "AC.KickStarter.speechManager.languageIsRightToLeft[" + i.ToString () + "]");
-							EditorGUILayout.EndVertical ();
+							SideMenu (i);
 						}
+						EditorGUILayout.EndHorizontal ();
+						languageIsRightToLeft[i] = CustomGUILayout.Toggle ("Reads right-to-left?", languageIsRightToLeft[i], "AC.KickStarter.speechManager.languageIsRightToLeft[" + i.ToString () + "]");
+						EditorGUILayout.EndVertical ();
 					}
+				}
 
-					if (GUILayout.Button ("Create new translation"))
-					{
-						Undo.RecordObject (this, "Add translation");
-						CreateLanguage ("New " + languages.Count.ToString ());
-					}
+				if (GUILayout.Button ("Create new translation"))
+				{
+					Undo.RecordObject (this, "Add translation");
+					CreateLanguage ("New " + languages.Count.ToString ());
 				}
 
 				if (lines.Count == 0)
@@ -759,7 +763,7 @@ namespace AC
 
 			if (numFixes > 0)
 			{
-				Debug.Log ("Fixed " + numFixes + " translation mismatches.");
+				ACDebug.Log ("Fixed " + numFixes + " translation mismatches.");
 			}
 						
 
@@ -889,7 +893,7 @@ namespace AC
 			{
 				// Asset file
 
-				GetAllActionListAssets ();
+				CollectAllActionListAssets ();
 				foreach (ActionListAsset actionListAsset in allActionListAssets)
 				{
 					foreach (Action action in actionListAsset.actions)
@@ -953,7 +957,7 @@ namespace AC
 			{
 				// Asset file
 
-				GetAllActionListAssets ();
+				CollectAllActionListAssets ();
 				foreach (ActionListAsset actionListAsset in allActionListAssets)
 				{
 					foreach (Action action in actionListAsset.actions)
@@ -1048,7 +1052,7 @@ namespace AC
 				GetLinesFromCursors (false);
 				GetLinesFromMenus (false);
 
-				GetAllActionListAssets ();
+				CollectAllActionListAssets ();
 				foreach (ActionListAsset actionListAsset in allActionListAssets)
 				{
 					ProcessActionListAsset (actionListAsset, false);
@@ -2114,7 +2118,7 @@ namespace AC
 						ClearLinesInScene (sceneFile);
 					}
 
-					GetAllActionListAssets ();
+					CollectAllActionListAssets ();
 					foreach (ActionListAsset actionListAsset in allActionListAssets)
 					{
 						ClearLinesFromActionListAsset (actionListAsset);
@@ -2374,7 +2378,7 @@ namespace AC
 
 			if (linesToCheck.Count <= 1) return;
 
-			GetAllActionListAssets ();
+			CollectAllActionListAssets ();
 
 			while (linesToCheck.Count > 0)
 			{
@@ -2464,7 +2468,18 @@ namespace AC
 		}
 
 
-		private void GetAllActionListAssets ()
+		/**
+		 * <summary>Gets all ActionList assets referenced by scenes, Managers and other asset files in the project</summary>
+		 * <returns>All ActionList assets referenced by scenes, Managers and other asset files in the project</returns>
+		 */
+		public ActionListAsset[] GetAllActionListAssets ()
+		{
+			CollectAllActionListAssets ();
+			return allActionListAssets.ToArray ();
+		}
+
+
+		private void CollectAllActionListAssets ()
 		{
 			allActionListAssets = new List<ActionListAsset>();
 
@@ -3046,6 +3061,80 @@ namespace AC
 			return null;
 		}
 
+
+		/**
+		 * <summary>Converts the Speech Managers's references from a given local variable to a given global variable</summary>
+		 * <param name = "variable">The old local variable</param>
+		 * <param name = "newGlobalID">The ID number of the new global variable</param>
+		 */
+		public void ConvertLocalVariableToGlobal (GVar variable, int newGlobalID)
+		{
+			bool wasAmended = false;
+
+			int lineID = -1;
+			if (variable.type == VariableType.String)
+			{
+				lineID = variable.textValLineID;
+			}
+			else if (variable.type == VariableType.PopUp)
+			{
+				lineID = variable.popUpsLineID;
+			}
+
+			if (lineID >= 0)
+			{
+				SpeechLine speechLine = GetLine (lineID);
+				if (speechLine != null && speechLine.textType == AC_TextType.Variable)
+				{
+					speechLine.scene = "";
+					ACDebug.Log ("Updated Speech Manager line " + lineID);
+					wasAmended = true;
+				}
+			}
+
+			if (wasAmended)
+			{
+				EditorUtility.SetDirty (this);
+			}
+		}
+
+
+		/**
+		 * <summary>Converts the Speech Managers's references from a given global variable to a given local variable</summary>
+		 * <param name = "variable">The old global variable</param>
+		 * <param name = "sceneName">The name of the scene that the new variable lives in</param>
+		 */
+		public void ConvertGlobalVariableToLocal (GVar variable, string sceneName)
+		{
+			bool wasAmended = false;
+
+			int lineID = -1;
+			if (variable.type == VariableType.String)
+			{
+				lineID = variable.textValLineID;
+			}
+			else if (variable.type == VariableType.PopUp)
+			{
+				lineID = variable.popUpsLineID;
+			}
+
+			if (lineID >= 0)
+			{
+				SpeechLine speechLine = GetLine (lineID);
+				if (speechLine != null && speechLine.textType == AC_TextType.Variable)
+				{
+					speechLine.scene = sceneName;
+					ACDebug.Log ("Updated Speech Manager line " + lineID);
+					wasAmended = true;
+				}
+			}
+
+			if (wasAmended)
+			{
+				EditorUtility.SetDirty (this);
+			}
+		}
+
 		#endif
 
 
@@ -3072,13 +3161,16 @@ namespace AC
 		/**
 		 * <summary>Gets the audio filename of a SpeechLine.</summary>
 		 * <param name = "_lineID">The translation ID number generated by SpeechManager's PopulateList() function</param>
+		 * <param name = "speakerName">The name of the speaking character, which is only used if separating shared player audio</param>
 		 * <returns>The audio filename of the speech line</summary>
 		 */
-		public string GetLineFilename (int _lineID)
+		public string GetLineFilename (int _lineID, string speakerName = "")
 		{
-			foreach (SpeechLine line in lines) {
-				if (line.lineID == _lineID) {
-					return line.GetFilename ();
+			foreach (SpeechLine line in lines)
+			{
+				if (line.lineID == _lineID)
+				{
+					return line.GetFilename (speakerName);
 				}
 			}
 			return "";

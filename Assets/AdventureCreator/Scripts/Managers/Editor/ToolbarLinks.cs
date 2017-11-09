@@ -42,6 +42,13 @@ namespace AC
 			Application.OpenURL (Resource.scriptingGuideLink);
 		}
 
+
+		[MenuItem ("Adventure Creator/Online resources/Community wiki", false, 5)]
+		static void Wiki ()
+		{
+			Application.OpenURL (Resource.wikiLink);
+		}
+
 	}
 
 }

@@ -113,7 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9aed79b329f74b479397892dc49c27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPreInteractionCutscene: 0
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,6 +164,9 @@ MonoBehaviour:
   requiredManagerPackage: {fileID: 0}
   overrideVerticalReductionFactor: 0
   verticalReductionFactor: 0.7
+  overrideCameraPerspective: 0
+  cameraPerspective: 0
+  movingTurning: 3
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1

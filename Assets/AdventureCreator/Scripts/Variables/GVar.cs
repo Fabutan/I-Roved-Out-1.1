@@ -59,6 +59,10 @@ namespace AC
 
 		private string[] runtimeTranslations;
 
+		#if UNITY_EDITOR
+		public string description = "";
+		#endif
+
 
 		public GVar ()
 		{}
@@ -74,7 +78,6 @@ namespace AC
 			floatVal = 0f;
 			textVal = "";
 			type = VariableType.Boolean;
-			id = 0;
 			link = VarLink.None;
 			pmVar = "";
 			popUps = null;
@@ -86,16 +89,13 @@ namespace AC
 			canTranslate = true;
 			vector3Val = Vector3.zero;
 
-			// Update id based on array
-			foreach (int _id in idArray)
-			{
-				if (id == _id)
-				{
-					id ++;
-				}
-			}
-			
+			AssignUniqueID (idArray);
+
 			label = "Variable " + (id + 1).ToString ();
+
+			#if UNITY_EDITOR
+			description = "";
+			#endif
 		}
 		
 
@@ -121,6 +121,33 @@ namespace AC
 			popUpsLineID = assetVar.popUpsLineID;
 			canTranslate = assetVar.canTranslate;
 			vector3Val = assetVar.vector3Val;
+
+			#if UNITY_EDITOR
+			description = assetVar.description;
+			#endif
+		}
+
+
+		/**
+		 * <summary>Sets the internal ID to a unique number based on an array of previously-used values</summary>
+		 * <param name = "idArray">An array of previously-used ID values</param>
+		 * <returns>The new ID number</returns>>
+		 */
+		public int AssignUniqueID (int[] idArray)
+		{
+			id = 0;
+
+			if (idArray != null)
+			{
+				foreach (int _id in idArray)
+				{
+					if (id == _id)
+					{
+						id ++;
+					}
+				}
+			}
+			return id;
 		}
 		
 		
@@ -625,7 +652,7 @@ namespace AC
 				vector3Val = value;
 			}
 		}
-		
+
 	}
 
 }

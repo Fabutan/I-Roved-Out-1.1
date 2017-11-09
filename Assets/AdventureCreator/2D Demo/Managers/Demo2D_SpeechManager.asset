@@ -35,6 +35,7 @@ MonoBehaviour:
   keepTextInBuffer: 0
   relegateBackgroundSpeechAudio: 0
   usePlayerRealName: 0
+  separateSharedPlayerAudio: 0
   placeAudioInSubfolders: 0
   separateLines: 0
   separateLinePause: 0.1

@@ -244,22 +244,6 @@ namespace AC
 			}
 		}
 		
-		
-		private int GetBinSlot (int _id, List<InvBin> bins)
-		{
-			int i = 0;
-			foreach (InvBin bin in bins)
-			{
-				if (bin.id == _id)
-				{
-					return i;
-				}
-				i++;
-			}
-			
-			return 0;
-		}
-		
 		#endif
 
 

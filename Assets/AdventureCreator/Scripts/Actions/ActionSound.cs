@@ -96,7 +96,7 @@ namespace AC
 					Sound[] sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
 					foreach (Sound sound in sounds)
 					{
-						sound.EndOldMusic (runtimeSound);
+						sound.EndOld (SoundType.Music, runtimeSound);
 					}
 				}
 

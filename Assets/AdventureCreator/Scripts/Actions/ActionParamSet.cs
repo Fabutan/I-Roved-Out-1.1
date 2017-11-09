@@ -33,8 +33,8 @@ namespace AC
 		public bool changeOwn;
 		public int parameterID = -1;
 		
-		public int intValue;
-		public float floatValue;
+		public int intValue, intValueMax;
+		public float floatValue, floatValueMax;
 		public string stringValue;
 
 		public GameObject gameobjectValue;
@@ -191,6 +191,25 @@ namespace AC
 				else if (_parameter.parameterType == ParameterType.Vector3)
 				{
 					_parameter.vector3Value = vector3Value;
+				}
+			}
+			else if (setParamMethod == SetParamMethod.Random)
+			{
+				if (_parameter.parameterType == ParameterType.Boolean)
+				{
+					_parameter.intValue = Random.Range (0, 2);
+				}
+				else if (_parameter.parameterType == ParameterType.Integer)
+				{
+					_parameter.intValue = Random.Range (intValue, intValueMax + 1);
+				}
+				else if (_parameter.parameterType == ParameterType.Float)
+				{
+					_parameter.floatValue = Random.Range (floatValue, floatValueMax);
+				}
+				else
+				{
+					ACDebug.LogWarning ("Parameters of type '" + _parameter.parameterType + "' cannot be set randomly.");
 				}
 			}
 
@@ -364,7 +383,28 @@ namespace AC
 					vector3Value = EditorGUILayout.Vector3Field ("Set as:", vector3Value);
 				}
 			}
-			else
+			else if (setParamMethod == SetParamMethod.Random)
+			{
+				if (_parameter.parameterType == ParameterType.Boolean)
+				{}
+				else if (_parameter.parameterType == ParameterType.Integer)
+				{
+					intValue = EditorGUILayout.IntField ("Minimum:", intValue);
+					intValueMax = EditorGUILayout.IntField ("Maximum:", intValueMax);
+					if (intValueMax < intValue) intValueMax = intValue;
+				}
+				else if (_parameter.parameterType == ParameterType.Float)
+				{
+					floatValue = EditorGUILayout.FloatField ("Minimum:", floatValue);
+					floatValueMax = EditorGUILayout.FloatField ("Maximum:", floatValueMax);
+					if (floatValueMax < floatValue) floatValueMax = floatValue;
+				}
+				else
+				{
+					EditorGUILayout.HelpBox ("Parameters of type '" + _parameter.parameterType + "' cannot be set randomly.", MessageType.Warning);
+				}
+			}
+			else if (setParamMethod == SetParamMethod.CopiedFromGlobalVariable)
 			{
 				if (AdvGame.GetReferences () != null && AdvGame.GetReferences ().variablesManager != null && AdvGame.GetReferences ().variablesManager.vars != null && AdvGame.GetReferences ().variablesManager.vars.Count > 0)
 				{

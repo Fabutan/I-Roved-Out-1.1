@@ -150,11 +150,11 @@ namespace AC
 		{
 			Vector3 _targetPosition = transform.position + _direction.normalized * minPlayerDistance * 1.2f;
 
-			if (KickStarter.settingsManager.ActInScreenSpace ())
+			if (SceneSettings.ActInScreenSpace ())
 			{
 				_targetPosition = AdvGame.GetScreenNavMesh (_targetPosition);
 			}
-			else if (KickStarter.settingsManager.cameraPerspective == CameraPerspective.ThreeD)
+			else if (SceneSettings.CameraPerspective == CameraPerspective.ThreeD)
 			{
 				_targetPosition.y = transform.position.y;
 			}
@@ -212,7 +212,7 @@ namespace AC
 					Vector3[] pointArray;
 					Vector3 targetPosition = followTarget.transform.position;
 					
-					if (KickStarter.settingsManager && KickStarter.settingsManager.ActInScreenSpace ())
+					if (SceneSettings.ActInScreenSpace ())
 					{
 						targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 					}

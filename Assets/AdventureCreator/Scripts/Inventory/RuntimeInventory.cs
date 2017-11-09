@@ -39,6 +39,7 @@ namespace AC
 		[HideInInspector] public ActionListAsset unhandledGive;
 
 		private InvItem selectedItem = null;
+		private InvItem lastSelectedItem = null;
 		/** The inventory item that is currently being hovered over by the cursor */
 		[HideInInspector] public InvItem hoverItem = null;
 		/** The inventory item that is currently being highlighted within an MenuInventoryBox element */
@@ -129,7 +130,7 @@ namespace AC
 				if (item != null && item.id == _id)
 				{
 					SetSelectItemMode (_mode);
-					selectedItem = item;
+					lastSelectedItem = selectedItem = item;
 
 					PlayerMenus.ResetInventoryBoxes ();
 					KickStarter.eventManager.Call_OnChangeInventory (selectedItem, InventoryEventType.Select);
@@ -161,7 +162,8 @@ namespace AC
 			else
 			{
 				SetSelectItemMode (_mode);
-				selectedItem = item;
+				lastSelectedItem = selectedItem = item;
+
 				KickStarter.eventManager.Call_OnChangeInventory (selectedItem, InventoryEventType.Select);
 				PlayerMenus.ResetInventoryBoxes ();
 			}
@@ -302,6 +304,7 @@ namespace AC
 					}
 					newItem.count = addAmount;
 					localItems [_index] = newItem;
+					PlayerMenus.ResetInventoryBoxes ();
 					return;
 				}
 			}
@@ -364,6 +367,8 @@ namespace AC
 					{
 						SelectItem (item, SelectItemMode.Use);
 					}
+
+					PlayerMenus.ResetInventoryBoxes ();
 					return itemList;
 				}
 			}
@@ -397,6 +402,7 @@ namespace AC
 								}
 							}
 
+							PlayerMenus.ResetInventoryBoxes ();
 							return itemList;	
 						}
 
@@ -420,6 +426,8 @@ namespace AC
 										itemList.Add (newItem);
 									}
 								}
+
+								PlayerMenus.ResetInventoryBoxes ();
 								return itemList;
 							}
 						}
@@ -457,11 +465,16 @@ namespace AC
 					{
 						SelectItem (newItem, SelectItemMode.Use);
 					}
+
+					PlayerMenus.ResetInventoryBoxes ();
 					return itemList;
 				}
 			}
+
+			ACDebug.LogWarning ("Cannot add inventory with ID=" + _id + ", because it cannot be found in the Inventory Manager.");
 			
 			itemList = RemoveEmptySlots (itemList);
+			PlayerMenus.ResetInventoryBoxes ();
 			return itemList;
 		}
 		
@@ -526,6 +539,7 @@ namespace AC
 				localItems = RemoveEmptySlots (localItems);
 
 				KickStarter.eventManager.Call_OnChangeInventory (_item, InventoryEventType.Remove);
+				PlayerMenus.ResetInventoryBoxes ();
 			}
 		}
 		
@@ -580,11 +594,13 @@ namespace AC
 
 					if (itemList.Count == 0)
 					{
+						PlayerMenus.ResetInventoryBoxes ();
 						return itemList;
 					}
 					
 					if (amount <= 0)
 					{
+						PlayerMenus.ResetInventoryBoxes ();
 						return itemList;
 					}
 				}
@@ -592,7 +608,8 @@ namespace AC
 			
 			itemList = ReorderItems (itemList);
 			itemList = RemoveEmptySlots (itemList);
-			
+
+			PlayerMenus.ResetInventoryBoxes ();
 			return itemList;
 		}
 
@@ -774,15 +791,7 @@ namespace AC
 		 */
 		public int GetNumberOfItemsCarried ()
 		{
-			int numCarried = 0;
-			for (int i=0; i<localItems.Count; i++)
-			{
-				if (localItems[i] != null)
-				{
-					numCarried ++;
-				}
-			}
-			return numCarried;
+			return GetNumberOfItemsCarriedInCategory (-1);
 		}
 
 
@@ -792,6 +801,40 @@ namespace AC
 		 * <returns>The total number of inventory items currently held by the given Player</returns>
 		 */
 		public int GetNumberOfItemsCarried (int _playerID)
+		{
+			return GetNumberOfItemsCarriedInCategory (-1, _playerID);
+		}
+
+
+		/**
+		 * <summary>Gets the total number of inventory items currently held by the active Player.</summary>
+		 * <param name = "categoryID">If >=0, then only items placed in the category with that ID will be counted</param>
+		 * <returns>The total number of inventory items currently held by the active Player</returns>
+		 */
+		public int GetNumberOfItemsCarriedInCategory (int categoryID)
+		{
+			int numCarried = 0;
+			for (int i=0; i<localItems.Count; i++)
+			{
+				if (localItems[i] != null)
+				{
+					if (categoryID < 0 || localItems[i].binID == categoryID)
+					{
+						numCarried ++;
+					}
+				}
+			}
+			return numCarried;
+		}
+
+
+		/**
+		 * <summary>Gets the total number of inventory items currently held by a given Player, if multiple Players are supported.</summary>
+		 * <param name = "categoryID">If >=0, then only items placed in the category with that ID will be counted</param>
+		 * <param name = "playerID">The ID number of the Player to refer to</param>
+		 * <returns>The total number of inventory items currently held by the given Player</returns>
+		 */
+		public int GetNumberOfItemsCarriedInCategory (int categoryID, int _playerID)
 		{
 			int numCarried = 0;
 
@@ -891,7 +934,6 @@ namespace AC
 
 			if (item.useActionList)
 			{
-				//selectedItem = null;
 				SetNull ();
 				AdvGame.RunActionListAsset (item.useActionList);
 				KickStarter.eventManager.Call_OnUseInventory (item, 0);
@@ -1051,16 +1093,15 @@ namespace AC
 			{
 				return;
 			}
-			
+
 			if (item2 == item1)
 			{
 				if ((KickStarter.settingsManager.interactionMethod != AC_InteractionMethod.ChooseHotspotThenInteraction || KickStarter.settingsManager.inventoryInteractions == InventoryInteractions.Single) &&  KickStarter.settingsManager.InventoryDragDrop && KickStarter.settingsManager.inventoryDropLook)
 				{
 					Look (item2);
 				}
-
-				//selectedItem = null;
 				SetNull ();
+				KickStarter.eventManager.Call_OnUseInventory (item1, 0, item2);
 			}
 			else
 			{
@@ -1128,24 +1169,7 @@ namespace AC
 			
 			KickStarter.playerCursor.ResetSelectedCursor ();
 		}
-		
 
-		/**
-		 * <summary>Gets the currently selected inventory item as a List with a single entry.</summary>
-		 * <returns>The currently selected inventory item as a List with a single entry.</returns>
-		 */
-		public List<InvItem> GetSelected ()
-		{
-			List<InvItem> items = new List<InvItem>();
-			
-			if (selectedItem != null)
-			{
-				items.Add (selectedItem);
-			}
-			
-			return items;
-		}
-		
 
 		/**
 		 * <summary>Checks if a particular inventory item is currently held by the player.</summary>
@@ -1830,6 +1854,16 @@ namespace AC
 			get
 			{
 				return selectedItem;
+			}
+		}
+
+
+		/** The last inventory item to be selected.  This will return the currently-selected item if one exists */ 
+		public InvItem LastSelectedItem
+		{
+			get
+			{
+				return lastSelectedItem;
 			}
 		}
 

@@ -31,7 +31,10 @@ namespace AC
 
 		[SerializeField] private InvCheckType invCheckType = InvCheckType.CarryingSpecificItem;
 		private enum InvCheckType { CarryingSpecificItem, NumberOfItemsCarrying };
-		
+
+		public bool checkNumberInCategory;
+		public int categoryIDToCheck;
+
 		public bool doCount;
 		public int intValueParameterID = -1;
 		public int intValue = 1;
@@ -82,11 +85,25 @@ namespace AC
 			{
 				if (KickStarter.settingsManager.playerSwitching == PlayerSwitching.Allow && !KickStarter.settingsManager.shareInventory && setPlayer)
 				{
-					count = KickStarter.runtimeInventory.GetNumberOfItemsCarried (playerID);
+					if (checkNumberInCategory)
+					{
+						count = KickStarter.runtimeInventory.GetNumberOfItemsCarriedInCategory (playerID, categoryIDToCheck);
+					}
+					else
+					{
+						count = KickStarter.runtimeInventory.GetNumberOfItemsCarried (playerID);
+					}
 				}
 				else
 				{
-					count = KickStarter.runtimeInventory.GetNumberOfItemsCarried ();
+					if (checkNumberInCategory)
+					{
+						count = KickStarter.runtimeInventory.GetNumberOfItemsCarriedInCategory (categoryIDToCheck);
+					}
+					else
+					{
+						count = KickStarter.runtimeInventory.GetNumberOfItemsCarried ();
+					}
 				}
 			}
 			
@@ -151,11 +168,33 @@ namespace AC
 			if (invCheckType == InvCheckType.NumberOfItemsCarrying)
 			{
 				intCondition = (IntCondition) EditorGUILayout.EnumPopup ("Count is:", intCondition);
-
+				
 				intValueParameterID = Action.ChooseParameterGUI (intCondition.ToString () + ":", parameters, intValueParameterID, ParameterType.Integer);
 				if (intValueParameterID < 0)
 				{
 					intValue = EditorGUILayout.IntField (intCondition.ToString () + ":", intValue);
+				}
+
+				if (inventoryManager != null && inventoryManager.bins != null && inventoryManager.bins.Count > 0)
+				{
+					checkNumberInCategory = EditorGUILayout.Toggle ("Check specific category?", checkNumberInCategory);
+					if (checkNumberInCategory)
+					{
+						int categoryIndex = 0;
+						string[] popupList = new string[inventoryManager.bins.Count];
+						for (int i=0; i<inventoryManager.bins.Count; i++)
+						{
+							popupList[i] = inventoryManager.bins[i].label;
+
+							if (inventoryManager.bins[i].id == categoryIDToCheck)
+							{
+								categoryIndex = i;
+							}
+						}
+
+						categoryIndex = EditorGUILayout.Popup ("Limit to category:", categoryIndex, popupList);
+						categoryIDToCheck = inventoryManager.bins[categoryIndex].id;
+					}
 				}
 
 				SetPlayerGUI ();

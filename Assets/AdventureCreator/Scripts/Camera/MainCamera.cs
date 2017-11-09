@@ -298,6 +298,8 @@ namespace AC
 			shakeIntensity = _shakeIntensity;
 			
 			shakeStartIntensity = shakeIntensity;
+
+			KickStarter.eventManager.Call_OnShakeCamera (shakeIntensity, shakeDuration);
 		}
 		
 
@@ -324,6 +326,8 @@ namespace AC
 			shakeIntensity = 0f;
 			shakePosition = Vector3.zero;
 			shakeRotation = Vector3.zero;
+
+			KickStarter.eventManager.Call_OnShakeCamera (0f, 0f);
 		}
 		
 
@@ -359,6 +363,12 @@ namespace AC
 		 */
 		public void SetFirstPerson ()
 		{
+			if (KickStarter.player == null)
+			{
+				ACDebug.LogWarning ("Cannot set first-person camera because no Player can be found!");
+				return;
+			}
+
 			FirstPersonCamera firstPersonCamera = KickStarter.player.GetComponentInChildren<FirstPersonCamera>();
 			if (firstPersonCamera)
 			{
@@ -1871,7 +1881,6 @@ namespace AC
 			{
 				Shake (playerData.shakeIntensity, playerData.shakeDuration, (CameraShakeEffect) playerData.shakeEffect);
 			}
-
 			_Camera _attachedCamera = Serializer.returnComponent <_Camera> (playerData.gameCamera);
 			if (_attachedCamera != null)
 			{
@@ -1924,6 +1933,15 @@ namespace AC
 					}
 				}
 				StartSplitScreen (playerData.splitAmountMain, playerData.splitAmountOther);
+			}
+		}
+
+
+		public Camera Camera
+		{
+			get
+			{
+				return _camera;
 			}
 		}
 

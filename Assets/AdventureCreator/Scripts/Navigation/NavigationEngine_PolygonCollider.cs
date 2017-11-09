@@ -543,11 +543,25 @@ namespace AC
 		public override void SceneSettingsGUI ()
 		{
 			#if UNITY_EDITOR
+			EditorGUILayout.BeginHorizontal ();
 			KickStarter.sceneSettings.navMesh = (NavigationMesh) EditorGUILayout.ObjectField ("Default NavMesh:", KickStarter.sceneSettings.navMesh, typeof (NavigationMesh), true);
-			if (AdvGame.GetReferences ().settingsManager && !AdvGame.GetReferences ().settingsManager.IsUnity2D ())
+			if (!SceneSettings.IsUnity2D ())
 			{
 				EditorGUILayout.HelpBox ("This method is only compatible with 'Unity 2D' mode.", MessageType.Warning);
 			}
+			else if (KickStarter.sceneSettings.navMesh == null)
+			{
+				if (GUILayout.Button ("Create", GUILayout.MaxWidth (60f)))
+				{
+					NavigationMesh newNavMesh = null;
+					newNavMesh = SceneManager.AddPrefab ("Navigation", "NavMesh2D", true, false, true).GetComponent <NavigationMesh>();
+
+					newNavMesh.gameObject.name = "Default NavMesh";
+					KickStarter.sceneSettings.navMesh = newNavMesh;
+					EditorGUIUtility.PingObject (newNavMesh.gameObject);
+				}
+			}
+			EditorGUILayout.EndHorizontal ();
 			#endif
 		}
 

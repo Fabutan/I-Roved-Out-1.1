@@ -477,6 +477,44 @@ namespace AC
 		#if UNITY_EDITOR
 
 		/**
+		 * <summary>Converts a token that refers to a given local variable, to one that refers to a given global variable</summary>
+		 * <param name = "_text">The text to convert</param>
+		 * <param name = "oldLocalID">The ID number of the old local variable</param>
+		 * <param name = "newGlobalID">The ID number of the new global variable</param>
+		 * <returns>The converted text</returns>
+		 */
+		public static string ConvertLocalVariableTokenToGlobal (string _text, int oldLocalID, int newGlobalID)
+		{
+			string oldVarToken = "[localvar:" + oldLocalID.ToString () + "]";
+			if (_text.Contains (oldVarToken))
+			{
+				string newVarToken = "[var:" + newGlobalID.ToString () + "]";
+				_text = _text.Replace (oldVarToken, newVarToken);
+			}
+			return _text;
+		}
+
+
+		/**
+		 * <summary>Converts a token that refers to a given local variable, to one that refers to a given global variable</summary>
+		 * <param name = "_text">The text to convert</param>
+		 * <param name = "oldGlobalID">The ID number of the old global variable</param>
+		 * <param name = "newLocalID">The ID number of the new local variable</param>
+		 * <returns>The converted text</returns>
+		 */
+		public static string ConvertGlobalVariableTokenToLocal (string _text, int oldGlobalID, int newLocalID)
+		{
+			string oldVarToken = "[var:" + oldGlobalID.ToString () + "]";
+			if (_text.Contains (oldVarToken))
+			{
+				string newVarToken = "[localvar:" + newLocalID.ToString () + "]";
+				_text = _text.Replace (oldVarToken, newVarToken);
+			}
+			return _text;
+		}
+
+
+		/**
 		 * <summary>Draws a cube gizmo in the Scene window.</summary>
 		 * <param name = "transform">The transform of the object to draw around</param>
 		 * <param name = "color">The colour of the cube</param>

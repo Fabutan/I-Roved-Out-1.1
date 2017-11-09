@@ -203,8 +203,8 @@ namespace AC
 		public float walkableClickRange = 0.5f;
 		/** How the nearest NavMesh to a cursor click is found, in screen space, if the user doesn't click directly on one */
 		public NavMeshSearchDirection navMeshSearchDirection = NavMeshSearchDirection.RadiallyOutwardsFromCursor;
-		/** If True, and movementMethod = AC_MovementMethod.PointAndClick, then the user will have to double-click to move the player */
-		public bool doubleClickMovement = false;
+		/** If movementMethod = AC_MovementMethod.PointAndClick, what effect double-clicking has on player movement */
+		public DoubleClickMovement doubleClickMovement = DoubleClickMovement.MakesPlayerRun;
 		/** If True, and movementMethod = AC_MovementMethod.Direct, then the magnitude of the input axis will affect the Player's speed */
 		public bool magnitudeAffectsDirect = false;
 		/** If True, and movementMethod = AC_MovementMethod.Direct, then the Player will turn instantly when moving during gameplay */
@@ -226,6 +226,8 @@ namespace AC
 		public float pathfindUpdateFrequency = 0f;
 		/** How much slower vertical movement is compared to horizontal movement, if the game is in 2D */
 		public float verticalReductionFactor = 0.7f;
+		/** If True, then rotations of 2D characters will be affected by the verticalReductionFactor value */
+		public bool rotationsAffectedByVerticalReduction = true;
 		/** The player's jump speed */
 		public float jumpSpeed = 4f;
 		/** If True, then single-clicking also moves the player, if movementMethod = AC_MovementMethod.StraightToCursor */
@@ -372,8 +374,10 @@ namespace AC
 
 		/** If True, then music can play when the game is paused */
 		public bool playMusicWhilePaused = false;
-		/** A list of all AudioClips that can be played as music using the "Sound: Play Music" Action */
+		/** A list of all AudioClips that can be played as music using the "Sound: Play music" Action */
 		public List<MusicStorage> musicStorages = new List<MusicStorage>();
+		/** A list of all AudioClips that can be played as ambience using the "Sound: Play ambience" Action */
+		public List<MusicStorage> ambienceStorages = new List<MusicStorage>();
 		#if UNITY_5 || UNITY_2017_1_OR_NEWER
 		/** How volume is controlled (AudioSources, AudioMixerGroups) (Unity 5 only) */
 		public VolumeControl volumeControl = VolumeControl.AudioSources;
@@ -927,7 +931,7 @@ namespace AC
 					}
 					if (movementMethod == MovementMethod.PointAndClick)
 					{
-						doubleClickMovement = CustomGUILayout.ToggleLeft ("Require double-click to move?", doubleClickMovement, "AC.KickStarter.settingsManager.doubleClickMovement");
+						doubleClickMovement = (DoubleClickMovement) CustomGUILayout.EnumPopup ("Double-click movement:", doubleClickMovement, "AC.KickStarter.settingsManager.doubleClickMovement");
 					}
 				}
 				else if (movementMethod == MovementMethod.FirstPerson)
@@ -963,6 +967,7 @@ namespace AC
 					if (movingTurning == MovingTurning.TopDown || movingTurning == MovingTurning.Unity2D)
 					{
 						verticalReductionFactor = CustomGUILayout.Slider ("Vertical movement factor:", verticalReductionFactor, 0.1f, 1f, "AC.KickStarter.settingsManager.verticalReductionFactor");
+						rotationsAffectedByVerticalReduction = CustomGUILayout.ToggleLeft ("Character rotations affected by 'Vertical movement factor'?", rotationsAffectedByVerticalReduction);
 					}
 				}
 			}
@@ -982,7 +987,11 @@ namespace AC
 					}
 					else
 					{
-						firstPersonTouchScreen = (FirstPersonTouchScreen) CustomGUILayout.EnumPopup ("First person movement:", firstPersonTouchScreen, "AC.KickStarter.settingsManager.firstPersonTouchScreen");
+						firstPersonTouchScreen = (FirstPersonTouchScreen) CustomGUILayout.EnumPopup ("First-person movement:", firstPersonTouchScreen, "AC.KickStarter.settingsManager.firstPersonTouchScreen");
+						if (firstPersonTouchScreen == FirstPersonTouchScreen.CustomInput)
+						{
+							EditorGUILayout.HelpBox ("Movement can be controlled by overriding the 'Horizontal' and 'Vertical' axes, and Free-aiming can be controlled by overriding the FreeAimDelegate - see 'Remapping inputs' in the Manual.", MessageType.Info);
+						}
 					}
 					doubleTapHotspots = CustomGUILayout.ToggleLeft ("Activate Hotspots with double-tap?", doubleTapHotspots, "AC.KickStarter.settingsManager.doubleTapHotspots");
 					touchUpWhenPaused = CustomGUILayout.ToggleLeft ("Release touch to interact with pause Menus?", touchUpWhenPaused, "AC.KickStarter.settingsManager.touchUpWhenPaused");
@@ -1001,6 +1010,11 @@ namespace AC
 			showCamera = CustomGUILayout.ToggleHeader (showCamera, "Camera settings");
 			if (showCamera)
 			{
+				if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.OverridesCameraPerspective ())
+				{
+					EditorGUILayout.HelpBox ("The current scene overrides the camera perspective - some fields only apply to the global perspective, below.", MessageType.Info);
+				}
+
 				cameraPerspective_int = (int) cameraPerspective;
 				cameraPerspective_int = CustomGUILayout.Popup ("Camera perspective:", cameraPerspective_int, cameraPerspective_list, "AC.KickStarter.settingsManager.cameraPerspective");
 				cameraPerspective = (CameraPerspective) cameraPerspective_int;
@@ -1382,48 +1396,6 @@ namespace AC
 		
 
 		/**
-		 * <summary>Checks if the game is in 2D, and plays in screen-space (i.e. characters do not move towards or away from the camera).</summary>
-		 * <returns>True if the game is in 2D, and plays in screen-space</returns>
-		 */
-		public bool ActInScreenSpace ()
-		{
-			if ((movingTurning == MovingTurning.ScreenSpace || movingTurning == MovingTurning.Unity2D) && cameraPerspective == CameraPerspective.TwoD)
-			{
-				return true;
-			}
-			return false;
-		}
-		
-
-		/**
-		 * <summary>Checks if the game uses Unity 2D for its camera perspective.<summary>
-		 * <returns>True if the game uses Unity 2D for its camera perspective</returns>
-		 */
-		public bool IsUnity2D ()
-		{
-			if (movingTurning == MovingTurning.Unity2D && cameraPerspective == CameraPerspective.TwoD)
-			{
-				return true;
-			}
-			return false;
-		}
-		
-
-		/**
-		 * <summary>Checks if the game uses Top Down for its camera perspective.<summary>
-		 * <returns>True if the game uses Top Down for its camera perspective</returns>
-		 */
-		public bool IsTopDown ()
-		{
-			if (movingTurning == MovingTurning.TopDown && cameraPerspective == CameraPerspective.TwoD)
-			{
-				return true;
-			}
-			return false;
-		}
-		
-
-		/**
 		 * <summary>Checks if the game is in first-person, on touch screen, and dragging affects only the camera rotation.</summary>
 		 * <returns>True if the game is in first-person, on touch screen, and dragging affects only the camera rotation.</returns>
 		 */
@@ -1763,7 +1735,6 @@ namespace AC
 			{
 				return true;
 			}
-			//if (KickStarter.player != null && KickStarter.player.FirstPersonCamera != null)// && KickStarter.mainCamera != null && KickStarter.mainCamera.attachedCamera != null && KickStarter.mainCamera.attachedCamera.transform == KickStarter.player.FirstPersonCamera)
 			if (KickStarter.player != null && KickStarter.player.FirstPersonCamera != null && KickStarter.mainCamera != null && KickStarter.mainCamera.attachedCamera == KickStarter.player.FirstPersonCamera)
 			{
 				return true;

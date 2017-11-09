@@ -121,6 +121,11 @@ namespace AC
 				ownPlayer.gameObject.SetActive (false);
 			}
 
+			if (sceneSettings.OverridesCameraPerspective ())
+			{
+				ACDebug.LogError ("The added scene (" + scene.name + ", " + scene.buildIndex + ") overrides the default camera perspective - this feature should not be used in conjunction with multiple-open scenes.", gameObject);
+			}
+
 			KickStarter.sceneChanger.RegisterSubScene (this);
 
 			#endif

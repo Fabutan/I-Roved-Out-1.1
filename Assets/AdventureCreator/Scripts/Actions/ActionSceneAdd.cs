@@ -59,6 +59,11 @@ namespace AC
 			{
 				isRunning = true;
 
+				if (KickStarter.sceneSettings.OverridesCameraPerspective ())
+				{
+					ACDebug.LogError ("The current scene overrides the default camera perspective - this feature should not be used in conjunction with multiple-open scenes.");
+				}
+
 				if (sceneAddRemove == SceneAddRemove.Add)
 				{
 					if (KickStarter.sceneChanger.AddSubScene (sceneInfo))

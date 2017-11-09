@@ -599,6 +599,18 @@ namespace AC
 				}
 			}
 		}
+
+
+		/**
+		 * <summary>Checks if the Elements makesreferences from a given global variable to a given local variable</summary>
+		 * <param name = "oldGlobalID">The ID number of the old global variable</param>
+		 * <param name = "newLocalID">The ID number of the new local variable</param>
+		 * <returns>True if the Element was affected</returns>
+		 */
+		public virtual bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			return false;
+		}
 		
 		#endif
 

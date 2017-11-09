@@ -41,6 +41,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db28c7f2d329f4674a280601ba57d9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundMethod25D: 1
+  backgroundTexture: {fileID: 0}
   loopMovie: 1
   restartMovieWhenTurnOn: 0
 --- !u!131 &13100000

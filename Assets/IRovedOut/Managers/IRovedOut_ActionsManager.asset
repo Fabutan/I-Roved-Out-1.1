@@ -672,6 +672,12 @@ MonoBehaviour:
       in or out.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionAmbience
+    category: 15
+    title: Play ambience
+    description: Plays or queues ambience clips.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMusic
     category: 15
     title: Play music
@@ -1415,6 +1421,12 @@ MonoBehaviour:
     title: Play
     description: Triggers a Sound object to start playing. Can be used to fade sounds
       in or out.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionAmbience
+    category: 15
+    title: Play ambience
+    description: Plays or queues ambience clips.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMusic

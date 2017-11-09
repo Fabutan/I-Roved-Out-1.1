@@ -33,6 +33,11 @@ namespace AC
 	{
 		
 		#if UNITY_EDITOR
+
+		private string[] cameraPerspective_list = { "2D", "2.5D", "3D" };
+		private bool tempOverrideCameraPerspective;
+		private CameraPerspective tempCameraPerspective;
+		private MovingTurning tempMovingTurning = MovingTurning.Unity2D;
 		
 		private int selectedSceneObject;
 		private string[] prefabTextArray;
@@ -88,6 +93,34 @@ namespace AC
 			showStructure = CustomGUILayout.ToggleHeader (showStructure, "Basic structure");
 			if (showStructure)
 			{
+				if (KickStarter.sceneSettings == null && KickStarter.settingsManager != null && KickStarter.settingsManager.movementMethod != MovementMethod.FirstPerson)
+				{
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.LabelField ("Override the default camera perspective?");
+					tempOverrideCameraPerspective = EditorGUILayout.Toggle (tempOverrideCameraPerspective);
+					EditorGUILayout.EndHorizontal ();
+					if (tempOverrideCameraPerspective)
+					{
+						int cameraPerspective_int = (int) tempCameraPerspective;
+						cameraPerspective_int = EditorGUILayout.Popup ("Camera perspective:", cameraPerspective_int, cameraPerspective_list);
+						tempCameraPerspective = (CameraPerspective) cameraPerspective_int;
+
+						if (tempCameraPerspective == CameraPerspective.TwoD)
+						{
+							tempMovingTurning = (MovingTurning) EditorGUILayout.EnumPopup ("Moving and turning:", tempMovingTurning);
+							if (tempMovingTurning == MovingTurning.TopDown)
+							{
+								EditorGUILayout.HelpBox ("This mode is now deprecated - use Unity 2D mode instead.", MessageType.Warning);
+							}
+						}
+					}
+				}
+
+				if (KickStarter.sceneSettings != null)
+				{
+					KickStarter.sceneSettings.ShowCameraOverrideLabel ();
+				}
+
 				EditorGUILayout.BeginHorizontal ();
 				GUILayout.Label ("Organise room objects:");
 				if (GUILayout.Button ("With folders"))
@@ -138,7 +171,6 @@ namespace AC
 				return;
 			}
 			
-			SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
 			if (KickStarter.sceneSettings == null)
 			{
 				return;
@@ -165,7 +197,7 @@ namespace AC
 					if (GUILayout.Button ("Create", GUILayout.MaxWidth (60f)))
 					{
 						PlayerStart newPlayerStart = null;
-						if (settingsManager != null && settingsManager.IsUnity2D ())
+						if (SceneSettings.IsUnity2D ())
 						{
 							newPlayerStart = AddPrefab ("Navigation", "PlayerStart2D", true, false, true).GetComponent <PlayerStart>();
 						}
@@ -188,19 +220,19 @@ namespace AC
 					{
 						if (GUILayout.Button ("Create", GUILayout.MaxWidth (60f)))
 						{
-							if (settingsManager == null || settingsManager.cameraPerspective == CameraPerspective.ThreeD)
+							if (SceneSettings.CameraPerspective == CameraPerspective.ThreeD)
 							{
 								GameCamera newCamera = AddPrefab ("Camera", "GameCamera", true, false, true).GetComponent <GameCamera>();
 								newCamera.gameObject.name = "NavCam 1";
 								KickStarter.sceneSettings.defaultPlayerStart.cameraOnStart = newCamera;
 							}
-							else if (settingsManager.cameraPerspective == CameraPerspective.TwoD)
+							else if (SceneSettings.CameraPerspective == CameraPerspective.TwoD)
 							{
 								GameCamera2D newCamera = AddPrefab ("Camera", "GameCamera2D", true, false, true).GetComponent <GameCamera2D>();
 								newCamera.gameObject.name = "NavCam 1";
 								KickStarter.sceneSettings.defaultPlayerStart.cameraOnStart = newCamera;
 							}
-							else if (settingsManager.cameraPerspective == CameraPerspective.TwoPointFiveD)
+							else if (SceneSettings.CameraPerspective == CameraPerspective.TwoPointFiveD)
 							{
 								GameCamera25D newCamera = AddPrefab ("Camera", "GameCamera2.5D", true, false, true).GetComponent <GameCamera25D>();
 								newCamera.gameObject.name = "NavCam 1";
@@ -224,7 +256,7 @@ namespace AC
 					}
 				}
 				EditorGUILayout.EndHorizontal ();
-				if (AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					EditorGUILayout.BeginHorizontal ();
 					KickStarter.sceneSettings.tintMap = (TintMap) CustomGUILayout.ObjectField <TintMap> ("Default Tint map:", KickStarter.sceneSettings.tintMap, true, "AC.KickStarter.sceneSettings.tintMap");
@@ -256,14 +288,11 @@ namespace AC
 				}
 				EditorGUILayout.EndHorizontal ();
 
-				if (KickStarter.settingsManager != null && KickStarter.settingsManager.cameraPerspective == CameraPerspective.TwoD)
+				if (SceneSettings.IsTopDown () || SceneSettings.IsUnity2D ())
 				{
-					if (KickStarter.settingsManager.movingTurning == MovingTurning.TopDown || KickStarter.settingsManager.movingTurning == MovingTurning.Unity2D)
-					{
-						KickStarter.sceneSettings.overrideVerticalReductionFactor = EditorGUILayout.BeginToggleGroup ("Override vertical movement factor?", KickStarter.sceneSettings.overrideVerticalReductionFactor);
-						KickStarter.sceneSettings.verticalReductionFactor = EditorGUILayout.Slider ("Vertical movement factor:", KickStarter.sceneSettings.verticalReductionFactor, 0.1f, 1f);
-						EditorGUILayout.EndToggleGroup ();
-					}
+					KickStarter.sceneSettings.overrideVerticalReductionFactor = EditorGUILayout.BeginToggleGroup ("Override vertical movement factor?", KickStarter.sceneSettings.overrideVerticalReductionFactor);
+					KickStarter.sceneSettings.verticalReductionFactor = EditorGUILayout.Slider ("Vertical movement factor:", KickStarter.sceneSettings.verticalReductionFactor, 0.1f, 1f);
+					EditorGUILayout.EndToggleGroup ();
 				}
 			}
 
@@ -547,6 +576,8 @@ namespace AC
 		 */
 		public void InitialiseObjects (bool createFolders = true)
 		{
+			bool reallyDoOverrideCameraPerspective = (KickStarter.sceneSettings == null && tempOverrideCameraPerspective) ? true : false;
+
 			if (createFolders)
 			{
 				CreateFolder ("_Cameras");
@@ -641,35 +672,40 @@ namespace AC
 				}
 			}
 			
+			// Create Game engine
+			AddPrefab ("Automatic", "GameEngine", false, false, false);
+
+			// Camera perspective override
+			if (reallyDoOverrideCameraPerspective)
+			{
+				KickStarter.sceneSettings.SetOverrideCameraPerspective (tempCameraPerspective, tempMovingTurning);
+			}
+
 			// Create main camera if none exists
-			SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
 			if (!foundMainCamera)
 			{
 				GameObject mainCamOb = AddPrefab ("Automatic", "MainCamera", false, false, false);
 				PrefabUtility.DisconnectPrefabInstance (mainCamOb);
 				PutInFolder (mainCamOb, "_Cameras");
-				if (settingsManager && settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					Camera.main.orthographic = true;
 				}
 			}
 			
 			// Create Background Camera (if 2.5D)
-			if (settingsManager && settingsManager.cameraPerspective == CameraPerspective.TwoPointFiveD)
+			if (SceneSettings.CameraPerspective == CameraPerspective.TwoPointFiveD)
 			{
 				CreateSubFolder ("_SetGeometry", "_BackgroundImages");
 				GameObject newOb = AddPrefab ("Automatic", "BackgroundCamera", false, false, false);
 				PutInFolder (newOb, "_Cameras");
 			}
 			
-			// Create Game engine
-			AddPrefab ("Automatic", "GameEngine", false, false, false);
-			
 			// Assign Player Start
 			if (KickStarter.sceneSettings && KickStarter.sceneSettings.defaultPlayerStart == null)
 			{
 				string playerStartPrefab = "PlayerStart";
-				if (settingsManager != null && settingsManager.IsUnity2D ())
+				if (SceneSettings.IsUnity2D ())
 				{
 					playerStartPrefab += "2D";
 				}
@@ -679,11 +715,13 @@ namespace AC
 			}
 			
 			// Pathfinding method
-			if (settingsManager != null && settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				KickStarter.sceneSettings.navigationMethod = AC_NavigationMethod.PolygonCollider;
 				KickStarter.navigationManager.ResetEngine ();
 			}
+
+			tempOverrideCameraPerspective = false;
 		}
 		
 		
@@ -760,6 +798,11 @@ namespace AC
 				string fileName = assetFolder + folderName + Path.DirectorySeparatorChar.ToString () + prefabName + ".prefab";
 				
 				GameObject newOb = (GameObject) PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath (fileName, typeof (GameObject)));
+				if (newOb == null)
+				{
+					ACDebug.LogError ("Error creating new prefab " + prefabName);
+					return null;
+				}
 				newOb.name = "Temp";
 				
 				if (folderName != "" && putInFolder)
@@ -1100,9 +1143,8 @@ namespace AC
 		private void DeclareScenePrefabs ()
 		{
 			scenePrefabs = new List<ScenePrefab>();
-			SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
-			
-			if (settingsManager == null || settingsManager.cameraPerspective == CameraPerspective.ThreeD)
+
+			if (SceneSettings.CameraPerspective == CameraPerspective.ThreeD)
 			{
 				scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera", "Camera/GameCamera", "_GameCameras", "The standard camera type for 3D games.", "GameCamera"));
 				scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera Animated", "Camera/GameCameraAnimated", "_GameCameras", "Plays an Animation Clip when active, or syncs it with its target's position.", "GameCameraAnimated"));
@@ -1111,11 +1153,11 @@ namespace AC
 			}
 			else
 			{
-				if (settingsManager.cameraPerspective == CameraPerspective.TwoD)
+				if (SceneSettings.CameraPerspective == CameraPerspective.TwoD)
 				{
 					scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera 2D", "Camera/GameCamera2D", "_GameCameras", "The standard camera type for 2D games.", "GameCamera2D"));
 
-					if (settingsManager.IsUnity2D ())
+					if (SceneSettings.IsUnity2D ())
 					{
 						scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera 2D Drag", "Camera/GameCamera2DDrag", "_GameCameras", "A 2D camera that can be panned by dragging the mouse/touch.", "GameCamera2D"));
 						scenePrefabs.Add (new ScenePrefab ("Camera", "TintMap", "Camera/TintMap", "_SetGeometry", "A texture used to tint 2D sprites.", "TintMap"));
@@ -1135,7 +1177,7 @@ namespace AC
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Cutscene", "Logic/Cutscene", "_Cutscenes", "A sequence of Actions that can form a cinematic.", "Cutscene"));
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Dialogue Option", "Logic/DialogueOption", "_DialogueOptions", "An option available to the player when a Conversation is active.", "DialogueOption"));
 			
-			if (settingsManager != null && settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				scenePrefabs.Add (new ScenePrefab ("Logic", "Hotspot 2D", "Logic/Hotspot2D", "_Hotspots", "A portion of the scene that can be interacted with.", "Hotspot"));
 			}
@@ -1147,7 +1189,7 @@ namespace AC
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Interaction", "Logic/Interaction", "_Interactions", "A sequence of Actions that run when a Hotspot is activated.", "Interaction"));
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Sound", "Logic/Sound", "_Sounds", "An audio source that syncs with AC's sound levels.", "Sound"));
 			
-			if (settingsManager != null && settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				scenePrefabs.Add (new ScenePrefab ("Logic", "Trigger 2D", "Logic/Trigger2D", "_Triggers", "A portion of the scene that responds to objects entering it.", "AC_Trigger"));
 			}
@@ -1164,7 +1206,7 @@ namespace AC
 			
 			scenePrefabs.Add (new ScenePrefab ("Navigation", "SortingMap", "Navigation/SortingMap", "_SortingMaps", "Defines how sprites are scaled and sorted relative to one another.", "SortingMap"));
 			
-			if (settingsManager != null && settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				scenePrefabs.Add (new ScenePrefab ("Navigation", "Collision Cube 2D", "Navigation/CollisionCube2D", "_CollisionCubes", "Blocks Character movement, as well as cursor clicks if placed on the Default layer.", "_Collision"));
 				scenePrefabs.Add (new ScenePrefab ("Navigation", "Marker 2D", "Navigation/Marker2D", "_Markers", "A point in the scene used by Characters and objects.", "Marker"));
@@ -1196,7 +1238,7 @@ namespace AC
 			
 			scenePrefabs.Add (new ScenePrefab ("Navigation", "Path", "Navigation/Path", "_Paths", "A sequence of points that describe a Character's movement.", "Paths"));
 			
-			if (settingsManager != null && settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				scenePrefabs.Add (new ScenePrefab ("Navigation", "PlayerStart 2D", "Navigation/PlayerStart2D", "_PlayerStarts", "A point in the scene from which the Player begins.", "PlayerStart"));
 			}

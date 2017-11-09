@@ -33,8 +33,8 @@ namespace AC
 		public int lineID = -1;
 		/** A unique identifier */
 		public int id;
-		
-		
+
+
 		/**
 		 * The default Constructor.
 		 */
@@ -142,7 +142,8 @@ namespace AC
 		private UnityEngine.Sprite[] sprites;
 		private Texture2D[] textures;
 		private Texture2D texture2D;
-		
+		private Rect firstFrameRect = new Rect ();
+
 		
 		/**
 		 * The default Constructor.
@@ -203,14 +204,14 @@ namespace AC
 					}
 					else
 					{
-						GUI.DrawTextureWithTexCoords (_rect, texture, new Rect (0f, 1f - frameHeight, frameWidth, frameHeight));
+						GUI.DrawTextureWithTexCoords (_rect, texture, firstFrameRect);
 						frameIndex = 0f;
 					}
 				}
 				else
 				{
 					Reset ();
-					GUI.DrawTextureWithTexCoords (_rect, texture, new Rect (0f, 1f - frameHeight, frameWidth, 1f - frameHeight));
+					GUI.DrawTextureWithTexCoords (_rect, texture, firstFrameRect);
 					frameIndex = 0f;
 				}
 			}
@@ -324,7 +325,7 @@ namespace AC
 						frameIndex = 0f;
 						if (sprites[0] == null)
 						{
-							sprites[0] = UnityEngine.Sprite.Create (texture2D, new Rect (0f, 1f - frameHeight, frameWidth, frameHeight), new Vector2 (0.5f, 0.5f));
+							sprites[0] = UnityEngine.Sprite.Create (texture2D, firstFrameRect, new Vector2 (0.5f, 0.5f));
 						}
 						return sprites[0];
 					}
@@ -588,6 +589,8 @@ namespace AC
 				{
 					animSpeed = 0;
 				}
+
+				firstFrameRect = new Rect (0f, 1f - frameHeight, frameWidth, frameHeight);
 			}
 		}
 		

@@ -191,7 +191,7 @@ namespace AC
 		 */
 		public override GameObject GetObjectToSelect ()
 		{
-			if (uiSlots != null && uiSlots.Length > 0 && uiSlots[0].uiButton != null)
+			if (uiSlots != null && uiSlots.Length > 0 && uiSlots[0].uiButton != null && numSlots > 0)
 			{
 				return uiSlots[0].uiButton.gameObject;
 			}
@@ -779,7 +779,6 @@ namespace AC
 		public override void RecalculateSize (MenuSource source)
 		{
 			newSaveSlot = false;
-
 			if (Application.isPlaying)
 			{
 				if (saveListType == AC_SaveListType.Import)

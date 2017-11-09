@@ -1157,7 +1157,12 @@ namespace AC
 					
 					if (KickStarter.settingsManager.inputMethod == InputMethod.TouchScreen || KickStarter.settingsManager.movementMethod == MovementMethod.Drag)
 					{
-						if (dragState != DragState.None)
+						if (KickStarter.settingsManager.IsInFirstPerson () && KickStarter.settingsManager.firstPersonTouchScreen == FirstPersonTouchScreen.CustomInput)
+						{
+							h = InputGetAxis ("Horizontal");
+							v = InputGetAxis ("Vertical");
+						}
+						else if (dragState != DragState.None)
 						{
 							h = dragVector.x;
 							v = -dragVector.y;

@@ -436,11 +436,11 @@ namespace AC
 					string mainData = saveFileContents.Substring (0, divider);
 					string roomData = saveFileContents.Substring (divider + 2);
 
+					saveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
+
 					if (activeSelectiveLoad.loadSceneObjects)
 					{
-						saveData = (SaveData) Serializer.DeserializeObject <SaveData> (mainData);
 						KickStarter.levelStorage.allLevelData = FileFormatHandler.DeserializeAllRoomData (roomData);
-
 					}
 
 					// Stop any current-running ActionLists, dialogs and interactions
@@ -583,18 +583,12 @@ namespace AC
 				KickStarter.levelStorage.ReturnCurrentLevelData (true);
 				CustomLoadHook ();
 				KickStarter.eventManager.Call_OnLoad (FileAccessState.After);
-
-				/*if (loadingGame == LoadingGame.InSameScene)
-				{
-					loadingGame = LoadingGame.No;
-				}*/
 			}
 					
 			if (KickStarter.runtimeInventory)
 		    {
 				KickStarter.runtimeInventory.RemoveRecipes ();
 			}
-
 
 			if (loadingGame == LoadingGame.JustSwitchingPlayer)
 			{
@@ -924,6 +918,12 @@ namespace AC
 		 */
 		public void SaveCurrentPlayerData ()
 		{
+			if (loadingGame == LoadingGame.JustSwitchingPlayer)
+			{
+				// When switching player, new player is loaded into old scene first before switching - so in this case we don't want to save the player data
+				return;
+			}
+
 			if (saveData != null && saveData.playerData != null && saveData.playerData.Count > 0)
 			{
 				foreach (PlayerData _data in saveData.playerData)
@@ -1511,7 +1511,6 @@ namespace AC
 		{
 			loadingGame = LoadingGame.No;
 			KickStarter.playerInput.ReturnToGameplayAfterLoad ();
-
 			if (KickStarter.sceneSettings)
 			{
 				KickStarter.sceneSettings.OnLoad ();

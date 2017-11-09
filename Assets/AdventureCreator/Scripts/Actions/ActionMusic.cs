@@ -36,7 +36,6 @@ namespace AC
 		public bool resumeFromStart = true;
 		public bool resumeIfPlayedBefore = false;
 
-		public enum MusicAction { Play, Stop, Crossfade, ResumeLastStopped };
 		public MusicAction musicAction;
 
 		
@@ -127,7 +126,7 @@ namespace AC
 					return;
 				}
 
-				musicAction = (MusicAction) EditorGUILayout.EnumPopup ("Music action:", (MusicAction) musicAction);
+				musicAction = (MusicAction) EditorGUILayout.EnumPopup ("Method:", (MusicAction) musicAction);
 
 				string fadeLabel = "Transition time (s):";
 				if (musicAction == MusicAction.Play || musicAction == MusicAction.Crossfade)

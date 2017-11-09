@@ -318,7 +318,7 @@ namespace AC
 			if (AdvGame.GetReferences () != null && AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.showActiveActionLists)
 			{
 				debugWindowRect.height = 21f;
-				debugWindowRect = GUILayout.Window (0, debugWindowRect, StatusWindow, "AC status", GUILayout.Width (220));
+				debugWindowRect = GUILayout.Window (10, debugWindowRect, StatusWindow, "AC status", GUILayout.Width (220));
 			}
 		}
 
@@ -332,7 +332,18 @@ namespace AC
 
 			if (KickStarter.mainCamera != null && KickStarter.mainCamera.attachedCamera != null && KickStarter.mainCamera.IsEnabled ())
 			{
-				GUILayout.Label ("Current camera: " + KickStarter.mainCamera.attachedCamera.name);
+				if (GUILayout.Button ("Current camera: " + KickStarter.mainCamera.attachedCamera.gameObject.name))
+				{
+					UnityEditor.EditorGUIUtility.PingObject (KickStarter.mainCamera.attachedCamera.gameObject);
+				}
+			}
+
+			if (KickStarter.player != null)
+			{
+				if (GUILayout.Button ("Current player: " + KickStarter.player.gameObject.name))
+				{
+					UnityEditor.EditorGUIUtility.PingObject (KickStarter.player.gameObject);
+				}
 			}
 			
 			if (KickStarter.stateHandler.gameState == GameState.DialogOptions && KickStarter.playerInput.activeConversation != null)
@@ -390,6 +401,8 @@ namespace AC
 				GUILayout.Space (4f);
 				GUILayout.Label ("Gameplay is blocked");
 			}
+
+			GUI.DragWindow ();
 		}
 
 		#endif

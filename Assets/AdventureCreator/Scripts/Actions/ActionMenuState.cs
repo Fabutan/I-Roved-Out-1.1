@@ -200,6 +200,7 @@ namespace AC
 					
 					_menu.ResetVisibleElements ();
 					_menu.Recalculate ();
+
 					KickStarter.playerMenus.FindFirstSelectedElement ();
 				}
 				else
@@ -425,6 +426,37 @@ namespace AC
 			}
 			labelAdd += "')";
 			return labelAdd;
+		}
+
+
+		public override bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmended = base.ConvertLocalVariableToGlobal (oldLocalID, newGlobalID);
+
+			string updatedJournalText = AdvGame.ConvertLocalVariableTokenToGlobal (journalText, oldLocalID, newGlobalID);
+			if (journalText != updatedJournalText)
+			{
+				wasAmended = true;
+				journalText = updatedJournalText;
+			}
+			return wasAmended;
+		}
+
+
+		public override bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool isAffected = base.ConvertGlobalVariableToLocal (oldGlobalID, newLocalID, isCorrectScene);
+
+			string updatedJournalText = AdvGame.ConvertGlobalVariableTokenToLocal (journalText, oldGlobalID, newLocalID);
+			if (journalText != updatedJournalText)
+			{
+				isAffected = true;
+				if (isCorrectScene)
+				{
+					journalText = updatedJournalText;
+				}
+			}
+			return isAffected;
 		}
 		
 		#endif

@@ -9,22 +9,23 @@ namespace AC
 
 		private static AboutWindow window;
 
+
 		[MenuItem ("Adventure Creator/About", false, 20)]
-		static void Init ()
+		public static void Init ()
 		{
 			if (window != null)
 			{
 				return;
 			}
 
-			window = EditorWindow.GetWindowWithRect <AboutWindow> (new Rect (0, 0, 420, 360), true, "About AC", true);
-			UnityVersionHandler.SetWindowTitle (window, "About AC");
+			window = EditorWindow.GetWindowWithRect <AboutWindow> (new Rect (0, 0, 420, 340), true, "Adventure Creator", true);
+			UnityVersionHandler.SetWindowTitle (window, "Adventure Creator");
 		}
 
 
 		private void OnGUI ()
 		{
-			GUILayout.BeginVertical ( CustomStyles.thinBox, GUILayout.ExpandWidth (true), GUILayout.ExpandHeight (true));
+			GUILayout.BeginVertical (CustomStyles.thinBox, GUILayout.ExpandWidth (true), GUILayout.ExpandHeight (true));
 
 			GUILayout.BeginHorizontal ();
 			GUILayout.FlexibleSpace ();
@@ -34,7 +35,8 @@ namespace AC
 
 			if (Resource.ACLogo)
 			{
-				GUILayout.Label (Resource.ACLogo);
+				GUI.DrawTexture (new Rect (80, 25, 256, 128), Resource.ACLogo);
+				GUILayout.Space (132f);
 			}
 			else
 			{
@@ -43,23 +45,34 @@ namespace AC
 
 			GUILayout.Label ("By Chris Burton, ICEBOX Studios",  CustomStyles.managerHeader);
 
-			GUILayout.Label ("<b>" + AdventureCreator.version + "</b>",  CustomStyles.smallCentre);
+			if (GUILayout.Button ("www.adventurecreator.org", CustomStyles.linkCentre))
+			{
+				Application.OpenURL (Resource.websiteLink);
+			}
+			GUILayout.Label ("<b>v" + AdventureCreator.version + "</b>",  CustomStyles.smallCentre);
 			GUILayout.Space (12f);
+
+			GUI.enabled = !UpdateChecker.IsChecking ();
+			if (GUILayout.Button ("Check for updates"))
+			{
+				UpdateChecker.CheckForUpdate ();
+			}
+			GUI.enabled = true;
 
 			if (GUILayout.Button ("Documentation"))
 			{
 				Application.OpenURL (Resource.manualLink);
 			}
 
-			if (GUILayout.Button ("Website"))
+			if (GUILayout.Button ("Tutorials"))
 			{
-				Application.OpenURL (Resource.websiteLink);
+				Application.OpenURL (Resource.tutorialsLink);
 			}
 
-			if (GUILayout.Button ("Asset Store page"))
+			/*if (GUILayout.Button ("Asset Store page"))
 			{
 				Application.OpenURL (Resource.assetLink);
-			}
+			}*/
 
 			if (!ACInstaller.IsInstalled ())
 			{
@@ -72,16 +85,17 @@ namespace AC
 			{
 				if (GUILayout.Button ("New Game Wizard"))
 				{
+					this.Close ();
 					NewGameWizardWindow.Init ();
 				}
 			}
 
-			GUILayout.EndVertical();
+			GUILayout.EndVertical ();
 			
-			GUILayout.FlexibleSpace();
-			GUILayout.EndHorizontal();
+			GUILayout.FlexibleSpace ();
+			GUILayout.EndHorizontal ();
 
-			GUILayout.EndVertical();
+			GUILayout.EndVertical ();
 		}
 
 	}

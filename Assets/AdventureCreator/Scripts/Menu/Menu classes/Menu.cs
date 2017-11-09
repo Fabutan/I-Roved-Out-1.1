@@ -536,10 +536,11 @@ namespace AC
 				SetAnimState ();
 				canvas.gameObject.SetActive (false);
 
-				KickStarter.playerMenus.DeselectEventSystemMenu (this);
-				if (CanCurrentlyKeyboardControl () && IsClickable ())
+				bool shouldDisable = KickStarter.playerMenus.DeselectEventSystemMenu (this);
+				//if (CanCurrentlyKeyboardControl () && IsClickable ())
+				if (shouldDisable)
 				{
-					KickStarter.playerMenus.FindFirstSelectedElement ();
+					KickStarter.playerMenus.FindFirstSelectedElement (this);
 				}
 			}
 		}
@@ -824,8 +825,8 @@ namespace AC
 				if (!autoSelectFirstVisibleElement)
 				{
 					firstSelectedElement = CustomGUILayout.TextField ("First selected Element:", firstSelectedElement, apiPrefix + ".firstSelectedElement");
+					EditorGUILayout.HelpBox ("For UIs to be keyboard-controlled, an element to select must be defined above.", MessageType.Info);
 				}
-				EditorGUILayout.HelpBox ("For UIs to be keyboard-controlled, an element to select must be defined above.", MessageType.Info);
 			}
 		}
 
@@ -1214,14 +1215,7 @@ namespace AC
 					return false;
 				}
 
-				bool turnOffAgain = false;
 				bool answer = false;
-				if (!canvas.gameObject.activeSelf)
-				{
-					canvas.gameObject.SetActive (true);
-					turnOffAgain = true;
-				}
-
 				if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 				{
 					answer = RectTransformUtility.RectangleContainsScreenPoint (rectTransform, new Vector2 (_point.x, Screen.height - _point.y), null);
@@ -1229,11 +1223,6 @@ namespace AC
 				else
 				{
 					answer = RectTransformUtility.RectangleContainsScreenPoint (rectTransform, new Vector2 (_point.x, Screen.height - _point.y), canvas.worldCamera);
-				}
-
-				if (turnOffAgain)
-				{
-					canvas.gameObject.SetActive (false);
 				}
 
 				return answer;
@@ -2317,12 +2306,15 @@ namespace AC
 				return false;
 			}
 
-			if ((KickStarter.stateHandler.gameState == GameState.Paused && IsBlocking () && KickStarter.menuManager.keyboardControlWhenPaused) ||
-				(KickStarter.stateHandler.gameState == GameState.DialogOptions && appearType == AppearType.DuringConversation && KickStarter.menuManager.keyboardControlWhenDialogOptions) ||
-				(KickStarter.stateHandler.gameState == GameState.Cutscene && CanClickInCutscenes ()) ||
-				(KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.playerInput.canKeyboardControlMenusDuringGameplay && CanPause () && !pauseWhenEnabled))
+			if (menuSource != MenuSource.AdventureCreator || KickStarter.settingsManager.inputMethod == InputMethod.KeyboardOrController)
 			{
-				return true;
+				if ((KickStarter.stateHandler.gameState == GameState.Paused && IsBlocking () && KickStarter.menuManager.keyboardControlWhenPaused) ||
+					(KickStarter.stateHandler.gameState == GameState.DialogOptions && appearType == AppearType.DuringConversation && KickStarter.menuManager.keyboardControlWhenDialogOptions) ||
+					(KickStarter.stateHandler.gameState == GameState.Cutscene && CanClickInCutscenes ()) ||
+					(KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.playerInput.canKeyboardControlMenusDuringGameplay && CanPause () && !pauseWhenEnabled))
+				{
+					return true;
+				}
 			}
 			return false;
 		}
@@ -2493,7 +2485,11 @@ namespace AC
 				{
 					if (element.isVisible)
 					{
-						return element.GetObjectToSelect ();
+						GameObject objectToSelect = element.GetObjectToSelect ();
+						if (objectToSelect != null)
+						{
+							return objectToSelect;
+						}
 					}
 				}
 			}

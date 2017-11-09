@@ -93,8 +93,6 @@ namespace AC
 				{
 					KickStarter.runtimeInventory.Replace (invID, invIDReplace, amount);
 				}
-			
-				PlayerMenus.ResetInventoryBoxes ();
 			}
 			
 			return 0f;

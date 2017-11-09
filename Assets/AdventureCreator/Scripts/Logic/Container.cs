@@ -86,6 +86,7 @@ namespace AC
 					{
 						containerItem.count += amount;
 					}
+					PlayerMenus.ResetInventoryBoxes ();
 					return false;
 				}
 			}
@@ -105,9 +106,11 @@ namespace AC
 				}
 
 				items.Add (new ContainerItem (_id, amount, GetIDArray ()));
+				PlayerMenus.ResetInventoryBoxes ();
 				return true;
 			}
 
+			PlayerMenus.ResetInventoryBoxes ();
 			return true;
 		}
 		
@@ -133,9 +136,20 @@ namespace AC
 					{
 						items.Remove (item);
 					}
+					PlayerMenus.ResetInventoryBoxes ();
 					return;
 				}
 			}
+		}
+
+
+		/**
+		 * <summary>Removes all inventory items from the Container's contents.</summary>
+		 */
+		public void RemoveAll ()
+		{
+			items.Clear ();
+			PlayerMenus.ResetInventoryBoxes ();
 		}
 
 
@@ -153,7 +167,6 @@ namespace AC
 					return (item.count);
 				}
 			}
-			
 			return 0;
 		}
 
@@ -183,6 +196,7 @@ namespace AC
 				items.Insert (_index, newContainerItem);
 			}
 
+			PlayerMenus.ResetInventoryBoxes ();
 			return newContainerItem;
 		}
 

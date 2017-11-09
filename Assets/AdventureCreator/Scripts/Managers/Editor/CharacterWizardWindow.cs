@@ -122,7 +122,7 @@ namespace AC
 						{
 							animationEngine = AnimationEngine.Sprites2DToolkit;
 						}
-						else if (AdvGame.GetReferences () && AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.cameraPerspective == CameraPerspective.TwoD)
+						else if (SceneSettings.CameraPerspective == CameraPerspective.TwoD)
 						{
 							animationEngine = AnimationEngine.SpritesUnity;
 						}
@@ -461,7 +461,7 @@ namespace AC
 
 					if (animationEngine == AnimationEngine.Sprites2DToolkit || animationEngine == AnimationEngine.SpritesUnityComplex || animationEngine == AnimationEngine.SpritesUnity)
 					{
-						if (AdvGame.GetReferences () != null && AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.cameraPerspective != CameraPerspective.TwoD)
+						if (SceneSettings.CameraPerspective != CameraPerspective.TwoD)
 						{
 							EditorGUILayout.LabelField ("It has been detected that you are attempting\nto create a 2D character in a 3D game.\nIs this correct?", GUILayout.Height (40f));
 							enforce3D = EditorGUILayout.Toggle ("Yes!", enforce3D);

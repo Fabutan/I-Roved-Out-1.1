@@ -77,12 +77,19 @@ namespace AC
 			addToSkipQueue = KickStarter.actionListManager.CanAddToSkipQueue (runtimeActionList, addToSkipQueue);
 			activeLists.Add (new ActiveList (runtimeActionList, addToSkipQueue, _startIndex));
 
-			if (runtimeActionList.actionListType == ActionListType.PauseGameplay && !runtimeActionList.unfreezePauseMenus && KickStarter.playerMenus.ArePauseMenusOn (null))
+			if (KickStarter.playerMenus.ArePauseMenusOn (null))
 			{
-				// Don't affect the gamestate if we want to remain frozen
-				return;
+				if (runtimeActionList.actionListType == ActionListType.RunInBackground)
+				{
+					// Don't change gamestate if running in background
+					return;
+				}
+				if (runtimeActionList.actionListType == ActionListType.PauseGameplay && !runtimeActionList.unfreezePauseMenus)
+				{
+					// Don't affect the gamestate if we want to remain frozen
+					return;
+				}
 			}
-			
 			KickStarter.actionListManager.SetCorrectGameState ();
 		}
 		

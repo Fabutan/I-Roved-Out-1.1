@@ -397,6 +397,37 @@ namespace AC
 			return "";
 		}
 
+
+		public override bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmended = base.ConvertLocalVariableToGlobal (oldLocalID, newGlobalID);
+
+			string newMessageText = AdvGame.ConvertLocalVariableTokenToGlobal (messageText, oldLocalID, newGlobalID);
+			if (messageText != newMessageText)
+			{
+				wasAmended = true;
+				messageText = newMessageText;
+			}
+			return wasAmended;
+		}
+
+
+		public override bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool isAffected = base.ConvertGlobalVariableToLocal (oldGlobalID, newLocalID, isCorrectScene);
+
+			string newMessageText = AdvGame.ConvertGlobalVariableTokenToLocal (messageText, oldGlobalID, newLocalID);
+			if (messageText != newMessageText)
+			{
+				isAffected = true;
+				if (isCorrectScene)
+				{
+					messageText = newMessageText;
+				}
+			}
+			return isAffected;
+		}
+
 		#endif
 
 

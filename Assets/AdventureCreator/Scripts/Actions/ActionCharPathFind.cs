@@ -97,7 +97,7 @@ namespace AC
 						Vector3[] pointArray;
 						Vector3 targetPosition = marker.transform.position;
 
-						if (KickStarter.settingsManager.ActInScreenSpace ())
+						if (SceneSettings.ActInScreenSpace ())
 						{
 							targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 						}
@@ -173,7 +173,7 @@ namespace AC
 				Vector3[] pointArray;
 				Vector3 targetPosition = marker.transform.position;
 				
-				if (KickStarter.settingsManager.ActInScreenSpace ())
+				if (SceneSettings.ActInScreenSpace ())
 				{
 					targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 				}

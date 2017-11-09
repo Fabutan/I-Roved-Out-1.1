@@ -274,6 +274,16 @@ namespace AC
 			
 			base.ShowGUI (menu);
 		}
+
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			if (toggleType == AC_ToggleType.Variable && varID == oldGlobalID)
+			{
+				return true;
+			}
+			return false;
+		}
 		
 		#endif
 		

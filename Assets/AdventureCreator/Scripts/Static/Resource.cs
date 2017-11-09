@@ -31,6 +31,16 @@ namespace AC
 
 		// Created by StateHandler on Awake
 		public const string musicEngine = "MusicEngine";
+		public const string ambienceEngine = "AmbienceEngine";
+
+		// Created by BackgroundImageUI singleton
+		public const string backgroundImageUI = "BackgroundImageUI";
+
+		// Used by DragTracks
+		public const string dragCollider = "DragCollider";
+
+		// Used by UISlot
+		public const string emptySlot = "EmptySlot";
 
 		// External links
 		public const string manualLink = "http://www.adventurecreator.org/files/Manual.pdf";
@@ -40,6 +50,7 @@ namespace AC
 		public const string downloadsLink = "http://www.adventurecreator.org/downloads/";
 		public const string forumLink = "http://www.adventurecreator.org/forum/";
 		public const string scriptingGuideLink = "http://www.adventurecreator.org/scripting-guide/";
+		public const string wikiLink = "http://adventure-creator.wikia.com/wiki/Adventure_Creator_Wikia";
 
 
 		#if UNITY_EDITOR

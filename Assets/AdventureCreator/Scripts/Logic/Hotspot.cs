@@ -461,7 +461,7 @@ namespace AC
 					return false;
 				}
 				
-				if (KickStarter.settingsManager.cameraPerspective != CameraPerspective.TwoD && KickStarter.settingsManager.occludeIcons)
+				if (SceneSettings.CameraPerspective != CameraPerspective.TwoD && KickStarter.settingsManager.occludeIcons)
 				{
 					// Is icon occluded?
 					Ray ray = new Ray (Camera.main.transform.position, GetIconPosition () - Camera.main.transform.position);

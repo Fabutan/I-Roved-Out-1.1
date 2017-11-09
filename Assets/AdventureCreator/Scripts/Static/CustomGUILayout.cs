@@ -271,6 +271,7 @@ namespace AC
 		public static GUIStyle toggleHeader;
 		public static GUIStyle managerHeader;
 		public static GUIStyle smallCentre;
+		public static GUIStyle linkCentre;
 		public static GUIStyle thinBox;
 
 		private static bool isInitialised;
@@ -308,6 +309,11 @@ namespace AC
 			smallCentre = new GUIStyle (GUI.skin.label);
 			smallCentre.richText = true;
 			smallCentre.alignment = TextAnchor.MiddleCenter;
+
+			linkCentre = new GUIStyle (GUI.skin.label);
+			linkCentre.richText = true;
+			linkCentre.alignment = TextAnchor.MiddleCenter;
+			linkCentre.normal.textColor = (EditorGUIUtility.isProSkin) ? new Color (0.35f, 0.45f, 0.9f) : new Color (0.1f, 0.2f, 0.7f);
 
 			thinBox = new GUIStyle(GUI.skin.box);
 			thinBox.padding = new RectOffset(0, 0, 0, 0);

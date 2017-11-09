@@ -107,8 +107,8 @@ namespace AC
 				{
 					KickStarter.sceneSettings.UpdateAllSortingMaps ();
 				}
-				PrepareSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
-				UpdateSpriteChild (KickStarter.settingsManager.IsTopDown (), KickStarter.settingsManager.IsUnity2D ());
+				PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
+				UpdateSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 			}
 			UpdateScale ();
 			GetAnimEngine ().PlayIdle ();

@@ -10,24 +10,22 @@ namespace AC
 	{
 		
 		private DetectHotspots _target;
-		private SettingsManager settingsManager;
-		
+
 		
 		private void OnEnable ()
 		{
 			_target = (DetectHotspots) target;
-			settingsManager = AdvGame.GetReferences ().settingsManager;
 		}
 
 		
 		public override void OnInspectorGUI ()
 		{
-			if (_target == null || settingsManager == null)
+			if (_target == null)
 			{
 				return;
 			}
 
-			if (settingsManager.IsUnity2D ())
+			if (SceneSettings.IsUnity2D ())
 			{
 				if (_target.GetComponent <Collider2D>() == null)
 				{

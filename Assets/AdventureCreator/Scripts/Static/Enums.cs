@@ -51,7 +51,7 @@ namespace AC
 	public enum CraftingElementType { Ingredients, Output };
 	public enum ConversationDisplayType { TextOnly, IconOnly, IconAndText };
 	public enum SliderDisplayType { FillBar, MoveableBlock };
-	public enum AC_DisplayType { IconOnly, TextOnly, IconAndText };		
+	public enum AC_DisplayType { IconOnly, TextOnly, IconAndText };
 
 	public enum AC_TextType { Speech, Hotspot, DialogueOption, InventoryItem, CursorIcon, MenuElement, HotspotPrefix, JournalEntry, InventoryItemProperty, Variable, Character };
 	public enum CursorDisplay { Always, OnlyWhenPaused, Never };
@@ -112,7 +112,7 @@ namespace AC
 	public enum SetVarMethod { SetValue, IncreaseByValue, SetAsRandom, Formula };
 	public enum SetVarMethodString { EnteredHere=0, SetAsMenuElementText=1 };
 	public enum SetVarMethodIntBool { EnteredHere=0, SetAsMecanimParameter=1 };
-	public enum SetParamMethod { EnteredHere=0, CopiedFromGlobalVariable=1 };
+	public enum SetParamMethod { EnteredHere=0, CopiedFromGlobalVariable=1, Random=2 };
 	public enum GetVarMethod { EnteredValue, GlobalVariable, LocalVariable };
 	
 	public enum AC_Direction { None, Up, Down, Left, Right };
@@ -198,7 +198,7 @@ namespace AC
 	public enum RootMotionType { None, TwoD, ThreeD };
 	public enum RotationLock { Free, Locked, Limited };
 
-	public enum FirstPersonTouchScreen { TouchControlsTurningOnly, OneTouchToMoveAndTurn, OneTouchToTurnAndTwoTouchesToMove };
+	public enum FirstPersonTouchScreen { TouchControlsTurningOnly, OneTouchToMoveAndTurn, OneTouchToTurnAndTwoTouchesToMove, CustomInput };
 	public enum TintMapMethod { ChangeTintMap, ChangeIntensity };
 	public enum VisState { Visible, Invisible };
 	public enum CheckVisState { InScene, InCamera };
@@ -233,4 +233,7 @@ namespace AC
 
 	public enum LinkUIGraphic { ImageComponent, ButtonTargetGraphic };
 	public enum AlignType { YAxisOnly, CopyFullRotation };
+	public enum DoubleClickMovement { MakesPlayerRun = 0, RequiredToWalk = 1, Disabled = 2 };
+	public enum MusicAction { Play, Stop, Crossfade, ResumeLastStopped };
+
 }

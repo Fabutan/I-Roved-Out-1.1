@@ -76,7 +76,7 @@ namespace AC
 					SendSubmitEventToSelectedObject ();
 				}
 			}
-	 
+
 			if (allowMouseInput)
 			{
 				ProcessMouseEvent ();

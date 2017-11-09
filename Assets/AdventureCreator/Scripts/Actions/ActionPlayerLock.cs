@@ -218,7 +218,7 @@ namespace AC
 
 		private bool AllowHeadTurning ()
 		{
-			if (AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.cameraPerspective != CameraPerspective.TwoD && AdvGame.GetReferences ().settingsManager.playerFacesHotspots)
+			if (SceneSettings.CameraPerspective != CameraPerspective.TwoD && AdvGame.GetReferences ().settingsManager.playerFacesHotspots)
 			{
 				return true;
 			}

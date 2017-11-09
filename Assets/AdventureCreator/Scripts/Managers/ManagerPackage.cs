@@ -95,6 +95,11 @@ namespace AC
 				}
 
 				#if UNITY_EDITOR
+				if (!Application.isPlaying)
+				{
+					KickStarter.ClearManagerCache ();
+				}
+
 				if (KickStarter.sceneManager)
 				{
 					KickStarter.sceneManager.GetPrefabsInScene ();

@@ -27,6 +27,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: VineGrabbed
     id: 1
     type: 1
@@ -42,6 +43,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: ElkProgress
     id: 2
     type: 1
@@ -57,6 +59,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: BulbActive
     id: 3
     type: 0
@@ -72,6 +75,7 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   - label: BeeFollowing
     id: 4
     type: 0
@@ -87,5 +91,6 @@ MonoBehaviour:
     canTranslate: 1
     textValLineID: -1
     popUpsLineID: -1
+    description: 
   varPresets: []
   updateRuntime: 1

@@ -1480,6 +1480,9 @@ MonoBehaviour:
   rightArmBone: {fileID: 0}
   neckBone: {fileID: 456390}
   animCrossfadeSpeed: 0.2
+  groundCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeedParameter: MoveSpeed
   verticalMovementParameter: 
   turnParameter: 

@@ -11,7 +11,7 @@ namespace AC
 		
 		public References references;
 		
-		public static string version = "1.59f";
+		public static string version = "1.60.1";
 	 
 		private bool showScene = true;
 		private bool showSettings = false;
@@ -118,7 +118,12 @@ namespace AC
 				if (showScene)
 				{
 					GUILayout.Label ("Scene manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.sceneManager = (SceneManager) EditorGUILayout.ObjectField ("Asset file: ", references.sceneManager, typeof (SceneManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.sceneManager)
@@ -139,7 +144,12 @@ namespace AC
 				else if (showSettings)
 				{
 					GUILayout.Label ("Settings manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.settingsManager = (SettingsManager) EditorGUILayout.ObjectField ("Asset file: ", references.settingsManager, typeof (SettingsManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.settingsManager)
@@ -160,7 +170,12 @@ namespace AC
 				else if (showActions)
 				{
 					GUILayout.Label ("Actions manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.actionsManager = (ActionsManager) EditorGUILayout.ObjectField ("Asset file: ", references.actionsManager, typeof (ActionsManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.actionsManager)
@@ -181,7 +196,12 @@ namespace AC
 				else if (showGVars)
 				{
 					GUILayout.Label ("Variables manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.variablesManager = (VariablesManager) EditorGUILayout.ObjectField ("Asset file: ", references.variablesManager, typeof (VariablesManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 					
 					if (!references.variablesManager)
@@ -202,7 +222,12 @@ namespace AC
 				else if (showInvItems)
 				{
 					GUILayout.Label ("Inventory manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.inventoryManager = (InventoryManager) EditorGUILayout.ObjectField ("Asset file: ", references.inventoryManager, typeof (InventoryManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.inventoryManager)
@@ -223,7 +248,12 @@ namespace AC
 				else if (showSpeech)
 				{
 					GUILayout.Label ("Speech manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.speechManager = (SpeechManager) EditorGUILayout.ObjectField ("Asset file: ", references.speechManager, typeof (SpeechManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.speechManager)
@@ -244,7 +274,12 @@ namespace AC
 				else if (showCursor)
 				{
 					GUILayout.Label ("Cursor manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.cursorManager = (CursorManager) EditorGUILayout.ObjectField ("Asset file: ", references.cursorManager, typeof (CursorManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.cursorManager)
@@ -265,7 +300,12 @@ namespace AC
 				else if (showMenu)
 				{
 					GUILayout.Label ("Menu manager",  CustomStyles.managerHeader);
+					EditorGUI.BeginChangeCheck ();
 					references.menuManager = (MenuManager) EditorGUILayout.ObjectField ("Asset file: ", references.menuManager, typeof (MenuManager), false);
+					if (EditorGUI.EndChangeCheck ())
+					{
+						KickStarter.ClearManagerCache ();
+					}
 					DrawManagerSpace ();
 
 					if (!references.menuManager)

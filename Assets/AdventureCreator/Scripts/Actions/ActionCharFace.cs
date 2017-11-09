@@ -225,7 +225,7 @@ namespace AC
 			{
 				lookVector = faceObject.transform.forward;
 			}
-			else if (KickStarter.settingsManager.ActInScreenSpace ())
+			else if (SceneSettings.ActInScreenSpace ())
 			{
 				lookVector = AdvGame.GetScreenDirection (charToMove.transform.position, faceObject.transform.position);
 			}

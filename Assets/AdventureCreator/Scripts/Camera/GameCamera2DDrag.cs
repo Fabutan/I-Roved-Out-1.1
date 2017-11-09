@@ -83,7 +83,7 @@ namespace AC
 
 			if (KickStarter.settingsManager)
 			{
-				_is2D = KickStarter.settingsManager.IsUnity2D ();
+				_is2D = SceneSettings.IsUnity2D ();
 			}
 
 			base.Awake ();

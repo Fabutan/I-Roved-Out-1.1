@@ -90,7 +90,7 @@ namespace AC
 			EditorGUILayout.BeginVertical ("Button");
 			EditorGUILayout.LabelField ("Mecanim settings:", EditorStyles.boldLabel);
 
-			if (AdvGame.GetReferences () && AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{
 				character.spriteChild = (Transform) EditorGUILayout.ObjectField ("Animator child:", character.spriteChild, typeof (Transform), true);
 			}

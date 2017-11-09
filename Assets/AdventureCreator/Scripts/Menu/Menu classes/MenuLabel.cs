@@ -276,6 +276,13 @@ namespace AC
 			}
 		}
 
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			string newLabel = AdvGame.ConvertGlobalVariableTokenToLocal (label, oldGlobalID, newLocalID);
+			return (label != newLabel);
+		}
+
 		#endif
 
 

@@ -57,6 +57,7 @@ namespace AC
 		public UIHideStyle uiHideStyle = UIHideStyle.DisableObject;
 
 		private string[] labels = null;
+		private Menu uiMenu;
 
 
 		/**
@@ -171,6 +172,8 @@ namespace AC
 		 */
 		public override void LoadUnityUI (AC.Menu _menu, Canvas canvas)
 		{
+			uiMenu = _menu;
+
 			int i=0;
 			foreach (UISlot uiSlot in uiSlots)
 			{
@@ -399,22 +402,6 @@ namespace AC
 			EditorGUILayout.EndVertical ();
 		}
 
-
-		private int GetBinSlot (int _id, List<InvBin> bins)
-		{
-			int i = 0;
-			foreach (InvBin bin in bins)
-			{
-				if (bin.id == _id)
-				{
-					return i;
-				}
-				i++;
-			}
-			
-			return 0;
-		}
-		
 		#endif
 
 
@@ -443,7 +430,10 @@ namespace AC
 		{
 			if (_slot >= 0 && uiSlots != null && uiSlots.Length > _slot && uiSlots[_slot].uiButton != null && KickStarter.playerMenus.IsEventSystemSelectingObject (uiSlots[_slot].uiButton.gameObject))
 			{
-				isActive = true;
+				if (uiMenu != null && uiMenu.CanCurrentlyKeyboardControl ()) // Check added to prevent when using mouse to control
+				{
+					isActive = true;
+				}
 			}
 
 			if (items.Count > 0 && items.Count > (_slot+offset) && items [_slot+offset] != null)
@@ -783,18 +773,16 @@ namespace AC
 				}
 				else if (inventoryBoxType == AC_InventoryBoxType.DisplaySelected)
 				{
-					newItemList = KickStarter.runtimeInventory.GetSelected ();
+					if (KickStarter.runtimeInventory.SelectedItem != null)
+					{
+						newItemList.Add (KickStarter.runtimeInventory.SelectedItem);
+					}
 				}
 				else if (inventoryBoxType == AC_InventoryBoxType.DisplayLastSelected)
 				{
-					if (KickStarter.runtimeInventory.SelectedItem != null)
+					if (KickStarter.runtimeInventory.LastSelectedItem != null && KickStarter.runtimeInventory.IsItemCarried (KickStarter.runtimeInventory.LastSelectedItem))
 					{
-						newItemList = new List<InvItem>();
-						newItemList = KickStarter.runtimeInventory.GetSelected ();
-					}
-					else if (newItemList.Count == 1 && !KickStarter.runtimeInventory.IsItemCarried (newItemList[0]))
-					{
-						newItemList.Clear ();
+						newItemList.Add (KickStarter.runtimeInventory.LastSelectedItem);
 					}
 				}
 				else if (inventoryBoxType == AC_InventoryBoxType.Container)
@@ -865,7 +853,10 @@ namespace AC
 
 		private bool CanBeLimitedByCategory ()
 		{
-			if (inventoryBoxType == AC_InventoryBoxType.Default || inventoryBoxType == AC_InventoryBoxType.CustomScript)
+			if (inventoryBoxType == AC_InventoryBoxType.Default ||
+				inventoryBoxType == AC_InventoryBoxType.CustomScript ||
+				inventoryBoxType == AC_InventoryBoxType.DisplaySelected ||
+				inventoryBoxType == AC_InventoryBoxType.DisplayLastSelected)
 			{
 				return true;
 			}
@@ -926,20 +917,12 @@ namespace AC
 				{
 					if (itemsToLimit[i] != null && !categoryIDs.Contains (itemsToLimit[i].binID))
 					{
-						/*if (KickStarter.settingsManager.canReorderItems && Application.isPlaying)
+						if (i <= reverseItemIndex)
 						{
-							itemsToLimit[i] = null;
+							offset ++;
 						}
-						else
-						{*/
-							if (i <= reverseItemIndex)
-							{
-								offset ++;
-							}
 
-							itemsToLimit.RemoveAt (i);
-						//}
-
+						itemsToLimit.RemoveAt (i);
 						i = -1;
 					}
 				}
@@ -1034,7 +1017,6 @@ namespace AC
 			{
 				return null;
 			}
-
 			return items [i+offset].GetLabel (languageNumber);
 		}
 

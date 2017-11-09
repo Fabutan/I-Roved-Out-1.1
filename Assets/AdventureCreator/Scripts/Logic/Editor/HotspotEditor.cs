@@ -105,7 +105,7 @@ namespace AC
 					if (GUILayout.Button ("Create", autoWidth))
 					{
 						string prefabName = "Marker";
-						if (settingsManager && settingsManager.IsUnity2D ())
+						if (SceneSettings.IsUnity2D ())
 						{
 							prefabName += "2D";
 						}

@@ -82,6 +82,7 @@ MonoBehaviour:
   experimentalAccuracy: 0
   pathfindUpdateFrequency: 0
   verticalReductionFactor: 0.7
+  rotationsAffectedByVerticalReduction: 1
   jumpSpeed: 4
   singleTapStraight: 0
   singleTapStraightPathfind: 0
@@ -143,6 +144,7 @@ MonoBehaviour:
   loadingDelay: 0
   playMusicWhilePaused: 0
   musicStorages: []
+  ambienceStorages: []
   volumeControl: 0
   musicMixerGroup: {fileID: 0}
   sfxMixerGroup: {fileID: 0}

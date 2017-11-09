@@ -124,9 +124,9 @@ namespace AC
 
 			EditorGUILayout.Space ();
 
-			if (AdvGame.GetReferences () && AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsTopDown ())
+			if (SceneSettings.IsTopDown ())
 			{}
-			else if (AdvGame.GetReferences () && AdvGame.GetReferences ().settingsManager && AdvGame.GetReferences ().settingsManager.IsUnity2D ())
+			else if (SceneSettings.IsUnity2D ())
 			{}
 			else
 			{

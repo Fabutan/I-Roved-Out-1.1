@@ -43,12 +43,12 @@ namespace AC
 		{
 			if (draggable.maxCollider == null)
 			{
-				draggable.maxCollider = (Collider) Instantiate (Resources.Load ("DragCollider", typeof (Collider)));
+				draggable.maxCollider = (Collider) Instantiate (Resources.Load (Resource.dragCollider, typeof (Collider)));
 			}
 			
 			if (draggable.minCollider == null)
 			{
-				draggable.minCollider = (Collider) Instantiate (Resources.Load ("DragCollider", typeof (Collider)));
+				draggable.minCollider = (Collider) Instantiate (Resources.Load (Resource.dragCollider, typeof (Collider)));
 			}
 
 			draggable.maxCollider.transform.position = transform.position + (transform.up * maxDistance) + (transform.up * draggable.colliderRadius);

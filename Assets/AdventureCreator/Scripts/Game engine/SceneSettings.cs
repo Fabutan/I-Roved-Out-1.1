@@ -75,6 +75,10 @@ namespace AC
 		/** How much slower vertical movement is compared to horizontal movement, if the game is in 2D and overriderVerticalReductionFactor = True */
 		public float verticalReductionFactor = 0.7f;
 
+		[SerializeField] private bool overrideCameraPerspective = false;
+		[SerializeField] private CameraPerspective cameraPerspective;
+		[SerializeField] private MovingTurning movingTurning = MovingTurning.Unity2D;
+
 		#if ALLOW_MOVIETEXTURES
 		private MovieTexture fullScreenMovie;
 		#endif
@@ -304,7 +308,7 @@ namespace AC
 			#endif
 
 			Time.timeScale = 0f;
-			AudioListener.pause = true;
+			//AudioListener.pause = true; // Now delay audiolistener pause for a frame becuase of a bug with Unity 2017
 
 			#if ALLOW_MOVIETEXTURES
 			if (fullScreenMovie != null)
@@ -319,6 +323,15 @@ namespace AC
 				sound.ContinueFix ();
 			}
 			#endif
+
+			StartCoroutine (PauseAudio ());
+		}
+
+
+		private IEnumerator PauseAudio ()
+		{
+			yield return null;
+			AudioListener.pause = true;
 		}
 
 
@@ -327,6 +340,8 @@ namespace AC
 		 */
 		public void UnpauseGame (float newScale)
 		{
+			StopAllCoroutines ();
+
 			Time.timeScale = newScale;
 
 			#if ALLOW_MOVIETEXTURES
@@ -461,6 +476,132 @@ namespace AC
 			}
 			return null;
 		}
+
+
+		/**
+		 * <summary>Checks if the scene is in 2D, and plays in screen-space (i.e. characters do not move towards or away from the camera).</summary>
+		 * <returns>True if the game is in 2D, and plays in screen-space</returns>
+		 */
+		public static bool ActInScreenSpace ()
+		{
+			if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.overrideCameraPerspective)
+			{
+				if ((KickStarter.sceneSettings.movingTurning == MovingTurning.ScreenSpace || KickStarter.sceneSettings.movingTurning == MovingTurning.Unity2D) && KickStarter.sceneSettings.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			else if (KickStarter.settingsManager != null)
+			{
+				if ((KickStarter.settingsManager.movingTurning == MovingTurning.ScreenSpace || KickStarter.settingsManager.movingTurning == MovingTurning.Unity2D) && KickStarter.settingsManager.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		
+
+		/**
+		 * <summary>Checks if the scene uses Unity 2D for its camera perspective.<summary>
+		 * <returns>True if the game uses Unity 2D for its camera perspective</returns>
+		 */
+		public static bool IsUnity2D ()
+		{
+			if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.overrideCameraPerspective)
+			{
+				if (KickStarter.sceneSettings.movingTurning == MovingTurning.Unity2D && KickStarter.sceneSettings.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			else if (KickStarter.settingsManager != null)
+			{
+				if (KickStarter.settingsManager.movingTurning == MovingTurning.Unity2D && KickStarter.settingsManager.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+
+		/**
+		 * <summary>Checks if the scene uses Top Down for its camera perspective.<summary>
+		 * <returns>True if the game uses Top Down for its camera perspective</returns>
+		 */
+		public static bool IsTopDown ()
+		{
+			if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.overrideCameraPerspective)
+			{
+				if (KickStarter.sceneSettings.movingTurning == MovingTurning.TopDown && KickStarter.sceneSettings.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			else if (KickStarter.settingsManager != null)
+			{
+				if (KickStarter.settingsManager.movingTurning == MovingTurning.TopDown && KickStarter.settingsManager.cameraPerspective == CameraPerspective.TwoD)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+
+		/**
+		 * The camera perspective of the current scene.
+		 */
+		public static CameraPerspective CameraPerspective
+		{
+			get
+			{
+				if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.overrideCameraPerspective)
+				{
+					return KickStarter.sceneSettings.cameraPerspective;
+				}
+				else if (KickStarter.settingsManager != null)
+				{
+					return KickStarter.settingsManager.cameraPerspective;
+				}
+				return CameraPerspective.ThreeD;
+			}
+		}
+
+
+		public bool OverridesCameraPerspective ()
+		{
+			return overrideCameraPerspective;
+		}
+
+
+		#if UNITY_EDITOR
+
+		private string[] cameraPerspective_list = { "2D", "2.5D", "3D" };
+
+		public void SetOverrideCameraPerspective (CameraPerspective _cameraPerspective, MovingTurning _movingTurning)
+		{
+			overrideCameraPerspective = true;
+			cameraPerspective = _cameraPerspective;
+			movingTurning = _movingTurning;
+		}
+
+
+		public void ShowCameraOverrideLabel ()
+		{
+			if (overrideCameraPerspective)
+			{
+				int cameraPerspective_int = (int) cameraPerspective;
+
+				string persp = cameraPerspective_list[cameraPerspective_int];
+				if (cameraPerspective == CameraPerspective.TwoD) persp += " (" + movingTurning + ")";
+				UnityEditor.EditorGUILayout.LabelField ("This scene's camera perspective is overriding the default and is " + persp + ".", UnityEditor.EditorStyles.boldLabel);
+
+			}
+		}
+
+		#endif
 
 	}
 	

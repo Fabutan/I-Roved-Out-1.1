@@ -272,6 +272,46 @@ namespace AC
 			}
 			return -1;
 		}
+
+
+		public override bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmended = base.ConvertLocalVariableToGlobal (oldLocalID, newGlobalID);
+
+			if (saveToVariable)
+			{
+				if (location == VariableLocation.Local && variableID == oldLocalID)
+				{
+					location = VariableLocation.Global;
+					variableID = newGlobalID;
+					wasAmended = true;
+				}
+			}
+
+			return wasAmended;
+		}
+
+
+		public override bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool isAffected = base.ConvertGlobalVariableToLocal (oldGlobalID, newLocalID, isCorrectScene);
+
+			if (saveToVariable)
+			{
+				if (location == VariableLocation.Global && variableID == oldGlobalID)
+				{
+					isAffected = true;
+
+					if (isCorrectScene)
+					{
+						location = VariableLocation.Local;
+						variableID = newLocalID;
+					}
+				}
+			}
+
+			return isAffected;
+		}
 		
 		#endif
 		

@@ -80,7 +80,38 @@ namespace AC
 			}
 			return "";
 		}
-		
+
+
+		public override bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmended = base.ConvertLocalVariableToGlobal (oldLocalID, newGlobalID);
+
+			string updatedCommentText = AdvGame.ConvertLocalVariableTokenToGlobal (commentText, oldLocalID, newGlobalID);
+			if (commentText != updatedCommentText)
+			{
+				wasAmended = true;
+				commentText = updatedCommentText;
+			}
+			return wasAmended;
+		}
+
+
+		public override bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool isAffected = base.ConvertGlobalVariableToLocal (oldGlobalID, newLocalID, isCorrectScene);
+
+			string updatedCommentText = AdvGame.ConvertGlobalVariableTokenToLocal (commentText, oldGlobalID, newLocalID);
+			if (commentText != updatedCommentText)
+			{
+				isAffected = true;
+				if (isCorrectScene)
+				{
+					commentText = updatedCommentText;
+				}
+			}
+			return isAffected;
+		}
+
 		#endif
 		
 	}

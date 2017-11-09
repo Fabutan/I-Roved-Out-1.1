@@ -13,6 +13,11 @@ namespace AC
 		{
 			PlayerStart _target = (PlayerStart) target;
 
+			if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.defaultPlayerStart == _target)
+			{
+				EditorGUILayout.HelpBox ("This PlayerStart is the scene's default, and will be used if a more appropriate one is not found.", MessageType.Info);
+			}
+
 			EditorGUILayout.BeginVertical ("Button");
 			EditorGUILayout.LabelField ("Previous scene that activates", EditorStyles.boldLabel);
 			_target.chooseSceneBy = (ChooseSceneBy) EditorGUILayout.EnumPopup ("Choose scene by:", _target.chooseSceneBy);

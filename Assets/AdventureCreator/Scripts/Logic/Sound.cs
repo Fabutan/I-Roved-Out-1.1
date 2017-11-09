@@ -541,9 +541,9 @@ namespace AC
 		{
 			if (surviveSceneChange && !audioSource.isPlaying)
 			{
-				if (gameObject.GetComponentInParent <Player>() != null ||
-					GetComponent <Player>() != null ||
-					GetComponentInChildren <Player>() != null)
+				if (gameObject.GetComponentInParent <Player>() == null &&
+					GetComponent <Player>() == null &&
+					GetComponentInChildren <Player>() == null)
 				{
 					ACDebug.Log ("Deleting Sound object '" + gameObject + "' as it is not currently playing any sound.");
 					DestroyImmediate (gameObject);
@@ -553,12 +553,13 @@ namespace AC
 
 
 		/**
-		 * <summary>Fades out any music being played.</summary>
-		 * <param name = "newSound">The Sound object to not affect</param>
+		 * <summary>Fades out all sounds of a particular type being played.</summary>
+		 * <param name = "soundType">If the soundType matches this, the sound will end</param>
+		 * <param name = "ignoreSound">The Sound object to not affect</param>
 		 */
-		public void EndOldMusic (Sound newSound)
+		public void EndOld (SoundType _soundType, Sound ignoreSound)
 		{
-			if (soundType == SoundType.Music && audioSource.isPlaying && this != newSound)
+			if (soundType == _soundType && audioSource.isPlaying && this != ignoreSound)
 			{
 				if (fadeTime == 0f || fadeType == FadeType.fadeIn)
 				{

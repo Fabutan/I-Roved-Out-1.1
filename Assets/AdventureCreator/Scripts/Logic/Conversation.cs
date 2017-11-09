@@ -463,6 +463,67 @@ namespace AC
 		}
 
 
+		#if UNITY_EDITOR
+
+		/**
+		 * <summary>Converts the Conversations's references from a given local variable to a given global variable</summary>
+		 * <param name = "oldLocalID">The ID number of the old local variable</param>
+		 * <param name = "newGlobalID">The ID number of the new global variable</param>
+		 * <returns>True if the Action was amended</returns>
+		 */
+		public bool ConvertLocalVariableToGlobal (int oldLocalID, int newGlobalID)
+		{
+			bool wasAmened = false;
+
+			if (options != null)
+			{
+				foreach (ButtonDialog option in options)
+				{
+					string newLabel = AdvGame.ConvertLocalVariableTokenToGlobal (option.label, oldLocalID, newGlobalID);
+					if (newLabel != option.label)
+					{
+						option.label = newLabel;
+						wasAmened = true;
+					}
+				}
+			}
+
+			return wasAmened;
+		}
+
+
+		/**
+		 * <summary>Converts the Conversations's references from a given global variable to a given local variable</summary>
+		 * <param name = "oldLocalID">The ID number of the old global variable</param>
+		 * <param name = "newLocalID">The ID number of the new local variable</param>
+		 * <returns>True if the Action was amended</returns>
+		 */
+		public bool ConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID, bool isCorrectScene)
+		{
+			bool wasAmened = false;
+
+			if (options != null)
+			{
+				foreach (ButtonDialog option in options)
+				{
+					string newLabel = AdvGame.ConvertGlobalVariableTokenToLocal (option.label, oldGlobalID, newLocalID);
+					if (newLabel != option.label)
+					{
+						wasAmened = true;
+						if (isCorrectScene)
+						{
+							option.label = newLabel;
+						}
+					}
+				}
+			}
+
+			return wasAmened;
+		}
+
+		#endif
+
+
 		/**
 		 * <summmary>Gets an array of ID numbers of existing ButtonDialog classes, so that a unique number can be generated.</summary>
 		 * <returns>Gets an array of ID numbers of existing ButtonDialog classes</returns>

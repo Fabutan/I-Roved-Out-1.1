@@ -35,6 +35,7 @@ MonoBehaviour:
   keepTextInBuffer: 0
   relegateBackgroundSpeechAudio: 0
   usePlayerRealName: 0
+  separateSharedPlayerAudio: 0
   placeAudioInSubfolders: 0
   separateLines: 0
   separateLinePause: 1
@@ -54,4 +55,6 @@ MonoBehaviour:
   activeLineID: -1
   mergeMatchingSpeechIDs: 0
   useSpeechTags: 0
-  speechTags: []
+  speechTags:
+  - ID: 0
+    label: (Untagged)

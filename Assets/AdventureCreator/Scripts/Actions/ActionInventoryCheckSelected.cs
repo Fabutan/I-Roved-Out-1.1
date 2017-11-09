@@ -27,6 +27,7 @@ namespace AC
 		public int parameterID = -1;
 		public int invID;
 		public bool checkNothing = false;
+		public bool includeLast = false;
 
 		#if UNITY_EDITOR
 		private InventoryManager inventoryManager;
@@ -61,9 +62,19 @@ namespace AC
 				}
 				else
 				{
-					if (KickStarter.runtimeInventory.SelectedItem != null && KickStarter.runtimeInventory.SelectedItem.id == invID)
+					if (includeLast)
 					{
-						return true;
+						if (KickStarter.runtimeInventory.LastSelectedItem != null && KickStarter.runtimeInventory.LastSelectedItem.id == invID)
+						{
+							return true;
+						}
+					}
+					else
+					{
+						if (KickStarter.runtimeInventory.SelectedItem != null && KickStarter.runtimeInventory.SelectedItem.id == invID)
+						{
+							return true;
+						}
 					}
 				}
 			}
@@ -82,6 +93,8 @@ namespace AC
 				{
 					inventoryManager = AdvGame.GetReferences ().inventoryManager;
 				}
+
+				includeLast = EditorGUILayout.Toggle ("Include last-selected?", includeLast);
 				
 				if (inventoryManager)
 				{

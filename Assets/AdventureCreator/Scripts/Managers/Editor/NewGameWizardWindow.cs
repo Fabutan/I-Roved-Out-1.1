@@ -36,14 +36,16 @@ namespace AC
 		private CameraPerspective cameraPerspective = CameraPerspective.ThreeD;
 		private MovingTurning movingTurning = MovingTurning.Unity2D;
 
+		private Rect pageRect = new Rect (350, 335, 150, 25);
+
 
 		[MenuItem ("Adventure Creator/Getting started/New Game wizard", false, 4)]
 		public static void Init ()
 		{
-			NewGameWizardWindow window = (NewGameWizardWindow) EditorWindow.GetWindow (typeof (NewGameWizardWindow));
+			NewGameWizardWindow window = EditorWindow.GetWindowWithRect <NewGameWizardWindow> (new Rect (0, 0, 420, 360), true, "New Game Wizard", true);
 			window.GetReferences ();
 			UnityVersionHandler.SetWindowTitle (window, "New Game wizard");
-			window.position = new Rect (300, 200, 350, 300);
+			window.position = new Rect (300, 200, 420, 360);
 		}
 		
 		
@@ -55,13 +57,15 @@ namespace AC
 
 		public void OnInspectorUpdate ()
 		{
-			Repaint();
+			Repaint ();
 		}
 
 
 		private void OnGUI ()
 		{
-			GUILayout.Label (GetTitle (), EditorStyles.largeLabel);
+			GUILayout.BeginVertical (CustomStyles.thinBox, GUILayout.ExpandWidth (true), GUILayout.ExpandHeight (true));
+
+			GUILayout.Label (GetTitle (), CustomStyles.managerHeader);
 			if (GetTitle () != "")
 			{
 				EditorGUILayout.Separator ();
@@ -134,7 +138,10 @@ namespace AC
 			}
 			GUILayout.EndHorizontal ();
 
-			GUILayout.Label ("Page " + (pageNumber + 1) + " of " + (numPages + 1));
+			GUI.Label (pageRect, "Page " + (pageNumber + 1) + " of " + (numPages + 1));
+
+			GUILayout.FlexibleSpace ();
+			EditorGUILayout.EndVertical ();
 		}
 
 
@@ -437,8 +444,11 @@ namespace AC
 			{
 				if (Resource.ACLogo)
 				{
-					GUILayout.Label (Resource.ACLogo);
+					GUI.DrawTexture (new Rect (82, 25, 256, 128), Resource.ACLogo);
 				}
+				GUILayout.Space (140f);
+				GUILayout.Label ("New Game Wizard", CustomStyles.managerHeader);
+
 				GUILayout.Space (5f);
 				GUILayout.Label ("This window can help you get started with making a new Adventure Creator game.");
 				GUILayout.Label ("To begin, click 'Next'. Changes will not be implemented until you are finished.");

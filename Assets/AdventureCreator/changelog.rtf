@@ -5,14 +5,94 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww20440\viewh15160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Version 1.59f (Unity 2017.1 only):\
+\f0\fs24 \cf0 Version 1.60.1:\
+\
+-Added: The "Character: Change rendering" Action's "New order" and "New layer" fields now support parameters\
+-Added: When the inventory is modified through script, InventoryBox menu elements are now updated automatically, with no need to call ResetInventoryBoxes()\
+-Fixed: Game Editor window not opening upon first install due to a bug with Unity 2017.1\
+-Fixed: Inventory item label showing inappropriately if "Selected item\'92s display" is set to "Hide From Menu"\
+-Fixed: Errors in Speech Manager in rare circumstances\
+\
+\
+Version 1.60:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+= Upgrade notes =\
+-The "Require double-click to move?" toggle has been replaced with a "Double-click movement" popup field to allow for more options\
+-The OnInventoryCombine custom event is now called if an item is combined with itself\
+\
+= 2.5D =\
+-Added: Unity UI can be used to handle 2.5D backgrounds instead of GUITextures to handle 2.5D backgrounds - in Unity 2017.3 and later, this is the only option\
+\
+= Editor =\
+-Added: "Check for updates" button to the About window and top toolbar\
+-Added: AC object links to Unity's GameObject and Hierarchy menus\
+-Added: "Cut", "Paste after" and "Insert after" options to Action cog menus in the ActionList Editor window\
+-Added: The "List active ActionLists" debug window now lists the active Player, and can be dragged\
+-Added: Newly-created ActionList assets now have their own Project view icon (Unity 2017+)\
+-Added: Minor cosmetic improvements to New Game Wizard\
+-Added: The scene's default PlayerStart now says so in its Inspector\
+-Fixed: Game Editor error if the Cursor or Inventory Managers are viewed with no Settings Manager assigned\
+-Added: Auto-create button for Default NavMesh in 2D scenes\
+\
+= Audio =\
+-Added: "Sound: Play ambience" Action - use to play, loop and queue ambient sounds independently from scenes\
+-Fixed: "Sound: Play" Action occasionally being skipped when resuming the game in Unity 2017\
+-Fixed: Sounds set to survive scene changes not removing themselves afterwards\
+\
+= Cameras =\
+-Added: Ability to override game's camera perspective setting on a per-scene basis when creating new scenes\
+-Added: OnCameraShake custom event - called whenever the "Camera: Shake" Action is run\
+\
+= Menus =\
+-Added: InventoryBox menu elements that display the selected item can now be limited by category\
+-Changed: The direct-navigation Menu options at the top of the Menu Manager now show for Mouse And Keyboard input, but only affect Unity UI-based Menus\
+-Fixed: Minor display issue with animated Interaction icons when editing\
+-Fixed: Performance issue with Unity UI-based Menus\
+-Fixed: Hover sounds not always playing for Menus that pause the game\
+-Fixed: Various issues with Unity UI and directly-controlled Menus\
+\
+= Variables =\
+-Added: Ability to convert Variables from Global to Local (and vice versa) in the Variables Manager\
+-Added: Ability to export variable data as CSV files\
+-Added: Ability to add internal descriptions to Variables, and filter by them in the Variables Manager\
+\
+= Inventory =\
+-Added: Ability to add internal descriptions to Inventory properties\
+-Added: Ability to import and export inventory item data as CSV files\
+-Added: The "Inventory: Check selected" Action can now query the last-selected item\
+-Added: The "Inventory: Check" Action can now query the number of carried items in a specific category\
+-Changed: The OnInventoryCombine custom event is now called if an item is combined with itself\
+\
+= Players =\
+-Added: If a game has multiple players, and audio files are assigned automatically, then players can optionally share the same speech lines with separate audio\
+-Fixed: Not all save data not restoring when switching Player prefab\
+-Fixed: Player sometimes not spawning at runtime if a Player prefab is selected in the Project window\
+\
+= Characters =\
+-Added: Ability to set the Layers used when Raycasting to determine if characters are grounded or not\
+-Added: Performance boost to Legacy-animated characters (credit to ilmari)\
+-Added: The "Vertical movement factor" field's affect on 2D character rotations is now optional (but enabled by default)\
+\
+= Input =\
+-Added: Option to override first-person touch-screen movement with custom inputs\
+-Changed: The "Require double-click to move?" toggle has been replaced with a "Double-click movement" popup field to allow for more options\
+\
+= Misc =\
+-Added: The "ActionList: Set parameter" Action can be used to give Integer and Float parameters random values\
+-Added: When using the New Game Wizard on Android or iOS, "Touch Screen" is suggested as the Input Method\
+-Added: Link to community wiki under "Online resources" toolbar menu\
+-Added: Performance boost to off-NavMesh clicking\
+-Fixed: Running an ActionList asset set to "Run In Background" causing the game to unpause the game if gameplay-blocking Cutscenes are also running\
+-Fixed: Issues with "Save: Save or load" Action's "Selective loading" option\
+\
+\
+Version 1.59f (Unity 2017.1 only):\
 \
 -Fixed: Critical bug that caused New Game Wizard to fail in Unity 2017\
 \
 \
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 Version 1.59e:\
+Version 1.59e:\
 \
 Upgrade note:\
 -Due to deprecation, GUITexture and GUIText components are no longer recognised by the Highlight and LimitVisibility components in Unity 2017.2 or later\
