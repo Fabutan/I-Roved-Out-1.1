@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f10104d9339190244819ea37fd843563
-timeCreated: 1509322499
+guid: 1c07fd9270e9147c4b3f6272307809cf
+timeCreated: 1510195690
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -79,7 +79,7 @@ TextureImporter:
     sprites: []
     outline: []
     physicsShape: []
-  spritePackingTag: Lakeside_Elk
+  spritePackingTag: Lakeside
   userData: 
   assetBundleName: 
   assetBundleVariant: 

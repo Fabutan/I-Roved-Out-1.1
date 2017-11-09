@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f10104d9339190244819ea37fd843563
-timeCreated: 1509322499
+guid: 480dbb816a2d64e2994b12e0cd57c85d
+timeCreated: 1510197460
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -65,21 +65,12 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
-  spritePackingTag: Lakeside_Elk
+  spritePackingTag: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
