@@ -93,7 +93,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1106
+    y: 972
     width: 300
     height: 21
   nodeHeight: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: -10
+    skipAction: 3
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -164,7 +164,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 524
+    y: 390
     width: 300
     height: 194
   nodeHeight: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 918
+    y: 784
     width: 300
     height: 158
   nodeHeight: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 748
+    y: 614
     width: 300
     height: 140
   nodeHeight: 0
@@ -376,12 +376,12 @@ MonoBehaviour:
   willWait: 0
   isRunning: 0
   lastResult:
-    resultAction: 0
-    skipAction: -1
+    resultAction: 2
+    skipAction: 1
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
-  endAction: 0
+  endAction: 2
   skipAction: 1
   skipActionActual: {fileID: 114204075159496754}
   linkedCutscene: {fileID: 0}
@@ -395,7 +395,7 @@ MonoBehaviour:
     x: 14
     y: 148
     width: 300
-    height: 194
+    height: 212
   nodeHeight: 0
   charToMoveParameterID: 1
   faceObjectParameterID: -1
