@@ -5,7 +5,64 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww20440\viewh15160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Version 1.60.1:\
+\f0\fs24 \cf0 Version 1.60.3:\
+\
+= Upgrade notes =\
+-Due to bug-fixing, the "Ground-check layer" field in Player and NPC components has been reverted to "Default", and may need amending\
+-If a Hotspot interaction's "Place action" is "Walk To", and "Face after moving" is checked, the player will face the Hotspot's "Centre-point override" if one exists\
+\
+-Added: When animating cursors and portrait graphics, the relative speed of each frame can now be set\
+-Added: Ability to define an "Is grounded" boolean parameter for Mecanim-based characters\
+-Added: Node icons to Hotspot Interaction panels to more easily access ActionList Editor window for assigned Interactions\
+-Added: The "ActionList: Set parameter" Action can now be used to copy one parameter value onto another\
+-Added: The text fields in Menu and Scene Actions now support tokens\
+-Added: Ability to control the size and position of arrow prompts\
+-Added: Minor cosmetic improvements to Active Inputs and Character Wizard windows\
+-Added: The Speech Manager's "Game text" panel now lists the total number of text lines that have been gathered\
+-Added: Ability to set an "Alternative input button" for InventoryBox menu elements with the type "Hotspot Based" and only one slot\
+-Added: 2D characters created using the Character Wizard are now placed on the "Ignore Raycast" layer\
+-Added: Chapter to the Manual on integrating AC with Cinemachine\
+-Added: The [Var:x] text token is now allowed as an alternative to [var:x]\
+-Added: The "Object: Transform" Action now allows a choice between local and world-space\
+-Changed: The "Skip first when looping?" animated cursor option has been changed to "Skip first frame when animating?"\
+-Changed: Upon completing the New Game Wizard, a dialog will ask the user if it should convert the current scene\
+-Changed: If a Hotspot interaction\'92s "Place action" is "Walk To", and "Face after moving" is checked, the player will face the Hotspot's "Centre-point override" if one exists\
+-Fixed: "ActionList on start game" not running if the game is restarted using the "Engine: End game" Action\
+-Fixed: Menu "ActionList when turn off" assets not running if a Menu is fading in when turned off\
+-Fixed: Custom label option not always showing when appropriate in the \'93Save: Save or load\'94 Action\
+-Fixed: ActionList Editor window displaying incorrectly in Unity 2017 when using Linear colour space\
+-Fixed: Issue with the "Character: Switch portrait" Action when using animated portraits in a Unity UI-based Menu\
+-Fixed: Remember Animator components incorrectly saving the state of non-looping animations\
+-Fixed: Issue with RuntimeInventory's RemoveAllInCategory() function\
+-Fixed: Playing ambience tracks stopping other SFX audio mid-play\
+-Fixed: Vertical arrow prompts responding to inverted Vertical input\
+-Fixed: Character "Ground-check layer" fields not allowing multiple layers to be selected\
+-Fixed: Footstep sounds and first-person head-bobbing not playing\
+-Fixed: Direct player movement not responding to input keys if the mouse is outside of the Game window\
+-Fixed: Issues when re-ordering categorised inventory items\
+-Fixed: Issue with off-NavMesh clicking in 2D games made with Unity 2017\
+-Fixed: Issue with "Input: QTE" Action\'92s UI when creating "Hold Key" QTE types\
+-Fixed: Interaction element labels not showing in Unity UI-based Menus\
+-Fixed: Runtime issues if the MainCamera\'92s "Look-at child" is not present\
+-Fixed: 2D Demo\'92s Bird NPC not having its sprite child in the correct position\
+\
+\
+Version 1.60.2:\
+\
+-Added: New Menu "Appear type" setting - "Except When Paused"\
+-Added: RemoveAll and RemoveAllInCategory functions to RuntimeInventory script\
+-Added: Option for animated cursors to skip first frame when looping their animation\
+-Fixed: Issues with mouse-over Menus drawn with Unity UI, at the cost of re-introducing associated performance hit\
+-Fixed: Changing inventory cursors through runtime scripts affecting their original settings in the Inventory Manager\
+-Fixed: Issues when using the "EndConversation" input with ActionLists that override a Conversation's options\
+-Fixed: Ambient and music tracks momentarily starting with incorrect volume levels\
+-Fixed: Fields to manually assign speech audio clips no longer appearing in Speech Manager unless multiple translations exist\
+-Fixed: Cameras not being correctly updated when using the "Auto-add save components to GameObjects" feature\
+-Fixed: Display issue with the "Object: Check visibility" Action\
+-Fixed: Menu Manager assets created with the New Game Wizard having an expandable hierarchy\
+\
+\
+Version 1.60.1:\
 \
 -Added: The "Character: Change rendering" Action's "New order" and "New layer" fields now support parameters\
 -Added: When the inventory is modified through script, InventoryBox menu elements are now updated automatically, with no need to call ResetInventoryBoxes()\
@@ -15,8 +72,7 @@
 \
 \
 Version 1.60:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \
+\
 = Upgrade notes =\
 -The "Require double-click to move?" toggle has been replaced with a "Double-click movement" popup field to allow for more options\
 -The OnInventoryCombine custom event is now called if an item is combined with itself\

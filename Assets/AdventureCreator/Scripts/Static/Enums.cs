@@ -21,7 +21,7 @@ namespace AC
 	public enum ActionListSource { InScene, AssetFile };
 	public enum InteractionSource { InScene, AssetFile, CustomScript };
 	
-	public enum AppearType { Manual, MouseOver, DuringConversation, OnInputKey, OnInteraction, OnHotspot, WhenSpeechPlays, DuringGameplay, OnContainer, WhileLoading, DuringCutscene, WhileInventorySelected };
+	public enum AppearType { Manual, MouseOver, DuringConversation, OnInputKey, OnInteraction, OnHotspot, WhenSpeechPlays, DuringGameplay, OnContainer, WhileLoading, DuringCutscene, WhileInventorySelected, ExceptWhenPaused };
 	public enum SpeechMenuType { All, CharactersOnly, NarrationOnly, SpecificCharactersOnly, AllExceptSpecificCharacters };
 	public enum SpeechMenuLimit { All, BlockingOnly, BackgroundOnly };
 	public enum MenuTransition { Fade, Pan, FadeAndPan, Zoom, None };
@@ -112,7 +112,7 @@ namespace AC
 	public enum SetVarMethod { SetValue, IncreaseByValue, SetAsRandom, Formula };
 	public enum SetVarMethodString { EnteredHere=0, SetAsMenuElementText=1 };
 	public enum SetVarMethodIntBool { EnteredHere=0, SetAsMecanimParameter=1 };
-	public enum SetParamMethod { EnteredHere=0, CopiedFromGlobalVariable=1, Random=2 };
+	public enum SetParamMethod { EnteredHere=0, CopiedFromGlobalVariable=1, Random=2, CopiedFromParameter=3 };
 	public enum GetVarMethod { EnteredValue, GlobalVariable, LocalVariable };
 	
 	public enum AC_Direction { None, Up, Down, Left, Right };

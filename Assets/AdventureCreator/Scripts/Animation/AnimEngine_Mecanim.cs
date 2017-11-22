@@ -74,6 +74,7 @@ namespace AC
 			character.headTurnSpeed = EditorGUILayout.Slider ("Head turn speed:", character.headTurnSpeed, 0.1f, 20f);
 
 			character.verticalMovementParameter = EditorGUILayout.TextField ("Vertical movement float:", character.verticalMovementParameter);
+			character.isGroundedParameter = EditorGUILayout.TextField ("'Is grounded' bool:", character.isGroundedParameter);
 			if (character is Player)
 			{
 				Player player = (Player) character;
@@ -852,9 +853,14 @@ namespace AC
 				return;
 			}
 			
-			if (character.verticalMovementParameter != "")
+			if (!string.IsNullOrEmpty (character.verticalMovementParameter))
 			{
 				character.GetAnimator ().SetFloat (character.verticalMovementParameter, character.GetHeightChange ());
+			}
+
+			if (!string.IsNullOrEmpty (character.isGroundedParameter))
+			{
+				character.GetAnimator ().SetBool (character.isGroundedParameter, character.IsGrounded ());
 			}
 		}
 

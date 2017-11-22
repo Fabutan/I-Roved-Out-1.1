@@ -29,6 +29,7 @@ namespace AC
 		public int markerID = 0;
 		public bool doEulerRotation = false;
 		public bool clearExisting = true;
+		public bool inWorldSpace = false;
 		
 		public AnimationCurve timeCurve = new AnimationCurve (new Keyframe(0, 0), new Keyframe(1, 1));
 		
@@ -74,6 +75,13 @@ namespace AC
 			transitionTime = AssignFloat (parameters, transitionTimeParameterID, transitionTime);
 			newVector = AssignVector3 (parameters, newVectorParameterID, newVector);
 			vectorVarID = AssignVariableID (parameters, vectorVarParameterID, vectorVarID);
+
+			if (!(transformType == TransformType.CopyMarker ||
+				(transformType == TransformType.Translate && toBy == ToBy.To) ||
+				(transformType == TransformType.Rotate && toBy == ToBy.To)))
+			{
+				inWorldSpace = false;
+			}
 		}
 		
 		
@@ -127,7 +135,7 @@ namespace AC
 			{
 				if (marker)
 				{
-					linkedProp.Move (marker, moveMethod, _time, timeCurve);
+					linkedProp.Move (marker, moveMethod, inWorldSpace, _time, timeCurve);
 				}
 			}
 			else
@@ -189,11 +197,11 @@ namespace AC
 				
 				if (transformType == TransformType.Rotate)
 				{
-					linkedProp.Move (targetVector, moveMethod, _time, transformType, doEulerRotation, timeCurve, clearExisting);
+					linkedProp.Move (targetVector, moveMethod, inWorldSpace, _time, transformType, doEulerRotation, timeCurve, clearExisting);
 				}
 				else
 				{
-					linkedProp.Move (targetVector, moveMethod, _time, transformType, false, timeCurve, clearExisting);
+					linkedProp.Move (targetVector, moveMethod, inWorldSpace, _time, transformType, false, timeCurve, clearExisting);
 				}
 			}
 		}
@@ -297,6 +305,18 @@ namespace AC
 				}
 
 				clearExisting = EditorGUILayout.Toggle ("Stop existing transforms?", clearExisting);
+			}
+
+			if (transformType == TransformType.CopyMarker ||
+				(transformType == TransformType.Translate && toBy == ToBy.To) ||
+				(transformType == TransformType.Rotate && toBy == ToBy.To))
+			{
+				inWorldSpace = EditorGUILayout.Toggle ("Act in world-space?", inWorldSpace);
+
+				if (inWorldSpace && transformType == TransformType.CopyMarker)
+				{
+					EditorGUILayout.HelpBox ("The moveable object's scale will be changed in local space.", MessageType.Info);
+				}
 			}
 
 			transitionTimeParameterID = Action.ChooseParameterGUI ("Transition time (s):", parameters, transitionTimeParameterID, ParameterType.Float);

@@ -45,8 +45,6 @@ namespace AC
 		[SerializeField] private int activeScenePrefab;
 		private List<ScenePrefab> scenePrefabs;
 		
-		private static string assetFolder = "Assets/AdventureCreator/Prefabs/";
-		
 		private string newFolderName = "";
 		private string newPrefabName;
 		private bool positionHotspotOverMesh = false;
@@ -58,6 +56,15 @@ namespace AC
 		private bool showVisibility = true;
 		private bool showPrefabs = true;
 		private bool showAttributes = true;
+
+
+		private static string assetFolder
+		{
+			get
+			{
+				return Resource.mainFolderPath + "/Prefabs/";
+			}
+		}
 
 
 		/**
@@ -369,7 +376,7 @@ namespace AC
 			if (showVisibility)
 			{
 				GUILayout.BeginHorizontal ();
-				Texture2D icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/AC_Trigger.png", typeof (Texture2D));
+				Texture2D icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/AC_Trigger.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Triggers", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -382,7 +389,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/_Collision.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/_Collision.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Collision", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -395,7 +402,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/Hotspot.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/Hotspot.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Hotspots", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -408,7 +415,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/Marker.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/Marker.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Markers", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -421,7 +428,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/NavigationMesh.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/NavigationMesh.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" NavMesh", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -1341,16 +1348,16 @@ namespace AC
 			
 			if (_graphicName != "")
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/" + _graphicName +  ".png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _graphicName +  ".png", typeof (Texture2D));
 			}
 			else
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/" + _componentName +  ".png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  ".png", typeof (Texture2D));
 			}
 			
 			if (_subCategory == "Collision Cylinder")
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/PrefabIcons/" + _componentName +  "Cylinder.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  "Cylinder.png", typeof (Texture2D));
 			}
 		}
 		

@@ -11,7 +11,7 @@ namespace AC
 		
 		public References references;
 		
-		public static string version = "1.60.1";
+		public static string version = "1.60.3";
 	 
 		private bool showScene = true;
 		private bool showSettings = false;

@@ -38,7 +38,12 @@ namespace AC
 		public Arrow rightArrow;
 		/** If True, then Hotspots will be disabled when the arrows are on screen */
 		public bool disableHotspots = true;
-		
+
+		/** A factor for the arrow position */
+		public float positionFactor = 1f;
+		/** A factor for the arrow size */
+		public float scaleFactor = 1f;
+
 		private bool isOn = false;
 		
 		private AC_Direction directionToAnimate;
@@ -57,25 +62,24 @@ namespace AC
 				if (directionToAnimate != AC_Direction.None)
 				{
 					SetGUIAlpha (alpha);
-					
-					if (directionToAnimate == AC_Direction.Up)
+
+					switch (directionToAnimate)
 					{
-						upArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 0.1f, arrowSize*2, arrowSize));
-					}
-					
-					else if (directionToAnimate == AC_Direction.Down)
-					{
-						downArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 0.9f, arrowSize*2, arrowSize));
-					}
-					
-					else if (directionToAnimate == AC_Direction.Left)
-					{
-						leftArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.05f, 0.5f, arrowSize, arrowSize*2));
-					}
-					
-					else if (directionToAnimate == AC_Direction.Right)
-					{
-						rightArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.95f, 0.5f, arrowSize, arrowSize*2));
+						case AC_Direction.Up:
+							upArrow.rect = GetUpRect (arrowSize);
+							break;
+
+						case AC_Direction.Down:
+							downArrow.rect = GetDownRect (arrowSize);
+							break;
+
+						case AC_Direction.Left:
+							leftArrow.rect = GetLeftRect (arrowSize);
+							break;
+
+						case AC_Direction.Right:
+							rightArrow.rect = GetRightRect (arrowSize);
+							break;
 					}
 				}
 				
@@ -85,22 +89,22 @@ namespace AC
 					
 					if (upArrow.isPresent)
 					{
-						upArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 0.1f, 0.1f, 0.05f));
+						upArrow.rect = GetUpRect ();
 					}
 		
 					if (downArrow.isPresent)
 					{
-						downArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 0.9f, 0.1f, 0.05f));
+						downArrow.rect = GetDownRect ();
 					}
 				
 					if (leftArrow.isPresent)
 					{
-						leftArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.05f, 0.5f, 0.05f, 0.1f));
+						leftArrow.rect = GetLeftRect ();
 					}
 					
 					if (rightArrow.isPresent)
 					{
-						rightArrow.rect = KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.95f, 0.5f, 0.05f, 0.1f));
+						rightArrow.rect = GetRightRect ();
 					}
 				}
 			
@@ -109,6 +113,30 @@ namespace AC
 				leftArrow.Draw ();
 				rightArrow.Draw ();
 			}
+		}
+
+
+		private Rect GetUpRect (float scale = 0.05f)
+		{
+			return KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 0.1f * positionFactor, scale * 2f * scaleFactor, scale * scaleFactor));
+		}
+
+
+		private Rect GetDownRect (float scale = 0.05f)
+		{
+			return KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.5f, 1f - (0.1f * positionFactor), scale * 2f * scaleFactor, scale * scaleFactor));
+		}
+
+
+		private Rect GetLeftRect (float scale = 0.05f)
+		{
+			return KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (0.05f * positionFactor * 2f, 0.5f, scale * scaleFactor, scale * 2f * scaleFactor));
+		}
+
+
+		private Rect GetRightRect (float scale = 0.05f)
+		{
+			return KickStarter.mainCamera.LimitMenuToAspect (AdvGame.GUIRect (1f - (0.05f * positionFactor * 2f), 0.5f, scale * scaleFactor, scale * 2f * scaleFactor));
 		}
 
 
@@ -255,6 +283,24 @@ namespace AC
 			Color tempColor = GUI.color;
 			tempColor.a = alpha;
 			GUI.color = tempColor;
+		}
+
+
+		private float LargeSize
+		{
+			get
+			{
+				return arrowSize*2 * scaleFactor;
+			}
+		}
+
+
+		private float SmallSize
+		{
+			get
+			{
+				return arrowSize * scaleFactor;
+			}
 		}
 
 	}

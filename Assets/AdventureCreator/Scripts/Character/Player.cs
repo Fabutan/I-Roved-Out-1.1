@@ -47,12 +47,19 @@ namespace AC
 		private Transform fpCam;
 		private bool prepareToJump;
 
+		private SkinnedMeshRenderer skinnedMeshRenderer;
+
 
 		private void Awake ()
 		{
 			if (soundChild && soundChild.gameObject.GetComponent <AudioSource>())
 			{
 				audioSource = soundChild.gameObject.GetComponent <AudioSource>();
+			}
+
+			if (GetComponentInChildren <SkinnedMeshRenderer>())
+			{
+				skinnedMeshRenderer = GetComponentInChildren <SkinnedMeshRenderer>();
 			}
 
 			if (KickStarter.playerMovement)
@@ -866,6 +873,24 @@ namespace AC
 			}
 
 			ignoreGravity = playerData.playerIgnoreGravity;
+		}
+
+
+		/**
+		 * Hides the player's SkinnedMeshRenderer, if one exists
+		 */
+		public void Hide ()
+		{
+			if (skinnedMeshRenderer) skinnedMeshRenderer.enabled = false;
+		}
+
+
+		/**
+		 * Shows the player's SkinnedMeshRenderer, if one exists
+		 */
+		public void Show ()
+		{
+			if (skinnedMeshRenderer) skinnedMeshRenderer.enabled = true;
 		}
 
 	}

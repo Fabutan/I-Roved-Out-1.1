@@ -216,7 +216,7 @@ namespace AC
 			}
 			else if (qteType == QTEType.HoldKey)
 			{
-				holdDuration = EditorGUILayout.Slider ("Required duration (s):", holdDuration, 0f, holdDuration);
+				holdDuration = EditorGUILayout.Slider ("Required duration (s):", holdDuration, 0f, 10f);
 			}
 
 			menuNameParameterID = Action.ChooseParameterGUI ("Menu to display (optional):", parameters, menuNameParameterID, ParameterType.String);

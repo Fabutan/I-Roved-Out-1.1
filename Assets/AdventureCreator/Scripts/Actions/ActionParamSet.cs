@@ -32,6 +32,7 @@ namespace AC
 
 		public bool changeOwn;
 		public int parameterID = -1;
+		public int parameterToCopyID = -1;
 		
 		public int intValue, intValueMax;
 		public float floatValue, floatValueMax;
@@ -48,6 +49,7 @@ namespace AC
 		public int globalVariableID;
 		
 		private ActionParameter _parameter;
+		private ActionParameter _parameterToCopy;
 		#if UNITY_EDITOR
 		[SerializeField] private string parameterLabel = "";
 		#endif
@@ -76,15 +78,18 @@ namespace AC
 							if (actionList.syncParamValues && actionList.assetFile.useParameters)
 							{
 								_parameter = GetParameterWithID (actionList.assetFile.parameters, parameterID);
+								_parameterToCopy = GetParameterWithID (actionList.assetFile.parameters, parameterToCopyID);
 							}
 							else
 							{
 								_parameter = GetParameterWithID (actionList.parameters, parameterID);
+								_parameterToCopy = GetParameterWithID (actionList.parameters, parameterToCopyID);
 							}
 						}
 						else if (actionList.source == ActionListSource.InScene && actionList.useParameters)
 						{
 							_parameter = GetParameterWithID (actionList.parameters, parameterID);
+							_parameterToCopy = GetParameterWithID (actionList.parameters, parameterToCopyID);
 						}
 					}
 				}
@@ -93,6 +98,7 @@ namespace AC
 					if (actionListAsset != null)
 					{
 						_parameter = GetParameterWithID (actionListAsset.parameters, parameterID);
+						_parameterToCopy = GetParameterWithID (actionListAsset.parameters, parameterToCopyID);
 
 						if (_parameter.parameterType == ParameterType.GameObject && !isAssetFile && gameobjectValue != null && gameObjectConstantID == 0)
 						{
@@ -111,6 +117,7 @@ namespace AC
 			else
 			{
 				_parameter = GetParameterWithID (parameters, parameterID);
+				_parameterToCopy = GetParameterWithID (parameters, parameterToCopyID);
 
 				if (_parameter.parameterType == ParameterType.GameObject && isAssetFile && gameobjectValue != null && gameObjectConstantID == 0)
 				{
@@ -211,6 +218,16 @@ namespace AC
 				{
 					ACDebug.LogWarning ("Parameters of type '" + _parameter.parameterType + "' cannot be set randomly.");
 				}
+			}
+			else if (setParamMethod == SetParamMethod.CopiedFromParameter)
+			{
+				if (_parameterToCopy == null)
+				{
+					ACDebug.LogWarning ("Cannot copy parameter value since it cannot be found!");
+					return 0f;
+				}
+
+				_parameter.CopyValues (_parameterToCopy);
 			}
 
 			return 0f;
@@ -424,6 +441,40 @@ namespace AC
 				else
 				{
 					EditorGUILayout.HelpBox ("No Global Variables found!", MessageType.Warning);
+				}
+			}
+			else if (setParamMethod == SetParamMethod.CopiedFromParameter)
+			{
+				if (changeOwn)
+				{
+					parameterToCopyID = Action.ChooseParameterGUI (parameters, parameterToCopyID);
+				}
+				else
+				{
+					if (actionListSource == ActionListSource.InScene && actionList != null)
+					{
+						if (actionList.source == ActionListSource.InScene)
+						{
+							if (actionList.useParameters && actionList.parameters.Count > 0)
+							{
+								parameterToCopyID = Action.ChooseParameterGUI (actionList.parameters, parameterToCopyID);
+							}
+						}
+						else if (actionList.source == ActionListSource.AssetFile && actionList.assetFile != null)
+						{
+							if (actionList.assetFile.useParameters && actionList.assetFile.parameters.Count > 0)
+							{
+								parameterToCopyID = Action.ChooseParameterGUI (actionList.assetFile.parameters, parameterToCopyID);
+							}
+						}
+					}
+					else if (actionListSource == ActionListSource.AssetFile && actionListAsset != null)
+					{
+						if (actionListAsset.useParameters && actionListAsset.parameters.Count > 0)
+						{
+							parameterToCopyID = Action.ChooseParameterGUI (actionListAsset.parameters, parameterToCopyID);
+						}
+					}
 				}
 			}
 		}

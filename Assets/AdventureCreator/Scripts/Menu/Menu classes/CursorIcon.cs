@@ -47,6 +47,7 @@ namespace AC
 			isAnimated = false;
 			numFrames = 1;
 			size = 0.04f;
+			frameSpeeds = new float[0];
 			
 			label = "Icon " + (id + 1).ToString ();
 		}
@@ -64,6 +65,7 @@ namespace AC
 			lineID = -1;
 			isAnimated = false;
 			numFrames = 1;
+			frameSpeeds = new float[0];
 			
 			// Update id based on array
 			foreach (int _id in idArray)
@@ -132,8 +134,12 @@ namespace AC
 		public float animSpeed = 4f;
 		/** If True, then animations will end on the final frame, rather than looping */
 		public bool endAnimOnLastFrame = false;
+		/** If True, and isAnimated = True, then the first frame will be skipped when in a looping animation */
+		public bool skipFirstFrameWhenLooping = false;
 		/** The offset of the "click point", when used as a cursor */
 		public Vector2 clickOffset;
+		/** An array of the speeds for each frame when animating, where the index of the array corresponds to the frame of the animation */
+		public float[] frameSpeeds;
 		
 		private string uniqueIdentifier;
 		private float frameIndex = 0f;
@@ -144,7 +150,7 @@ namespace AC
 		private Texture2D texture2D;
 		private Rect firstFrameRect = new Rect ();
 
-		
+
 		/**
 		 * The default Constructor.
 		 */
@@ -152,12 +158,14 @@ namespace AC
 		{
 			texture = null;
 			isAnimated = false;
+			frameSpeeds = new float[0];
 			numFrames = numRows = numCols = 1;
 			size = 0.015f;
 			frameIndex = 0f;
 			frameWidth = frameHeight = -1f;
 			animSpeed = 4;
 			endAnimOnLastFrame = false;
+			skipFirstFrameWhenLooping = false;
 			clickOffset = Vector2.zero;
 		}
 		
@@ -173,11 +181,22 @@ namespace AC
 			numFrames = _icon.numFrames;
 			animSpeed = _icon.animSpeed;
 			endAnimOnLastFrame = _icon.endAnimOnLastFrame;
+			skipFirstFrameWhenLooping = _icon.skipFirstFrameWhenLooping;
 			clickOffset = _icon.clickOffset;
 			numRows = _icon.numRows;
 			numCols = _icon.numCols;
 			size = _icon.size;
-			
+
+			frameSpeeds = new float[0];
+			if (_icon.frameSpeeds != null)
+			{
+				frameSpeeds = new float[_icon.frameSpeeds.Length];
+				for (int i=0; i<frameSpeeds.Length; i++)
+				{
+					frameSpeeds[i] = _icon.frameSpeeds[i];
+				}
+			}
+
 			Reset ();
 		}
 		
@@ -447,6 +466,10 @@ namespace AC
 				{
 					frameIndex = 0f;
 				}
+				else if (skipFirstFrameWhenLooping && frameIndex < 1f)
+				{
+					frameIndex = 1f;
+				}
 
 				GetAnimatedRect ();
 				if (textures == null)
@@ -488,7 +511,7 @@ namespace AC
 		{
 			int currentRow = 1;
 			int frameInRow = 1;
-			
+
 			if (frameIndex < 0f)
 			{
 				frameIndex = 0f;
@@ -497,16 +520,16 @@ namespace AC
 			{
 				if (endAnimOnLastFrame && frameIndex >= (numFrames -1))
 				{}
-				else if (Time.deltaTime == 0f)
-				{
-					frameIndex += 0.02f * animSpeed;
-				}
 				else
 				{
-					frameIndex += Time.deltaTime * animSpeed;
+					int i = Mathf.FloorToInt (frameIndex);
+					float frameSpeed = (frameSpeeds != null && i < frameSpeeds.Length) ? frameSpeeds[i] : 1f;
+
+					float deltaTime = (Time.deltaTime == 0f) ? 0.02f : Time.deltaTime;
+					frameIndex += deltaTime * animSpeed * frameSpeed;
 				}
 			}
-			
+
 			frameInRow = Mathf.FloorToInt (frameIndex)+1;
 			while (frameInRow > numCols)
 			{
@@ -516,16 +539,25 @@ namespace AC
 			
 			if (frameIndex >= numFrames)
 			{
-				if (!endAnimOnLastFrame)
-				{
-					frameIndex = 0f;
-					frameInRow = 1;
-					currentRow = 1;
-				}
-				else
+				if (endAnimOnLastFrame)
 				{
 					frameIndex = numFrames - 1;
 					frameInRow -= 1;
+				}
+				else
+				{
+					if (skipFirstFrameWhenLooping && numFrames > 1f)
+					{
+						frameIndex = 1f;
+						frameInRow = 2;
+					}
+					else
+					{
+						frameIndex = 0f;
+						frameInRow = 1;
+					}
+
+					currentRow = 1;
 				}
 			}
 			
@@ -596,7 +628,9 @@ namespace AC
 		
 		
 		#if UNITY_EDITOR
-		
+
+		private bool showExtra;
+
 		public void ShowGUI (bool includeSize, string _label = "Texture:", CursorRendering cursorRendering = CursorRendering.Software, string apiPrefix = "")
 		{
 			EditorGUILayout.BeginHorizontal ();
@@ -632,7 +666,24 @@ namespace AC
 				EditorGUILayout.EndHorizontal ();
 				
 				animSpeed = CustomGUILayout.FloatField ("Animation speed:", animSpeed, apiPrefix + ".animSpeed");
-				endAnimOnLastFrame = CustomGUILayout.Toggle ("End on last frame?", endAnimOnLastFrame, apiPrefix + ".endAnimOnLastFrame");
+
+				showExtra = EditorGUILayout.Foldout (showExtra, "Additional settings:");
+				if (showExtra)
+				{
+					EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+					endAnimOnLastFrame = CustomGUILayout.ToggleLeft ("End on last frame?", endAnimOnLastFrame, apiPrefix + ".endAnimOnLastFrame");
+					skipFirstFrameWhenLooping = CustomGUILayout.ToggleLeft ("Skip first when animating?", skipFirstFrameWhenLooping, apiPrefix + ".skipFirstFrameWhenLooping");
+
+					SyncFrameSpeeds ();
+					for (int i=0; i<numFrames; i++)
+					{
+						if (i == 0 && skipFirstFrameWhenLooping) continue;
+						if (i == (numFrames-1) && endAnimOnLastFrame) continue;
+
+						frameSpeeds[i] = EditorGUILayout.Slider ("Frame #" + (i+1).ToString () + " relative speed:", frameSpeeds[i], 0.01f, 1f);
+					}
+					EditorGUILayout.EndVertical ();
+				}
 			}
 		}
 		
@@ -648,6 +699,34 @@ namespace AC
 					texture2D = (Texture2D) texture;
 				}
 				return texture2D;
+			}
+		}
+
+
+		private void SyncFrameSpeeds ()
+		{
+			if (frameSpeeds == null) frameSpeeds = new float[0];
+
+			if (frameSpeeds.Length != numFrames)
+			{
+				float[] backup = new float[frameSpeeds.Length];
+				for (int i=0; i<frameSpeeds.Length; i++)
+				{
+					backup[i] = frameSpeeds[i];
+				}
+
+				frameSpeeds = new float[numFrames];
+				for (int i=0; i<numFrames; i++)
+				{
+					if (i < backup.Length)
+					{
+						frameSpeeds[i] = backup[i];
+					}
+					else
+					{
+						frameSpeeds[i] = 1f;
+					}
+				}
 			}
 		}
 		

@@ -86,8 +86,6 @@ namespace AC
 			}
 
 			checkVisState = (CheckVisState) EditorGUILayout.EnumPopup ("Visibility to check:", checkVisState);
-
-			AfterRunningOption ();
 		}
 
 

@@ -179,7 +179,11 @@ namespace AC
 			tex = assetItem.tex;
 			activeTex = assetItem.activeTex;
 			selectedTex = assetItem.selectedTex;
-			cursorIcon = assetItem.cursorIcon;
+
+			//cursorIcon = assetItem.cursorIcon;
+			cursorIcon = new CursorIcon ();
+			cursorIcon.Copy (assetItem.cursorIcon);
+
 			carryOnStart = assetItem.carryOnStart;
 			carryOnStartNotDefault = assetItem.carryOnStartNotDefault;
 			carryOnStartID = assetItem.carryOnStartID;

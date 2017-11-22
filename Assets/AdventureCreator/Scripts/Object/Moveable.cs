@@ -35,6 +35,7 @@ namespace AC
 
 		private	Vector3 startPosition;
 		private Vector3 endPosition;
+		private bool inWorldSpace;
 
 		private float rotateChangeTime;
 		private float rotateStartTime;
@@ -126,18 +127,30 @@ namespace AC
 			{
 				if (Time.time < positionStartTime + positionChangeTime)
 				{
-					if (positionMethod == MoveMethod.Curved)
+					if (inWorldSpace)
 					{
-						transform.localPosition = Vector3.Slerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve)); 
+						transform.position = (positionMethod == MoveMethod.Curved)
+							? Vector3.Slerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve)) 
+							:AdvGame.Lerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve));
 					}
 					else
 					{
-						transform.localPosition = AdvGame.Lerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve)); 
+						transform.localPosition = (positionMethod == MoveMethod.Curved)
+							? Vector3.Slerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve)) 
+							:AdvGame.Lerp (startPosition, endPosition, AdvGame.Interpolate (positionStartTime, positionChangeTime, positionMethod, positionTimeCurve));
 					}
 				}
 				else
 				{
-					transform.localPosition = endPosition;
+					if (inWorldSpace)
+					{
+						transform.position = endPosition;
+					}
+					else
+					{
+						transform.localPosition = endPosition;
+					}
+
 					positionChangeTime = 0f;
 				}
 			}
@@ -148,24 +161,32 @@ namespace AC
 				{
 					if (doEulerRotation)
 					{
-						if (rotateMethod == MoveMethod.Curved)
+						if (inWorldSpace)
 						{
-							transform.localEulerAngles = Vector3.Slerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
+							transform.eulerAngles = (rotateMethod == MoveMethod.Curved)
+								? Vector3.Slerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve))
+								: AdvGame.Lerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve));
 						}
 						else
 						{
-							transform.localEulerAngles = AdvGame.Lerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
+							transform.localEulerAngles = (rotateMethod == MoveMethod.Curved)
+							? Vector3.Slerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve))
+							: AdvGame.Lerp (startEulerRotation, endEulerRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
 						}
 					}
 					else
 					{
-						if (rotateMethod == MoveMethod.Curved)
+						if (inWorldSpace)
 						{
-							transform.localRotation = Quaternion.Slerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
+							transform.rotation = (rotateMethod == MoveMethod.Curved)
+								? Quaternion.Slerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve))
+								: AdvGame.Lerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve));
 						}
 						else
 						{
-							transform.localRotation = AdvGame.Lerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
+							transform.localRotation = (rotateMethod == MoveMethod.Curved)
+								? Quaternion.Slerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve))
+								: AdvGame.Lerp (startRotation, endRotation, AdvGame.Interpolate (rotateStartTime, rotateChangeTime, rotateMethod, rotateTimeCurve)); 
 						}
 					}
 				}
@@ -173,11 +194,25 @@ namespace AC
 				{
 					if (doEulerRotation)
 					{
-						transform.localEulerAngles = endEulerRotation;
+						if (inWorldSpace)
+						{
+							transform.eulerAngles = endEulerRotation;
+						}
+						else
+						{
+							transform.localEulerAngles = endEulerRotation;
+						}
 					}
 					else
 					{
-						transform.localRotation = endRotation;
+						if (inWorldSpace)
+						{
+							transform.rotation = endRotation;
+						}
+						else
+						{
+							transform.localRotation = endRotation;
+						}
 					}
 					rotateChangeTime = 0f;
 				}
@@ -209,19 +244,22 @@ namespace AC
 		 * <summary>Moves the GameObject by referencing a Vector3 as its target Transform.</summary>
 		 * <param name = "_newVector">The target values of either the GameObject's position, rotation or scale</param>
 		 * <param name = "_moveMethod">The interpolation method by which the GameObject moves (Linear, Smooth, Curved, EaseIn, EaseOut, CustomCurve)</param>
+		 * <param name = "_inWorldSpace">If True, the movement will use world-space co-ordinates</param>
 		 * <param name = "_transitionTime">The time, in seconds, that the movement should take place over</param>
 		 * <param name = "_transformType">The way in which the GameObject should be transformed (Translate, Rotate, Scale)</param>
 		 * <param name = "_doEulerRotation">If True, then the GameObject's eulerAngles will be directly manipulated. Otherwise, the rotation as a Quaternion will be affected.</param>
 		 * <param name = "_timeCurve">If _moveMethod = MoveMethod.CustomCurve, then the movement speed will follow the shape of the supplied AnimationCurve. This curve can exceed "1" in the Y-scale, allowing for overshoot effects.</param>
 		 * <param name = "clearExisting">If True, then existing transforms will be stopped before new transforms will be made</param>
 		 */
-		public void Move (Vector3 _newVector, MoveMethod _moveMethod, float _transitionTime, TransformType _transformType, bool _doEulerRotation, AnimationCurve _timeCurve, bool clearExisting)
+		public void Move (Vector3 _newVector, MoveMethod _moveMethod, bool _inWorldSpace, float _transitionTime, TransformType _transformType, bool _doEulerRotation, AnimationCurve _timeCurve, bool clearExisting)
 		{
 			if (GetComponent <Rigidbody>() && !GetComponent <Rigidbody>().isKinematic)
 			{
 				GetComponent <Rigidbody>().velocity = GetComponent <Rigidbody>().angularVelocity = Vector3.zero;
 			}
-			
+
+			inWorldSpace = _inWorldSpace;
+
 			if (_transitionTime <= 0f)
 			{
 				if (clearExisting)
@@ -231,17 +269,41 @@ namespace AC
 
 				if (_transformType == TransformType.Translate)
 				{
-					transform.localPosition = _newVector;
+					if (inWorldSpace)
+					{
+						transform.position = _newVector;
+					}
+					else
+					{
+						transform.localPosition = _newVector;
+					}
 					positionChangeTime = 0f;
 				}
 				else if (_transformType == TransformType.Rotate)
 				{
-					transform.localEulerAngles = _newVector;
+					if (inWorldSpace)
+					{
+						transform.eulerAngles = _newVector;
+					}
+					else
+					{
+						transform.localEulerAngles = _newVector;
+					}
 					rotateChangeTime = 0f;
 				}
 				else if (_transformType == TransformType.Scale)
 				{
-					transform.localScale = _newVector;
+					if (inWorldSpace)
+					{
+						Transform oldParent = transform.parent;
+						transform.SetParent (null, true);
+						transform.localScale = _newVector;
+						if (oldParent) transform.SetParent (oldParent, true);
+					}
+					else
+					{
+						transform.localScale = _newVector;
+					}
 					scaleChangeTime = 0f;
 				}
 			}
@@ -249,7 +311,7 @@ namespace AC
 			{
 				if (_transformType == TransformType.Translate)
 				{
-					startPosition = endPosition = transform.localPosition;
+					startPosition = endPosition = (inWorldSpace) ? transform.position : transform.localPosition;
 					endPosition = _newVector;
 
 					positionMethod = _moveMethod;
@@ -274,8 +336,8 @@ namespace AC
 				}
 				else if (_transformType == TransformType.Rotate)
 				{
-					startEulerRotation = endEulerRotation = transform.localEulerAngles;
-					startRotation = endRotation = transform.localRotation;
+					startEulerRotation = endEulerRotation = (inWorldSpace) ? transform.eulerAngles : transform.localEulerAngles;
+					startRotation = endRotation = (inWorldSpace) ? transform.rotation : transform.localRotation;
 					endRotation = Quaternion.Euler (_newVector);
 					endEulerRotation = _newVector;
 
@@ -302,6 +364,11 @@ namespace AC
 				}
 				else if (_transformType == TransformType.Scale)
 				{
+					if (inWorldSpace)
+					{
+						ACDebug.LogWarning ("Cannot change the world-space scale value of " + gameObject.name + " over time.", gameObject);
+					}
+
 					startScale = endScale = transform.localScale;
 					endScale = _newVector;
 
@@ -333,36 +400,64 @@ namespace AC
 		 * <summary>Moves the GameObject by referencing a Marker component as its target Transform.</summary>
 		 * <param name = "_marker">A Marker whose position, rotation and scale will be the target values of the GameObject</param>
 		 * <param name = "_moveMethod">The interpolation method by which the GameObject moves (Linear, Smooth, Curved, EaseIn, EaseOut, CustomCurve)</param>
+		 * <param name = "_inWorldSpace">If True, the movement will use world-space co-ordinates</param>
 		 * <param name = "_transitionTime">The time, in seconds, that the movement should take place over</param>
 		 * <param name = "_timeCurve">If _moveMethod = MoveMethod.CustomCurve, then the movement speed will follow the shape of the supplied AnimationCurve. This curve can exceed "1" in the Y-scale, allowing for overshoot effects.</param>
 		 */
-		public void Move (Marker _marker, MoveMethod _moveMethod, float _transitionTime, AnimationCurve _timeCurve)
+		public void Move (Marker _marker, MoveMethod _moveMethod, bool _inWorldSpace, float _transitionTime, AnimationCurve _timeCurve)
 		{
 			if (GetComponent <Rigidbody>() && !GetComponent <Rigidbody>().isKinematic)
 			{
 				GetComponent <Rigidbody>().velocity = GetComponent <Rigidbody>().angularVelocity = Vector3.zero;
 			}
 			
+			inWorldSpace = _inWorldSpace;
+
 			if (_transitionTime == 0f)
 			{
 				positionChangeTime = rotateChangeTime = scaleChangeTime = 0f;
-				
-				transform.localPosition = _marker.transform.localPosition;
-				transform.localEulerAngles = _marker.transform.localEulerAngles;
-				transform.localScale = _marker.transform.localScale;
+
+				if (inWorldSpace)
+				{
+					Transform oldParent = transform.parent;
+					transform.SetParent (null, true);
+					transform.localScale = _marker.transform.lossyScale;
+					transform.position = _marker.transform.position;
+					transform.rotation = _marker.transform.rotation;
+					if (oldParent) transform.SetParent (oldParent, true);
+				}
+				else
+				{
+					transform.localPosition = _marker.transform.localPosition;
+					transform.localEulerAngles = _marker.transform.localEulerAngles;
+					transform.localScale = _marker.transform.localScale;
+				}
 			}
 			else
 			{
 				doEulerRotation = false;
 				positionMethod = rotateMethod = scaleMethod = _moveMethod;
-				
-				startPosition = transform.localPosition;
-				startRotation = transform.localRotation;
-				startScale = transform.localScale;
-				
-				endPosition = _marker.transform.localPosition;
-				endRotation = _marker.transform.localRotation;
-				endScale = _marker.transform.localScale;
+
+				if (inWorldSpace)
+				{
+					startPosition = transform.position;
+					startRotation = transform.rotation;
+					startScale = transform.localScale;
+					
+					endPosition = _marker.transform.position;
+					endRotation = _marker.transform.rotation;
+					endScale = _marker.transform.localScale;
+				}
+				else
+				{
+					startPosition = transform.localPosition;
+					startRotation = transform.localRotation;
+					startScale = transform.localScale;
+					
+					endPosition = _marker.transform.localPosition;
+					endRotation = _marker.transform.localRotation;
+					endScale = _marker.transform.localScale;
+				}
 				
 				positionChangeTime = rotateChangeTime = scaleChangeTime = _transitionTime;
 				positionStartTime = rotateStartTime = scaleStartTime = Time.time;
@@ -425,6 +520,8 @@ namespace AC
 				saveData.ScaleZ = endScale.z;
 			}
 
+			saveData.inWorldSpace = inWorldSpace;
+
 			return saveData;
 		}
 
@@ -435,9 +532,18 @@ namespace AC
 		 */
 		public void LoadData (MoveableData saveData)
 		{
+			inWorldSpace = saveData.inWorldSpace;
+
 			if (!saveData.doEulerRotation)
 			{
-				transform.localRotation = new Quaternion (saveData.RotW, saveData.RotX, saveData.RotY, saveData.RotZ);
+				if (inWorldSpace)
+				{
+					transform.rotation = new Quaternion (saveData.RotW, saveData.RotX, saveData.RotY, saveData.RotZ);
+				}
+				else
+				{
+					transform.localRotation = new Quaternion (saveData.RotW, saveData.RotX, saveData.RotY, saveData.RotZ);
+				}
 			}
 
 			StopMoving ();

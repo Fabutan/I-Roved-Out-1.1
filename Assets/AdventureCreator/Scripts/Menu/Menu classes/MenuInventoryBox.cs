@@ -128,6 +128,14 @@ namespace AC
 
 			base.Copy (_element);
 
+			if (Application.isPlaying)
+			{
+				if (!(inventoryBoxType == AC_InventoryBoxType.HotspotBased && maxSlots == 1))
+				{
+					alternativeInputButton = "";
+				}
+			}
+
 			Upgrade ();
 		}
 
@@ -286,6 +294,11 @@ namespace AC
 			if (inventoryBoxType == AC_InventoryBoxType.HotspotBased)
 			{
 				limitToDefinedInteractions = CustomGUILayout.ToggleLeft ("Only show items referenced in Interactions?", limitToDefinedInteractions, apiPrefix + ".limitToDefinedInteractions");
+
+				if (maxSlots == 1)
+				{
+					alternativeInputButton = CustomGUILayout.TextField ("Alternative input button:", alternativeInputButton, apiPrefix + ".alternativeInputButton");
+				}
 			}
 
 			displayType = (ConversationDisplayType) CustomGUILayout.EnumPopup ("Display type:", displayType, apiPrefix + ".displayType");
@@ -607,7 +620,8 @@ namespace AC
 							{
 								// Need to change index because we want to affect the actual inventory, not the percieved one shown in the restricted menu
 								List<InvItem> trueItemList = GetItemList (false);
-								trueIndex += LimitByCategory (trueItemList, _slot + offset).Offset;
+								LimitedItemList limitedItemList = LimitByCategory (trueItemList, _slot + offset);
+								trueIndex += limitedItemList.Offset;
 							}
 
 							KickStarter.runtimeInventory.localItems = KickStarter.runtimeInventory.MoveItemToIndex (KickStarter.runtimeInventory.SelectedItem, KickStarter.runtimeInventory.localItems, trueIndex);
@@ -749,7 +763,6 @@ namespace AC
 			{
 				LimitUISlotVisibility (uiSlots, 0, uiHideStyle);
 			}
-
 			base.RecalculateSize (source);
 		}
 		
@@ -925,6 +938,12 @@ namespace AC
 						itemsToLimit.RemoveAt (i);
 						i = -1;
 					}
+				}
+
+				// Bugfix: Remove extra nulls at end in case some where added as a result of re-ordering another menu
+				if (itemsToLimit != null && Application.isPlaying)
+				{
+					itemsToLimit = KickStarter.runtimeInventory.RemoveEmptySlots (itemsToLimit);
 				}
 			}
 

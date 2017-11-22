@@ -84,9 +84,17 @@ namespace AC
 			{
 				UpdateMoveStraightToCursorTime ();
 
-				if (!KickStarter.playerInput.IsMouseOnScreen () || KickStarter.playerInput.activeArrows != null)
+				if (KickStarter.playerInput.activeArrows != null)
 				{
 					return;
+				}
+
+				if (KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick || KickStarter.settingsManager.movementMethod == MovementMethod.Drag || KickStarter.settingsManager.movementMethod == MovementMethod.StraightToCursor)
+				{
+					if (!KickStarter.playerInput.IsMouseOnScreen ())
+					{
+						return;
+					}
 				}
 
 				if (KickStarter.settingsManager.disableMovementWhenInterationMenusAreOpen && KickStarter.player && KickStarter.stateHandler.gameState == GameState.Normal)
@@ -870,7 +878,7 @@ namespace AC
 								if (SceneSettings.IsUnity2D ())
 								{
 									// Down
-									if (SearchForNavMesh2D (simulatedMouse, Vector2.down, doubleClick))
+									if (SearchForNavMesh2D (simulatedMouse, -Vector2.up, doubleClick))
 									{
 										return;
 									}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -99,7 +100,7 @@ namespace AC
 
 			if (_target.GetComponent <Collider>() != null && _target.GetComponent <CharacterController>() == null)
 			{
-				_target.groundCheckLayerMask = EditorGUILayout.LayerField ("Grounded-check layer(s):", _target.groundCheckLayerMask);
+				_target.groundCheckLayerMask = LayerMaskField ("Ground-check layer(s):", _target.groundCheckLayerMask);
 			}
 			EditorGUILayout.EndVertical ();
 			
@@ -237,7 +238,41 @@ namespace AC
 				_target.expressions.Insert (i+1, _expression);
 				break;
 			}
+		}
 
+
+ 		private List<int> layerNumbers = new List<int>();
+		private LayerMask LayerMaskField (string label, LayerMask layerMask)
+		{
+			var layers = InternalEditorUtility.layers;
+
+			layerNumbers.Clear ();
+
+			for (int i = 0; i < layers.Length; i++)
+			layerNumbers.Add(LayerMask.NameToLayer(layers[i]));
+
+			int maskWithoutEmpty = 0;
+			for (int i = 0; i < layerNumbers.Count; i++)
+			{
+				if (((1 << layerNumbers[i]) & layerMask.value) > 0)
+				{
+					maskWithoutEmpty |= (1 << i);
+				}
+			}
+
+			maskWithoutEmpty = UnityEditor.EditorGUILayout.MaskField(label, maskWithoutEmpty, layers);
+
+			int mask = 0;
+			for (int i = 0; i < layerNumbers.Count; i++)
+			{
+				if ((maskWithoutEmpty & (1 << i)) != 0)
+				{
+					mask |= (1 << layerNumbers[i]);
+				}
+			}
+			layerMask.value = mask;
+
+			return layerMask;
 		}
 
 	}

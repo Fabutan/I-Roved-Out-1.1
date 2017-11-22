@@ -97,12 +97,22 @@ namespace AC
 
 
 		/**
+		 * <summary>Checks whether the class is used to override a Conversation's dialogue options within its own ActionList.</summary>
+		 * <returns>True if the class is used to override a Conversation's dialogue options within its own ActionList.</returns>
+		 */
+		public bool IsConversationOverride ()
+		{
+			return isConversationOverride;
+		}
+
+
+		/**
 		 * <summary>Checks whether the class contains any useful information. If not, the ActionListManager will delete it.</summary>
 		 * <returns>True if the class contains any useful information</returns>
 		 */
 		public bool IsNecessary ()
 		{
-			if (isRunning || inSkipQueue || isConversationOverride || resumeIndices.Length > 0)
+			if (isRunning || isConversationOverride || inSkipQueue || resumeIndices.Length > 0)
 			{
 				return true;
 			}

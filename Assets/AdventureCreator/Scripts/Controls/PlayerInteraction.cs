@@ -1124,13 +1124,15 @@ namespace AC
 
 						if (button.faceAfter)
 						{
+							Vector3 centrePoint = (_hotspot.centrePoint != null) ? _hotspot.centrePoint.position : _hotspot.transform.position;
+
 							if (SceneSettings.ActInScreenSpace ())
 							{
-								lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, _hotspot.transform.position);
+								lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, centrePoint);
 							}
 							else
 							{
-								lookVector = _hotspot.transform.position - KickStarter.player.transform.position;
+								lookVector = _hotspot.transform.position - centrePoint;
 								lookVector.y = 0;
 							}
 							

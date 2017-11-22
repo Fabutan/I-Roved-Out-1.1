@@ -730,6 +730,33 @@ namespace AC
 
 
 		/**
+		 * Called when manually ending a Conversation by invoking the 'EndConversation' input
+		 */
+		public void OnEndConversation ()
+		{
+			for (int i=0; i<activeLists.Count; i++)
+			{
+				if (activeLists[i].IsConversationOverride ())
+				{
+					activeLists[i].Reset (true);
+					activeLists.RemoveAt (i);
+					i--;
+				}
+			}
+
+			for (int i=0; i<KickStarter.actionListAssetManager.activeLists.Count; i++)
+			{
+				if (KickStarter.actionListAssetManager.activeLists[i].IsConversationOverride ())
+				{
+					KickStarter.actionListAssetManager.activeLists[i].Reset (true);
+					KickStarter.actionListAssetManager.activeLists.RemoveAt (i);
+					i--;
+				}
+			}
+		}
+
+
+		/**
 		 * <summary>Checks if a given ActionList should be skipped when the 'EndCutscene' input is triggered.</summary>
 		 * <param name = "actionList">The ActionList to check</param>
 		 * <param name = "originalValue">If True, the user would like it to be skippable.</param>

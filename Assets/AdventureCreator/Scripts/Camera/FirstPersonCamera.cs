@@ -109,8 +109,11 @@ namespace AC
 					deltaHeight = 0f;
 
 					Vector2 moveKeys = KickStarter.playerInput.GetMoveKeys ();
-					if ((moveKeys.x == 0f && moveKeys.y == 0f) || KickStarter.settingsManager.IsFirstPersonDragRotation () || (KickStarter.settingsManager.IsFirstPersonDragComplex () && Input.touchCount == 1) || !KickStarter.player.IsGrounded ())
-					{ 
+					if ((moveKeys.x == 0f && moveKeys.y == 0f) || 
+						KickStarter.settingsManager.IsFirstPersonDragRotation () || 
+						(KickStarter.settingsManager.IsFirstPersonDragComplex () && Input.touchCount == 1) || 
+						!KickStarter.player.IsGrounded ())
+					{
 						bobTimer = 0f;
 					} 
 					else
@@ -136,7 +139,6 @@ namespace AC
 						
 						deltaHeight = totalAxes * waveSlice * bobbingAmount;
 					}
-					
 					transform.localPosition = new Vector3 (transform.localPosition.x, height + deltaHeight, transform.localPosition.z);
 				}
 				else if (headBobMethod == FirstPersonHeadBobMethod.CustomAnimation)

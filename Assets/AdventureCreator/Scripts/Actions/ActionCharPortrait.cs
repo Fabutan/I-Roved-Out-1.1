@@ -58,6 +58,7 @@ namespace AC
 			{
 				_char.portraitIcon.texture = newPortraitGraphic;
 				_char.portraitIcon.ClearSprites ();
+				_char.portraitIcon.ClearCache ();
 			}
 			
 			return 0f;

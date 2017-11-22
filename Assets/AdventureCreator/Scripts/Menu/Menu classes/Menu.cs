@@ -1215,7 +1215,14 @@ namespace AC
 					return false;
 				}
 
+				bool turnOffAgain = false;
 				bool answer = false;
+				if (!canvas.gameObject.activeSelf)
+				{
+					canvas.gameObject.SetActive (true);
+					turnOffAgain = true;
+				}
+
 				if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
 				{
 					answer = RectTransformUtility.RectangleContainsScreenPoint (rectTransform, new Vector2 (_point.x, Screen.height - _point.y), null);
@@ -1223,6 +1230,11 @@ namespace AC
 				else
 				{
 					answer = RectTransformUtility.RectangleContainsScreenPoint (rectTransform, new Vector2 (_point.x, Screen.height - _point.y), canvas.worldCamera);
+				}
+
+				if (turnOffAgain)
+				{
+					canvas.gameObject.SetActive (false);
 				}
 
 				return answer;
@@ -1726,7 +1738,7 @@ namespace AC
 			}
 
 			bool canRunOffAsset = false;
-			if (actionListOnTurnOff != null && !isFading)
+			if (actionListOnTurnOff != null && !IsFadingOut ())
 			{
 				canRunOffAsset = true;
 			}
@@ -1782,7 +1794,7 @@ namespace AC
 		{
 			if (isEnabled || isFading)
 			{
-				if (!ignoreActionList && actionListOnTurnOff != null && !isFading)
+				if (!ignoreActionList && actionListOnTurnOff != null && !IsFadingOut ())
 				{
 					AdvGame.RunActionListAsset (actionListOnTurnOff);
 				}

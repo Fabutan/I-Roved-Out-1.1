@@ -45,7 +45,7 @@ namespace AC
 			filter.useTriggers = true;
 			filter.SetLayerMask (layerMask);
 			filter.ClearDepth ();
-			Physics2D.Raycast (origin, Vector2.zero, filter, hits, length);
+			Physics2D.Raycast (origin, direction, filter, hits, length);
 			return hits[0];
 			#else
 			return Physics2D.Raycast (origin, direction, length, layerMask);
@@ -67,7 +67,7 @@ namespace AC
 			ContactFilter2D filter = new ContactFilter2D();
 			filter.useTriggers = true;
 			filter.ClearDepth ();
-			Physics2D.Raycast (origin, Vector2.zero, filter, hits, length);
+			Physics2D.Raycast (origin, direction, filter, hits, length);
 			return hits[0];
 			#else
 			return Physics2D.Raycast (origin, direction, length);

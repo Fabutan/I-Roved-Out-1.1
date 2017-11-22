@@ -227,7 +227,7 @@ namespace AC
 				AssetDatabase.RenameAsset ("Assets/" + managerPath + "/ActionsManager.asset", gameName + "_ActionsManager");
 				references.actionsManager = (ActionsManager) t;
 				AdventureCreator.RefreshActions ();
-				ActionsManager defaultActionsManager = AssetDatabase.LoadAssetAtPath("Assets/AdventureCreator/Default/Default_ActionsManager.asset", typeof(ActionsManager)) as ActionsManager;
+				ActionsManager defaultActionsManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_ActionsManager.asset", typeof(ActionsManager)) as ActionsManager;
 				if (defaultActionsManager != null)
 				{
 					references.actionsManager.defaultClass = defaultActionsManager.defaultClass;
@@ -256,7 +256,7 @@ namespace AC
 				AssetDatabase.RenameAsset ("Assets/" + managerPath + "/MenuManager.asset", gameName + "_MenuManager");
 				references.menuManager = (MenuManager) t;
 
-				CursorManager defaultCursorManager = AssetDatabase.LoadAssetAtPath("Assets/AdventureCreator/Default/Default_CursorManager.asset", typeof(CursorManager)) as CursorManager;
+				CursorManager defaultCursorManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_CursorManager.asset", typeof(CursorManager)) as CursorManager;
 				if (wizardMenu == WizardMenu.Blank)
 				{
 					if (defaultCursorManager != null)
@@ -289,7 +289,7 @@ namespace AC
 					references.cursorManager.allowMainCursor = true;
 					EditorUtility.SetDirty (references.cursorManager);
 
-					MenuManager defaultMenuManager = AssetDatabase.LoadAssetAtPath("Assets/AdventureCreator/Default/Default_MenuManager.asset", typeof(MenuManager)) as MenuManager;
+					MenuManager defaultMenuManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_MenuManager.asset", typeof(MenuManager)) as MenuManager;
 					if (defaultMenuManager != null)
 					{
 						#if UNITY_EDITOR
@@ -334,8 +334,10 @@ namespace AC
 							foreach (MenuElement newElement in newMenu.elements)
 							{
 								AssetDatabase.AddObjectToAsset (newElement, references.menuManager);
+								newElement.hideFlags = HideFlags.HideInHierarchy;
 							}
 							AssetDatabase.AddObjectToAsset (newMenu, references.menuManager);
+							newMenu.hideFlags = HideFlags.HideInHierarchy;
 
 							references.menuManager.menus.Add (newMenu);
 						}
@@ -353,7 +355,11 @@ namespace AC
 				AssetDatabase.SaveAssets ();
 				if (GameObject.FindObjectOfType <KickStarter>() == null)
 				{
-					references.sceneManager.InitialiseObjects ();
+					bool initScene = EditorUtility.DisplayDialog ("Setup scene?", "Process complete.  Would you like to organise the scene objects to begin working?  This can be done at any time within the Scene Manager.", "Yes", "No");
+					if (initScene)
+					{
+						references.sceneManager.InitialiseObjects ();
+					}
 				}
 			}
 			catch (System.Exception e)
@@ -526,13 +532,13 @@ namespace AC
 
 				if (wizardMenu == WizardMenu.DefaultAC || wizardMenu == WizardMenu.DefaultUnityUI)
 				{
-					MenuManager defaultMenuManager = AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Default/Default_MenuManager.asset", typeof(MenuManager)) as MenuManager;
-					CursorManager defaultCursorManager = AssetDatabase.LoadAssetAtPath( "Assets/AdventureCreator/Default/Default_CursorManager.asset", typeof(CursorManager)) as CursorManager;
-					ActionsManager defaultActionsManager = AssetDatabase.LoadAssetAtPath( "Assets/AdventureCreator/Default/Default_ActionsManager.asset", typeof(ActionsManager)) as ActionsManager;
+					MenuManager defaultMenuManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_MenuManager.asset", typeof(MenuManager)) as MenuManager;
+					CursorManager defaultCursorManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_CursorManager.asset", typeof(CursorManager)) as CursorManager;
+					ActionsManager defaultActionsManager = AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Default/Default_ActionsManager.asset", typeof(ActionsManager)) as ActionsManager;
 
 					if (defaultMenuManager == null || defaultCursorManager == null || defaultActionsManager == null)
 					{
-						EditorGUILayout.HelpBox ("Unable to locate the default Manager assets in '/AdventureCreator/Default'. These assets must be imported in order to start with the default interface.", MessageType.Warning);
+						EditorGUILayout.HelpBox ("Unable to locate the default Manager assets in '" + Resource.mainFolderPath + "/Default'. These assets must be imported in order to start with the default interface.", MessageType.Warning);
 					}
 				}
 
@@ -577,7 +583,7 @@ namespace AC
 			{
 				GUILayout.Label ("Congratulations, your game's Managers have been set up!");
 				GUILayout.Space (5f);
-				GUILayout.Label ("Your scene objects have also been organised for Adventure Creator to use. Your next step is to create and set your Player prefab, which you can do using the Character Wizard.");
+				GUILayout.Label ("Your next step is to create and set your Player prefab, which you can do using the Character Wizard.");
 			}
 		}
 

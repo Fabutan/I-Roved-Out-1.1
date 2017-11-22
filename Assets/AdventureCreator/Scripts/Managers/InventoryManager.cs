@@ -161,14 +161,14 @@ namespace AC
 		private void ItemsGUI ()
 		{
 			EditorGUILayout.BeginVertical (CustomStyles.thinBox);
-			showUnhandledEvents = CustomGUILayout.ToggleHeader (showUnhandledEvents, "Unhandled events");
+			showUnhandledEvents = CustomGUILayout.ToggleHeader (showUnhandledEvents, "Global unhandled events");
 			if (showUnhandledEvents)
 			{
-				unhandledCombine = ActionListAssetMenu.AssetGUI ("Combine:", unhandledCombine, "AC.KickStarter.runtimeInventory.unhandledCombine");
-				unhandledHotspot = ActionListAssetMenu.AssetGUI ("Use on hotspot:", unhandledHotspot, "AC.KickStarter.runtimeInventory.unhandledHotspot");
+				unhandledCombine = ActionListAssetMenu.AssetGUI ("Combine:", unhandledCombine, "AC.KickStarter.runtimeInventory.unhandledCombine", "Inventory_Unhandled_Combine");
+				unhandledHotspot = ActionListAssetMenu.AssetGUI ("Use on hotspot:", unhandledHotspot, "AC.KickStarter.runtimeInventory.unhandledHotspot", "Inventory_Unhandled_Hotspot");
 				if (settingsManager != null && settingsManager.CanGiveItems ())
 				{
-					unhandledGive = ActionListAssetMenu.AssetGUI ("Give to NPC:", unhandledGive, "AC.KickStarter.runtimeInventory.unhandledGive");
+					unhandledGive = ActionListAssetMenu.AssetGUI ("Give to NPC:", unhandledGive, "AC.KickStarter.runtimeInventory.unhandledGive", "Inventory_Unhandled_Give");
 				}
 
 				if (unhandledHotspot != null)

@@ -973,6 +973,26 @@ namespace AC
 				}
 			}
 
+			else if (menu.appearType == AppearType.ExceptWhenPaused)
+			{
+				if (KickStarter.stateHandler.gameState != GameState.Paused && !menu.isLocked)
+				{
+					if (menu.IsOff ())
+					{
+						menu.TurnOn (true);
+					}
+
+					if (menu.IsOn () && menu.IsPointInside (invertedMouse) && !menu.ignoreMouseClicks)
+					{
+						foundMouseOverMenu = true;
+					}
+				}
+				else if (KickStarter.stateHandler.gameState == GameState.Paused)
+				{
+					menu.TurnOff (true);
+				}
+			}
+
 			else if (menu.appearType == AppearType.DuringCutscene)
 			{
 				if (KickStarter.stateHandler.gameState == GameState.Cutscene && !menu.isLocked)
@@ -2466,6 +2486,8 @@ namespace AC
 		 */
 		public static Menu GetMenuWithName (string menuName)
 		{
+			menuName = AdvGame.ConvertTokens (menuName);
+
 			if (KickStarter.playerMenus && KickStarter.playerMenus.menus != null)
 			{
 				if (KickStarter.playerMenus.menus.Count == 0 && KickStarter.menuManager != null && KickStarter.menuManager.menus.Count > 0)
@@ -2496,6 +2518,9 @@ namespace AC
 		{
 			if (KickStarter.playerMenus && KickStarter.playerMenus.menus != null)
 			{
+				menuName = AdvGame.ConvertTokens (menuName);
+				menuElementName = AdvGame.ConvertTokens (menuElementName);
+
 				if (KickStarter.playerMenus.menus.Count == 0 && KickStarter.menuManager != null && KickStarter.menuManager.menus.Count > 0)
 				{
 					ACDebug.LogError ("A custom script is calling 'PlayerMenus.GetElementWithName ()' before the Menus have been initialised - consider adjusting your script's Script Execution Order.");

@@ -14,7 +14,7 @@ namespace AC
 		[MenuItem ("Adventure Creator/Editors/Active Inputs Editor", false, 0)]
 		public static void Init ()
 		{
-			ActiveInputsWindow window = (ActiveInputsWindow) EditorWindow.GetWindow (typeof (ActiveInputsWindow));
+			ActiveInputsWindow window = EditorWindow.GetWindowWithRect <ActiveInputsWindow> (new Rect (0, 0, 450, 400), true, "Active inputs", true);
 			UnityVersionHandler.SetWindowTitle (window, "Active Inputs");
 			window.position = new Rect (300, 200, 450, 400);
 		}

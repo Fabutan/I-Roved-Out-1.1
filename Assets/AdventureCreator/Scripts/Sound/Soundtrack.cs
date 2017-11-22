@@ -197,11 +197,20 @@ namespace AC
 
 		private void EndOthers ()
 		{
-			Sound[] sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
-			foreach (Sound sound in sounds)
+			if (EndsOthers ())
 			{
-				sound.EndOld (soundType, this);
+				Sound[] sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
+				foreach (Sound sound in sounds)
+				{
+					sound.EndOld (soundType, this);
+				}
 			}
+		}
+
+
+		protected virtual bool EndsOthers ()
+		{
+			return false;
 		}
 
 
@@ -277,7 +286,13 @@ namespace AC
 				else
 				{
 					SetRelativeVolume (musicStorage.relativeVolume);
-					
+
+					if (fadeTime <= 0f && KickStarter.stateHandler.gameState != GameState.Paused)
+					{
+						// Prevents volume not correct in first frame of play
+						fadeTime = 0.001f;
+					}
+
 					if (fadeTime > 0f)
 					{
 						audioSource.clip = musicStorage.audioClip;

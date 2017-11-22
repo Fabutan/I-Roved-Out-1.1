@@ -149,7 +149,7 @@ namespace AC
 		private Vector3 exactDestination;
 
 		/** The layermask to use when Raycasting to determine if the character is grounded or not */
-		public LayerMask groundCheckLayerMask = 0;
+		public int groundCheckLayerMask = 1;
 
 		// Mecanim variables
 		
@@ -157,6 +157,8 @@ namespace AC
 		public string moveSpeedParameter = "Speed";
 		/** The name of the Mecanim float parameter set to the vertical movement speed, if using AnimEngine_Mecanim */
 		public string verticalMovementParameter = "";
+		/** The name of the Mecanim float parameter set to the 'Is Grounded' bool, is using AnimEngine_Mecanim */
+		public string isGroundedParameter;
 		/** The name of the Mecanim float parameter set to the turning direction, if using AnimEngine_Mecanim */
 		public string turnParameter = "";
 		/** The name of the Mecanim bool parameter set to True while talking, if using AnimEngine_Mecanim */
@@ -276,6 +278,7 @@ namespace AC
 		protected Rigidbody _rigidbody = null;
 		protected Rigidbody2D _rigidbody2D = null;
 		protected Collider _collider = null;
+		private CapsuleCollider[] capsuleColliders;
 		protected CharacterController _characterController;
 		
 		// Wall detection vargiables
@@ -470,6 +473,7 @@ namespace AC
 			{
 				_collider = GetComponent <Collider>();
 			}
+			capsuleColliders = GetComponentsInChildren <CapsuleCollider>();
 
 			AdvGame.AssignMixerGroup (speechAudioSource, SoundType.Speech);
 			AdvGame.AssignMixerGroup (audioSource, SoundType.SFX);
@@ -3324,7 +3328,7 @@ namespace AC
 			
 			if (_collider != null && _collider.enabled)
 			{
-				return Physics.CheckCapsule (transform.position + new Vector3 (0f, _collider.bounds.size.y, 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), _collider.bounds.size.x / 2f, groundCheckLayerMask);
+				return Physics.CheckCapsule (transform.position + new Vector3 (0f, _collider.bounds.size.y - (_collider.bounds.size.x / 2f), 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), _collider.bounds.size.x / 2f, groundCheckLayerMask);
 			}
 
 			if (_rigidbody != null && Mathf.Abs (_rigidbody.velocity.y) > 0.1f)
@@ -3337,14 +3341,13 @@ namespace AC
 				return !isJumping;
 			}
 
-			if (KickStarter.settingsManager.movementMethod == MovementMethod.FirstPerson)
+			if (KickStarter.settingsManager.movementMethod == MovementMethod.FirstPerson && capsuleColliders != null)
 			{
-				CapsuleCollider[] capsuleColliders = GetComponentsInChildren <CapsuleCollider>();
 				foreach (CapsuleCollider capsuleCollider in capsuleColliders)
 				{
 					if (!capsuleCollider.isTrigger && capsuleCollider.enabled)
 					{
-						return Physics.CheckCapsule (transform.position + new Vector3 (0f, capsuleCollider.bounds.size.y, 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), capsuleCollider.bounds.size.x / 2f);
+						return Physics.CheckCapsule (transform.position + new Vector3 (0f, _collider.bounds.size.y - (_collider.bounds.size.x / 2f), 0f), transform.position + new Vector3 (0f, _collider.bounds.size.x / 4f, 0f), _collider.bounds.size.x / 2f, groundCheckLayerMask);
 					}
 				}
 			}

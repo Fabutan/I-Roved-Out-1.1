@@ -1086,7 +1086,7 @@ namespace AC
 				{
 					if (activeArrows.arrowPromptType == ArrowPromptType.KeyOnly || activeArrows.arrowPromptType == ArrowPromptType.KeyAndClick)
 					{
-						Vector2 normalizedVector = new Vector2 (InputGetAxis ("Horizontal"), InputGetAxis ("Vertical"));
+						Vector2 normalizedVector = new Vector2 (InputGetAxis ("Horizontal"), -InputGetAxis ("Vertical"));
 
 						if (KickStarter.settingsManager.inputMethod == InputMethod.TouchScreen && dragState == DragState.ScreenArrows)
 						{
@@ -2490,9 +2490,9 @@ namespace AC
 		 */
 		public void EndConversation ()
 		{
-			if (KickStarter.playerInput.activeConversation != null)
+			if (activeConversation != null)
 			{
-				KickStarter.playerInput.activeConversation = null;
+				activeConversation = null;
 			}
 		}
 

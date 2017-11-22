@@ -69,6 +69,7 @@ namespace AC
 			if (KickStarter.playerInput.InputGetButtonDown ("EndConversation") && KickStarter.stateHandler.gameState == GameState.DialogOptions)
 			{
 				KickStarter.playerInput.EndConversation ();
+				KickStarter.actionListManager.OnEndConversation ();
 				KickStarter.actionListManager.SetCorrectGameState ();
 			}
 		}

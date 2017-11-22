@@ -124,6 +124,11 @@ namespace AC
 				return;
 			}
 
+			if (_holdDuration > _duration)
+			{
+				_holdDuration = _duration;
+			}
+
 			holdDuration = _holdDuration;
 			Setup (QTEType.HoldKey, _inputName, _duration, _animator, _wrongKeyFails, 0f);
 		}

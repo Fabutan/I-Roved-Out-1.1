@@ -270,13 +270,6 @@ MonoBehaviour:
     description: Queries either the plaform the game is running on.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionTimeline
-    category: 5
-    title: Control Timeline
-    description: Controls a Timeline.  This is only compatible with Unity 2017 or
-      newer.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionEndGame
     category: 5
     title: End game
@@ -343,12 +336,6 @@ MonoBehaviour:
     description: Initiates a Quick Time Event for a set duration. The QTE type can
       either be a single key- press, holding a button down, or button-mashing. The
       Input button must be defined in Unity's Input Manager.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionInputActive
-    category: 7
-    title: Toggle active
-    description: Enables or disables an Active Input
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionInventorySet
@@ -467,7 +454,9 @@ MonoBehaviour:
   - fileName: ActionEvent
     category: 11
     title: Call event
-    description: Calls a given function on a GameObject.
+    description: Sends a given message to a GameObject. Can be either a message commonly-used
+      by Adventure Creator (Interact, TurnOn, etc) or a custom one, with an integer
+      argument.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionChangeMaterial
@@ -508,12 +497,6 @@ MonoBehaviour:
     description: Gives a glow effect to any mesh object with the Highlight script
       component attached to it. Can also be used to make Inventory items glow, making
       it useful for tutorial sections.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionTransformRecord
-    category: 11
-    title: Record transform
-    description: Records the transform values of a GameObject.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionSendMessage
@@ -642,23 +625,6 @@ MonoBehaviour:
       effect; if the next scene doesn''t fade, it will cause a straight cut.'
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionSceneSwitchPrevious
-    category: 14
-    title: Switch previous
-    description: 'Moves the Player to the previously-loaded scene. The scene must
-      be listed in Unity''s Build Settings. By default, the screen will cut to black
-      during the transition, but the last frame of the current scene can instead be
-      overlayed. This allows for cinematic effects: if the next scene fades in, it
-      will cause a crossfade effect; if the next scene doesn''t fade, it will cause
-      a straight cut.'
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionFootstepSounds
-    category: 15
-    title: Change footsteps
-    description: Changes the sounds used by a FootstepSounds component.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionVolume
     category: 15
     title: Change volume
@@ -670,12 +636,6 @@ MonoBehaviour:
     title: Play
     description: Triggers a Sound object to start playing. Can be used to fade sounds
       in or out.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionAmbience
-    category: 15
-    title: Play ambience
-    description: Plays or queues ambience clips.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMusic
@@ -1021,13 +981,6 @@ MonoBehaviour:
     description: Queries either the plaform the game is running on.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionTimeline
-    category: 5
-    title: Control Timeline
-    description: Controls a Timeline.  This is only compatible with Unity 2017 or
-      newer.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionEndGame
     category: 5
     title: End game
@@ -1094,12 +1047,6 @@ MonoBehaviour:
     description: Initiates a Quick Time Event for a set duration. The QTE type can
       either be a single key- press, holding a button down, or button-mashing. The
       Input button must be defined in Unity's Input Manager.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionInputActive
-    category: 7
-    title: Toggle active
-    description: Enables or disables an Active Input
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionInventorySet
@@ -1218,7 +1165,9 @@ MonoBehaviour:
   - fileName: ActionEvent
     category: 11
     title: Call event
-    description: Calls a given function on a GameObject.
+    description: Sends a given message to a GameObject. Can be either a message commonly-used
+      by Adventure Creator (Interact, TurnOn, etc) or a custom one, with an integer
+      argument.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionChangeMaterial
@@ -1259,12 +1208,6 @@ MonoBehaviour:
     description: Gives a glow effect to any mesh object with the Highlight script
       component attached to it. Can also be used to make Inventory items glow, making
       it useful for tutorial sections.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionTransformRecord
-    category: 11
-    title: Record transform
-    description: Records the transform values of a GameObject.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionSendMessage
@@ -1393,23 +1336,6 @@ MonoBehaviour:
       effect; if the next scene doesn''t fade, it will cause a straight cut.'
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionSceneSwitchPrevious
-    category: 14
-    title: Switch previous
-    description: 'Moves the Player to the previously-loaded scene. The scene must
-      be listed in Unity''s Build Settings. By default, the screen will cut to black
-      during the transition, but the last frame of the current scene can instead be
-      overlayed. This allows for cinematic effects: if the next scene fades in, it
-      will cause a crossfade effect; if the next scene doesn''t fade, it will cause
-      a straight cut.'
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionFootstepSounds
-    category: 15
-    title: Change footsteps
-    description: Changes the sounds used by a FootstepSounds component.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionVolume
     category: 15
     title: Change volume
@@ -1421,12 +1347,6 @@ MonoBehaviour:
     title: Play
     description: Triggers a Sound object to start playing. Can be used to fade sounds
       in or out.
-    isEnabled: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - fileName: ActionAmbience
-    category: 15
-    title: Play ambience
-    description: Plays or queues ambience clips.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMusic

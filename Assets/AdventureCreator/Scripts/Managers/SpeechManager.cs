@@ -342,6 +342,11 @@ namespace AC
 			showGameText = CustomGUILayout.ToggleHeader (showGameText, "Game text");
 			if (showGameText)
 			{
+				EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+				string numLines = (lines != null) ? lines.Count.ToString () : "0";
+				EditorGUILayout.LabelField ("Gathered " + numLines + " lines of text.");
+				EditorGUILayout.EndVertical ();
+
 				EditorGUILayout.BeginHorizontal ();
 				if (GUILayout.Button ("Gather text", EditorStyles.miniButtonLeft))
 				{

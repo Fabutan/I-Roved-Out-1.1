@@ -53,7 +53,7 @@ namespace AC
 		
 		override public float Run ()
 		{
-			SceneInfo sceneInfo = new SceneInfo (chooseSceneBy, sceneName, sceneNumber);
+			SceneInfo sceneInfo = new SceneInfo (chooseSceneBy, AdvGame.ConvertTokens (sceneName), sceneNumber);
 
 			if (!isRunning)
 			{

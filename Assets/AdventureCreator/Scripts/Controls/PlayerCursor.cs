@@ -328,7 +328,9 @@ namespace AC
 					DrawMainCursor ();
 				}
 				else if (KickStarter.settingsManager.inventoryActiveEffect != InventoryActiveEffect.None && KickStarter.runtimeInventory.SelectedItem.CanBeAnimated () && KickStarter.playerMenus.GetHotspotLabel () != "" &&
-				    (KickStarter.settingsManager.activeWhenUnhandled || KickStarter.playerInteraction.DoesHotspotHaveInventoryInteraction () || (KickStarter.runtimeInventory.hoverItem != null && KickStarter.runtimeInventory.hoverItem.DoesHaveInventoryInteraction (KickStarter.runtimeInventory.SelectedItem))))
+				    	(KickStarter.settingsManager.activeWhenUnhandled || 
+				    	KickStarter.playerInteraction.DoesHotspotHaveInventoryInteraction () || 
+				    	(KickStarter.runtimeInventory.hoverItem != null && KickStarter.runtimeInventory.hoverItem.DoesHaveInventoryInteraction (KickStarter.runtimeInventory.SelectedItem))))
 				{
 					if (KickStarter.cursorManager.inventoryHandling == InventoryHandling.ChangeHotspotLabel)
 					{

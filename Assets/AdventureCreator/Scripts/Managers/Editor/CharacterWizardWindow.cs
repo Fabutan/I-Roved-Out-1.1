@@ -19,14 +19,15 @@ namespace AC
 		private bool enforce3D = false;
 
 		private enum CharType { Player, NPC };
+		private Rect pageRect = new Rect (350, 335, 150, 25);
 
 
 		[MenuItem ("Adventure Creator/Editors/Character wizard", false, 4)]
 		public static void Init ()
 		{
-			CharacterWizardWindow window = (CharacterWizardWindow) EditorWindow.GetWindow (typeof (CharacterWizardWindow));
+			CharacterWizardWindow window = EditorWindow.GetWindowWithRect <CharacterWizardWindow> (new Rect (0, 0, 420, 360), true, "Character Wizard", true);
 			UnityVersionHandler.SetWindowTitle (window, "Character wizard");
-			window.position = new Rect (300, 200, 350, 300);
+			window.position = new Rect (300, 200, 420, 360);
 		}
 		
 
@@ -48,7 +49,9 @@ namespace AC
 		
 		private void OnGUI ()
 		{
-			GUILayout.Label (GetTitle (), EditorStyles.largeLabel);
+			GUILayout.BeginVertical (CustomStyles.thinBox, GUILayout.ExpandWidth (true), GUILayout.ExpandHeight (true));
+
+			GUILayout.Label (GetTitle (), CustomStyles.managerHeader);
 			if (GetTitle () != "")
 			{
 				EditorGUILayout.Separator ();
@@ -150,7 +153,10 @@ namespace AC
 			}
 			GUILayout.EndHorizontal ();
 			
-			GUILayout.Label ("Page " + (pageNumber + 1) + " of " + (numPages + 1));
+			GUI.Label (pageRect, "Page " + (pageNumber + 1) + " of " + (numPages + 1));
+
+			GUILayout.FlexibleSpace ();
+			EditorGUILayout.EndVertical ();
 		}
 		
 		
@@ -222,6 +228,8 @@ namespace AC
 				newCharacterOb.transform.parent = newBaseObject.transform;
 				newCharacterOb.transform.position = Vector3.zero;
 				newCharacterOb.transform.eulerAngles = Vector3.zero;
+
+				newBaseObject.layer = LayerMask.NameToLayer ("Ignore Raycast");
 			}
 
 			if (animationEngine == AnimationEngine.Mecanim || animationEngine == AnimationEngine.SpritesUnity || animationEngine == AnimationEngine.SpritesUnityComplex)
@@ -255,7 +263,7 @@ namespace AC
 				charScript = newBaseObject.AddComponent <Player>();
 				newBaseObject.tag = Tags.player;
 			}
-			else
+			else if (charType == CharType.NPC)
 			{
 				charScript = newBaseObject.AddComponent <NPC>();
 
@@ -272,11 +280,13 @@ namespace AC
 					capsuleCollider.center = new Vector3 (0f, 1f, 0f);
 					capsuleCollider.height = 2f;
 				}
-				newCharacterOb.AddComponent <Hotspot>();
+
+				Hotspot hotspot = newCharacterOb.AddComponent <Hotspot>();
 				if (is2D)
 				{
-					newCharacterOb.GetComponent <Hotspot>().drawGizmos = false;
+					hotspot.drawGizmos = false;
 				}
+				hotspot.hotspotName = charName;
 			}
 
 			if (is2D)
@@ -339,6 +349,7 @@ namespace AC
 
 			GameObject soundChild = new GameObject ("Sound child");
 			soundChild.transform.parent = newBaseObject.transform;
+			soundChild.transform.localPosition = Vector3.zero;
 			soundChild.AddComponent <AudioSource>();
 			Sound sound = soundChild.AddComponent <Sound>();
 			charScript.soundChild = sound;
@@ -357,9 +368,9 @@ namespace AC
 			{
 				if (Resource.ACLogo != null)
 				{
-					GUILayout.Label (Resource.ACLogo);
+					GUI.DrawTexture (new Rect (82, 25, 256, 128), Resource.ACLogo);
 				}
-				GUILayout.Space (5f);
+				GUILayout.Space (140f);
 				GUILayout.Label ("This window can assist with the creation of a Player or NPC.");
 				GUILayout.Label ("To begin, click 'Next'.");
 			}

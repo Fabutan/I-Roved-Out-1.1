@@ -269,22 +269,19 @@ namespace AC
 				}
 			}
 
-			if (saveHandling == SaveHandling.OverwriteExistingSave || saveHandling == SaveHandling.SaveNewGame)
+			if ((saveHandling == SaveHandling.OverwriteExistingSave && selectSaveType != SelectSaveType.Autosave) || saveHandling == SaveHandling.SaveNewGame)
 			{
-				if (selectSaveType != SelectSaveType.Autosave)
+				if (saveHandling == SaveHandling.OverwriteExistingSave)
 				{
 					EditorGUILayout.Space ();
-					if (saveHandling == SaveHandling.OverwriteExistingSave)
+					updateLabel = EditorGUILayout.Toggle ("Update label?", updateLabel);
+				}
+				if (updateLabel || saveHandling == SaveHandling.SaveNewGame)
+				{
+					customLabel = EditorGUILayout.Toggle ("With custom label?", customLabel);
+					if (customLabel)
 					{
-						updateLabel = EditorGUILayout.Toggle ("Update label?", updateLabel);
-					}
-					if (updateLabel || saveHandling == SaveHandling.SaveNewGame)
-					{
-						customLabel = EditorGUILayout.Toggle ("With custom label?", customLabel);
-						if (customLabel)
-						{
-							varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID, VariableType.String);
-						}
+						varID = AdvGame.GlobalVariableGUI ("Label as String variable:", varID, VariableType.String);
 					}
 				}
 			}

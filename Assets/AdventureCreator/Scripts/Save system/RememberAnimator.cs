@@ -135,11 +135,19 @@ namespace AC
 		{
 			int nameHash = stateInfo.shortNameHash;
 			float timeAlong = stateInfo.normalizedTime;
+
 			if (timeAlong > 1f)
 			{
-				while (timeAlong > 1f)
+				if (stateInfo.loop)
 				{
-					timeAlong -= 1f;
+					while (timeAlong > 1f)
+					{
+						timeAlong -= 1f;
+					}
+				}
+				else
+				{
+					timeAlong = 1f;
 				}
 			}
 

@@ -213,6 +213,9 @@ namespace AC
 		/** Its Z scale */
 		public float ScaleZ;
 
+		/** If True, the movement is occuring in world-space */
+		public bool inWorldSpace;
+
 
 		/**
 		 * The default Constructor.

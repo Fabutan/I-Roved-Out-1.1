@@ -1908,7 +1908,20 @@ namespace AC
 					SaveActionList (list);
 				}
 			}
-			
+
+			// Cameras
+			PlayerStart[] playerStarts = GameObject.FindObjectsOfType (typeof (PlayerStart)) as PlayerStart[];
+			foreach (PlayerStart playerStart in playerStarts)
+			{
+				if (playerStart.cameraOnStart != null && playerStart.cameraOnStart.GetComponent <ConstantID>() == null)
+				{
+					ConstantID newConstantID = playerStart.cameraOnStart.gameObject.AddComponent <ConstantID>();
+					newConstantID.AssignInitialValue ();
+
+					ACDebug.Log ("Added '" + newConstantID.GetType ().ToString () + "' component to " + playerStart.cameraOnStart.gameObject.name);
+				}
+			}
+				
 			// Hotspots
 			Hotspot[] hotspots = GameObject.FindObjectsOfType (typeof (Hotspot)) as Hotspot[];
 			foreach (Hotspot hotspot in hotspots)
@@ -2066,7 +2079,6 @@ namespace AC
 			{
 				SaveActions (actionList.actions);
 			}
-			
 		}
 		
 		

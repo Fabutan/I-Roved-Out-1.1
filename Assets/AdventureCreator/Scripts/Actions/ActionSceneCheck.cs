@@ -73,7 +73,7 @@ namespace AC
 
 			if (intCondition == IntCondition.EqualTo)
 			{
-				if (chooseSceneBy == ChooseSceneBy.Name && actualSceneName == sceneName)
+				if (chooseSceneBy == ChooseSceneBy.Name && actualSceneName == AdvGame.ConvertTokens (sceneName))
 				{
 					return true;
 				}
@@ -86,7 +86,7 @@ namespace AC
 			
 			else if (intCondition == IntCondition.NotEqualTo)
 			{
-				if (chooseSceneBy == ChooseSceneBy.Name && actualSceneName != sceneName)
+				if (chooseSceneBy == ChooseSceneBy.Name && actualSceneName != AdvGame.ConvertTokens (sceneName))
 				{
 					return true;
 				}

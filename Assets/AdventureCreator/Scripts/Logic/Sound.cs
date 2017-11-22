@@ -418,7 +418,6 @@ namespace AC
 			{
 				maxVolume *= otherVolume;
 			}
-
 			SetFinalVolume ();
 		}
 

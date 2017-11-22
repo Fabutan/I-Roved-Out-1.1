@@ -188,7 +188,7 @@ namespace AC
 		 */
 		public void CanGlobalOnStart ()
 		{
-			runAtLeastOnce = true;
+			runAtLeastOnce = false;
 		}
 
 

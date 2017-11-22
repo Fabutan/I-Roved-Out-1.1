@@ -20,6 +20,9 @@ namespace AC
 	public class Resource
 	{
 
+		// Path to root AC folder
+		public const string mainFolderPath = "Assets/AdventureCreator";
+
 		// Main Reference resource
 		public const string references = "References";
 
@@ -67,10 +70,10 @@ namespace AC
 			{
 				if (acLogo == null)
 				{
-					acLogo = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Textures/logo.png", typeof (Texture2D));
+					acLogo = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/logo.png", typeof (Texture2D));
 					if (acLogo == null)
 					{
-						ACDebug.LogWarning ("Cannot find Texture asset file 'Assets/AdventureCreator/Graphics/Textures/logo.png'");
+						ACDebug.LogWarning ("Cannot find Texture asset file '" + Resource.mainFolderPath + "/Graphics/Textures/logo.png'");
 					}
 				}
 				return acLogo;
@@ -84,10 +87,10 @@ namespace AC
 			{
 				if (cogIcon == null)
 				{
-					cogIcon = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Textures/inspector-use.png", typeof (Texture2D));
+					cogIcon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/inspector-use.png", typeof (Texture2D));
 					if (cogIcon == null)
 					{
-						ACDebug.LogWarning ("Cannot find Texture asset file 'Assets/AdventureCreator/Graphics/Textures/inspector-use.png'");
+						ACDebug.LogWarning ("Cannot find Texture asset file '" + Resource.mainFolderPath + "/Graphics/Textures/inspector-use.png'");
 					}
 				}
 				return cogIcon;
@@ -101,10 +104,10 @@ namespace AC
 			{
 				if (greyTexture == null)
 				{
-					greyTexture = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Textures/grey.png", typeof (Texture2D));
+					greyTexture = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/grey.png", typeof (Texture2D));
 					if (greyTexture == null)
 					{
-						ACDebug.LogWarning ("Cannot find Texture asset file 'Assets/AdventureCreator/Graphics/Textures/grey.png'");
+						ACDebug.LogWarning ("Cannot find Texture asset file '" + Resource.mainFolderPath + "/Graphics/Textures/grey.png'");
 					}
 				}
 				return greyTexture;
@@ -118,10 +121,10 @@ namespace AC
 			{
 				if (nodeSkin == null)
 				{
-					nodeSkin = (GUISkin) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Skins/ACNodeSkin.guiskin", typeof (GUISkin));
+					nodeSkin = (GUISkin) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Skins/ACNodeSkin.guiskin", typeof (GUISkin));
 					if (nodeSkin == null)
 					{
-						ACDebug.LogWarning ("Cannot find GUISkin asset file 'Assets/AdventureCreator/Graphics/Skins/ACNodeSkin.guiskin'");
+						ACDebug.LogWarning ("Cannot find GUISkin asset file '" + Resource.mainFolderPath + "/Graphics/Skins/ACNodeSkin.guiskin'");
 					}
 				}
 				return nodeSkin;

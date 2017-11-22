@@ -145,6 +145,8 @@ namespace AC
 
 		public void OnAwake ()
 		{
+			Initialise ();
+
 			gameObject.tag = Tags.mainCamera;
 			
 			hideSceneWhileLoading = true;
@@ -183,7 +185,7 @@ namespace AC
 		 * <summary>Initialises lookAtTransform if none exists and assigns fadeTexture.</summary>
 		 * <param name = "_fadeTexture">The new fadeTexture to use, if not null</param>
 		 */
-		public void Initialise (Texture2D _fadeTexture)
+		public void Initialise (Texture2D _fadeTexture = null)
 		{
 			if (lookAtTransform == null)
 			{

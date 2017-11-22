@@ -486,7 +486,7 @@ namespace AC
 		 * <param name = "setAmount">If False, then all instances of the inventory item will be removed, even if the InvItem's canCarryMultiple = True</param>
 		 * <param name = "playerID">The ID number of the Player to lose the item, if multiple Player prefabs are supported. If playerID = -1, the current player will lose the item</param>
 		 */
-		public void Remove (int _id, int amount, bool setAmount, int playerID = -1)
+		public void Remove (int _id, int amount = 1, bool setAmount = false, int playerID = -1)
 		{
 			if (playerID >= 0 && KickStarter.player.ID != playerID)
 			{
@@ -615,6 +615,35 @@ namespace AC
 
 
 		/**
+		 * <summary>Removes all items from the player's inventory</summary>
+		 */
+		public void RemoveAll ()
+		{
+			foreach (InvItem invItem in localItems)
+			{
+				Remove (invItem);
+			}
+		}
+
+
+		/**
+		 * <summary>Removes all items in a given category from the player's inventory</summary>
+		 * <param name = "categoryID">The ID number of the category</param>
+		 */
+		public void RemoveAllInCategory (int categoryID)
+		{
+			for (int i=0; i<localItems.Count; i++)
+			{
+				if (localItems[i].binID == categoryID)
+				{
+					Remove (localItems[i]);
+					i = -1;
+				}
+			}
+		}
+
+
+		/**
 		 * <summary>Gets the full prefix to a Hotpsot label when an item is selected, e.g. "Use X on " / "Give X to ".</summary>
 		 * <param name = "item">The inventory item that is selected</param>
 		 * <param name = "itemName">The display name of the inventory item, in the current language</param>
@@ -704,7 +733,7 @@ namespace AC
 		}
 		
 		
-		private List<InvItem> RemoveEmptySlots (List<InvItem> itemList)
+		public List<InvItem> RemoveEmptySlots (List<InvItem> itemList)
 		{
 			// Remove empty slots on end
 			for (int i=itemList.Count-1; i>=0; i--)

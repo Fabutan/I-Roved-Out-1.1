@@ -326,7 +326,7 @@ namespace AC
 
 				if (textType == AC_TextType.Speech)
 				{
-					if (speechManager.languages == null || speechManager.languages.Count == 0 || !speechManager.translateAudio)
+					if (speechManager.languages == null || speechManager.languages.Count <= 1 || !speechManager.translateAudio)
 					{
 						if (speechManager.autoNameSpeechFiles)
 						{

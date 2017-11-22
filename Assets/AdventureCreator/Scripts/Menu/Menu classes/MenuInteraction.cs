@@ -440,6 +440,17 @@ namespace AC
 			
 				base.RecalculateSize (source);
 			}
+			else
+			{
+				if (AdvGame.GetReferences ().cursorManager)
+				{
+					CursorIcon _icon = AdvGame.GetReferences ().cursorManager.GetCursorIconFromID (iconID);
+					if (_icon != null)
+					{
+						label = _icon.label;
+					}
+				}
+			}
 		}
 
 

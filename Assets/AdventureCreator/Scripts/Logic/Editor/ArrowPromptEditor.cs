@@ -9,38 +9,40 @@ namespace AC
 	public class ArrowPromptEditor : Editor
 	{
 		
-		public override void OnInspectorGUI()
+		public override void OnInspectorGUI ()
 		{
 			ArrowPrompt _target = (ArrowPrompt) target;
 			
 			EditorGUILayout.BeginVertical ("Button");
-				GUILayout.Label ("Settings", EditorStyles.boldLabel);
-				_target.arrowPromptType = (ArrowPromptType) EditorGUILayout.EnumPopup ("Input type:", _target.arrowPromptType);
-				_target.disableHotspots = EditorGUILayout.ToggleLeft ("Disable Hotspots when active?", _target.disableHotspots);
+			GUILayout.Label ("Settings", EditorStyles.boldLabel);
+			_target.arrowPromptType = (ArrowPromptType) EditorGUILayout.EnumPopup ("Input type:", _target.arrowPromptType);
+			_target.disableHotspots = EditorGUILayout.ToggleLeft ("Disable Hotspots when active?", _target.disableHotspots);
+			_target.positionFactor = EditorGUILayout.Slider ("Position factor:", _target.positionFactor, 0.5f, 4f);
+			_target.scaleFactor = EditorGUILayout.Slider ("Scale factor:", _target.scaleFactor, 0.5f, 4f);
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();
 
-			EditorGUILayout.BeginVertical ("Button");
-				GUILayout.Label ("Up arrow", EditorStyles.boldLabel);
-				ArrowGUI (_target.upArrow, "Up");
+			EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+			GUILayout.Label ("Up arrow", EditorStyles.boldLabel);
+			ArrowGUI (_target.upArrow, "Up");
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();
 			
-			EditorGUILayout.BeginVertical ("Button");
-				GUILayout.Label ("Left arrow", EditorStyles.boldLabel);
-				ArrowGUI (_target.leftArrow, "Left");
+			EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+			GUILayout.Label ("Left arrow", EditorStyles.boldLabel);
+			ArrowGUI (_target.leftArrow, "Left");
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();
 
-			EditorGUILayout.BeginVertical ("Button");
-				GUILayout.Label ("Right arrow", EditorStyles.boldLabel);
-				ArrowGUI (_target.rightArrow, "Right");
+			EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+			GUILayout.Label ("Right arrow", EditorStyles.boldLabel);
+			ArrowGUI (_target.rightArrow, "Right");
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();
 
-			EditorGUILayout.BeginVertical ("Button");
-				GUILayout.Label ("Down arrow", EditorStyles.boldLabel);
-				ArrowGUI (_target.downArrow, "Down");
+			EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+			GUILayout.Label ("Down arrow", EditorStyles.boldLabel);
+			ArrowGUI (_target.downArrow, "Down");
 			EditorGUILayout.EndVertical ();
 
 			UnityVersionHandler.CustomSetDirty (_target);

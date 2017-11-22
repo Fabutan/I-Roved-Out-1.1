@@ -444,7 +444,13 @@ namespace AC
 			
 			if (source == InteractionSource.AssetFile)
 			{
+				EditorGUILayout.BeginHorizontal ();
 				button.assetFile = (ActionListAsset) EditorGUILayout.ObjectField ("Interaction:", button.assetFile, typeof (ActionListAsset), false);
+				if (button.assetFile != null && GUILayout.Button ("", Resource.NodeSkin.customStyles[13], GUILayout.Width (20f)))
+				{
+					ActionListEditorWindow.Init (button.assetFile);
+				}
+				EditorGUILayout.EndHorizontal ();
 
 				if (button.assetFile != null && button.assetFile.useParameters && button.assetFile.parameters.Count > 0)
 				{
@@ -488,6 +494,13 @@ namespace AC
 						
 						newInteraction.gameObject.name = AdvGame.UniqueName (hotspotName + ": " + suffix);
 						button.interaction = newInteraction;
+					}
+				}
+				else
+				{
+					if (GUILayout.Button ("", Resource.NodeSkin.customStyles[13], GUILayout.Width (20f)))
+					{
+						ActionListEditorWindow.Init (button.interaction);
 					}
 				}
 				EditorGUILayout.EndHorizontal ();

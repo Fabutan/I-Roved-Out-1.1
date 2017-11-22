@@ -427,13 +427,25 @@ namespace AC
 
 			if (localVariables == null) localVariables = KickStarter.localVariables;
 			
-			if (_text != null)
+			if (!string.IsNullOrEmpty (_text))
 			{
 				if (_text.Contains ("[var:"))
 				{
 					foreach (GVar _var in KickStarter.runtimeVariables.globalVars)
 					{
 						string tokenText = "[var:" + _var.id + "]";
+						if (_text.Contains (tokenText))
+						{
+							_var.Download ();
+							_text = _text.Replace (tokenText, _var.GetValue (languageNumber));
+						}
+					}
+				}
+				if (_text.Contains ("[Var:"))
+				{
+					foreach (GVar _var in KickStarter.runtimeVariables.globalVars)
+					{
+						string tokenText = "[Var:" + _var.id + "]";
 						if (_text.Contains (tokenText))
 						{
 							_var.Download ();
@@ -860,14 +872,14 @@ namespace AC
 			{
 				Vector2 endPos = new Vector2 (end.x + end.width / 2f + endOffset, end.y - 8);
 				DrawNodeCurve (start, endPos, color, offset, onSide, !arrangeVertically, isDisplayed);
-				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Textures/node-arrow.png", typeof (Texture2D));
+				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/node-arrow.png", typeof (Texture2D));
 				GUI.Label (new Rect (endPos.x-5, endPos.y-4, 12, 16), arrow, "Label");
 			}
 			else
 			{
 				Vector2 endPos = new Vector2 (end.x - 8f, end.y + 10 + endOffset);
 				DrawNodeCurve (start, endPos, color, offset, onSide, !arrangeVertically, isDisplayed);
-				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath ("Assets/AdventureCreator/Graphics/Textures/node-arrow-side.png", typeof (Texture2D));
+				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/node-arrow-side.png", typeof (Texture2D));
 				GUI.Label (new Rect (endPos.x-4, endPos.y-7, 16, 12), arrow, "Label");
 			}
 

@@ -71,6 +71,12 @@ namespace AC
 			LoadMainData (mainData.musicTimeSamples, mainData.oldMusicTimeSamples, mainData.lastMusicTimeSamples, mainData.lastMusicQueueData, mainData.musicQueueData);
 		}
 
+
+		protected override bool EndsOthers ()
+		{
+			return true;
+		}
+
 	}
 
 }

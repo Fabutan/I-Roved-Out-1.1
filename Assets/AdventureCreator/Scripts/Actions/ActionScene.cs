@@ -89,7 +89,7 @@ namespace AC
 		{
 			if (sceneNumber > -1 || chooseSceneBy == ChooseSceneBy.Name)
 			{
-				SceneInfo sceneInfo = new SceneInfo (chooseSceneBy, sceneName, sceneNumber);
+				SceneInfo sceneInfo = new SceneInfo (chooseSceneBy, AdvGame.ConvertTokens (sceneName), sceneNumber);
 
 				if (!onlyPreload && relativePosition && relativeMarker != null)
 				{
