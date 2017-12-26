@@ -50,7 +50,6 @@ namespace AC
 		private float pauseAlpha = 0f;
 		private List<Menu> menus = new List<Menu>();
 		private List<Menu> dupSpeechMenus = new List<Menu>();
-		private List<Menu> dupHotspotMenus = new List<Menu>();
 		private Texture2D pauseTexture;
 		private string menuIdentifier = "";
 		private string lastMenuIdentifier = "";
@@ -400,16 +399,16 @@ namespace AC
 				{
 					DrawMenu (dupSpeechMenus[j], languageNumber);
 				}
-
-				for (int j=0; j<dupHotspotMenus.Count; j++)
-				{
-					DrawMenu (dupHotspotMenus[j], languageNumber);
-				}
 			}
 		}
 
 
-		private void DrawMenu (AC.Menu menu, int languageNumber)
+		/**
+		 * <summary>Draws an Adventure Creator-sourced Menu. This should be called from OnGUI()</summary>
+		 * <param name = "menu">The Menu to draw</param>
+		 * <param name = "languageNumber">The index number of the language to use (0 = default)</param>
+		 */
+		public void DrawMenu (AC.Menu menu, int languageNumber = 0)
 		{
 			Color tempColor = GUI.color;
 			bool isACMenu = !menu.IsUnityUI ();
@@ -556,6 +555,18 @@ namespace AC
 									}
 								}
 							}
+							else if (isACMenu && menu.elements[j] is MenuInteraction)
+							{
+								MenuInteraction menuInteraction = (MenuInteraction) menu.elements[j];
+								if (menuInteraction.IsDefaultIcon)
+								{
+									menu.elements[j].Display (highlightedStyle, i, menu.GetZoom (), false);
+								}
+								else
+								{
+									menu.elements[j].Display (normalStyle, i, menu.GetZoom (), false);
+								}
+							}
 							else if (isACMenu)
 							{
 								menu.elements[j].Display (normalStyle, i, menu.GetZoom (), false);
@@ -621,7 +632,7 @@ namespace AC
 					}
 					else if (menu.uiPositionType == UIPositionType.FollowCursor)
 					{
-						if (menu.canvas.renderMode == RenderMode.WorldSpace)
+						if (menu.canvas != null && menu.canvas.renderMode == RenderMode.WorldSpace)
 						{
 							screenPosition = new Vector2 (invertedMouse.x, Screen.height + 1f - invertedMouse.y);
 							Vector3 worldPosition = menu.canvas.worldCamera.ScreenToWorldPoint (new Vector3 (screenPosition.x, screenPosition.y, 10f));
@@ -637,7 +648,7 @@ namespace AC
 					{
 						if (mouseOverMenu || canKeyboardControl) // Should be mouseOverInventory, not mouseOverMenu?
 						{
-							if (menu.appearType == AppearType.OnInteraction &&
+							if (/*menu.appearType == AppearType.OnInteraction &&*/
 							    menu.GetTargetInvItem () == null &&
 							    menu.GetTargetHotspot () != null)
 							{
@@ -678,7 +689,7 @@ namespace AC
 						}
 						else
 						{
-							if (menu.appearType == AppearType.OnInteraction &&
+							if (/*menu.appearType == AppearType.OnInteraction &&*/
 							    menu.GetTargetInvItem () != null)
 							{
 								// Bypass
@@ -700,11 +711,17 @@ namespace AC
 					else if (menu.uiPositionType == UIPositionType.AboveSpeakingCharacter)
 					{
 						Char speaker = null;
+						bool canMove = true;
 						if (dupSpeechMenus.Contains (menu))
 						{
 							if (menu.speech != null)
 							{
 								speaker = menu.speech.GetSpeakingCharacter ();
+
+								if (!menu.moveWithCharacter)
+								{
+									canMove = !menu.HasMoved;
+								}
 							}
 						}
 						else
@@ -712,7 +729,7 @@ namespace AC
 							speaker = KickStarter.dialog.GetSpeakingCharacter ();
 						}
 
-						if (speaker != null)
+						if (speaker != null && canMove)
 						{
 							if (menu.canvas != null && menu.canvas.renderMode == RenderMode.WorldSpace)
 							{
@@ -767,7 +784,7 @@ namespace AC
 			{
 				if (mouseOverInventory)
 				{
-					if (menu.appearType == AppearType.OnInteraction &&
+					if (/*menu.appearType == AppearType.OnInteraction &&*/
 					    menu.GetTargetInvItem () == null &&
 					    menu.GetTargetHotspot () != null)
 					{
@@ -820,7 +837,7 @@ namespace AC
 				}
 				else
 				{
-					if (menu.appearType == AppearType.OnInteraction &&
+					if (/*menu.appearType == AppearType.OnInteraction &&*/
 					    menu.GetTargetInvItem () != null)
 					{
 						// Bypass
@@ -842,11 +859,17 @@ namespace AC
 			else if (menu.positionType == AC_PositionType.AboveSpeakingCharacter)
 			{
 				Char speaker = null;
+				bool canMove = true;
 				if (dupSpeechMenus.Contains (menu))
 				{
 					if (menu.speech != null)
 					{
 						speaker = menu.speech.GetSpeakingCharacter ();
+
+						if (!menu.moveWithCharacter)
+						{
+							canMove = !menu.HasMoved;
+						}
 					}
 				}
 				else
@@ -854,7 +877,7 @@ namespace AC
 					speaker = KickStarter.dialog.GetSpeakingCharacter ();
 				}
 
-				if (speaker != null)
+				if (speaker != null && canMove)
 				{
 					Vector2 screenPosition = speaker.GetScreenCentre ();
 					menu.SetCentre (new Vector2 (screenPosition.x + (menu.manualPosition.x / 100f) - 0.5f,
@@ -916,7 +939,14 @@ namespace AC
 		}
 
 
-		private void UpdateMenu (AC.Menu menu, bool justPosition = false)
+		/**
+		 * <summary>Updates a Menu's display and position</summary>
+		 * <param name = "menu">The Menu to update</param>
+		 * <param name = "languageNumber">The index number of the language to use (0 = default)</param>
+		 * <param name = "justPosition">If True, then only the Menu's position will be updated - not its content</param>
+		 * <param name = "updateElements">If True, then the Menu's elements will be updated as well</param>
+		 */
+		public void UpdateMenu (AC.Menu menu, int languageNumber = 0, bool justPosition = false, bool updateElements = true)
 		{
 			Vector2 invertedMouse = KickStarter.playerInput.GetInvertedMouse ();
 			UpdateMenuPosition (menu, invertedMouse);
@@ -1371,6 +1401,11 @@ namespace AC
 					menu.TurnOff (true);
 				}
 			}
+
+			if (updateElements)
+			{
+				UpdateElements (menu, languageNumber, justPosition);
+			}
 		}
 
 
@@ -1490,7 +1525,6 @@ namespace AC
 												activeInventoryBox = inventoryBox;
 												activeCrafting = null;
 												activeInventoryBoxMenu = menu;
-												AssignHotspotToMenu (null, newHoverItem);
 
 												if (interactionMenuIsOn)
 												{
@@ -1551,8 +1585,6 @@ namespace AC
 
 									if (KickStarter.runtimeInventory.hoverItem != null)
 									{
-										AssignHotspotToMenu (null, KickStarter.runtimeInventory.hoverItem);
-
 										if (!interactionMenuIsOn)
 										{
 											hotspotLabel = crafting.GetLabel (i, languageNumber);
@@ -1858,11 +1890,7 @@ namespace AC
 			{
 				if (menus[i].appearType == AppearType.WhileLoading)
 				{
-					UpdateMenu (menus[i]);
-					if (menus[i].IsEnabled ())
-					{
-						UpdateElements (menus[i], languageNumber);
-					}
+					UpdateMenu (menus[i], languageNumber, false, menus[i].IsEnabled ());
 				}
 			}
 		}
@@ -1956,12 +1984,8 @@ namespace AC
 
 				for (int i=0; i<menus.Count; i++)
 				{
-					UpdateMenu (menus[i]);
-					if (menus[i].IsEnabled ())
-					{
-						UpdateElements (menus[i], languageNumber);
-					}
-					else if (menus[i].IsOff () && menuIdentifier == menus[i].IDString)
+					UpdateMenu (menus[i], languageNumber, false, menus[i].IsEnabled ());
+					if (!menus[i].IsEnabled () && menus[i].IsOff () && menuIdentifier == menus[i].IDString)
 					{
 						menuIdentifier = "";
 					}
@@ -1969,8 +1993,7 @@ namespace AC
 
 				for (int i=0; i<dupSpeechMenus.Count; i++)
 				{
-					UpdateMenu (dupSpeechMenus[i]);
-					UpdateElements (dupSpeechMenus[i], languageNumber);
+					UpdateMenu (dupSpeechMenus[i], languageNumber);
 
 					if (dupSpeechMenus[i].IsOff () && KickStarter.stateHandler.gameState != GameState.Paused)
 					{
@@ -1983,25 +2006,6 @@ namespace AC
 						DestroyImmediate (oldMenu);
 						i=0;
 					}
-				}
-
-				for (int i=0; i<dupHotspotMenus.Count; i++)
-				{
-					UpdateMenu (dupHotspotMenus[i]);
-					UpdateElements (dupHotspotMenus[i], languageNumber);
-
-					if (dupHotspotMenus[i].IsOff () && KickStarter.stateHandler.gameState != GameState.Paused)
-					{
-						Menu oldMenu = dupHotspotMenus[i];
-						dupHotspotMenus.RemoveAt (i);
-						if (oldMenu.menuSource != MenuSource.AdventureCreator && oldMenu.canvas && oldMenu.canvas.gameObject != null)
-						{
-							DestroyImmediate (oldMenu.canvas.gameObject);
-						}
-						DestroyImmediate (oldMenu);
-						i=0;
-					}
-
 				}
 
 				mouseOverMenu = foundMouseOverMenu;
@@ -2033,11 +2037,7 @@ namespace AC
 
 			for (int i=0; i<menus.Count; i++)
 			{
-				UpdateMenu (menus[i], true);
-				if (menus[i].IsEnabled ())
-				{
-					UpdateElements (menus[i], languageNumber, true);
-				}
+				UpdateMenu (menus[i], languageNumber, true, menus[i].IsEnabled ());
 			}
 		}
 		
@@ -2189,40 +2189,6 @@ namespace AC
 			}
 		}
 
-
-		/**
-		 * <summary>Duplicates any Menu set to display a single speech line.</summary>
-		 * <param name = "speech">The Speech line to assign to any duplicated Menu</param>
-		 */
-		public void AssignHotspotToMenu (Hotspot hotspot, InvItem invItem)
-		{
-			if (invItem != null)
-			{
-				hotspot = null;
-			}
-
-			if (hotspot != null || invItem != null)
-			{
-				foreach (Menu menu in menus)
-				{
-					if (menu.appearType == AppearType.OnHotspot && menu.GetsDuplicated ())
-					{
-						Menu dupMenu = ScriptableObject.CreateInstance <Menu>();
-						dupMenu.DuplicateInGame (menu);
-						if (dupMenu.IsUnityUI ())
-						{
-							dupMenu.LoadUnityUI ();
-						}
-						dupMenu.Recalculate ();
-						dupMenu.title += " (Duplicate)";
-						dupMenu.SetHotspot (hotspot, invItem);
-						dupMenu.TurnOn (true);
-						dupHotspotMenus.Add (dupMenu);
-					}
-				}
-			}
-		}
-		
 
 		/**
 		 * <summary>Crossfades to a Menu. Any other Menus will be turned off.</summary>

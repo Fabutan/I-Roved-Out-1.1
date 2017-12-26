@@ -181,6 +181,7 @@ namespace AC
 		public int mouthLayer = 2;
 		/** The Mecanim Animator component, which will be assigned automatically if not set manually */
 		public Animator customAnimator;
+		private bool animatorIsOnRoot;
 
 
 		// 2D variables
@@ -247,6 +248,8 @@ namespace AC
 		public float runDistanceThreshold = 1f;
 		/** If True, then sprite-based characters will only move when their sprite frame changes */
 		public bool antiGlideMode = false;
+		/** Enables 'retro-style' movement when pathfinding, where characters ignore Acceleration and Deceleration values, and turn instantly when moving */
+		public bool retroPathfinding = false;
 
 		protected float pathfindUpdateTime = 0f;
 		/** If True, then the character is mid-jump */
@@ -683,8 +686,15 @@ namespace AC
 						nodeThreshold *= multiplier;
 					}
 
-					if ((SceneSettings.IsUnity2D () && direction.magnitude < nodeThreshold) ||
-					    (activePath.affectY && direction.magnitude < nodeThreshold) ||
+
+					if (retroPathfinding)
+					{
+						nodeThreshold = 0.01f;
+					}
+
+					float directionMagnitde = direction.magnitude;
+					if ((SceneSettings.IsUnity2D () && directionMagnitde < nodeThreshold) ||
+						(activePath.affectY && directionMagnitde < nodeThreshold) ||
 					    (!activePath.affectY && lookDir.magnitude < nodeThreshold))
 					{
 						if (targetNode == 0 && prevNode == 0)
@@ -882,6 +892,7 @@ namespace AC
 					if (moveSpeed > 0f && rootMotionType != RootMotionType.ThreeD)
 					{
 						newVel = moveDirection * moveSpeed * walkSpeedScale * sortingMapScale;
+
 						if (SceneSettings.IsTopDown ())
 						{
 							float magnitude = newVel.magnitude;
@@ -958,6 +969,12 @@ namespace AC
 									newVel += Physics.gravity;
 								}
 								_characterController.Move (newVel * _deltaTime);
+							}
+							else if (retroPathfinding && IsMovingAlongPath ())
+							{
+								float frameSpeed = ((isRunning) ? runSpeedScale : walkSpeedScale) * sortingMapScale;
+								Vector3 newPosition = Vector3.MoveTowards (transform.position, GetTargetPosition (), frameSpeed * _deltaTime);
+								transform.position = newPosition;
 							}
 							else
 							{
@@ -1123,8 +1140,20 @@ namespace AC
 		
 		protected float GetTargetSpeed ()
 		{
-			if (GetComponent <Animator>())
+			if (animatorIsOnRoot)
 			{
+				/**
+				 * Stupid bug alert!
+				 *
+				 * A check was made way back in v1.28 for a root Animator component because back then only Legacy and Mecanim animation was available (no 2D!).
+				 * With this animation mode, the "move speed float" had to be tied directly to the walk/run speeds so that transitions could be properly built.
+				 * This wasn't the right way to do this, of course, but the problem is now everyone's using this - so it can't be changed without having to get basically
+				 * everyone working in 3D to update their movement values and transitions.
+				 *
+				 * Since you can still achieve the same movement speeds as non-animator-on-root characters by lowering your movement values,
+				 * all things considered it's probably best to just leave as is and say 'Yes I was stupid back then'! :/
+				 */
+
 				if (isRunning)
 				{
 					return runSpeedScale;
@@ -1267,6 +1296,11 @@ namespace AC
 		 */
 		public bool AccurateDestination ()
 		{
+			if (retroPathfinding)
+			{
+				return false;
+			}
+
 			if (motionControl == MotionControl.Automatic &&
 				KickStarter.settingsManager.experimentalAccuracy &&
 			    KickStarter.settingsManager.destinationAccuracy == 1f &&
@@ -1342,6 +1376,17 @@ namespace AC
 			{
 				return;
 			}
+
+			if (turnSpeed < 0f)
+			{
+				isInstant = true;
+			}
+
+			if (retroPathfinding && IsMovingAlongPath () && !IsTurningBeforeWalking ())
+			{
+				isInstant = true;
+			}
+
 			if (isInstant)
 			{
 				turnFloat = 0f;
@@ -1359,6 +1404,7 @@ namespace AC
 			float currentAngle = Mathf.Atan2 (transform.forward.x, transform.forward.z);
 
 			float angleDiff = targetAngle - currentAngle;
+			//Debug.Log ("Facing angle: " + targetAngle * Mathf.Rad2Deg);
 
 			if (Mathf.Approximately (angleDiff, 0f))
 			{
@@ -1374,6 +1420,24 @@ namespace AC
 			{
 				targetAngle -= Mathf.PI * 2f;
 				angleDiff -= Mathf.PI * 2f;
+			}
+
+			if (retroPathfinding && IsTurningBeforeWalking () && SceneSettings.IsUnity2D ())
+			{
+				if (targetAngle * currentAngle < 0f && Mathf.Abs (angleDiff) > (Mathf.PI / 2f))
+				{
+					// Retro mode: Turn facing camera if > 45 degrees
+					if (currentAngle < 0f)
+					{
+						targetAngle -= Mathf.PI * 2f;
+						angleDiff -= Mathf.PI * 2f;
+					}
+					else
+					{
+						targetAngle += Mathf.PI * 2f;
+						angleDiff += Mathf.PI * 2f;
+					}
+				}
 			}
 
 			float turnMultiplier = 0f;
@@ -1605,6 +1669,8 @@ namespace AC
 		{
 			if (_animator == null)
 			{
+				animatorIsOnRoot = false;
+
 				if (spriteChild && spriteChild.GetComponent <Animator>())
 				{
 					_animator = spriteChild.GetComponent <Animator>();
@@ -1616,6 +1682,7 @@ namespace AC
 				else if (GetComponent <Animator>())
 				{
 					_animator = GetComponent <Animator>();
+					animatorIsOnRoot = true;
 				}
 			}
 			return _animator;
@@ -1727,9 +1794,15 @@ namespace AC
 
 		/**
 		 * <summary>Stops the character from moving along the current Paths object.</summary>
+		 * <param name = "optionalPath">If set, the character will only stop if moving along this path</param>
 		 */
-		public void EndPath ()
+		public void EndPath (Paths optionalPath)
 		{
+			if (optionalPath != null && activePath != null && activePath != optionalPath)
+			{
+				return;
+			}
+
 			if (IsPathfinding ())
 			{
 				activePath.nodes.Clear ();
@@ -1748,8 +1821,24 @@ namespace AC
 
 			if (charState == CharState.Move)
 			{
-				charState = CharState.Decelerate;
+				if (retroPathfinding)
+				{
+					Halt ();
+				}
+				else
+				{
+					charState = CharState.Decelerate;
+				}
 			}
+		}
+
+
+		/**
+		 * <summary>Stops the character from moving along the current Paths object.</summary>
+		 */
+		public void EndPath ()
+		{
+			EndPath (null);
 		}
 
 
@@ -1900,6 +1989,15 @@ namespace AC
 		
 		private void TurnBeforeWalking ()
 		{
+			if (retroPathfinding)
+			{
+				//moveSpeed = 0f;
+				if (charState == CharState.Move || charState == CharState.Decelerate)
+				{
+					charState = CharState.Idle;
+				}
+			}
+
 			Vector3 direction = activePath.nodes[1] - transform.position;
 
 			if (SceneSettings.IsUnity2D ())
@@ -3016,9 +3114,13 @@ namespace AC
 		
 		private bool DoRigidbodyMovement ()
 		{
+			// Don't use Rigidbody's MovePosition etc if the localScale is being set - Unity bug 
 			if (_rigidbody && useRigidbodyForMovement && followSortingMap == null)
 			{
-				// Don't use Rigidbody's MovePosition etc if the localScale is being set - Unity bug 
+				if (retroPathfinding && IsMovingAlongPath ())
+				{
+					return false;
+				}
 				return true;
 			}
 			return false;
@@ -3029,6 +3131,10 @@ namespace AC
 		{
 			if (_rigidbody2D && !antiGlideMode && useRigidbody2DForMovement)
 			{
+				if (retroPathfinding && IsMovingAlongPath ())
+				{
+					return false;
+				}
 				return true;
 			}
 			return false;

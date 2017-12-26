@@ -18,7 +18,7 @@ namespace AC
 
 	/**
 	 * This component is where inventory items (see InvItem) are stored at runtime.
-	 * When the player aquires an item, it is transferred here (into localItems) from the InventoryManager asset.
+	 * When the player aquires an item, it is transferred here (into _localItems) from the InventoryManager asset.
 	 * It should be placed on the PersistentEngine prefab.
 	 */
 	#if !(UNITY_4_6 || UNITY_4_7 || UNITY_5_0)
@@ -28,7 +28,7 @@ namespace AC
 	{
 
 		/** A List of inventory items (InvItem) carried by the player */
-		[HideInInspector] public List<InvItem> localItems = new List<InvItem>();
+		private List<InvItem> _localItems = new List<InvItem>();
 		/** A List of inventory items (InvItem) being used in the current Recipe being crafted */
 		[HideInInspector] public List<InvItem> craftingItems = new List<InvItem>();
 		/** The default ActionListAsset to run if an inventory combination is unhandled */
@@ -71,7 +71,7 @@ namespace AC
 			showHoverLabel = true;
 			
 			craftingItems.Clear ();
-			localItems.Clear ();
+			_localItems.Clear ();
 			GetItemsOnStart ();
 
 			if (KickStarter.inventoryManager)
@@ -100,7 +100,7 @@ namespace AC
 		 */
 		public void SetNull ()
 		{
-			if (selectedItem != null && localItems.Contains (selectedItem))
+			if (selectedItem != null && _localItems.Contains (selectedItem))
 			{
 				KickStarter.eventManager.Call_OnChangeInventory (selectedItem, InventoryEventType.Deselect);
 			}
@@ -125,7 +125,7 @@ namespace AC
 				return;
 			}
 
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item != null && item.id == _id)
 				{
@@ -236,7 +236,7 @@ namespace AC
 								}
 								else
 								{
-									localItems.Add (newItem);
+									_localItems.Add (newItem);
 								}
 							}
 						}
@@ -248,7 +248,7 @@ namespace AC
 							}
 							else
 							{
-								localItems.Add (new InvItem (item));
+								_localItems.Add (new InvItem (item));
 							}
 						}
 					}
@@ -270,13 +270,13 @@ namespace AC
 		public void Replace (int _addID, int _removeID, int addAmount = 1)
 		{
 			int _index = -1;
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item == null) continue;
 
 				if (item.id == _removeID && _index == -1)
 				{
-					_index = localItems.IndexOf (item);
+					_index = _localItems.IndexOf (item);
 				}
 
 				if (item.id == _addID)
@@ -303,7 +303,7 @@ namespace AC
 						addAmount = 1;
 					}
 					newItem.count = addAmount;
-					localItems [_index] = newItem;
+					_localItems [_index] = newItem;
 					PlayerMenus.ResetInventoryBoxes ();
 					return;
 				}
@@ -327,7 +327,7 @@ namespace AC
 			}
 			else
 			{
-				localItems = Add (_id, amount, localItems, selectAfter, addToFront);
+				_localItems = Add (_id, amount, _localItems, selectAfter, addToFront);
 				KickStarter.eventManager.Call_OnChangeInventory (GetItem (_id), InventoryEventType.Add, amount);
 			}
 		}
@@ -494,7 +494,7 @@ namespace AC
 			}
 			else
 			{
-				localItems = Remove (_id, amount, setAmount, localItems);
+				_localItems = Remove (_id, amount, setAmount, _localItems);
 				KickStarter.eventManager.Call_OnChangeInventory (GetItem (_id), InventoryEventType.Remove, amount);
 			}
 		}
@@ -526,17 +526,17 @@ namespace AC
 		 */
 		public void Remove (InvItem _item)
 		{
-			if (_item != null && localItems.Contains (_item))
+			if (_item != null && _localItems.Contains (_item))
 			{
 				if (_item == selectedItem)
 				{
 					SetNull ();
 				}
 				
-				localItems [localItems.IndexOf (_item)] = null;
+				_localItems [_localItems.IndexOf (_item)] = null;
 				
-				localItems = ReorderItems (localItems);
-				localItems = RemoveEmptySlots (localItems);
+				_localItems = ReorderItems (_localItems);
+				_localItems = RemoveEmptySlots (_localItems);
 
 				KickStarter.eventManager.Call_OnChangeInventory (_item, InventoryEventType.Remove);
 				PlayerMenus.ResetInventoryBoxes ();
@@ -619,7 +619,7 @@ namespace AC
 		 */
 		public void RemoveAll ()
 		{
-			foreach (InvItem invItem in localItems)
+			foreach (InvItem invItem in _localItems)
 			{
 				Remove (invItem);
 			}
@@ -632,11 +632,11 @@ namespace AC
 		 */
 		public void RemoveAllInCategory (int categoryID)
 		{
-			for (int i=0; i<localItems.Count; i++)
+			for (int i=0; i<_localItems.Count; i++)
 			{
-				if (localItems[i].binID == categoryID)
+				if (_localItems[i].binID == categoryID)
 				{
-					Remove (localItems[i]);
+					Remove (_localItems[i]);
 					i = -1;
 				}
 			}
@@ -721,9 +721,9 @@ namespace AC
 			// Remove empty slots on end
 			for (int i=craftingItems.Count-1; i>=0; i--)
 			{
-				if (localItems[i] == null)
+				if (_localItems[i] == null)
 				{
-					localItems.RemoveAt (i);
+					_localItems.RemoveAt (i);
 				}
 				else
 				{
@@ -778,7 +778,7 @@ namespace AC
 		 */
 		public int GetCount (int _invID)
 		{
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item != null && item.id == _invID)
 				{
@@ -843,11 +843,11 @@ namespace AC
 		public int GetNumberOfItemsCarriedInCategory (int categoryID)
 		{
 			int numCarried = 0;
-			for (int i=0; i<localItems.Count; i++)
+			for (int i=0; i<_localItems.Count; i++)
 			{
-				if (localItems[i] != null)
+				if (_localItems[i] != null)
 				{
-					if (categoryID < 0 || localItems[i].binID == categoryID)
+					if (categoryID < 0 || _localItems[i].binID == categoryID)
 					{
 						numCarried ++;
 					}
@@ -909,7 +909,7 @@ namespace AC
 		 */
 		public InvItem GetItem (int _id)
 		{
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item != null && item.id == _id)
 				{
@@ -927,7 +927,7 @@ namespace AC
 		 */
 		public bool IsCarryingItem (int _id)
 		{
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item != null && item.id == _id)
 				{
@@ -1208,7 +1208,7 @@ namespace AC
 		public bool IsItemCarried (InvItem _item)
 		{
 			if (_item == null) return false;
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item == _item)
 				{
@@ -1263,14 +1263,14 @@ namespace AC
 		 */
 		public void TransferLocalToCrafting (InvItem _item, int _slot)
 		{
-			if (_item != null && localItems.Contains (_item))
+			if (_item != null && _localItems.Contains (_item))
 			{
 				_item.recipeSlot = _slot;
 				craftingItems.Add (_item);
 				
-				localItems [localItems.IndexOf (_item)] = null;
-				localItems = ReorderItems (localItems);
-				localItems = RemoveEmptySlots (localItems);
+				_localItems [_localItems.IndexOf (_item)] = null;
+				_localItems = ReorderItems (_localItems);
+				_localItems = RemoveEmptySlots (_localItems);
 				
 				SetNull ();
 			}
@@ -1300,7 +1300,7 @@ namespace AC
 				List<Button> invButtons = KickStarter.playerInteraction.GetActiveHotspot ().invButtons;
 				foreach (Button button in invButtons)
 				{
-					foreach (InvItem item in localItems)
+					foreach (InvItem item in _localItems)
 					{
 						if (item != null && item.id == button.invID && !button.isDisabled)
 						{
@@ -1321,7 +1321,7 @@ namespace AC
 			{
 				foreach (int combineID in _item.combineID)
 				{
-					foreach (InvItem item in localItems)
+					foreach (InvItem item in _localItems)
 					{
 						if (item != null && item.id == combineID)
 						{
@@ -1450,6 +1450,51 @@ namespace AC
 			
 			RemoveEmptyCraftingSlots ();
 			Add (recipe.resultID, 1, selectAfter, -1);
+		}
+
+
+		/**
+		 * <summary>Moves an item already in the current player's inventory to a different slot.</summary>
+		 * <param name = "item">The inventory item to move</param>
+		 * <param name = "index">The index number of the MenuInventoryBox slot to move the item to</param>
+		 */
+		public void MoveItemToIndex (InvItem item, int index)
+		{
+			if (item != null && _localItems.Contains (item))
+			{
+				// Check nothing in place already
+				int oldIndex = _localItems.IndexOf (item);
+				while (_localItems.Count <= Mathf.Max (index, oldIndex))
+				{
+					_localItems.Add (null);
+				}
+				
+				if (_localItems [index] == null)
+				{
+					_localItems [index] = item;
+					_localItems [oldIndex] = null;
+				}
+				else
+				{
+					// Item already in its spot
+
+					_localItems [oldIndex] = null;
+					_localItems.Insert (index, item);
+				}
+				
+				SetNull ();
+				_localItems = RemoveEmptySlots (_localItems);
+			}
+		}
+
+
+		/**
+		 * <summary>Assign's the player's current inventory in bulk</summary>
+		 * <param name = "newInventory">A list of the InvItem classes that make up the new inventory</param>
+		 */
+		public void AssignPlayerInventory (List<InvItem> newInventory)
+		{
+			_localItems = newInventory;
 		}
 		
 
@@ -1776,7 +1821,7 @@ namespace AC
 		 */
 		public int GetTotalIntProperty (int ID)
 		{
-			return GetTotalIntProperty (localItems.ToArray (), ID);
+			return GetTotalIntProperty (_localItems.ToArray (), ID);
 		}
 
 
@@ -1811,7 +1856,7 @@ namespace AC
 		 */
 		public float GetTotalFloatProperty (int ID)
 		{
-			return GetTotalFloatProperty (localItems.ToArray (), ID);
+			return GetTotalFloatProperty (_localItems.ToArray (), ID);
 		}
 		
 		
@@ -1864,7 +1909,7 @@ namespace AC
 		{
 			InvVar totalVar = new InvVar ();
 
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				InvVar var = item.GetProperty (ID);
 				if (var != null)
@@ -1883,6 +1928,16 @@ namespace AC
 			get
 			{
 				return selectedItem;
+			}
+		}
+
+
+		/** A List of inventory items (InvItem) carried by the player */
+		public List<InvItem> localItems
+		{
+			get
+			{
+				return _localItems;
 			}
 		}
 
@@ -1920,7 +1975,7 @@ namespace AC
 		public InvItem[] GetItemsInCategory (int categoryID)
 		{
 			List<InvItem> itemsList = new List<InvItem>();
-			foreach (InvItem item in localItems)
+			foreach (InvItem item in _localItems)
 			{
 				if (item.binID == categoryID)
 				{
@@ -1930,7 +1985,7 @@ namespace AC
 
 			return itemsList.ToArray ();
 		}
-		
+
 	}
 	
 }

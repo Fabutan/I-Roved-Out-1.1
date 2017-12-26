@@ -52,50 +52,56 @@ namespace AC
 			ResetCommandList (_target);
 			for (int i=1; i<_target.nodes.Count; i++)
 			{
-				EditorGUILayout.BeginVertical("Button");
-					EditorGUILayout.BeginHorizontal ();
-						_target.nodes[i] = EditorGUILayout.Vector3Field ("Node " + i + ": ", _target.nodes[i]);
-						
-						if (GUILayout.Button (insertContent, EditorStyles.miniButtonLeft, buttonWidth))
-						{
-							Undo.RecordObject (_target, "Add path node");
-							Vector3 newNodePosition;
-							newNodePosition = _target.nodes[i] + new Vector3 (1.0f, 0f, 0f);
-							_target.nodes.Insert (i+1, newNodePosition);
-							_target.nodeCommands.Insert (i+1, new NodeCommand ());
-							numNodes += 1;
-							ResetCommandList (_target);
-						}
-						if (GUILayout.Button (deleteContent, EditorStyles.miniButtonRight, buttonWidth))
-						{
-							Undo.RecordObject (_target, "Delete path node");
-							_target.nodes.RemoveAt (i);
-							_target.nodeCommands.RemoveAt (i);
-							numNodes -= 1;
-							ResetCommandList (_target);
-						}
-					EditorGUILayout.EndHorizontal ();
-					if (_target.nodeCommands.Count > i)
+				EditorGUILayout.BeginVertical (CustomStyles.thinBox);
+				EditorGUILayout.BeginHorizontal ();
+				_target.nodes[i] = EditorGUILayout.Vector3Field ("Node " + i + ": ", _target.nodes[i]);
+				
+				if (GUILayout.Button (insertContent, EditorStyles.miniButtonLeft, buttonWidth))
+				{
+					Undo.RecordObject (_target, "Add path node");
+					Vector3 newNodePosition;
+					newNodePosition = _target.nodes[i] + new Vector3 (1.0f, 0f, 0f);
+
+					if (i < (_target.nodes.Count - 1) && _target.nodes[i] != _target.nodes[i+1])
 					{
-						if (_target.commandSource == ActionListSource.InScene)
-						{
-							_target.nodeCommands[i].cutscene = ActionListAssetMenu.CutsceneGUI ("Cutscene on reach:", _target.nodeCommands[i].cutscene);
-							
-							if (_target.nodeCommands[i].cutscene != null && _target.nodeCommands[i].cutscene.useParameters)
-							{
-								_target.nodeCommands[i].parameterID = SetParametersGUI (_target.nodeCommands[i].cutscene.parameters, _target.nodeCommands[i].parameterID);
-							}
-						}
-						else
-						{
-							_target.nodeCommands[i].actionListAsset = ActionListAssetMenu.AssetGUI ("ActionList on reach:", _target.nodeCommands[i].actionListAsset);
+						newNodePosition = (_target.nodes[i] + _target.nodes[i+1]) / 2f;
+					}
+
+					_target.nodes.Insert (i+1, newNodePosition);
+					_target.nodeCommands.Insert (i+1, new NodeCommand ());
+					numNodes += 1;
+					ResetCommandList (_target);
+				}
+				if (GUILayout.Button (deleteContent, EditorStyles.miniButtonRight, buttonWidth))
+				{
+					Undo.RecordObject (_target, "Delete path node");
+					_target.nodes.RemoveAt (i);
+					_target.nodeCommands.RemoveAt (i);
+					numNodes -= 1;
+					ResetCommandList (_target);
+				}
+				EditorGUILayout.EndHorizontal ();
+				if (_target.nodeCommands.Count > i)
+				{
+					if (_target.commandSource == ActionListSource.InScene)
+					{
+						_target.nodeCommands[i].cutscene = ActionListAssetMenu.CutsceneGUI ("Cutscene on reach:", _target.nodeCommands[i].cutscene);
 						
-							if (_target.nodeCommands[i].actionListAsset != null && _target.nodeCommands[i].actionListAsset.useParameters)
-							{
-								_target.nodeCommands[i].parameterID = SetParametersGUI (_target.nodeCommands[i].actionListAsset.parameters, _target.nodeCommands[i].parameterID);
-							}
+						if (_target.nodeCommands[i].cutscene != null && _target.nodeCommands[i].cutscene.useParameters)
+						{
+							_target.nodeCommands[i].parameterID = SetParametersGUI (_target.nodeCommands[i].cutscene.parameters, _target.nodeCommands[i].parameterID);
 						}
 					}
+					else
+					{
+						_target.nodeCommands[i].actionListAsset = ActionListAssetMenu.AssetGUI ("ActionList on reach:", _target.nodeCommands[i].actionListAsset);
+					
+						if (_target.nodeCommands[i].actionListAsset != null && _target.nodeCommands[i].actionListAsset.useParameters)
+						{
+							_target.nodeCommands[i].parameterID = SetParametersGUI (_target.nodeCommands[i].actionListAsset.parameters, _target.nodeCommands[i].parameterID);
+						}
+					}
+				}
 				EditorGUILayout.EndVertical();
 			}
 

@@ -54,7 +54,7 @@ namespace AC
 					EditorGUILayout.BeginVertical ("Button");
 
 					EditorGUILayout.LabelField ("Parameters", EditorStyles.boldLabel);
-					ActionListEditor.ShowParametersGUI (_target.parameters);
+					ActionListEditor.ShowParametersGUI (_target, null, _target.parameters);
 
 					EditorGUILayout.EndVertical ();
 				}

@@ -53,7 +53,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1

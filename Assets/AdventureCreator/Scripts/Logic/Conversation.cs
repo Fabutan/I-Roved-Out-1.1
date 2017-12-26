@@ -44,7 +44,7 @@ namespace AC
 		public bool isTimed = false;
 		/** The duration, in seconds, that the Conversation is active, if isTime = True */
 		public float timer = 5f;
-		/** The index number of the option to select, if isTimed = True and the timer runs out before the player has made a choice */
+		/** The index number of the option to select, if isTimed = True and the timer runs out before the player has made a choice. If -1, then the conversation will end */
 		public int defaultOption = 0;
 
 		private float startTime;
@@ -196,16 +196,24 @@ namespace AC
 			{
 				CancelInvoke ("RunDefault");
 				KickStarter.playerInput.EndConversation ();
+				KickStarter.actionListManager.OnEndConversation ();
+				KickStarter.actionListManager.SetCorrectGameState ();
 			}
 		}
 		
 		
 		private void RunDefault ()
 		{
-			if (KickStarter.playerInput && KickStarter.playerInput.activeConversation != null && options.Count > defaultOption && defaultOption > -1)
+			if (KickStarter.playerInput && KickStarter.playerInput.activeConversation != null)
 			{
-				//RunOption (options[defaultOption]);
-				RunOption (defaultOption);
+				if (defaultOption < 0 || defaultOption >= options.Count)
+				{
+					TurnOff ();
+				}
+				else
+				{
+					RunOption (defaultOption);
+				}
 			}
 		}
 		

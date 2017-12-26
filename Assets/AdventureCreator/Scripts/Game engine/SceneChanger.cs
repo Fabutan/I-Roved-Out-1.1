@@ -40,6 +40,8 @@ namespace AC
 		private Texture2D textureOnTransition = null;
 		private bool isLoading = false;
 		private float loadingProgress = 0f;
+		
+		private int removeNPCID = 0;
 
 
 		public void OnAwake ()
@@ -148,13 +150,18 @@ namespace AC
 		 * <param name = "sceneNumber">The number of the scene to load, if sceneName = ""</param>
 		 * <param name = "saveRoomData">If True, then the states of the current scene's Remember scripts will be recorded in LevelStorage</param>
 		 * <param name = "forceReload">If True, the scene will be re-loaded if it is already open.</param>
+		 * <param name = "_removeNPCID">If non-zero, then an NPC with a Constant ID of this number will be removed after the scene-change</param>
 		 */
-		public void ChangeScene (SceneInfo nextSceneInfo, bool saveRoomData, bool forceReload = false)
+		public void ChangeScene (SceneInfo nextSceneInfo, bool saveRoomData, bool forceReload = false, int _removeNPCID = 0)
 		{
+			removeNPCID = 0;
+
 			if (!isLoading)
 			{
 				if (!nextSceneInfo.Matches (thisSceneInfo) || forceReload)
 				{
+					removeNPCID = _removeNPCID;
+
 					PrepareSceneForExit (!KickStarter.settingsManager.useAsyncLoading, saveRoomData);
 					LoadLevel (nextSceneInfo, KickStarter.settingsManager.useLoadingScreen, KickStarter.settingsManager.useAsyncLoading, forceReload);
 				}
@@ -350,10 +357,7 @@ namespace AC
 
 			preloadSceneInfo = new SceneInfo ("", -1);
 
-			if (KickStarter.eventManager != null)
-			{
-				KickStarter.eventManager.Call_OnAfterChangeScene ();
-			}
+			StartCoroutine (OnCompleteSceneChange ());
 		}
 
 
@@ -385,10 +389,7 @@ namespace AC
 			preloadAsync = null;
 			preloadSceneInfo = new SceneInfo ("", -1);
 
-			if (KickStarter.eventManager != null)
-			{
-				KickStarter.eventManager.Call_OnAfterChangeScene ();
-			}
+			StartCoroutine (OnCompleteSceneChange ());
 		}
 
 
@@ -429,9 +430,29 @@ namespace AC
 			nextSceneInfo.LoadLevel (forceReload);
 			isLoading = false;
 
+			StartCoroutine (OnCompleteSceneChange ());
+		}
+
+
+		private IEnumerator OnCompleteSceneChange ()
+		{
 			if (KickStarter.eventManager != null)
 			{
 				KickStarter.eventManager.Call_OnAfterChangeScene ();
+			}
+
+			int _removeNPCID = removeNPCID;
+			removeNPCID = 0;
+			yield return new WaitForEndOfFrame ();
+
+			if (_removeNPCID != 0)
+			{
+				NPC npcToRemove = Serializer.returnComponent <NPC> (_removeNPCID);
+				if (npcToRemove != null)
+				{
+					npcToRemove.transform.position += new Vector3 (100f, -100f, 100f);
+				}
+				_removeNPCID = 0;
 			}
 		}
 

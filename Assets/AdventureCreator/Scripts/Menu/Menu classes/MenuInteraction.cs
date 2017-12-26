@@ -52,6 +52,7 @@ namespace AC
 		private Text uiText;
 		private CursorIcon icon;
 		private string label = "";
+		private bool isDefaultIcon = false;
 
 		private CursorManager cursorManager;
 
@@ -252,6 +253,7 @@ namespace AC
 		#endif
 
 
+
 		/**
 		 * <summary>Performs all calculations necessary to display the element.</summary>
 		 * <param name = "_slot">Ignored by this subclass</param>
@@ -260,6 +262,16 @@ namespace AC
 		 */
 		public override void PreDisplay (int _slot, int languageNumber, bool isActive)
 		{
+			isDefaultIcon = false;
+			if (Application.isPlaying && KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot && KickStarter.settingsManager.allowDefaultinteractions)
+			{
+				if (KickStarter.runtimeInventory.SelectedItem == null && KickStarter.playerInteraction.GetActiveHotspot () != null && KickStarter.playerInteraction.GetActiveHotspot ().GetFirstUseIcon () == iconID)
+				{
+					isActive = true;
+					isDefaultIcon = true;
+				}
+			}
+
 			if (uiButton != null)
 			{
 				UpdateUISelectable (uiButton, uiSelectableHideStyle);
@@ -488,6 +500,18 @@ namespace AC
 			{
 				GUIContent content = new GUIContent (TranslateLabel  (label, Options.GetLanguage ()));
 				AutoSize (content);
+			}
+		}
+
+
+		/**
+		 * If using Choose Interaction Then Hotspot mode, and default interactions are enabled, then this is True if the active Hotspot's first-enabled Use interaction uses this icon
+		 */
+		public bool IsDefaultIcon
+		{
+			get
+			{
+				return isDefaultIcon;
 			}
 		}
 

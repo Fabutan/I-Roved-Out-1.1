@@ -318,9 +318,6 @@ namespace AC
 		}
 
 
-		/*
-		 * <summary>Stops the Player from moving along the current Paths object.</summary>
-		 */
 		new public void EndPath ()
 		{
 			lockedPath = false;

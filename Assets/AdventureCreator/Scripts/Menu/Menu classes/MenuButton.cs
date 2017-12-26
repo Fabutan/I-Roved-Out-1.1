@@ -365,6 +365,13 @@ namespace AC
 				EditorGUILayout.EndVertical ();
 			}
 		}
+
+
+		public override bool CheckConvertGlobalVariableToLocal (int oldGlobalID, int newLocalID)
+		{
+			string newLabel = AdvGame.ConvertGlobalVariableTokenToLocal (label, oldGlobalID, newLocalID);
+			return (label != newLabel);
+		}
 		
 		#endif
 
@@ -392,6 +399,7 @@ namespace AC
 			SetEffectiveVisibility (true);
 
 			fullText = TranslateLabel (label, languageNumber);
+			fullText = AdvGame.ConvertTokens (fullText, languageNumber);
 
 			if (uiButton != null)
 			{
@@ -401,7 +409,6 @@ namespace AC
 					uiText.text = fullText;
 				}
 			}
-
 		}
 		
 

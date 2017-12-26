@@ -30,6 +30,8 @@ namespace AC
 	public class RememberVideoPlayer : Remember
 	{
 
+		public bool saveClipAsset;
+
 		private double loadTime;
 		private bool playAfterLoad;
 
@@ -50,6 +52,14 @@ namespace AC
 				videoPlayerData.isPlaying = videoPlayer.isPlaying;
 				videoPlayerData.currentFrame = videoPlayer.frame;
 				videoPlayerData.currentTime = videoPlayer.time;
+
+				if (saveClipAsset)
+				{
+					if (videoPlayer.clip != null)
+					{
+						videoPlayerData.clipAssetID = AssetLoader.GetAssetInstanceID (videoPlayer.clip);
+					}
+				}
 			}
 
 			return Serializer.SaveScriptData <VideoPlayerData> (videoPlayerData);
@@ -72,6 +82,15 @@ namespace AC
 			if (GetComponent <VideoPlayer>())
 			{
 				VideoPlayer videoPlayer = GetComponent <VideoPlayer>();
+
+				if (saveClipAsset)
+				{
+					VideoClip _clip = AssetLoader.RetrieveAsset (videoPlayer.clip, data.clipAssetID);
+					if (_clip != null)
+					{
+						videoPlayer.clip = _clip;
+					}
+				}
 
 				//videoPlayer.frame = data.currentFrame;
 				videoPlayer.time = data.currentTime;
@@ -140,10 +159,12 @@ namespace AC
 
 		/* True if the video is currently playing */
 		public bool isPlaying;
-		/* The current frame number */
+		/* The current frame number (this is now deprecated) */
 		public long currentFrame;
-
+		/** The current time */
 		public double currentTime;
+		/** The Instance ID of the current clip asset */
+		public string clipAssetID;
 
 
 		/**

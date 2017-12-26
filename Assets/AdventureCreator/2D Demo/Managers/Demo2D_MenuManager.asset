@@ -1697,7 +1697,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1745,7 +1747,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1793,7 +1797,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1841,7 +1847,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1889,7 +1897,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1937,7 +1947,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -1985,7 +1997,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2033,7 +2047,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2081,7 +2097,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2129,7 +2147,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2177,7 +2197,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2225,7 +2247,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2273,7 +2297,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2442,7 +2468,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -2473,7 +2501,9 @@ MonoBehaviour:
         size: 0.04
         animSpeed: 4
         endAnimOnLastFrame: 0
+        skipFirstFrameWhenLooping: 0
         clickOffset: {x: 0, y: 0}
+        frameSpeeds: []
         dontCycle: 0
         label: Look at
         lineID: 65
@@ -2799,7 +2829,7 @@ MonoBehaviour:
   title: Interaction
   manualSize: {x: 12.349999, y: 7.2487555}
   positionType: 4
-  manualPosition: {x: 52, y: 50.1}
+  manualPosition: {x: 50, y: 50}
   positionSmoothing: 0
   alignment: 7
   toggleKey: 
@@ -3106,7 +3136,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3154,7 +3186,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3202,7 +3236,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3250,7 +3286,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3298,7 +3336,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3346,7 +3386,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3394,7 +3436,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3442,7 +3486,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3490,7 +3536,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3538,7 +3586,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3586,7 +3636,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3634,7 +3686,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -3682,7 +3736,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -4134,7 +4190,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -4165,7 +4223,9 @@ MonoBehaviour:
         size: 0.04
         animSpeed: 4
         endAnimOnLastFrame: 0
+        skipFirstFrameWhenLooping: 0
         clickOffset: {x: 0, y: 0}
+        frameSpeeds: []
         dontCycle: 0
         label: Look at
         lineID: 65
@@ -4390,7 +4450,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -4421,7 +4483,9 @@ MonoBehaviour:
         size: 0.04
         animSpeed: 4
         endAnimOnLastFrame: 0
+        skipFirstFrameWhenLooping: 0
         clickOffset: {x: 0, y: 0}
+        frameSpeeds: []
         dontCycle: 0
         label: Look at
         lineID: 65
@@ -4977,7 +5041,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -5008,7 +5074,9 @@ MonoBehaviour:
         size: 0.04
         animSpeed: 4
         endAnimOnLastFrame: 0
+        skipFirstFrameWhenLooping: 0
         clickOffset: {x: 0, y: 0}
+        frameSpeeds: []
         dontCycle: 0
         label: Look at
         lineID: 65
@@ -5228,7 +5296,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -5259,7 +5329,9 @@ MonoBehaviour:
         size: 0.04
         animSpeed: 4
         endAnimOnLastFrame: 0
+        skipFirstFrameWhenLooping: 0
         clickOffset: {x: 0, y: 0}
+        frameSpeeds: []
         dontCycle: 0
         label: Look at
         lineID: 65

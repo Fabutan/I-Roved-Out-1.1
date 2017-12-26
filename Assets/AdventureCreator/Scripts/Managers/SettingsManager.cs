@@ -133,6 +133,8 @@ namespace AC
 		public bool autoCycleWhenInteract = false;
 		/** If True, and interactionMethod = AC_InteractionMethod.ChooseInteractionThenHotspot, then the Hotspot label will show the name of the interaction icon being hovered over */
 		public bool showHoverInteractionInHotspotLabel = false;
+		/** If True, and interactionMethod = AC_InteractionMethod.ChooseInteractionThenHotspot, then invoking the 'DefaultInteractions' input button will run the first-enabled 'Use' interaction of the active Hotspot */
+		public bool allowDefaultinteractions = false;
 		/** What happens to the cursor icon when a hotspot (or inventory item, depending) is reselected and selectInteractions = SelectInteractions.CyclingMenuAndClickingHotspot */
 		public WhenReselectHotspot whenReselectHotspot = WhenReselectHotspot.RestoreHotspotIcon;
 		/** If True, then the cursor will be locked in the centre of the screen when the game begins */
@@ -716,6 +718,7 @@ namespace AC
 				{
 					autoCycleWhenInteract = CustomGUILayout.ToggleLeft ("Reset cursor after an Interaction?", autoCycleWhenInteract, "AC.KickStarter.settingsManager.autoCycleWhenInteract");
 					showHoverInteractionInHotspotLabel = CustomGUILayout.ToggleLeft ("Show hover Interaction icons in Hotspot label?", showHoverInteractionInHotspotLabel, "AC.KickStarter.settingsManager.showHoverInteractionInHotspotLabel");
+					allowDefaultinteractions = CustomGUILayout.ToggleLeft ("Set first 'Use' interaction as default?", allowDefaultinteractions, "AC.KickStarter.settingsManager.allowDefaultinteractions");
 				}
 
 				if (movementMethod == MovementMethod.FirstPerson && inputMethod == InputMethod.TouchScreen)
@@ -802,7 +805,7 @@ namespace AC
 					}
 				}
 
-				if (interactionMethod == AC_InteractionMethod.ChooseHotspotThenInteraction /*&& selectInteractions != SelectInteractions.ClickingMenu*/ && inventoryInteractions == InventoryInteractions.Multiple)
+				if (KickStarter.settingsManager.SelectInteractionMethod () == SelectInteractions.CyclingCursorAndClickingHotspot && KickStarter.settingsManager.inventoryInteractions == InventoryInteractions.Multiple)
 				{}
 				else
 				{
@@ -1329,6 +1332,11 @@ namespace AC
 			else if (interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot)
 			{
 				result = SmartAddInput (result, "CycleCursors (Button)");
+
+				if (allowDefaultinteractions)
+				{
+					result = SmartAddInput (result, "DefaultInteraction (Button)");
+				}
 
 				if (KickStarter.cursorManager != null)
 				{

@@ -34,6 +34,8 @@ namespace AC
 		public string sceneName;
 		public int sceneNameParameterID = -1;
 
+		private bool waitedOneMoreFrame = false;
+
 
 		public ActionSceneAdd ()
 		{
@@ -57,6 +59,7 @@ namespace AC
 
 			if (!isRunning)
 			{
+				waitedOneMoreFrame = false;
 				isRunning = true;
 
 				if (KickStarter.sceneSettings.OverridesCameraPerspective ())
@@ -78,11 +81,15 @@ namespace AC
 			}
 			else
 			{
+				if (!waitedOneMoreFrame)
+				{
+					waitedOneMoreFrame = true;
+					return defaultPauseTime;
+				}
+
 				if (sceneAddRemove == SceneAddRemove.Add)
 				{
 					bool found = false;
-
-
 					foreach (SubScene subScene in KickStarter.sceneChanger.GetSubScenes ())
 					{
 						if (subScene.SceneInfo.Matches (sceneInfo))

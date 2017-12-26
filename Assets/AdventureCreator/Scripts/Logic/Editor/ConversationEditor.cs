@@ -33,19 +33,37 @@ namespace AC
 			}
 
 			EditorGUILayout.BeginVertical ("Button");
-				EditorGUILayout.LabelField ("Conversation settings", EditorStyles.boldLabel);
-				_target.interactionSource = (InteractionSource) EditorGUILayout.EnumPopup ("Interaction source:", _target.interactionSource);
-				_target.autoPlay = EditorGUILayout.Toggle ("Auto-play lone option?", _target.autoPlay);
-				_target.isTimed = EditorGUILayout.Toggle ("Is timed?", _target.isTimed);
-				if (_target.isTimed)
+			EditorGUILayout.LabelField ("Conversation settings", EditorStyles.boldLabel);
+			_target.interactionSource = (InteractionSource) EditorGUILayout.EnumPopup ("Interaction source:", _target.interactionSource);
+			_target.autoPlay = EditorGUILayout.Toggle ("Auto-play lone option?", _target.autoPlay);
+			_target.isTimed = EditorGUILayout.Toggle ("Is timed?", _target.isTimed);
+			if (_target.isTimed)
+			{
+				_target.timer = EditorGUILayout.FloatField ("Timer length (s):", _target.timer);
+
+				if (_target.options != null && _target.options.Count > 0)
 				{
-					_target.timer = EditorGUILayout.FloatField ("Timer length (s):", _target.timer);
+					bool noDefault = (_target.defaultOption < 0);
+					noDefault = EditorGUILayout.Toggle ("End if timer runs out?", noDefault);
+					if (noDefault)
+					{
+						_target.defaultOption = -1;
+					}
+					else if (_target.defaultOption < 0)
+					{
+						_target.defaultOption = 0;
+					}
 				}
-				if (GUILayout.Button ("Conversation Editor"))
+				else
 				{
-					ConversationEditorWindow window = (ConversationEditorWindow) EditorWindow.GetWindow (typeof (ConversationEditorWindow));
-					window.Repaint ();
+					_target.defaultOption = -1;
 				}
+			}
+			if (GUILayout.Button ("Conversation Editor"))
+			{
+				ConversationEditorWindow window = (ConversationEditorWindow) EditorWindow.GetWindow (typeof (ConversationEditorWindow));
+				window.Repaint ();
+			}
 			EditorGUILayout.EndVertical ();
 			
 			EditorGUILayout.Space ();

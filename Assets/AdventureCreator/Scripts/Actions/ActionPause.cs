@@ -40,7 +40,6 @@ namespace AC
 		override public void AssignValues (List<ActionParameter> parameters)
 		{
 			timeToPause = AssignFloat (parameters, parameterID, timeToPause);
-			timeToPause = Mathf.Max (0f, timeToPause);
 		}
 
 		
@@ -49,6 +48,11 @@ namespace AC
 			if (!isRunning)
 			{
 				isRunning = true;
+
+				if (timeToPause < 0f)
+				{
+					return defaultPauseTime;
+				}
 				return timeToPause;
 			}
 			else
@@ -67,6 +71,10 @@ namespace AC
 			if (parameterID < 0)
 			{
 				timeToPause = EditorGUILayout.FloatField ("Wait time (s):", timeToPause);
+				if (timeToPause < 0f)
+				{
+					EditorGUILayout.HelpBox ("A negative value will pause the ActionList by one frame.", MessageType.Info);
+				}
 			}
 			AfterRunningOption ();
 		}

@@ -86,7 +86,7 @@ namespace AC
 			{
 				for (int i=0; i<localParameters.Count; i++)
 				{
-					if (parameterIDs.Count > i && parameterIDs[i] >= 0)
+					if (parameterIDs != null && parameterIDs.Count > i && parameterIDs[i] >= 0)
 					{
 						int ID = parameterIDs[i];
 						foreach (ActionParameter parameter in parameters)
@@ -282,6 +282,8 @@ namespace AC
 				return;
 			}
 
+			SyncLists (externalParameters, localParameters);
+
 			for (int i=0; i<externalParameters.Count; i++)
 			{
 				if (localParameters.Count > i)
@@ -297,6 +299,10 @@ namespace AC
 					else if (externalParameters[i].parameterType == ParameterType.UnityObject)
 					{
 						externalParameters[i].SetValue (localParameters[i].objectValue);
+					}
+					else if (externalParameters[i].parameterType == ParameterType.Vector3)
+					{
+						externalParameters[i].SetValue (localParameters[i].vector3Value);
 					}
 					else if (externalParameters[i].parameterType != ParameterType.GameObject)
 					{
@@ -352,7 +358,7 @@ namespace AC
 
 
 		#if UNITY_EDITOR
-		
+				
 		override public void ShowGUI (List<ActionParameter> parameters)
 		{
 			listSource = (ListSource) EditorGUILayout.EnumPopup ("Source:", listSource);
@@ -567,41 +573,7 @@ namespace AC
 				return;
 			}
 
-			// Ensure target and local parameter lists match
-			
-			int numParameters = externalParameters.Count;
-			if (numParameters < localParameters.Count)
-			{
-				localParameters.RemoveRange (numParameters, localParameters.Count - numParameters);
-			}
-			else if (numParameters > localParameters.Count)
-			{
-				if (numParameters > localParameters.Capacity)
-				{
-					localParameters.Capacity = numParameters;
-				}
-				for (int i=localParameters.Count; i<numParameters; i++)
-				{
-					ActionParameter newParameter = new ActionParameter (externalParameters [i].ID);
-					localParameters.Add (newParameter);
-				}
-			}
-
-			if (numParameters < parameterIDs.Count)
-			{
-				parameterIDs.RemoveRange (numParameters, parameterIDs.Count - numParameters);
-			}
-			else if (numParameters > parameterIDs.Count)
-			{
-				if (numParameters > parameterIDs.Capacity)
-				{
-					parameterIDs.Capacity = numParameters;
-				}
-				for (int i=parameterIDs.Count; i<numParameters; i++)
-				{
-					parameterIDs.Add (-1);
-				}
-			}
+			SyncLists (externalParameters, localParameters);
 
 			EditorGUILayout.BeginVertical ("Button");
 			for (int i=0; i<externalParameters.Count; i++)
@@ -726,6 +698,14 @@ namespace AC
 						localParameters[i].intValue = EditorGUILayout.IntField (label + ":", localParameters[i].intValue);
 					}
 				}
+				else if (externalParameters[i].parameterType == ParameterType.Vector3)
+				{
+					linkedID = Action.ChooseParameterGUI (label + ":", ownParameters, linkedID, ParameterType.Vector3);
+					if (linkedID < 0)
+					{
+						localParameters[i].vector3Value = EditorGUILayout.Vector3Field (label + ":", localParameters[i].vector3Value);
+					}
+				}
 				else if (externalParameters[i].parameterType == ParameterType.Boolean)
 				{
 					linkedID = Action.ChooseParameterGUI (label + ":", ownParameters, linkedID, ParameterType.Boolean);
@@ -779,7 +759,73 @@ namespace AC
 		}
 		
 		#endif
-		
+
+
+		[SerializeField] private bool hasUpgradedAgain = false;
+		private void SyncLists (List<ActionParameter> externalParameters, List<ActionParameter> oldLocalParameters)
+		{
+			if (!hasUpgradedAgain)
+			{
+				// If parameters were deleted before upgrading, there may be a mismatch - so first ensure that order internal IDs match external
+
+				if (oldLocalParameters != null && externalParameters != null && oldLocalParameters.Count != externalParameters.Count && oldLocalParameters.Count > 0)
+				{
+					ACDebug.LogWarning ("Parameter mismatch detected - please check the 'ActionList: Run' Action for its parameter values.");
+				}
+
+				for (int i=0; i<externalParameters.Count; i++)
+				{
+					if (i < oldLocalParameters.Count)
+					{
+						oldLocalParameters[i].ID = externalParameters[i].ID;
+					}
+				}
+
+				hasUpgradedAgain = true;
+			}
+
+			// Now that all parameter IDs match to begin with, we can rebuild the internal record based on the external parameters
+
+			localParameters = new List<ActionParameter>();
+			List<int> newParameterIDs = new List<int>();
+
+			foreach (ActionParameter externalParameter in externalParameters)
+			{
+				bool foundMatch = false;
+
+				for (int i=0; i<oldLocalParameters.Count; i++)
+				{
+					if (!foundMatch && oldLocalParameters[i].ID == externalParameter.ID)
+					{
+						localParameters.Add (new ActionParameter (oldLocalParameters[i], true));
+						oldLocalParameters.RemoveAt (i);
+
+						if (parameterIDs != null && i < parameterIDs.Count)
+						{
+							newParameterIDs.Add (parameterIDs[i]);
+							parameterIDs.RemoveAt (i);
+						}
+						else
+						{
+							newParameterIDs.Add (-1);
+						}
+
+						foundMatch = true;
+					}
+				}
+
+				if (!foundMatch)
+				{
+					ActionParameter newParameter = new ActionParameter (externalParameter.ID);
+					localParameters.Add (newParameter);
+
+					newParameterIDs.Add (-1);
+				}
+			}
+
+			parameterIDs = newParameterIDs;
+		}
+
 	}
 
 }

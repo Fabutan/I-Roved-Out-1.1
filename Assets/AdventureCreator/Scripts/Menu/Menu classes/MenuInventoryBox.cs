@@ -28,6 +28,9 @@ namespace AC
 
 		/** A List of UISlot classes that reference the linked Unity UI GameObjects (Unity UI Menus only) */
 		public UISlot[] uiSlots;
+		/** What pointer state registers as a 'click' for Unity UI Menus (PointerClick, PointerDown, PointerEnter) */
+		public UIPointerState uiPointerState = UIPointerState.PointerClick;
+
 		/** The special FX applied to the text (None, Outline, Shadow, OutlineAndShadow) */
 		public TextEffects textEffects;
 		/** The outline thickness, if textEffects != TextEffects.None */
@@ -66,6 +69,7 @@ namespace AC
 		public override void Declare ()
 		{
 			uiSlots = null;
+			uiPointerState = UIPointerState.PointerClick;
 
 			isVisible = true;
 			isClickable = true;
@@ -106,6 +110,7 @@ namespace AC
 			{
 				uiSlots = _element.uiSlots;
 			}
+			uiPointerState = _element.uiPointerState;
 
 			isClickable = _element.isClickable;
 			textEffects = _element.textEffects;
@@ -189,9 +194,21 @@ namespace AC
 				if (uiSlot != null && uiSlot.uiButton != null)
 				{
 					int j=i;
-					uiSlot.uiButton.onClick.AddListener (() => {
-						ProcessClickUI (_menu, j, MouseState.SingleClick);
-					});
+
+					if (inventoryBoxType == AC_InventoryBoxType.Default || inventoryBoxType == AC_InventoryBoxType.CustomScript)
+					{
+						if (KickStarter.settingsManager != null &&
+							KickStarter.settingsManager.interactionMethod != AC_InteractionMethod.ContextSensitive &&
+							KickStarter.settingsManager.inventoryInteractions == InventoryInteractions.Multiple)
+						{}
+						else
+						{
+							uiPointerState = UIPointerState.PointerClick;
+						}
+					}
+
+					CreateUIEvent (uiSlot.uiButton, _menu, uiPointerState, j, false);
+
 					uiSlot.AddClickHandler (_menu, this, j);
 				}
 				i++;
@@ -338,6 +355,21 @@ namespace AC
 				}
 
 				linkUIGraphic = (LinkUIGraphic) EditorGUILayout.EnumPopup ("Link graphics to:", linkUIGraphic);
+
+				// Don't show if Single and Default or Custom Script
+				if (inventoryBoxType == AC_InventoryBoxType.Default || inventoryBoxType == AC_InventoryBoxType.CustomScript)
+				{
+					if (KickStarter.settingsManager != null &&
+						KickStarter.settingsManager.interactionMethod != AC_InteractionMethod.ContextSensitive &&
+						KickStarter.settingsManager.inventoryInteractions == InventoryInteractions.Multiple)
+					{
+						uiPointerState = (UIPointerState) CustomGUILayout.EnumPopup ("Responds to:", uiPointerState, apiPrefix + ".uiPointerState");
+					}
+				}
+				else
+				{
+					uiPointerState = (UIPointerState) CustomGUILayout.EnumPopup ("Responds to:", uiPointerState, apiPrefix + ".uiPointerState");
+				}
 			}
 			EditorGUILayout.EndVertical ();
 
@@ -624,7 +656,7 @@ namespace AC
 								trueIndex += limitedItemList.Offset;
 							}
 
-							KickStarter.runtimeInventory.localItems = KickStarter.runtimeInventory.MoveItemToIndex (KickStarter.runtimeInventory.SelectedItem, KickStarter.runtimeInventory.localItems, trueIndex);
+							KickStarter.runtimeInventory.MoveItemToIndex (KickStarter.runtimeInventory.SelectedItem, trueIndex);
 						}
 						KickStarter.runtimeInventory.SetNull ();
 						return;

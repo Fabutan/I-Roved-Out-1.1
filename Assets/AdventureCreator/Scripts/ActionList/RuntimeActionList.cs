@@ -47,7 +47,6 @@ namespace AC
 		{
 			//this.name = actionListAsset.name;
 			assetSource = actionListAsset;
-
 			useParameters = actionListAsset.useParameters;
 			//parameters = actionListAsset.parameters;
 
@@ -120,6 +119,17 @@ namespace AC
 			{
 				ACDebug.LogWarning ("Cannot run " + this.name + " because no ActionListManager was found.");
 			}
+		}
+
+
+		protected override void AddResumeToManager (int startIndex)
+		{
+			if (KickStarter.actionListAssetManager == null)
+			{
+				ACDebug.LogWarning ("Cannot run " + this.name + " because no ActionListAssetManager was found.");
+				return;
+			}
+			KickStarter.actionListAssetManager.AddToList (this, assetSource, true, startIndex);
 		}
 
 

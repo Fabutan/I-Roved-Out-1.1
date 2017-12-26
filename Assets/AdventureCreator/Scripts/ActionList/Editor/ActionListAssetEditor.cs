@@ -106,7 +106,7 @@ namespace AC
 				
 				_target.actions[i].isAssetFile = true;
 				
-				EditorGUILayout.BeginVertical("Button");
+				EditorGUILayout.BeginVertical ("Button");
 				
 				string actionLabel = " " + (i).ToString() + ": " + actionsManager.EnabledActions[typeIndex].GetFullTitle () + _target.actions[i].SetLabel ();
 
@@ -265,7 +265,7 @@ namespace AC
 		}
 		
 		
-		public static void AddAction (string className, int i, ActionListAsset _target)
+		public static Action AddAction (string className, int i, ActionListAsset _target)
 		{
 			List<int> idArray = new List<int>();
 			
@@ -293,6 +293,8 @@ namespace AC
 			AssetDatabase.AddObjectToAsset (newAction, _target);
 			AssetDatabase.ImportAsset (AssetDatabase.GetAssetPath (newAction));
 			AssetDatabase.Refresh ();
+
+			return newAction;
 		}
 		
 		
@@ -425,7 +427,10 @@ namespace AC
 				
 			case "Insert after":
 				Undo.RecordObject (_target, "Create action");
-				ActionListAssetEditor.AddAction (actionsManager.GetDefaultAction (), i+1, _target);
+				Action newAction = ActionListAssetEditor.AddAction (actionsManager.GetDefaultAction (), i+1, _target);
+				newAction.endAction = _action.endAction;
+				newAction.skipAction = -1;
+				newAction.skipActionActual = _action.skipActionActual;
 				break;
 				
 			case "Delete":
@@ -557,7 +562,7 @@ namespace AC
 				EditorGUILayout.Space ();
 				EditorGUILayout.BeginVertical ("Button");
 				EditorGUILayout.LabelField ("Parameters", EditorStyles.boldLabel);
-				ActionListEditor.ShowParametersGUI (_target.parameters);
+				ActionListEditor.ShowParametersGUI (null, _target, _target.parameters);
 				EditorGUILayout.EndVertical ();
 			}
 
@@ -565,10 +570,10 @@ namespace AC
 		}
 
 
-		[OnOpenAssetAttribute(1)]
+		[OnOpenAssetAttribute(10)]
 		public static bool OnOpenAsset (int instanceID, int line)
 		{
-			if (Selection.activeObject is ActionListAsset)
+			if (Selection.activeObject is ActionListAsset && instanceID == Selection.activeInstanceID)
 			{
 				ActionListAsset actionListAsset = (ActionListAsset) Selection.activeObject as ActionListAsset;
 				ActionListEditorWindow.Init (actionListAsset);

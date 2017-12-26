@@ -351,9 +351,12 @@ namespace AC
 							// Re-assign variableID based on PopUp selection
 							invButton.invID = inventoryManager.items[invNumber].id;
 
-							if (_target.GetComponent <Char>() && settingsManager != null && settingsManager.CanGiveItems ())
+							if (settingsManager != null && settingsManager.CanGiveItems ())
 							{
-								invButton.selectItemMode = (SelectItemMode) EditorGUILayout.EnumPopup (invButton.selectItemMode, GUILayout.Width (70f));
+								if (_target.GetComponent <Char>() != null || _target.GetComponentInParent <Char>() != null)
+								{
+									invButton.selectItemMode = (SelectItemMode) EditorGUILayout.EnumPopup (invButton.selectItemMode, GUILayout.Width (70f));
+								}
 							}
 
 							if (GUILayout.Button (Resource.CogIcon, EditorStyles.miniButtonRight, buttonWidth))

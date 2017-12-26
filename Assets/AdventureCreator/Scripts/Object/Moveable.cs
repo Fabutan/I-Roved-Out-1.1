@@ -57,6 +57,14 @@ namespace AC
 		private Vector3 startScale;
 		private Vector3 endScale;
 
+		private Char character;
+
+
+		private void Awake ()
+		{
+			character = GetComponent <Char>();
+		}
+
 
 		/**
 		 * Halts the GameObject, if it is being moved by this script.
@@ -214,6 +222,12 @@ namespace AC
 							transform.localRotation = endRotation;
 						}
 					}
+
+					if (character != null)
+					{
+						character.SetLookDirection (character.transform.forward, true);
+					}
+
 					rotateChangeTime = 0f;
 				}
 			}

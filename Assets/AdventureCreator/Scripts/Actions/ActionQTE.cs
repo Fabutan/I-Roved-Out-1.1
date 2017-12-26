@@ -66,7 +66,13 @@ namespace AC
 		
 		override public float Run ()
 		{
-			if (duration <= 0f || inputName == "")
+			if (string.IsNullOrEmpty (inputName) && (KickStarter.settingsManager.inputMethod != InputMethod.TouchScreen || qteType == QTEType.SingleAxis))
+			{
+				isRunning = false;
+				return 0f;
+			}
+
+			if (duration <= 0f)
 			{
 				isRunning = false;
 				return 0f;
@@ -77,7 +83,7 @@ namespace AC
 				isRunning = true;
 
 				Animator animator = null;
-				if (menuName != "")
+				if (!string.IsNullOrEmpty (menuName))
 				{
 					AC.Menu menu = PlayerMenus.GetMenuWithName (menuName);
 					if (menu != null)
@@ -116,7 +122,7 @@ namespace AC
 					return defaultPauseTime;
 				}
 
-				if (menuName != "")
+				if (!string.IsNullOrEmpty (menuName))
 				{
 					AC.Menu menu = PlayerMenus.GetMenuWithName (menuName);
 					if (menu != null)
@@ -167,10 +173,7 @@ namespace AC
 			if (qteType == QTEType.SingleAxis)
 			{
 				axisThreshold = EditorGUILayout.Slider ("Axis threshold:", axisThreshold, -1f, 1f);
-			}
 
-			if (qteType == QTEType.SingleAxis)
-			{
 				if (axisThreshold >= 0f)
 				{
 					_label = "Negative axis fails?";
@@ -196,7 +199,13 @@ namespace AC
 			else
 			{
 				_label = "Wrong button fails?";
+		
+				if (KickStarter.settingsManager != null && KickStarter.settingsManager.inputMethod == InputMethod.TouchScreen)
+				{
+					EditorGUILayout.HelpBox ("If the input name field is left blank, then all screen taps will be valid.", MessageType.Info);
+				}
 			}
+
 			wrongKeyFails = EditorGUILayout.Toggle (_label, wrongKeyFails);
 
 			durationParameterID = Action.ChooseParameterGUI ("Duration (s):", parameters, durationParameterID, ParameterType.Float);

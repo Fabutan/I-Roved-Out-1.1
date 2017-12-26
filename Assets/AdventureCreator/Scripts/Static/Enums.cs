@@ -188,7 +188,7 @@ namespace AC
 
 	public enum ManageProfileType { CreateProfile, DeleteProfile, RenameProfile, SwitchActiveProfile };
 	public enum DeleteProfileType { ActiveProfile, SetSlotIndex, SlotIndexFromVariable, SetProfileID };
-	public enum SaveCheck { NumberOfSaveGames, NumberOfProfiles, IsSavingPossible, IsSlotEmpty, DoesProfileExist };
+	public enum SaveCheck { NumberOfSaveGames, NumberOfProfiles, IsSavingPossible, IsSlotEmpty, DoesProfileExist, DoesProfileNameExist };
 	public enum ManageSaveType { DeleteSave, RenameSave };
 	public enum SelectSaveType { Autosave, SetSlotIndex, SlotIndexFromVariable };
 	public enum SaveHandling { LoadGame, ContinueFromLastSave, OverwriteExistingSave, SaveNewGame };

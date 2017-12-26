@@ -145,7 +145,23 @@ namespace AC
 				}
 				else if (player.GetPath ())
 				{
-					player.EndPath ();
+					if (player.IsPathfinding () && !ChangingMovementLock () && (doRunLock == PlayerMoveLock.AlwaysWalk || doRunLock == PlayerMoveLock.AlwaysRun))
+					{
+						if (doRunLock == PlayerMoveLock.AlwaysRun)
+						{
+							player.GetPath ().pathSpeed = PathSpeed.Run;
+							player.isRunning = true;
+						}
+						else if (doRunLock == PlayerMoveLock.AlwaysWalk)
+						{
+							player.GetPath ().pathSpeed = PathSpeed.Walk;
+							player.isRunning = false;
+						}
+					}
+					else
+					{
+						player.EndPath ();
+					}
 				}
 
 				if (doGravityLock == LockType.Enabled)
@@ -232,6 +248,24 @@ namespace AC
 			{
 				SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
 				if (settingsManager.movementMethod == MovementMethod.PointAndClick || settingsManager.movementMethod == MovementMethod.Drag || settingsManager.movementMethod == MovementMethod.StraightToCursor)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+
+		private bool ChangingMovementLock ()
+		{
+			if (doUpLock != LockType.NoChange)
+			{
+				return true;
+			}
+
+			if (!IsSingleLockMovement ())
+			{
+				if (doDownLock != LockType.NoChange || doLeftLock != LockType.NoChange || doRightLock != LockType.NoChange)
 				{
 					return true;
 				}

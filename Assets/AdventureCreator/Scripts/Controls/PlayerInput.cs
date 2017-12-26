@@ -365,7 +365,6 @@ namespace AC
 				{
 					int touchCount = Input.touchCount;
 
-
 					// Cursor lock state
 					if (forceGameplayCursor == ForceGameplayCursor.KeepLocked)
 					{

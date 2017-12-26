@@ -502,6 +502,17 @@ namespace AC
 
 		private void ContextSensitiveClick ()
 		{
+			if (hotspot != null &&
+				KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot &&
+				KickStarter.settingsManager.allowDefaultinteractions &&
+				KickStarter.playerInput.InputGetButtonDown ("DefaultInteraction") &&
+				KickStarter.runtimeInventory.SelectedItem == null &&
+				hotspot.provideUseInteraction)
+			{
+				UseHotspot (hotspot);
+				return;
+			}
+
 			if (CanDoDoubleTap ())
 			{
 				// Detect Hotspots only on mouse click
@@ -944,9 +955,16 @@ namespace AC
 				}
 			}
 			
-			if (KickStarter.playerInput != null && KickStarter.playerInput.runLock == PlayerMoveLock.AlwaysWalk)
+			if (KickStarter.playerInput != null)
 			{
-				doRun = false;
+				if (KickStarter.playerInput.runLock == PlayerMoveLock.AlwaysWalk)
+				{
+					doRun = false;
+				}
+				else if (KickStarter.playerInput.runLock == PlayerMoveLock.AlwaysRun)
+				{
+					doRun = true;
+				}
 			}
 			
 			if (KickStarter.player)
@@ -991,14 +1009,18 @@ namespace AC
 				{
 					Vector3 lookVector = Vector3.zero;
 					Vector3 targetPos = _hotspot.transform.position;
-					
+
 					if (SceneSettings.ActInScreenSpace ())
 					{
-						lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, _hotspot.transform.position);
+						Vector3 _hotspotCentre = (_hotspot.centrePoint != null) ? _hotspot.centrePoint.position : _hotspot.transform.position;
+
+						lookVector = AdvGame.GetScreenDirection (KickStarter.player.transform.position, _hotspotCentre);
 					}
 					else
 					{
-						lookVector = targetPos - KickStarter.player.transform.position;
+						Vector3 _hotspotCentre = (_hotspot.centrePoint != null) ? _hotspot.centrePoint.position : _hotspot.transform.position;
+
+						lookVector = _hotspotCentre - KickStarter.player.transform.position;
 						lookVector.y = 0;
 					}
 					
@@ -2022,12 +2044,14 @@ namespace AC
 				}
 				if (_menu.GetTargetInvItem () != null)
 				{
-					_menu.ForceOff ();
+					//_menu.ForceOff ();
+					_menu.TurnOff ();
 					KickStarter.runtimeInventory.RunInteraction (iconID, _menu.GetTargetInvItem ());
 				}
 				else if (_menu.GetTargetHotspot ())
 				{
-					_menu.ForceOff ();
+					//_menu.ForceOff ();
+					_menu.TurnOff ();
 					ClickButton (InteractionType.Use, iconID, -1, _menu.GetTargetHotspot ());
 				}
 			}

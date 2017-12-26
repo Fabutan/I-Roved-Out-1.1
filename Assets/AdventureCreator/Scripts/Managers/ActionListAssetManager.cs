@@ -229,7 +229,6 @@ namespace AC
 					RuntimeActionList runtimeActionList = runtimeActionListObject.GetComponent <RuntimeActionList>();
 					runtimeActionList.DownloadActions (actionListAsset, activeLists[i].GetConversationOnEnd (), activeLists[i].startIndex, false, activeLists[i].inSkipQueue, true);
 					activeLists[i].Resume (runtimeActionList);
-
 					foundInstance = true;
 					if (!actionListAsset.canRunMultipleInstances)
 					{

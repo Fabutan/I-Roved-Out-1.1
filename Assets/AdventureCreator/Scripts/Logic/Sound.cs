@@ -538,7 +538,9 @@ namespace AC
 		 */
 		public void TryDestroy ()
 		{
-			if (surviveSceneChange && !audioSource.isPlaying)
+			if (this is Music || this is Ambience)
+			{}
+			else if (surviveSceneChange && !audioSource.isPlaying)
 			{
 				if (gameObject.GetComponentInParent <Player>() == null &&
 					GetComponent <Player>() == null &&

@@ -13,6 +13,14 @@
 using UnityEngine;
 using System.Collections;
 
+#if UNITY_2017_1_OR_NEWER
+using UnityEngine.Timeline;
+#endif
+
+#if UNITY_5_6_OR_NEWER
+using UnityEngine.Video;
+#endif
+
 namespace AC
 {
 
@@ -27,6 +35,12 @@ namespace AC
 		private static Object[] animationAssets;
 		private static Object[] materialAssets;
 		private static Object[] actionListAssets;
+		#if UNITY_2017_1_OR_NEWER
+		private static Object[] timelineAssets;
+		#endif
+		#if UNITY_5_6_OR_NEWER
+		private static Object[] videoAssets;
+		#endif
 
 
 		/**
@@ -86,6 +100,18 @@ namespace AC
 			{
 				newFile = RetrieveActionListAssets (_name);
 			}
+			#if UNITY_2017_1_OR_NEWER
+			else if (originalFile is TimelineAsset)
+			{
+				newFile = RetrieveTimelines (_name);
+			}
+			#endif
+			#if UNITY_5_6_OR_NEWER
+			else if (originalFile is VideoClip)
+			{
+				newFile = RetrieveVideoClips (_name);
+			}
+			#endif
 
 			return (newFile != null) ? (T) newFile : originalFile;
 		}
@@ -131,6 +157,24 @@ namespace AC
 		}
 
 
+		#if UNITY_2017_1_OR_NEWER
+		private static TimelineAsset RetrieveTimelines (string _name)
+		{
+			timelineAssets = RetrieveAssetFiles <TimelineAsset> (timelineAssets, "Timelines");
+			return GetAssetFile <TimelineAsset> (timelineAssets, _name);
+		}
+		#endif
+
+
+		#if UNITY_5_6_OR_NEWER
+		private static VideoClip RetrieveVideoClips (string _name)
+		{
+			videoAssets = RetrieveAssetFiles <VideoClip> (videoAssets, "VideoClips");
+			return GetAssetFile <VideoClip> (videoAssets, _name);
+		}
+		#endif
+
+
 		private static T GetAssetFile <T> (Object[] assetFiles, string _name) where T : Object
 		{
 			if (assetFiles != null && _name != null)
@@ -174,6 +218,9 @@ namespace AC
 			animationAssets = null;
 			materialAssets = null;
 			actionListAssets = null;
+			#if UNITY_2017_1_OR_NEWER
+			timelineAssets = null;
+			#endif
 			Resources.UnloadUnusedAssets ();
 		}
 

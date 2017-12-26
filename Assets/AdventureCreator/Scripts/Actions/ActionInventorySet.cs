@@ -87,10 +87,20 @@ namespace AC
 				}
 				else if (invAction == InvAction.Remove)
 				{
+					if (KickStarter.runtimeInventory.SelectedItem != null && KickStarter.runtimeInventory.SelectedItem.id == invID)
+					{
+						KickStarter.runtimeInventory.SetNull ();
+					}
+
 					KickStarter.runtimeInventory.Remove (invID, amount, setAmount, _playerID);
 				}
 				else if (invAction == InvAction.Replace)
 				{
+					if (KickStarter.runtimeInventory.SelectedItem != null && KickStarter.runtimeInventory.SelectedItem.id == invIDReplace)
+					{
+						KickStarter.runtimeInventory.SetNull ();
+					}
+
 					KickStarter.runtimeInventory.Replace (invID, invIDReplace, amount);
 				}
 			}

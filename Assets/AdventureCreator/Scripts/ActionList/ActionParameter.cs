@@ -273,6 +273,34 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Generates a label that represents the name of the parameter's value, if the parameterType = ParameterType.GameObject<summary>
+		 * <returns>A label that represents the name of the parameter's value, if the parameterType = ParameterType.GameObject<summary>
+		 */
+		public string GetLabel ()
+		{
+			if (parameterType == ParameterType.GameObject)
+			{
+				if (gameObject != null)
+				{
+					Hotspot _hotspot = gameObject.GetComponent <Hotspot>();
+					if (_hotspot) return _hotspot.GetName (Options.GetLanguage ());
+
+					Char _char = gameObject.GetComponent <Char>();
+					if (_char) return _char.GetName (Options.GetLanguage ());
+
+					return gameObject.name;
+				}
+				return "";
+			}
+			return GetSaveData ();
+		}
+
+
+		/**
+		 * <summary>Generates a string that represents the parameter's saveable data</summar>
+		 * <returns>The data string</returns>
+		 */
 		public string GetSaveData ()
 		{
 			if (parameterType == ParameterType.Float)
@@ -315,6 +343,10 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Restores data from a data string</summary>
+		 * <param name="dataString">The data</param>
+		 */
 		public void LoadData (string dataString)
 		{
 			if (parameterType == ParameterType.Float)

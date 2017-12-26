@@ -106,7 +106,7 @@ namespace AC
 						}
 						
 						if (oldPlayer == OldPlayer.ReplaceWithNPC && oldPlayerNPC != null &&
-						    (newPlayerPosition == NewPlayerPosition.ReplaceNPC || newPlayerPosition == NewPlayerPosition.AppearAtMarker))
+						    (newPlayerPosition == NewPlayerPosition.ReplaceNPC || newPlayerPosition == NewPlayerPosition.AppearAtMarker || newPlayerPosition == NewPlayerPosition.AppearInOtherScene))
 						{
 							oldPlayerNPC.transform.position = oldPlayerPosition;
 							oldPlayerNPC.transform.rotation = oldPlayerRotation;
@@ -133,11 +133,16 @@ namespace AC
 
 						if (restorePreviousData && KickStarter.saveSystem.DoesPlayerDataExist (playerID, true))
 						{
+							if (newPlayerNPC)
+							{
+								newPlayerNPC.transform.position += new Vector3 (100f, -100f, 100f);
+							}
+
 							int sceneToLoad = KickStarter.saveSystem.GetPlayerScene (playerID);
 							if (sceneToLoad >= 0 && sceneToLoad != UnityVersionHandler.GetCurrentSceneNumber ())
 							{
 								KickStarter.saveSystem.loadingGame = LoadingGame.JustSwitchingPlayer;
-								KickStarter.sceneChanger.ChangeScene (new SceneInfo ("", sceneToLoad), true);
+								KickStarter.sceneChanger.ChangeScene (new SceneInfo ("", sceneToLoad), true, false, newPlayerNPC_ID);
 							}
 							else
 							{
@@ -145,7 +150,7 @@ namespace AC
 								if (sceneToLoadName != "" && sceneToLoadName != UnityVersionHandler.GetCurrentSceneName ())
 								{
 									KickStarter.saveSystem.loadingGame = LoadingGame.JustSwitchingPlayer;
-									KickStarter.sceneChanger.ChangeScene (new SceneInfo (sceneToLoadName, -1), true);
+									KickStarter.sceneChanger.ChangeScene (new SceneInfo (sceneToLoadName, -1), true, false, newPlayerNPC_ID);
 								}
 							}
 						}
@@ -179,13 +184,18 @@ namespace AC
 							}
 							else if (newPlayerPosition == NewPlayerPosition.AppearInOtherScene)
 							{
+								if (newPlayerNPC)
+								{
+									newPlayerNPC.transform.position += new Vector3 (100f, -100f, 100f);
+								}
+
 								if (chooseNewSceneBy == ChooseSceneBy.Name && newPlayerSceneName == UnityVersionHandler.GetCurrentSceneName ())
 								{}
 								else if (chooseNewSceneBy == ChooseSceneBy.Number && newPlayerScene == UnityVersionHandler.GetCurrentSceneNumber ())
 								{}
 								else
 								{
-									KickStarter.sceneChanger.ChangeScene (new SceneInfo (chooseNewSceneBy, newPlayerSceneName, newPlayerScene), true);
+									KickStarter.sceneChanger.ChangeScene (new SceneInfo (chooseNewSceneBy, newPlayerSceneName, newPlayerScene), true, false, newPlayerNPC_ID);
 								}
 							}
 						}
@@ -275,6 +285,7 @@ namespace AC
 				restorePreviousData = EditorGUILayout.Toggle ("Restore position?", restorePreviousData);
 				if (restorePreviousData)
 				{
+					EditorGUILayout.BeginVertical (CustomStyles.thinBox);
 					EditorGUILayout.LabelField ("If first time in game:", EditorStyles.boldLabel);
 				}
 				
@@ -305,12 +316,22 @@ namespace AC
 					{
 						newPlayerScene = EditorGUILayout.IntField ("Scene to appear in:", newPlayerScene);
 					}
+
+					newPlayerNPC = (NPC) EditorGUILayout.ObjectField ("NPC to be replaced:", newPlayerNPC, typeof (NPC), true);
+					
+					newPlayerNPC_ID = FieldToID <NPC> (newPlayerNPC, newPlayerNPC_ID);
+					newPlayerNPC = IDToField <NPC> (newPlayerNPC, newPlayerNPC_ID, false);
 				}
-				
-				if (newPlayerPosition == NewPlayerPosition.ReplaceNPC || newPlayerPosition == NewPlayerPosition.AppearAtMarker)
+
+				if (restorePreviousData)
+				{
+					EditorGUILayout.EndVertical ();
+				}
+
+				if (newPlayerPosition == NewPlayerPosition.ReplaceNPC || newPlayerPosition == NewPlayerPosition.AppearAtMarker || newPlayerPosition == NewPlayerPosition.AppearInOtherScene)
 				{
 					EditorGUILayout.Space ();
-					oldPlayer = (OldPlayer) EditorGUILayout.EnumPopup ("Old Player", oldPlayer);
+					oldPlayer = (OldPlayer) EditorGUILayout.EnumPopup ("Old Player:", oldPlayer);
 					
 					if (oldPlayer == OldPlayer.ReplaceWithNPC)
 					{

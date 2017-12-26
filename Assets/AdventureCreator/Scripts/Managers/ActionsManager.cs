@@ -34,8 +34,6 @@ namespace AC
 
 		/** The folder path to any custom Actions */
 		public string customFolderPath = "AdventureCreator/Scripts/Actions";
-		/** The folder path to the default Actions*/
-		public string folderPath = "AdventureCreator/Scripts/Actions";
 
 		#endif
 
@@ -117,6 +115,12 @@ namespace AC
 				displayActionsInInspector = CustomGUILayout.ToggleLeft ("List Actions in Inspector window?", displayActionsInInspector, "AC.KickStarter.actionsManager.displayActionsInInspector");
 				displayActionsInEditor = (DisplayActionsInEditor) CustomGUILayout.EnumPopup ("Actions in Editor are:", displayActionsInEditor, "AC.KickStarter.actionsManager.displayActionsInEditor");
 				actionListEditorScrollWheel = (ActionListEditorScrollWheel) CustomGUILayout.EnumPopup ("Using scroll-wheel:", actionListEditorScrollWheel, "AC.KickStarter.actionsManager.actionListEditorScrollWheel");
+
+				if (actionListEditorScrollWheel == ActionListEditorScrollWheel.ZoomsWindow)
+				{
+					EditorGUILayout.HelpBox ("Panning is possible by holding down the middle-mouse button.", MessageType.Info);
+				}
+
 				panSpeed = CustomGUILayout.FloatField ((actionListEditorScrollWheel == ActionListEditorScrollWheel.PansWindow) ? "Panning speed:" : "Zoom speed:", panSpeed, "AC.KickStarter.actionsManager.panSpeed");
 				invertPanning = CustomGUILayout.ToggleLeft ("Invert panning in ActionList Editor?", invertPanning, "AC.KickStarter.actionsManager.invertPanning");
 				allowMultipleActionListWindows = CustomGUILayout.ToggleLeft ("Allow multiple ActionList Editor windows?", allowMultipleActionListWindows, "AC.KickStarter.actionsManager.allowMultipleActionListWindows");
@@ -488,6 +492,24 @@ namespace AC
 			}
 			
 			return numFinds;
+		}
+
+		/** The folder path to the default Actions */
+		public string FolderPath
+		{
+			get
+			{
+				return Resource.MainFolderPathRelativeToAssets + "/Scripts/Actions";
+			}
+		}
+
+
+		public bool UsingCustomActionsFolder
+		{
+			get
+			{
+				return (customFolderPath != FolderPath);
+			}
 		}
 		
 		#endif

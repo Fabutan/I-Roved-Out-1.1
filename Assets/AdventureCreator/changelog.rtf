@@ -5,11 +5,97 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww20440\viewh15160\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Version 1.60.3:\
+\f0\fs24 \cf0 Version 1.60.7:\
+\
+= Upgrade note =\
+-Characters will now turn instantly if their turn speed is negative, not zero\
+\
+-Changed: Characters will now turn instantly if their turn speed is negative, not zero\
+-Fixed: \'93On Start\'94 cutscene not running when a scene is added with the \'93Scene: Add or remove\'94 Action\
+\
+\
+Version 1.60.6:\
+\
+= Upgrade note =\
+-If a character has zero turn speed, they will now turn instantly\
+\
+-Added: Option for "retro-style" character movement when pathfinding - useful for low-resolution 2D games\
+-Added: Ability to optionally set a new Video Clip when using the "Engine: Play movie" Action to manipulate a Video Player\
+-Added: Ability to include the video clip asset in the "Remember Video Player" component\
+-Added: The "ActionList: Set parameter" Action can now copy its own ActionList's parameter values onto the one referenced\
+-Added: "Responds to" field for Unity UI-based InventoryBox elements when right-clicking won't examine the item\
+-Added: If a duplicating Subtitles menu is positioned "Above Speaking Character", it can optionally not follow the character as they move\
+-Added: The "Save: Check" Action can now be used to check if a profile with a given name exists\
+-Added: Ability for "Choose Interaction Then Hotspot" mode to run the selected-Hotspot's first "Use" interaction by invoking the "DefaultInteraction" input\
+-Added: Functions to the Hotspot script to more easily retrieve an Button for a given interaction or inventory item\
+-Added: Warning message if a Menu is set to render with Unity UI, but no Linked Canvas is supplied\
+-Added: If a node is inserted in between two others in a Path, its default position is now the average\
+-Changed: If a character has zero turn speed, they will now turn instantly\
+-Fixed: Hotspot inventory interactions not showing the "Use/Give" choice for 2D NPCs if appropriate\
+-Fixed: "Combine interactions work in reverse?" option not always showing when appropriate\
+-Fixed: Existing SimpleCamera prefabs not being listed in the Scene Manager\
+-Fixed: Warning messages showing when Unity UI-based Menus use Custom Animation for transitions (Unity 2017 and newer)\
+-Fixed: Rare issue in which the game state is incorrect when a background Cutscene is run while the game is paused\
+-Fixed: "Character: Move along path" Action not skipping correctly\
+-Fixed: Minor errors with Manual\
+\
+\
+Version 1.60.5:\
+\
+= Upgrade notes =\
+-The RuntimeInventory script\'92s localItems List is now read-only - the script\'92s functions can be used to modify the player\'92s inventory through code\
+-If a Hotspot interaction's "Player action" is "Turn To Face", the player will face the Hotspot's "Centre-point override" if one exists\
+-If the "Engine: Wait" Action is given a negative "Wait time", the Action will wait for frame\
+-If the "Player: Constrain" Action is used to modify a pathfinding player\'92s "Walk/Run" state, they will continue pathfinding at the new speed\
+\
+-Added: The "Engine: Control Timeline" Action now supports the remapping of track bindings and replacement of Timeline assets\
+-Added: The "Remember Timeline" component can now save the track bindings if they have Constant ID values\
+-Added: The "Remember Timeline" component can now save the Timeline asset, provided it is in a Resources folder\
+-Added: Public functions to PlayerMenus to update and draw Menus created through custom scripts\
+-Added: Minor optimisations for moving characters\
+-Changed: The RuntimeInventory script\'92s localItems List is now read-only - the script\'92s functions can be used to modify the player\'92s inventory through code\
+-Changed: If a Hotspot interaction's "Player action" is \'93Turn To Face\'93, the player will face the Hotspot's "Centre-point override" if one exists\
+-Changed: When an Interaction menu element is clicked, the Menu now transitions out, instead of turning off instantly\
+-Changed: If the "Player: Constrain" Action is used to enforce running, the Player will also run when moving to Hotspots\
+-Changed: If the "Player: Constrain" Action is used to modify a pathfinding player\'92s "Walk/Run" state, they will continue pathfinding at the new speed\
+-Changed: If the "Engine: Wait" Action is given a negative "Wait time", the Action will wait for one frame\
+-Fixed: Issues with re-orderable inventory menus after changing scenes\
+-Fixed: The \'93ToggleRun" input run not being listed in the Manual's "Input descriptions" chapter\
+-Fixed: Player colliders sometimes blocking clicks to 2D NavMeshes in Unity 5.6 or newer\
+-Fixed: Games sometimes not leaving "Cutscene" state after resuming an ActionList asset\
+\
+\
+Version 1.60.4:\
+\
+= Upgrade note =\
+-Before deleting an ActionList parameter, any "ActionList: Run" Action needs to have its UI viewed to upgrade it so that data is not lost\
+\
+-Added: New options in "Player: Switch" Action to control the replacement of NPCs when it results in switching to a new scene\
+-Added: Button menu elements can now use variable text tokens\
+-Added: "Move player" option to the "Object: Transform" Action\
+-Added: "Single Keypress", \'93Button Mash" and "Hold Key" QTEs now work with touch-screen taps if no input axis name is supplied in the "Input: QTE" Action\
+-Added: Parameter-selector fields now show parameter IDs at the end of the label, so that they can be sorted into popup folders with forward-slashes\
+-Added: If a GameObject parameter does not have the expected component, a warning message will show in the Console when referenced\
+-Added: Ability to re-arrange parameters in ActionList Inspectors\
+-Added: Timed Conversations can be given no default option, causing the Conversation to just end if the timer expires\
+-Added: Ability to set a time limit to the "Character: Move to point" Action, and have the character stop or teleport if the timer is exceeded\
+-Added: [paramlabel:X] text token - when used to reference a GameObject parameter, it is replaced by the GameObject's label, or Hotspot/Character label if one exists\
+-Changed: The MainCamera's Culling Masks are no longer tightly controlled when using 2.5D cameras, other than the BackgroundImage layer being removed\
+-Fixed: Parameter values in the "ActionList: Run" Action becoming mismatched if the referenced ActionList's parameters are modified\
+-Fixed: "Vector3" parameter values not being modifiable in the \'93ActionList" Run Action\
+-Fixed: Typo in the "Custom save formats and handling" chapter of the Manual\
+-Fixed: Character rotations reverting once the "Object: Transform" Action is used to turn them\
+-Fixed: ActionList Editor window sometimes opening inappropriately when double-clicking a Console message\
+-Fixed: 2D Demo's Interaction menu not centering over the cursor\
+-Fixed: Actions inserted after others in the ActionList Editor not having the correct "After running" settings\
+-Fixed: If the "Inventory: Add or remove" Action is used to remove the currently-selected item, the item is now deselected as well\
+\
+\
+Version 1.60.3:\
 \
 = Upgrade notes =\
 -Due to bug-fixing, the "Ground-check layer" field in Player and NPC components has been reverted to "Default", and may need amending\
--If a Hotspot interaction's "Place action" is "Walk To", and "Face after moving" is checked, the player will face the Hotspot's "Centre-point override" if one exists\
+-If a Hotspot interaction's "Player action" is "Walk To", and "Face after moving" is checked, the player will face the Hotspot's "Centre-point override" if one exists\
 \
 -Added: When animating cursors and portrait graphics, the relative speed of each frame can now be set\
 -Added: Ability to define an "Is grounded" boolean parameter for Mecanim-based characters\

@@ -863,11 +863,18 @@ namespace AC
 					{
 						KickStarter.playerMenus.CloseInteractionMenus ();
 					}
-					if (!RaycastNavMesh (KickStarter.playerInput.GetMousePosition (), doubleClick))
+
+					Vector3 simulatedMouse = KickStarter.playerInput.GetMousePosition ();
+
+					// In Unity 5.6+, 'Ignore Raycast' layers are included in raycast checks so we need to specify the layer if in 2D
+					if (
+						(SceneSettings.IsUnity2D () && !SearchForNavMesh2D (simulatedMouse, Vector2.zero, doubleClick))
+						||
+						(!SceneSettings.IsUnity2D () && !RaycastNavMesh (simulatedMouse, doubleClick))
+						)
 					{
 						// Move Ray down screen until we hit something
-						Vector3 simulatedMouse = KickStarter.playerInput.GetMousePosition ();
-		
+
 						if (KickStarter.settingsManager.walkableClickRange > 0f && ((int) Screen.height * KickStarter.settingsManager.walkableClickRange) > 1)
 						{
 							float maxIterations = 100f;

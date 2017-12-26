@@ -427,10 +427,18 @@ namespace AC
 			addToSkipQueue = CanAddToSkipQueue (actionList, addToSkipQueue);
 			activeLists.Add (new ActiveList (actionList, addToSkipQueue, _startIndex));
 
-			if (actionList is RuntimeActionList && actionList.actionListType == ActionListType.PauseGameplay && !actionList.unfreezePauseMenus && KickStarter.playerMenus.ArePauseMenusOn (null))
+			if (KickStarter.playerMenus.ArePauseMenusOn ())
 			{
-				// Don't affect the gamestate if we want to remain frozen
-				return;
+				if (actionList.actionListType == ActionListType.RunInBackground)
+				{
+					// Don't change gamestate if running in background
+					return;
+				}
+				if (actionList is RuntimeActionList && actionList.actionListType == ActionListType.PauseGameplay && !actionList.unfreezePauseMenus)
+				{
+					// Don't affect the gamestate if we want to remain frozen
+					return;
+				}
 			}
 
 			SetCorrectGameState ();
@@ -571,7 +579,6 @@ namespace AC
 			{
 				ACDebug.LogWarning ("Could not set correct GameState!");
 			}
-
 			PurgeLists ();
 		}
 

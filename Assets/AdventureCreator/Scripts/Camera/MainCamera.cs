@@ -343,7 +343,7 @@ namespace AC
 			
 			if (LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer) != -1)
 			{
-				_camera.cullingMask = ~(1 << LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer));
+				_camera.cullingMask = _camera.cullingMask & ~(1 << LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer));
 			}
 		}
 		
@@ -355,7 +355,7 @@ namespace AC
 			
 			if (LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer) != -1)
 			{
-				_camera.cullingMask = ~(1 << LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer));
+				_camera.cullingMask = _camera.cullingMask & ~(1 << LayerMask.NameToLayer (KickStarter.settingsManager.backgroundImageLayer));
 			}
 		}
 		

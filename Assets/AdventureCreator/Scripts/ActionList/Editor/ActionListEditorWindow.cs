@@ -2341,7 +2341,7 @@ namespace AC
 						{
 							ActionListEditor.ModifyAction (windowData.target, action, "Insert after");
 						}
-						
+
 						actionList[newIndex].nodeRect.x = action.nodeRect.x + 50;
 						actionList[newIndex].nodeRect.y = action.nodeRect.y + 100;
 						actionList[newIndex].isDisplayed = true;

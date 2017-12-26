@@ -27,6 +27,7 @@ namespace AC
 		public SaveCheck saveCheck = SaveCheck.NumberOfSaveGames;
 		public bool includeAutoSaves = true;
 		public bool checkByElementIndex = false;
+		public bool checkByName = false;
 
 		public int intValue;
 		public int checkParameterID = -1;
@@ -34,6 +35,8 @@ namespace AC
 
 		public string menuName = "";
 		public string elementName = "";
+
+		public int profileVarID;
 
 
 		public ActionSaveCheck ()
@@ -108,6 +111,23 @@ namespace AC
 					bool result = Options.DoesProfileIDExist (intValue);
 					return ProcessResult (result, actions);
 				}
+			}
+			else if (saveCheck == SaveCheck.DoesProfileNameExist)
+			{
+				bool result = false;
+
+				GVar gVar = GlobalVariables.GetVariable (profileVarID);
+				if (gVar != null)
+				{
+					string profileName = gVar.textVal;
+					result = KickStarter.options.DoesProfileExist (profileName);
+				}
+				else
+				{
+					ACDebug.LogWarning ("Could not check for profile name - no variable found.");
+				}
+
+				return ProcessResult (result, actions);
 			}
 			else if (saveCheck == SaveCheck.IsSavingPossible)
 			{
@@ -191,6 +211,10 @@ namespace AC
 					menuName = EditorGUILayout.TextField ("Menu with ProfilesList:", menuName);
 					elementName = EditorGUILayout.TextField ("ProfilesList element:", elementName);
 				}
+			}
+			else if (saveCheck == SaveCheck.DoesProfileNameExist)
+			{
+				profileVarID = AdvGame.GlobalVariableGUI ("String variable with name:", profileVarID, VariableType.String);
 			}
 			else if (saveCheck != SaveCheck.IsSavingPossible)
 			{

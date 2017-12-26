@@ -311,7 +311,7 @@ namespace AC
 
 		/**
 		 * <summary>Resumes the associated ActionList, if it had previously been paused.</summary>
-		 * <param name = "runtimeActionListAsset">The RuntimeActionList to re-associate the class with</param>
+		 * <param name = "runtimeActionList">The RuntimeActionList to re-associate the class with</param>
 		 */
 		public void Resume (RuntimeActionList runtimeActionList = null)
 		{

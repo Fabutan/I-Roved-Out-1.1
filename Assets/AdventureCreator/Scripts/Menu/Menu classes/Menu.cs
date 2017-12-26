@@ -43,7 +43,7 @@ namespace AC
 		public int rectTransformID = 0;
 		/** The transition method for Unity UI-based menus (None, CanvasGroupFade, CustomAnimation) */
 		public UITransition uiTransitionType = UITransition.None;
-		/** The position method for Unity UI-based menus (AbovePlayer, AboveSpeakingCharacter, AppearAtCursorThenFreeze, FollowCursor, Manual, OnHotspot) */
+		/** The position method for Unity UI-based menus (AbovePlayer, AboveSpeakingCharacter, AppearAtCursorAndFreeze, FollowCursor, Manual, OnHotspot) */
 		public UIPositionType uiPositionType = UIPositionType.Manual;
 
 		/** If True, the Menu's propertied can be edited in MenuManager */
@@ -103,6 +103,8 @@ namespace AC
 		public string limitToCharacters = "";
 		/** If appearType = AppearType.WhenSpeechPlays, the Menu will show regardless of the 'Subtitles' setting in Options */
 		public bool forceSubtitles = false;
+		/** If True, and positionType = PositionType.AboveSpeakingCharacter, and oneMenuPerSpeech = True, then the Menu will update its position every frame */
+		public bool moveWithCharacter = true;
 
 		/** Which OnGUI MenuElement is currently active, when it is keyboard-controlled */
 		public MenuElement selected_element;
@@ -144,6 +146,7 @@ namespace AC
 		/** If True, then a new instance of the Menu will be created for each speech line, if appearType = AppearType.WhenSpeechPlays */
 		public bool oneMenuPerSpeech = false;
 		private bool isDuplicate = false;
+		private bool hasMoved = false;
 
 		/** The Speech instance tied to the Menu, if a duplicate was made specifically for it */
 		public Speech speech;
@@ -191,6 +194,7 @@ namespace AC
 			orientation = MenuOrientation.Vertical;
 			appearType = AppearType.Manual;
 			oneMenuPerSpeech = false;
+			moveWithCharacter = true;
 
 			fitWithinScreen = true;
 			elements = new List<MenuElement>();
@@ -225,6 +229,7 @@ namespace AC
 			isLocked = false;
 			updateWhenFadeOut = true;
 			positionSmoothing = false;
+			hasMoved = false;
 
 			// Update id based on array
 			foreach (int _id in idArray)
@@ -236,6 +241,19 @@ namespace AC
 			}
 			
 			title = "Menu " + (id + 1).ToString ();
+		}
+
+
+		/**
+		 * <summary>Copies the values of another Menu, and initialises it for display.</summary>
+		 * <param name = "menuToCopy">The other Menu to copy from</param>
+		 */
+		public void CreateDuplicate (AC.Menu menuToCopy)
+		{
+			Copy (menuToCopy, false);
+			LoadUnityUI ();
+			Recalculate ();
+			Initalise ();
 		}
 
 
@@ -275,6 +293,7 @@ namespace AC
 			transitionProgress = 0f;
 			appearType = _menu.appearType;
 			oneMenuPerSpeech = _menu.oneMenuPerSpeech;
+			moveWithCharacter = _menu.moveWithCharacter;
 			selected_element = null;
 			selected_slot = 0;
 			firstSelectedElement = _menu.firstSelectedElement;
@@ -325,6 +344,11 @@ namespace AC
 		 */
 		public void LoadUnityUI ()
 		{
+			if (!IsUnityUI ())
+			{
+				return;
+			}
+
 			Canvas localCanvas = null;
 
 			if (menuSource == MenuSource.UnityUiPrefab)
@@ -356,6 +380,10 @@ namespace AC
 
 				canvasGroup = canvas.GetComponent <CanvasGroup>();
 			}
+			else
+			{
+				ACDebug.LogWarning ("The Menu '" + title + "' has its Source set to " + menuSource.ToString () + ", but no Linked Canvas can be found!");
+			}
 
 			if (IsUnityUI ())
 			{
@@ -374,7 +402,12 @@ namespace AC
 			if (IsUnityUI () && uiTransitionType == UITransition.CustomAnimation && fadeSpeed > 0f && canvas != null && canvas.GetComponent <Animator>())
 			{
 				Animator animator = canvas.GetComponent <Animator>();
-				
+
+				if (!canvas.gameObject.activeSelf)
+				{
+					return;
+				}
+
 				if (isFading)
 				{
 					if (fadeType == FadeType.fadeIn)
@@ -429,13 +462,9 @@ namespace AC
 		 */
 		public bool GetsDuplicated ()
 		{
-			if (oneMenuPerSpeech && appearType == AppearType.WhenSpeechPlays)
+			if (oneMenuPerSpeech)
 			{
-				return true;
-			}
-			if (oneMenuPerSpeech && appearType == AppearType.OnHotspot && KickStarter.settingsManager.interactionMethod != AC_InteractionMethod.ChooseHotspotThenInteraction)
-			{
-			//	return true;
+				return (appearType == AppearType.WhenSpeechPlays);
 			}
 			return false;
 		}
@@ -533,8 +562,12 @@ namespace AC
 			{
 				isEnabled = false;
 				isFading = false;
-				SetAnimState ();
-				canvas.gameObject.SetActive (false);
+
+				if (canvas.gameObject.activeSelf)
+				{
+					SetAnimState ();
+					canvas.gameObject.SetActive (false);
+				}
 
 				bool shouldDisable = KickStarter.playerMenus.DeselectEventSystemMenu (this);
 				//if (CanCurrentlyKeyboardControl () && IsClickable ())
@@ -626,12 +659,14 @@ namespace AC
 				}
 
 				forceSubtitles = CustomGUILayout.Toggle ("Ignore 'Subtitles' option?", forceSubtitles, apiPrefix + ".forceSubtitles");
-			}
-			else if (appearType == AppearType.OnHotspot)
-			{
-				if (AdvGame.GetReferences ().settingsManager != null && AdvGame.GetReferences ().settingsManager.interactionMethod != AC_InteractionMethod.ChooseHotspotThenInteraction)
+
+				if (oneMenuPerSpeech)
 				{
-				//	oneMenuPerSpeech = CustomGUILayout.Toggle ("Duplicate for each Hotspot?", oneMenuPerSpeech, apiPrefix + ".oneMenuPerSpeech");
+					if ((IsUnityUI () && uiPositionType == UIPositionType.AboveSpeakingCharacter) ||
+						(!IsUnityUI () && positionType == AC_PositionType.AboveSpeakingCharacter))
+					{
+						moveWithCharacter = CustomGUILayout.Toggle ("Move with character?", moveWithCharacter, apiPrefix + ".moveWithCharacter");
+					}
 				}
 			}
 
@@ -977,8 +1012,8 @@ namespace AC
 				if (canvas != null && rectTransform != null && canvas.renderMode == RenderMode.WorldSpace)
 				{
 					rectTransform.transform.position = _position;
+					hasMoved = true;
 				}
-				
 				return;
 			}
 
@@ -997,6 +1032,8 @@ namespace AC
 			{
 				useAspectRatio = false;
 			}
+
+			hasMoved = true;
 
 			if (IsUnityUI ())
 			{
@@ -2602,6 +2639,18 @@ namespace AC
 			get
 			{
 				return idString;
+			}
+		}
+
+
+		/**
+		 * True if the Menu has been repositioned
+		 */
+		public bool HasMoved
+		{
+			get
+			{
+				return hasMoved;
 			}
 		}
 

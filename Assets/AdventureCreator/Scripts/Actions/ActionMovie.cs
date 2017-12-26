@@ -50,6 +50,7 @@ namespace AC
 		public int videoPlayerParameterID = -1;
 		public int videoPlayerConstantID;
 		public bool prepareOnly = false;
+		public VideoClip newClip;
 		#endif
 
 		#if ALLOW_HANDHELD
@@ -111,6 +112,11 @@ namespace AC
 
 						if (movieMaterialMethod == MovieMaterialMethod.PlayMovie)
 						{
+							if (newClip != null)
+							{
+								videoPlayer.clip = newClip;
+							}
+
 							if (prepareOnly)
 							{
 								videoPlayer.Prepare ();
@@ -401,6 +407,8 @@ namespace AC
 
 				if (movieMaterialMethod == MovieMaterialMethod.PlayMovie)
 				{
+					newClip = (VideoClip) EditorGUILayout.ObjectField ("New Clip (optional):", newClip, typeof (VideoClip), true);
+            
 					prepareOnly = EditorGUILayout.Toggle ("Prepare only?", prepareOnly);
 					willWait = EditorGUILayout.Toggle ("Wait until finish?", willWait);
 

@@ -456,7 +456,11 @@ namespace AC
 				
 			case "Insert after":
 				Undo.RecordObject (_target, "Create action");
-				_target.actions.Insert (i+1, ActionList.GetDefaultAction ());
+				Action insertAfterAction = ActionList.GetDefaultAction ();
+				_target.actions.Insert (i+1, insertAfterAction);
+				insertAfterAction.endAction = _action.endAction;
+				insertAfterAction.skipAction = -1;
+				insertAfterAction.skipActionActual = _action.skipActionActual;
 				break;
 				
 			case "Delete":
@@ -561,30 +565,6 @@ namespace AC
 		}
 
 
-		/*private void ShowParametersGUI (ActionList _target)
-		{
-			if (_target is AC_Trigger)
-			{
-				if (_target.parameters.Count != 1)
-				{
-					ActionParameter newParameter = new ActionParameter (0);
-					newParameter.parameterType = ParameterType.GameObject;
-					newParameter.label = "Collision object";
-					_target.parameters.Clear ();
-					_target.parameters.Add (newParameter);
-				}
-				return;
-			}
-
-			EditorGUILayout.Space ();
-			EditorGUILayout.BeginVertical ("Button");
-			EditorGUILayout.LabelField ("Parameters", EditorStyles.boldLabel);
-			ActionListEditor.ShowParametersGUI (_target.parameters);
-
-			EditorGUILayout.EndVertical ();
-		}*/
-
-
 		public static int[] GetParameterIDArray (List<ActionParameter> parameters)
 		{
 			List<int> idArray = new List<int>();
@@ -597,7 +577,7 @@ namespace AC
 		}
 
 
-		public static void ShowParametersGUI (List<ActionParameter> parameters)
+		public static void ShowParametersGUI (ActionList actionList, ActionListAsset actionListAsset, List<ActionParameter> parameters)
 		{
 			foreach (ActionParameter _parameter in parameters)
 			{
@@ -605,11 +585,12 @@ namespace AC
 				EditorGUILayout.LabelField (_parameter.ID.ToString (), GUILayout.Width (10f));
 				_parameter.label = EditorGUILayout.TextField (_parameter.label);
 				_parameter.parameterType = (ParameterType) EditorGUILayout.EnumPopup (_parameter.parameterType);
-				if (GUILayout.Button ("-"))
+
+				if (GUILayout.Button (Resource.CogIcon, GUILayout.Width (20f), GUILayout.Height (15f)))
 				{
-					parameters.Remove (_parameter);
-					break;
+					ParameterSideMenu (actionList, actionListAsset, parameters.Count, parameters.IndexOf (_parameter));
 				}
+
 				EditorGUILayout.EndHorizontal ();
 			}
 
@@ -622,6 +603,155 @@ namespace AC
 			{
 				ActionParameter newParameter = new ActionParameter (ActionListEditor.GetParameterIDArray (parameters));
 				parameters.Add (newParameter);
+			}
+		}
+
+
+		private static int parameterToAffect;
+		private static ActionList parameterSideActionList;
+		private static ActionListAsset parameterSideActionListAsset;
+		private static void ParameterSideMenu (ActionList actionList, ActionListAsset actionListAsset, int numParameters, int i)
+		{
+			parameterToAffect = i;
+			parameterSideActionList = actionList;
+			if (actionList == null)
+			{
+				parameterSideActionListAsset = actionListAsset;
+			}
+			else
+			{
+				parameterSideActionListAsset = null;
+			}
+
+			GenericMenu menu = new GenericMenu ();
+
+			menu.AddItem (new GUIContent ("Insert"), false, ParameterCallback, "Insert");
+			menu.AddItem (new GUIContent ("Delete"), false, ParameterCallback, "Delete");
+
+			if (i > 0 || i < numParameters-1)
+			{
+				menu.AddSeparator ("");
+
+				if (i > 0)
+				{
+					menu.AddItem (new GUIContent ("Re-arrange/Move to top"), false, ParameterCallback, "Move to top");
+					menu.AddItem (new GUIContent ("Re-arrange/Move up"), false, ParameterCallback, "Move up");
+				}
+				if (i < numParameters-1)
+				{
+					menu.AddItem (new GUIContent ("Re-arrange/Move down"), false, ParameterCallback, "Move down");
+					menu.AddItem (new GUIContent ("Re-arrange/Move to bottom"), false, ParameterCallback, "Move to bottom");
+				}
+			}
+
+			menu.ShowAsContext ();
+		}
+		
+		
+		private static void ParameterCallback (object obj)
+		{
+			if (parameterSideActionList != null)
+			{
+				ModifyParameter (parameterSideActionList, parameterToAffect, obj.ToString ());
+				EditorUtility.SetDirty (parameterSideActionList);
+			}
+			else if (parameterSideActionListAsset != null)
+			{
+				ModifyParameter (parameterSideActionListAsset, parameterToAffect, obj.ToString ());
+				EditorUtility.SetDirty (parameterSideActionListAsset);
+			}
+
+		}
+		
+		
+		private static void ModifyParameter (ActionList _target, int i, string callback)
+		{
+			if (_target == null || _target.parameters == null) return;
+
+			ActionParameter moveParameter = _target.parameters[i];
+				
+			switch (callback)
+			{
+			case "Insert":
+				Undo.RecordObject (_target, "Create parameter");
+				ActionParameter newParameter = new ActionParameter (ActionListEditor.GetParameterIDArray (_target.parameters));
+				_target.parameters.Insert (i+1, newParameter);
+				break;
+				
+			case "Delete":
+				Undo.RecordObject (_target, "Delete parameter");
+				_target.parameters.RemoveAt (i);
+				break;
+
+			case "Move to top":
+				Undo.RecordObject (_target, "Move parameter to top");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (0, moveParameter);
+				break;
+				
+			case "Move up":
+				Undo.RecordObject (_target, "Move parameter up");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (i-1, moveParameter);
+				break;
+				
+			case "Move to bottom":
+				Undo.RecordObject (_target, "Move parameter to bottom");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (_target.parameters.Count, moveParameter);
+				break;
+				
+			case "Move down":
+				Undo.RecordObject (_target, "Move parameter down");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (i+1, moveParameter);
+				break;
+			}
+		}
+
+
+		private static void ModifyParameter (ActionListAsset _target, int i, string callback)
+		{
+			if (_target == null || _target.parameters == null) return;
+
+			ActionParameter moveParameter = _target.parameters[i];
+				
+			switch (callback)
+			{
+			case "Insert":
+				Undo.RecordObject (_target, "Create parameter");
+				ActionParameter newParameter = new ActionParameter (ActionListEditor.GetParameterIDArray (_target.parameters));
+				_target.parameters.Insert (i+1, newParameter);
+				break;
+				
+			case "Delete":
+				Undo.RecordObject (_target, "Delete parameter");
+				_target.parameters.RemoveAt (i);
+				break;
+
+			case "Move to top":
+				Undo.RecordObject (_target, "Move parameter to top");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (0, moveParameter);
+				break;
+				
+			case "Move up":
+				Undo.RecordObject (_target, "Move parameter up");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (i-1, moveParameter);
+				break;
+				
+			case "Move to bottom":
+				Undo.RecordObject (_target, "Move parameter to bottom");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (_target.parameters.Count, moveParameter);
+				break;
+				
+			case "Move down":
+				Undo.RecordObject (_target, "Move parameter down");
+				_target.parameters.Remove (moveParameter);
+				_target.parameters.Insert (i+1, moveParameter);
+				break;
 			}
 		}
 

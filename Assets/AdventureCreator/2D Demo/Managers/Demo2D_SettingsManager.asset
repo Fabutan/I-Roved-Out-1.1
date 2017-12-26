@@ -102,7 +102,7 @@ MonoBehaviour:
   doubleTapHotspots: 0
   firstPersonTouchScreen: 1
   touchUpWhenPaused: 0
-  forceAspectRatio: 0
+  forceAspectRatio: 1
   wantedAspectRatio: 1.5
   landscapeModeOnly: 0
   cameraPerspective: 0

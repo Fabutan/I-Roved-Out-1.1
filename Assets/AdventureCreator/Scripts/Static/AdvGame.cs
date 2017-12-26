@@ -475,6 +475,17 @@ namespace AC
 						}
 					}
 				}
+				if (_text.Contains ("[paramlabel:") && parameters != null)
+				{
+					foreach (ActionParameter parameter in parameters)
+					{
+						string tokenText = "[paramlabel:" + parameter.ID.ToString () + "]";
+						if (_text.Contains (tokenText))
+						{
+							_text = _text.Replace (tokenText, parameter.GetLabel ());
+						}
+					}
+				}
 
 				if (KickStarter.runtimeVariables)
 				{
@@ -872,14 +883,14 @@ namespace AC
 			{
 				Vector2 endPos = new Vector2 (end.x + end.width / 2f + endOffset, end.y - 8);
 				DrawNodeCurve (start, endPos, color, offset, onSide, !arrangeVertically, isDisplayed);
-				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/node-arrow.png", typeof (Texture2D));
+				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/Textures/node-arrow.png", typeof (Texture2D));
 				GUI.Label (new Rect (endPos.x-5, endPos.y-4, 12, 16), arrow, "Label");
 			}
 			else
 			{
 				Vector2 endPos = new Vector2 (end.x - 8f, end.y + 10 + endOffset);
 				DrawNodeCurve (start, endPos, color, offset, onSide, !arrangeVertically, isDisplayed);
-				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/Textures/node-arrow-side.png", typeof (Texture2D));
+				Texture2D arrow = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/Textures/node-arrow-side.png", typeof (Texture2D));
 				GUI.Label (new Rect (endPos.x-4, endPos.y-7, 16, 12), arrow, "Label");
 			}
 

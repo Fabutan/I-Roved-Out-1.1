@@ -1270,7 +1270,7 @@ namespace AC
 				KickStarter.runtimeInventory.RemoveRecipes ();
 				if (activeSelectiveLoad.loadInventory)
 				{
-					KickStarter.runtimeInventory.localItems = AssignInventory (KickStarter.runtimeInventory, playerData.inventoryData);
+					KickStarter.runtimeInventory.AssignPlayerInventory (AssignInventory (KickStarter.runtimeInventory, playerData.inventoryData));
 					if (saveData.mainData.selectedInventoryID > -1)
 					{
 						if (saveData.mainData.isGivingItem)
@@ -1475,7 +1475,7 @@ namespace AC
 
 							if (doInventory)
 							{
-								KickStarter.runtimeInventory.localItems = AssignInventory (KickStarter.runtimeInventory, _data.inventoryData);
+								KickStarter.runtimeInventory.AssignPlayerInventory (AssignInventory (KickStarter.runtimeInventory, _data.inventoryData));
 							}
 
 							return (_data.currentScene);
@@ -1616,7 +1616,7 @@ namespace AC
 		
 					int _count = 0;
 					int.TryParse (chunkData[1], out _count);
-					
+
 					invItems = _runtimeInventory.Add (_id, _count, invItems, false);
 				}
 			}
@@ -1644,7 +1644,6 @@ namespace AC
 			{
 				inventoryString.Remove (inventoryString.Length-1, 1);
 			}
-			
 			return inventoryString.ToString ();		
 		}
 		

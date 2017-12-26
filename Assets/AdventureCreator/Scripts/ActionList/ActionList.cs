@@ -769,7 +769,6 @@ namespace AC
 		 */
 		public void Resume (int _startIndex, int[] _resumeIndices, string _parameterData)
 		{
-			int startIndex = _startIndex;
 			resumeIndices.Clear ();
 			foreach (int resumeIndex in _resumeIndices)
 			{
@@ -784,16 +783,14 @@ namespace AC
 				SetParameterData (_parameterData);
 				
 				pauseWhenActionFinishes = false;
-				
-				if (KickStarter.actionListManager)
-				{
-					KickStarter.actionListManager.AddToList (this, true, startIndex);
-				}
-				else
+
+				if (KickStarter.actionListManager == null)
 				{
 					ACDebug.LogWarning ("Cannot run " + this.name + " because no ActionListManager was found.");
 					return;
 				}
+
+				AddResumeToManager (_startIndex);
 
 				foreach (int resumeIndex in resumeIndices)
 				{
@@ -817,6 +814,12 @@ namespace AC
 				Kill ();
 				Interact ();
 			}
+		}
+
+
+		protected virtual void AddResumeToManager (int startIndex)
+		{
+			KickStarter.actionListManager.AddToList (this, true, startIndex);
 		}
 
 

@@ -535,6 +535,59 @@ namespace AC
 
 
 		/**
+		 * <summary>Gets the ID of the icon that represents the first-available "Use" interaction.</summary>
+		 * <returns>The ID of the icon that represents the first-available "Use" interaction. If no appropriate interaction is found, -1 is returned</returns>
+		 */
+		public int GetFirstUseIcon ()
+		{
+			foreach (Button button in useButtons)
+			{
+				if (button != null && !button.isDisabled)
+				{
+					return button.iconID;
+				}
+			}
+			return -1;
+		}
+
+
+		/**
+		 * <summary>Gets the Button that represents the first-available "Use" interaction associated with a given interaction icon.</summary>
+		 * <param name = "iconID">The ID number of the associated interaction icon, as defined in the Cursor Manager.</param>
+		 * <returns>The Button that represents the first-available "Use" interaction associated with a given interaction ID.</returns>
+		 */
+		public Button GetUseButton (int iconID)
+		{
+			foreach (Button button in useButtons)
+			{
+				if (button != null && button.iconID == iconID)
+				{
+					return button;
+				}
+			}
+			return null;
+		}
+
+
+		/**
+		 * <summary>Gets the Button that represents the first-available "Inventory" interaction associated with a given inventory item.</summary>
+		 * <param name = "invID">The ID number of the associated inventory item, as defined in the Inventory Manager.</param>
+		 * <returns>The Button that represents the first-available "Inventory" interaction associated with a given inventory item.</returns>
+		 */
+		public Button GetInvButton (int invID)
+		{
+			foreach (Button button in invButtons)
+			{
+				if (button != null && button.invID == invID)
+				{
+					return button;
+				}
+			}
+			return null;
+		}
+
+
+		/**
 		 * <summary>Gets the index number of the Button that represents the first-available "Use" interaction.</summary>
 		 * <returns>The index number of the Button that represents the first-available "Use" interaction</returns>
 		 */
@@ -656,7 +709,6 @@ namespace AC
 		 */
 		public void Select ()
 		{
-			KickStarter.playerMenus.AssignHotspotToMenu (this, null);
 			KickStarter.eventManager.Call_OnChangeHotspot (this, true);
 
 			if (highlight)

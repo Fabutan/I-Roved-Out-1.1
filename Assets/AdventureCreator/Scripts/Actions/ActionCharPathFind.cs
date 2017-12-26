@@ -37,7 +37,14 @@ namespace AC
 		public PathSpeed speed;
 		public bool pathFind = true;
 		public bool doFloat = false;
-		
+
+		public bool doTimeLimit;
+		public int maxTimeParameterID = -1;
+		public float maxTime = 10f;
+		[SerializeField] private OnReachTimeLimit onReachTimeLimit = OnReachTimeLimit.TeleportToDestination;
+		private enum OnReachTimeLimit { TeleportToDestination, StopMoving };
+		private float currentTimer;
+
 		
 		public ActionCharPathFind ()
 		{
@@ -66,6 +73,8 @@ namespace AC
 			{
 				charToMove = KickStarter.player;
 			}
+
+			maxTime = AssignFloat (parameters, maxTimeParameterID, maxTime);
 		}
 		
 		
@@ -136,6 +145,7 @@ namespace AC
 
 						if (willWait)
 						{
+							currentTimer = maxTime;
 							return defaultPauseTime;
 						}
 					}
@@ -152,6 +162,27 @@ namespace AC
 				}
 				else
 				{
+					if (doTimeLimit)
+					{
+						currentTimer -= Time.deltaTime;
+						if (currentTimer <= 0)
+						{
+							switch (onReachTimeLimit)
+							{
+								case OnReachTimeLimit.StopMoving:
+									charToMove.EndPath ();
+									break;
+
+								case OnReachTimeLimit.TeleportToDestination:
+									Skip ();
+									break;
+							}
+
+							isRunning = false;
+							return 0f;
+						}
+					}
+
 					return (defaultPauseTime);
 				}
 			}
@@ -252,6 +283,21 @@ namespace AC
 				doFloat = EditorGUILayout.Toggle ("Ignore gravity?", doFloat);
 			}
 			willWait = EditorGUILayout.Toggle ("Wait until finish?", willWait);
+
+			if (willWait)
+			{
+				EditorGUILayout.Space ();
+				doTimeLimit = EditorGUILayout.Toggle ("Enforce time limit?", doTimeLimit);
+				if (doTimeLimit)
+				{
+					maxTimeParameterID = Action.ChooseParameterGUI ("Time limit (s):", parameters, maxTimeParameterID, ParameterType.Float);
+					if (maxTimeParameterID < 0)
+					{
+						maxTime = EditorGUILayout.FloatField ("Time limit (s):", maxTime);
+					}
+					onReachTimeLimit = (OnReachTimeLimit) EditorGUILayout.EnumPopup ("On reach time limit:", onReachTimeLimit);
+				}
+			}
 
 			AfterRunningOption ();
 		}

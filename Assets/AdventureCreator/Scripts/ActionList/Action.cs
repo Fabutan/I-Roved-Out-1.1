@@ -316,7 +316,7 @@ namespace AC
 			{
 				if (_parameters[i].parameterType == _expectedType)
 				{
-					PopupSelectData popupSelectData = new PopupSelectData (_parameters[i].ID, "(" + _parameters[i].ID + ") " + _parameters[i].label, i);
+					PopupSelectData popupSelectData = new PopupSelectData (_parameters[i].ID, _parameters[i].label + " (" + _parameters[i].ID + ")", i);
 					popupSelectDataList.Add (popupSelectData);
 
 					if (popupSelectData.ID == _parameterID)
@@ -362,7 +362,7 @@ namespace AC
 			List<string> labelList = new List<string>();
 			foreach (ActionParameter _parameter in _parameters)
 			{
-				labelList.Add ("(" + _parameter.ID + ") " + _parameter.label);
+				labelList.Add (_parameter.label + " (" + _parameter.ID + ")");
 				if (_parameter.ID == _parameterID)
 				{
 					chosenNumber = _parameters.IndexOf (_parameter);
@@ -380,6 +380,37 @@ namespace AC
 
 
 		public int FieldToID <T> (T field, int _constantID) where T : Behaviour
+		{
+			if (field != null)
+			{
+				if (isAssetFile || (!isAssetFile && !field.gameObject.activeInHierarchy))
+				{
+					if (field.GetComponent <ConstantID>())
+					{
+						if (!field.gameObject.activeInHierarchy && field.GetComponent <ConstantID>().constantID == 0)
+						{
+							field.GetComponent <ConstantID>().AssignInitialValue (false);
+						}
+						_constantID = field.GetComponent <ConstantID>().constantID;
+					}
+					else if (field.GetComponent <Player>() == null)
+					{
+						field.gameObject.AddComponent <ConstantID>();
+						_constantID = field.GetComponent <ConstantID>().AssignInitialValue (false);
+						AssetDatabase.SaveAssets ();
+					}
+					return _constantID;
+				}
+				if (!Application.isPlaying)
+				{
+					return 0;
+				}
+			}
+			return _constantID;
+		}
+
+
+		public int FieldToID (Collider field, int _constantID)
 		{
 			if (field != null)
 			{
@@ -503,6 +534,19 @@ namespace AC
 		}
 
 
+		public void AssignConstantID (Collider field, int _constantID, int _parameterID)
+		{
+			if (_parameterID >= 0)
+			{
+				_constantID = 0;
+			}
+			else
+			{
+				_constantID = FieldToID (field, _constantID);
+			}
+		}
+
+
 		public void AssignConstantID (Transform field, int _constantID, int _parameterID)
 		{
 			if (_parameterID >= 0)
@@ -537,6 +581,44 @@ namespace AC
 				if (_constantID != 0)
 				{
 					newField = Serializer.returnComponent <T> (_constantID);
+					if (field != null && field.GetComponent <ConstantID>() != null && field.GetComponent <ConstantID>().constantID == _constantID)
+					{}
+					else if (newField != null && !Application.isPlaying)
+					{
+						field = newField;
+					}
+
+					EditorGUILayout.BeginVertical ("Button");
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.LabelField ("Recorded ConstantID: " + _constantID.ToString (), EditorStyles.miniLabel);
+					if (field == null)
+					{
+						if (GUILayout.Button ("Search scenes", EditorStyles.miniButton))
+						{
+							AdvGame.FindObjectWithConstantID (_constantID);
+						}
+					}
+					EditorGUILayout.EndHorizontal ();
+					
+					if (field == null && moreInfo)
+					{
+						EditorGUILayout.HelpBox ("Further controls cannot display because the referenced object cannot be found.", MessageType.Warning);
+					}
+					EditorGUILayout.EndVertical ();
+				}
+			}
+			return field;
+		}
+
+
+		public Collider IDToField (Collider field, int _constantID, bool moreInfo)
+		{
+			if (isAssetFile || (!isAssetFile && (field == null || !field.gameObject.activeInHierarchy)))
+			{
+				Collider newField = field;
+				if (_constantID != 0)
+				{
+					newField = Serializer.returnComponent <Collider> (_constantID);
 					if (field != null && field.GetComponent <ConstantID>() != null && field.GetComponent <ConstantID>().constantID == _constantID)
 					{}
 					else if (newField != null && !Application.isPlaying)
@@ -919,6 +1001,51 @@ namespace AC
 
 
 		/**
+		 * <summary>Replaces a Collider based on an ActionParameter or ConstantID instance, if appropriate.</summary>
+		 * <param name = "parameters">A List of ActionParameters that may override the Collider</param>
+		 * <param name = "_parameterID">The ID of the ActionParameter to search for within parameters that will replace the Collider</param>
+		 * <param name = "_constantID">If !=0, The ConstantID number of the Collider to replace field with</param>
+		 * <param name = "field">The Collider to replace</param>
+		 * <returns>The replaced Collider, or field if no replacements were found</returns>
+		 */
+		public Collider AssignFile (List<ActionParameter> parameters, int _parameterID, int _constantID, Collider field)
+		{
+			Collider file = field;
+			
+			ActionParameter parameter = GetParameterWithID (parameters, _parameterID);
+			if (parameter != null && parameter.parameterType == ParameterType.GameObject)
+			{
+				file = null;
+				if (parameter.intValue != 0)
+				{
+					file = Serializer.returnComponent <Collider> (parameter.intValue);
+				}
+				if (file == null)
+				{
+					if (parameter.gameObject != null && parameter.gameObject.GetComponent <Collider>())
+					{
+						file = parameter.gameObject.GetComponent <Collider>();
+					}
+					else if (parameter.intValue != 0)
+					{
+						file = Serializer.returnComponent <Collider> (parameter.intValue);
+					}
+				}
+			}
+			else if (_constantID != 0)
+			{
+				Collider newField = Serializer.returnComponent <Collider> (_constantID);
+				if (newField != null)
+				{
+					file = newField;
+				}
+
+			}
+			return file;
+		}
+
+
+		/**
 		 * <summary>Replaces a GameObject based on an ActionParameter or ConstantID instance, if appropriate.</summary>
 		 * <param name = "parameters">A List of ActionParameters that may override the GameObject</param>
 		 * <param name = "_parameterID">The ID of the ActionParameter to search for within parameters that will replace the GameObject</param>
@@ -1026,13 +1153,17 @@ namespace AC
 				}
 				if (file == null)
 				{
-					if (/*!isAssetFile && */parameter.gameObject != null && parameter.gameObject.GetComponent <T>())
+					if (parameter.gameObject != null && parameter.gameObject.GetComponent <T>())
 					{
 						file = parameter.gameObject.GetComponent <T>();
 					}
 					else if (parameter.intValue != 0)
 					{
 						file = Serializer.returnComponent <T> (parameter.intValue);
+					}
+					else if (parameter.gameObject != null && parameter.gameObject.GetComponent <T>() == null)
+					{
+						ACDebug.LogWarning ("No " + typeof(T) + " component attached to " + parameter.gameObject + "!", parameter.gameObject);
 					}
 				}
 			}

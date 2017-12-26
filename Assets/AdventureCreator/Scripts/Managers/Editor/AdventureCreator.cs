@@ -11,7 +11,7 @@ namespace AC
 		
 		public References references;
 		
-		public static string version = "1.60.3";
+		public static string version = "1.60.7";
 	 
 		private bool showScene = true;
 		private bool showSettings = false;
@@ -481,7 +481,7 @@ namespace AC
 			}
 
 			// Load default Actions
-			DirectoryInfo dir = new DirectoryInfo ("Assets/" + actionsManager.folderPath);
+			DirectoryInfo dir = new DirectoryInfo ("Assets/" + actionsManager.FolderPath);
 			FileInfo[] info = dir.GetFiles ("*.cs");
 			
 			actionsManager.AllActions.Clear ();
@@ -529,7 +529,7 @@ namespace AC
 			}
 
 			// Load custom Actions
-			if (!string.IsNullOrEmpty (actionsManager.customFolderPath) && actionsManager.customFolderPath != actionsManager.folderPath)
+			if (!string.IsNullOrEmpty (actionsManager.customFolderPath) && actionsManager.UsingCustomActionsFolder)
 			{
 				dir = new DirectoryInfo ("Assets/" + actionsManager.customFolderPath);
 				info = dir.GetFiles ("*.cs");

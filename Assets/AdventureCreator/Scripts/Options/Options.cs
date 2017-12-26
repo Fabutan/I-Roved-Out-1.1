@@ -165,7 +165,7 @@ namespace AC
 				KickStarter.playerMenus.RecalculateAll ();
 			}
 		}
-		
+
 
 		/**
 		 * <summary>Gets the options values associated with a specific profile.</summary>
@@ -420,7 +420,7 @@ namespace AC
 
 			if (DoesProfileIDExist (profileID))
 			{
-				OptionsData tempOptionsData = LoadPrefsFromID (profileID, false);
+				OptionsData tempOptionsData = LoadPrefsFromID (profileID, false, false);
 				return tempOptionsData.label;
 			}
 			else
@@ -509,6 +509,36 @@ namespace AC
 			}
 
 			return OptionsFileHandler.DoesProfileExist (profileID);
+		}
+
+
+		/**
+		 * <summary>Checks if a profile with a specific name exists</summary>
+		 * <param name = "label">The name of the profile to check for</param>
+		 * <returns>True if a profile with the supplied name exists</returns>
+		 */
+		public bool DoesProfileExist (string label)
+		{
+			if (string.IsNullOrEmpty (label))
+			{
+				return false;
+			}
+
+			if (KickStarter.settingsManager != null && !KickStarter.settingsManager.useProfiles)
+			{
+				return false;
+			}
+
+			for (int i=0; i<maxProfiles; i++)
+			{
+				string profileName = GetProfileName (i);
+				if (profileName == label)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 		
 

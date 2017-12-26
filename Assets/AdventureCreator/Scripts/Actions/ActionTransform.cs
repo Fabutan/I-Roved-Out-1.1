@@ -23,7 +23,9 @@ namespace AC
 	[System.Serializable]
 	public class ActionTransform : Action
 	{
-		
+
+		public bool isPlayer;
+
 		public Marker marker;
 		public int markerParameterID = -1;
 		public int markerID = 0;
@@ -70,7 +72,27 @@ namespace AC
 		
 		override public void AssignValues (List<ActionParameter> parameters)
 		{
-			linkedProp = AssignFile <Moveable> (parameters, parameterID, constantID, linkedProp);
+			if (isPlayer)
+			{
+				if (KickStarter.player != null)
+				{
+					linkedProp = KickStarter.player.GetComponent <Moveable>();
+
+					if (linkedProp == null)
+					{
+						ACDebug.LogWarning ("The player " + KickStarter.player + " requires a Moveable component to be moved with the 'Object: Transform' Action.", KickStarter.player);
+					}
+				}
+				else
+				{
+					linkedProp = null;
+				}
+			}
+			else
+			{
+				linkedProp = AssignFile <Moveable> (parameters, parameterID, constantID, linkedProp);
+			}
+
 			marker = AssignFile <Marker> (parameters, markerParameterID, markerID, marker);
 			transitionTime = AssignFloat (parameters, transitionTimeParameterID, transitionTime);
 			newVector = AssignVector3 (parameters, newVectorParameterID, newVector);
@@ -226,18 +248,22 @@ namespace AC
 		
 		override public void ShowGUI (List<ActionParameter> parameters)
 		{
-			parameterID = Action.ChooseParameterGUI ("Moveable object:", parameters, parameterID, ParameterType.GameObject);
-			if (parameterID >= 0)
+			isPlayer = EditorGUILayout.Toggle ("Move Player?", isPlayer);
+			if (!isPlayer)
 			{
-				constantID = 0;
-				linkedProp = null;
-			}
-			else
-			{
-				linkedProp = (Moveable) EditorGUILayout.ObjectField ("Moveable object:", linkedProp, typeof (Moveable), true);
+				parameterID = Action.ChooseParameterGUI ("Moveable object:", parameters, parameterID, ParameterType.GameObject);
+				if (parameterID >= 0)
+				{
+					constantID = 0;
+					linkedProp = null;
+				}
+				else
+				{
+					linkedProp = (Moveable) EditorGUILayout.ObjectField ("Moveable object:", linkedProp, typeof (Moveable), true);
 
-				constantID = FieldToID <Moveable> (linkedProp, constantID);
-				linkedProp = IDToField <Moveable> (linkedProp, constantID, false);
+					constantID = FieldToID <Moveable> (linkedProp, constantID);
+					linkedProp = IDToField <Moveable> (linkedProp, constantID, false);
+				}
 			}
 
 			EditorGUILayout.BeginHorizontal ();

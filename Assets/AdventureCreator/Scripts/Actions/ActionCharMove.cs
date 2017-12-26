@@ -40,7 +40,8 @@ namespace AC
 		public Char charToMove;
 		public bool doTeleport;
 		public bool doStop;
-		
+
+
 		
 		public ActionCharMove ()
 		{
@@ -175,6 +176,8 @@ namespace AC
 		{
 			if (charToMove)
 			{
+				charToMove.EndPath (movePath);
+
 				if (charToMove is NPC)
 				{
 					NPC npcToMove = (NPC) charToMove;

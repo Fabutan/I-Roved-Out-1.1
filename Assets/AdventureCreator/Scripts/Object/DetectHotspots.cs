@@ -233,6 +233,16 @@ namespace AC
 		}
 
 
+		/** The Hotspot nearest to the centre of the detector */
+		public Hotspot NearestHotspot
+		{
+			get
+			{
+				return nearestHotspot;
+			}
+		}
+
+
 		/**
 		 * Detects Hotspots in its vicinity. This is public so that it can be called by StateHandler every frame.
 		 */

@@ -62,7 +62,7 @@ namespace AC
 		{
 			get
 			{
-				return Resource.mainFolderPath + "/Prefabs/";
+				return Resource.MainFolderPath + "/Prefabs/";
 			}
 		}
 
@@ -376,7 +376,7 @@ namespace AC
 			if (showVisibility)
 			{
 				GUILayout.BeginHorizontal ();
-				Texture2D icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/AC_Trigger.png", typeof (Texture2D));
+				Texture2D icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/AC_Trigger.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Triggers", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -389,7 +389,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/_Collision.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/_Collision.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Collision", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -402,7 +402,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/Hotspot.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/Hotspot.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Hotspots", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -415,7 +415,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/Marker.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/Marker.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" Markers", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -428,7 +428,7 @@ namespace AC
 				GUILayout.EndHorizontal ();
 				
 				GUILayout.BeginHorizontal ();
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/NavigationMesh.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/NavigationMesh.png", typeof (Texture2D));
 				GUILayout.Label (new GUIContent (" NavMesh", icon), GUILayout.Width (120f), GUILayout.Height (20f));
 				if (GUILayout.Button ("On", EditorStyles.miniButtonLeft, GUILayout.MaxWidth (120f), GUILayout.Height (20f)))
 				{
@@ -1156,7 +1156,7 @@ namespace AC
 				scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera", "Camera/GameCamera", "_GameCameras", "The standard camera type for 3D games.", "GameCamera"));
 				scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera Animated", "Camera/GameCameraAnimated", "_GameCameras", "Plays an Animation Clip when active, or syncs it with its target's position.", "GameCameraAnimated"));
 				scenePrefabs.Add (new ScenePrefab ("Camera", "GameCamera Third-person", "Camera/GameCameraThirdPerson", "_GameCameras", "Rigidly follows its target, but can still be rotated.", "GameCameraThirdPerson"));
-				scenePrefabs.Add (new ScenePrefab ("Camera", "SimpleCamera", "Camera/SimpleCamera", "_GameCameras", "A stationary but lightweight 3D camera.", "GameCamera"));
+				scenePrefabs.Add (new ScenePrefab ("Camera", "SimpleCamera", "Camera/SimpleCamera", "_GameCameras", "A stationary but lightweight 3D camera.", "_Camera"));
 			}
 			else
 			{
@@ -1264,7 +1264,7 @@ namespace AC
 			List<string> titles = new List<string>();
 			MonoBehaviour[] objects;
 			int i=1;
-			
+
 			if (Type.GetType ("AC." + GetActiveScenePrefab ().componentName) != null)
 			{
 				objects = FindObjectsOfType (Type.GetType ("AC." + GetActiveScenePrefab ().componentName)) as MonoBehaviour [];
@@ -1348,16 +1348,16 @@ namespace AC
 			
 			if (_graphicName != "")
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _graphicName +  ".png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/" + _graphicName +  ".png", typeof (Texture2D));
 			}
 			else
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  ".png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  ".png", typeof (Texture2D));
 			}
 			
 			if (_subCategory == "Collision Cylinder")
 			{
-				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.mainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  "Cylinder.png", typeof (Texture2D));
+				icon = (Texture2D) AssetDatabase.LoadAssetAtPath (Resource.MainFolderPath + "/Graphics/PrefabIcons/" + _componentName +  "Cylinder.png", typeof (Texture2D));
 			}
 		}
 		

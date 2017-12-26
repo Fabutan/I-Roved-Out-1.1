@@ -52,6 +52,8 @@ namespace AC
 				_target.turnSpeed = EditorGUILayout.FloatField ("Turn speed:", _target.turnSpeed);
 			}
 			_target.turnBeforeWalking = EditorGUILayout.Toggle ("Turn before walking?", _target.turnBeforeWalking);
+			_target.retroPathfinding = EditorGUILayout.Toggle ("Retro-style movement?", _target.retroPathfinding);
+		
 			EditorGUILayout.EndVertical ();
 		}
 

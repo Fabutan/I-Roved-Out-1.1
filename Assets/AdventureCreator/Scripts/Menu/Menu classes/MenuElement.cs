@@ -196,12 +196,12 @@ namespace AC
 		{}
 
 
-		protected void CreateUIEvent (UnityEngine.UI.Button uiButton, AC.Menu _menu, UIPointerState uiPointerState = UIPointerState.PointerClick)
+		protected void CreateUIEvent (UnityEngine.UI.Button uiButton, AC.Menu _menu, UIPointerState uiPointerState = UIPointerState.PointerClick, int _slotIndex = 0, bool liveState = true)
 		{
 			if (uiPointerState == UIPointerState.PointerClick)
 			{
 				uiButton.onClick.AddListener (() => {
-					ProcessClickUI (_menu, 0, KickStarter.playerInput.GetMouseState ());
+					ProcessClickUI (_menu, _slotIndex, liveState ? KickStarter.playerInput.GetMouseState () : MouseState.SingleClick);
 				});
 			}
 			else
@@ -211,7 +211,6 @@ namespace AC
 				{
 					eventTrigger = uiButton.gameObject.AddComponent <EventTrigger>();
 				}
-
 				EventTrigger.Entry entry = new EventTrigger.Entry ();
 
 				if (uiPointerState == UIPointerState.PointerDown)
@@ -224,7 +223,7 @@ namespace AC
 				}
 
 				entry.callback.AddListener ((eventData) => {
-					ProcessClickUI (_menu, 0, KickStarter.playerInput.GetMouseState ());
+					ProcessClickUI (_menu, _slotIndex, liveState ? KickStarter.playerInput.GetMouseState () : MouseState.SingleClick);
 				} );
 
 				#if UNITY_4_6 || UNITY_4_7 || UNITY_5_0

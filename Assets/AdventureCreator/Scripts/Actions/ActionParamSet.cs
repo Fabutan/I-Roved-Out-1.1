@@ -47,7 +47,9 @@ namespace AC
 
 		public SetParamMethod setParamMethod = SetParamMethod.EnteredHere;
 		public int globalVariableID;
-		
+
+		public int ownParamID = -1;
+
 		private ActionParameter _parameter;
 		private ActionParameter _parameterToCopy;
 		#if UNITY_EDITOR
@@ -133,6 +135,51 @@ namespace AC
 			}
 
 			gameobjectValue = AssignFile (gameObjectConstantID, gameobjectValue);
+
+			if (setParamMethod == SetParamMethod.EnteredHere && _parameter != null)
+			{
+				switch (_parameter.parameterType)
+				{
+					case ParameterType.Boolean:
+						BoolValue boolValue = (intValue == 1) ? BoolValue.True : BoolValue.False; 
+						boolValue = AssignBoolean (parameters, ownParamID, boolValue);
+						intValue = (boolValue == BoolValue.True) ? 1 : 0;
+						break;
+
+					case ParameterType.Float:
+						floatValue = AssignFloat (parameters, ownParamID, floatValue);
+						break;
+
+					case ParameterType.GameObject:
+						gameobjectValue = AssignFile (parameters, ownParamID, gameObjectConstantID, gameobjectValue);
+						break;
+
+					case ParameterType.GlobalVariable:
+					case ParameterType.LocalVariable:
+						intValue = AssignVariableID (parameters, ownParamID, intValue);
+						break;
+
+					case ParameterType.Integer:
+						intValue = AssignInteger (parameters, ownParamID, intValue);
+						break;
+
+					case ParameterType.InventoryItem:
+						intValue = AssignInvItemID (parameters, ownParamID, intValue);
+						break;
+
+					case ParameterType.String:
+						stringValue = AssignString (parameters, ownParamID, stringValue);
+						break;
+
+					case ParameterType.UnityObject:
+						unityObjectValue = AssignObject <Object> (parameters, ownParamID, unityObjectValue);
+						break;
+
+					case ParameterType.Vector3:
+						vector3Value = AssignVector3 (parameters, ownParamID, vector3Value);
+						break;
+				}
+			}
 		}
 		
 		
@@ -266,7 +313,7 @@ namespace AC
 							if (actionList.useParameters && actionList.parameters.Count > 0)
 							{
 								parameterID = Action.ChooseParameterGUI (actionList.parameters, parameterID);
-								SetParamGUI (actionList.parameters);
+								SetParamGUI (actionList.parameters, parameters);
 							}
 							else
 							{
@@ -278,7 +325,7 @@ namespace AC
 							if (actionList.assetFile.useParameters && actionList.assetFile.parameters.Count > 0)
 							{
 								parameterID = Action.ChooseParameterGUI (actionList.assetFile.parameters, parameterID);
-								SetParamGUI (actionList.assetFile.parameters);
+								SetParamGUI (actionList.assetFile.parameters, parameters);
 							}
 							else
 							{
@@ -300,7 +347,7 @@ namespace AC
 						if (actionListAsset.useParameters && actionListAsset.parameters.Count > 0)
 						{
 							parameterID = Action.ChooseParameterGUI (actionListAsset.parameters, parameterID);
-							SetParamGUI (actionListAsset.parameters);
+							SetParamGUI (actionListAsset.parameters, parameters);
 						}
 						else
 						{
@@ -314,7 +361,7 @@ namespace AC
 		}
 		
 		
-		private void SetParamGUI (List<ActionParameter> parameters)
+		private void SetParamGUI (List<ActionParameter> parameters, List<ActionParameter> ownParameters = null)
 		{
 			if (parameters == null || parameters.Count == 0)
 			{
@@ -336,6 +383,15 @@ namespace AC
 
 			if (setParamMethod == SetParamMethod.EnteredHere)
 			{
+				if (ownParameters != null && ownParameters.Count > 0)
+				{
+					ownParamID = Action.ChooseParameterGUI ("Set as:", ownParameters, ownParamID, _parameter.parameterType);
+					if (ownParamID >= 0)
+					{
+						return;
+					}
+				}
+
 				if (_parameter.parameterType == ParameterType.Boolean)
 				{
 					bool boolValue = (intValue == 1) ? true : false;
