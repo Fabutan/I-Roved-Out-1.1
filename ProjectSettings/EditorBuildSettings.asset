@@ -32,3 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_AdventurerCamp.unity
     guid: a6c7a128af85649fab8a27cb34f6e47d
+  - enabled: 1
+    path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_HollowTreeClimb.unity
+    guid: 50ddd08c4312ed54491b7383db540920
+  - enabled: 1
+    path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Barrow.unity
+    guid: 68edad992ab817d44b244c1a228ee8ac
