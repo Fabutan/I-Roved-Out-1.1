@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: 338b43008d03b9f429532247e8b98a87, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Bones: []
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: ed242295242425348a0ddfc8d6ec97ee, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_Bones: []
@@ -1559,7 +1559,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: 73e0653a48417bc40b9ff9869715629e, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_Bones: []
@@ -1628,7 +1628,9 @@ MonoBehaviour:
     size: 0.015
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   useExpressions: 0
   expressions: []
   speechMenuPlacement: {fileID: 0}
@@ -1652,8 +1654,10 @@ MonoBehaviour:
   rightArmBone: {fileID: 0}
   neckBone: {fileID: 0}
   animCrossfadeSpeed: 0.2
+  groundCheckLayerMask: 1
   moveSpeedParameter: Speed
   verticalMovementParameter: 
+  isGroundedParameter: 
   turnParameter: 
   talkParameter: IsTalking
   directionParameter: Direction
@@ -1689,6 +1693,7 @@ MonoBehaviour:
   turnBeforeWalking: 0
   runDistanceThreshold: 1
   antiGlideMode: 0
+  retroPathfinding: 0
   isJumping: 0
   ignoreGravity: 0
   freezeRigidbodyWhenIdle: 0
@@ -1933,6 +1938,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1948,6 +1954,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1980,6 +1987,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1995,6 +2003,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2027,6 +2036,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2042,6 +2052,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

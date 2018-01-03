@@ -41,3 +41,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_BarrowEntrance.unity
     guid: c1030091e327dc44caa00f1c61e0f33e
+  - enabled: 1
+    path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_HotspringPath.unity
+    guid: 24dd76c2c7e4dfb44a1a07e54735f308

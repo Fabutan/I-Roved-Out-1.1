@@ -1111,6 +1111,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1126,6 +1127,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1143,6 +1145,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1158,6 +1161,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1175,6 +1179,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1190,6 +1195,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1207,6 +1213,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1222,6 +1229,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1680,7 +1688,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: fb4fe686c9fb79e4d888e77b3a991609, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_Bones: []
@@ -1715,7 +1723,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: a70d225e67ebaa047970178919a1c125, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Bones: []
@@ -1746,7 +1754,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: 9e0613b549bdc654389206c9a7c61a7c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Bones: []
@@ -2081,7 +2089,7 @@ MonoBehaviour:
   m_SpriteMesh: {fileID: 11400000, guid: 55c1a7b804bba2c45913e46c07bef63b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 3}
   m_SortingLayerID: 0
   m_SortingOrder: -2
   m_Bones: []
@@ -2178,7 +2186,9 @@ MonoBehaviour:
     size: 0.015
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   useExpressions: 0
   expressions: []
   speechMenuPlacement: {fileID: 0}
@@ -2202,8 +2212,10 @@ MonoBehaviour:
   rightArmBone: {fileID: 0}
   neckBone: {fileID: 0}
   animCrossfadeSpeed: 0.2
+  groundCheckLayerMask: 1
   moveSpeedParameter: Speed
   verticalMovementParameter: 
+  isGroundedParameter: 
   turnParameter: 
   talkParameter: IsTalking
   directionParameter: Direction
@@ -2239,6 +2251,7 @@ MonoBehaviour:
   turnBeforeWalking: 0
   runDistanceThreshold: 1
   antiGlideMode: 0
+  retroPathfinding: 0
   isJumping: 0
   ignoreGravity: 1
   freezeRigidbodyWhenIdle: 0
