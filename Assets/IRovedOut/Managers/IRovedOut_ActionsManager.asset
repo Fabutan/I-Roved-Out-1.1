@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: IRovedOut_ActionsManager
   m_EditorClassIdentifier: 
   customFolderPath: AdventureCreator/Scripts/Actions
-  folderPath: AdventureCreator/Scripts/Actions
   displayActionsInInspector: 1
   displayActionsInEditor: 1
   allowMultipleActionListWindows: 0

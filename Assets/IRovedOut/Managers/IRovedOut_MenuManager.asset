@@ -352,6 +352,7 @@ MonoBehaviour:
   - uiButton: {fileID: 0}
     uiButtonID: 707028
     sprite: {fileID: 0}
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0
@@ -418,6 +419,7 @@ MonoBehaviour:
   - uiButton: {fileID: 0}
     uiButtonID: 15091686
     sprite: {fileID: 0}
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 1
@@ -470,7 +472,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -518,7 +522,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -566,7 +572,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -614,7 +622,9 @@ MonoBehaviour:
       size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -769,6 +779,7 @@ MonoBehaviour:
   - uiButton: {fileID: 0}
     uiButtonID: 325448
     sprite: {fileID: 0}
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0
@@ -830,6 +841,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -934,6 +946,7 @@ MonoBehaviour:
   - uiButton: {fileID: 0}
     uiButtonID: 295142
     sprite: {fileID: 0}
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 5
@@ -1641,6 +1654,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -1747,6 +1761,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -1854,6 +1869,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -2182,8 +2198,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 423.99997
-    height: 33.39
+    width: 344.5
+    height: 77.07
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiText: {fileID: 0}
@@ -2247,6 +2263,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -2454,9 +2471,9 @@ MonoBehaviour:
   relativeRect:
     serializedVersion: 2
     x: 0
-    y: 33.39
-    width: 423.99997
-    height: 22.896
+    y: 77.07
+    width: 344.5
+    height: 52.848003
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiText: {fileID: 0}
@@ -2582,6 +2599,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -3238,6 +3256,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -3368,7 +3387,7 @@ MonoBehaviour:
   rectTransformID: 15198304
   uiTransitionType: 1
   uiPositionType: 2
-  isEditing: 1
+  isEditing: 0
   isLocked: 0
   id: 6
   title: Interaction
@@ -3399,6 +3418,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -3493,6 +3513,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -4291,6 +4312,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -4352,7 +4374,7 @@ MonoBehaviour:
   rectTransformID: 14532472
   uiTransitionType: 1
   uiPositionType: 0
-  isEditing: 0
+  isEditing: 1
   isLocked: 0
   id: 9
   title: Subtitles
@@ -4375,12 +4397,15 @@ MonoBehaviour:
   visibleElements:
   - {fileID: 114291458375759166}
   - {fileID: 114320427897548078}
+  - {fileID: 0}
+  - {fileID: 114788961768933162}
   transitionProgress: 0
   appearType: 6
   speechMenuType: 0
   speechMenuLimit: 0
   limitToCharacters: 
-  forceSubtitles: 0
+  forceSubtitles: 1
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -4388,6 +4413,7 @@ MonoBehaviour:
   elements:
   - {fileID: 114291458375759166}
   - {fileID: 114320427897548078}
+  - {fileID: 114788961768933162}
   spacing: 0
   sizeType: 1
   autoSizeEveryFrame: 0
@@ -4421,10 +4447,69 @@ MonoBehaviour:
   biggestElementSize: {x: 0, y: 0}
   rect:
     serializedVersion: 2
-    x: 212
-    y: 314.34302
-    width: 424
-    height: 133.56
+    x: 172.25
+    y: 725.559
+    width: 344.5
+    height: 308.28
+--- !u!114 &114788961768933162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611a3370e9fc74eebbb277d7159c4851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: Graphic
+  slotSize: {x: 10, y: 5}
+  sizeType: 0
+  positionType: 0
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 0
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 0
+    y: 145.918
+    width: 68.9
+    height: 55.050003
+  relativePosition: {x: 0, y: 0}
+  numSlots: 1
+  uiImage: {fileID: 0}
+  graphicType: 0
+  graphic:
+    texture: {fileID: 0}
+    isAnimated: 0
+    numFrames: 1
+    numRows: 1
+    numCols: 1
+    size: 0.015
+    animSpeed: 4
+    endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
+    clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
+  uiRawImage: {fileID: 0}
+  uiImageType: 0
 --- !u!114 &114812199233761588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4719,6 +4804,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -5086,6 +5172,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -5513,6 +5600,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -5711,6 +5799,7 @@ MonoBehaviour:
   - uiButton: {fileID: 0}
     uiButtonID: 1790898
     sprite: {fileID: 0}
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0

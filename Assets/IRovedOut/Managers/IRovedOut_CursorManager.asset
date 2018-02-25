@@ -38,7 +38,9 @@ MonoBehaviour:
     size: 0.04
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   pointerIcon:
     texture: {fileID: 2800000, guid: 09cc8d86f03709144bef43a4c91091dc, type: 3}
     isAnimated: 0
@@ -48,7 +50,9 @@ MonoBehaviour:
     size: 0.03
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: -0.48, y: -0.5}
+    frameSpeeds: []
   walkIcon:
     texture: {fileID: 0}
     isAnimated: 0
@@ -58,7 +62,9 @@ MonoBehaviour:
     size: 0.04
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   mouseOverIcon:
     texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
     isAnimated: 0
@@ -68,7 +74,9 @@ MonoBehaviour:
     size: 0.05
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   inventoryHandling: 0
   hotspotPrefix1:
     label: Use
@@ -91,7 +99,9 @@ MonoBehaviour:
     size: 0.06
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
     dontCycle: 0
     label: Use
     lineID: 63
@@ -104,7 +114,9 @@ MonoBehaviour:
     size: 0.06
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
     dontCycle: 0
     label: Talk to
     lineID: 64
@@ -117,7 +129,9 @@ MonoBehaviour:
     size: 0.06
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
     dontCycle: 0
     label: Look at
     lineID: 65
@@ -130,7 +144,9 @@ MonoBehaviour:
     size: 0.06
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
     dontCycle: 0
     label: Travel
     lineID: -1
