@@ -20,7 +20,7 @@ MonoBehaviour:
   displayForever: 1
   displayNarrationForever: 0
   canSkipWithMouseClicks: 1
-  minimumDisplayTime: 1
+  minimumDisplayTime: 0
   screenTimeFactor: 0.1
   allowSpeechSkipping: 0
   allowGameplaySpeechSkipping: 0

@@ -420,7 +420,7 @@ MonoBehaviour:
   displayLineID: -1
   speechColor: {r: 1, g: 1, b: 1, a: 1}
   portraitIcon:
-    texture: {fileID: 0}
+    texture: {fileID: 2800000, guid: 5e399cc11b60aff4d9501e21a414f1d3, type: 3}
     isAnimated: 0
     numFrames: 1
     numRows: 1
@@ -428,7 +428,9 @@ MonoBehaviour:
     size: 0.015
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
   useExpressions: 0
   expressions: []
   speechMenuPlacement: {fileID: 0}
@@ -452,8 +454,10 @@ MonoBehaviour:
   rightArmBone: {fileID: 0}
   neckBone: {fileID: 0}
   animCrossfadeSpeed: 0.2
+  groundCheckLayerMask: 1
   moveSpeedParameter: Speed
   verticalMovementParameter: 
+  isGroundedParameter: 
   turnParameter: 
   talkParameter: IsTalking
   directionParameter: Direction
@@ -489,6 +493,7 @@ MonoBehaviour:
   turnBeforeWalking: 0
   runDistanceThreshold: 1
   antiGlideMode: 0
+  retroPathfinding: 0
   isJumping: 0
   ignoreGravity: 0
   freezeRigidbodyWhenIdle: 0

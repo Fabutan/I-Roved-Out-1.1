@@ -2171,7 +2171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  isEditing: 0
+  isEditing: 1
   title: SubsSpeakerLabel
   slotSize: {x: 50, y: 7}
   sizeType: 1
@@ -2449,7 +2449,7 @@ MonoBehaviour:
   title: SubsLineLabel
   slotSize: {x: 50, y: 4.8}
   sizeType: 1
-  positionType: 0
+  positionType: 1
   slotSpacing: 0
   lineID: 87
   alternativeInputButton: 
@@ -4378,15 +4378,15 @@ MonoBehaviour:
   isLocked: 0
   id: 9
   title: Subtitles
-  manualSize: {x: 50, y: 28}
-  positionType: 2
+  manualSize: {x: 90.5, y: 28}
+  positionType: 1
   manualPosition: {x: 50, y: 79.9}
   positionSmoothing: 0
-  alignment: 0
+  alignment: 7
   toggleKey: 
   ignoreMouseClicks: 1
   pauseWhenEnabled: 0
-  showWhenPaused: 0
+  showWhenPaused: 1
   canClickInCutscene: 0
   enabledOnStart: 0
   actionListOnTurnOn: {fileID: 0}
@@ -4415,7 +4415,7 @@ MonoBehaviour:
   - {fileID: 114320427897548078}
   - {fileID: 114788961768933162}
   spacing: 0
-  sizeType: 1
+  sizeType: 0
   autoSizeEveryFrame: 0
   orientation: 1
   transitionType: 0
@@ -4465,9 +4465,9 @@ MonoBehaviour:
   ID: 3
   isEditing: 0
   title: Graphic
-  slotSize: {x: 10, y: 5}
-  sizeType: 0
-  positionType: 0
+  slotSize: {x: 50, y: 50}
+  sizeType: 2
+  positionType: 1
   slotSpacing: 0
   lineID: -1
   alternativeInputButton: 
@@ -4489,13 +4489,13 @@ MonoBehaviour:
   relativeRect:
     serializedVersion: 2
     x: 0
-    y: 145.918
+    y: 0
     width: 68.9
     height: 55.050003
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiImage: {fileID: 0}
-  graphicType: 0
+  graphicType: 1
   graphic:
     texture: {fileID: 0}
     isAnimated: 0
