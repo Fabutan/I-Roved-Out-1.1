@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"ActionVarCheck.cs"
  * 
@@ -461,6 +461,8 @@ namespace AC
 							stringValue = EditorGUILayout.TextField ("String:", stringValue);
 						}
 					}
+
+					checkCase = EditorGUILayout.Toggle ("Case-senstive?", checkCase);
 				}
 				else if (vars [variableNumber].type == VariableType.Vector3)
 				{
@@ -518,11 +520,6 @@ namespace AC
 							compareVariableID = ShowVarSelectorGUI (localVariables.localVars, compareVariableID);
 						}
 					}
-				}
-
-				if (vars [variableNumber].type == VariableType.String)
-				{
-					checkCase = EditorGUILayout.Toggle ("Case-senstive?", checkCase);
 				}
 			}
 			else

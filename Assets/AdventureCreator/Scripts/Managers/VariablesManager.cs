@@ -848,6 +848,11 @@ namespace AC
 					{
 						EditorGUILayout.HelpBox ("This Variable will be stored in PlayerPrefs, and not in saved game files.", MessageType.Info);
 					}
+					else if (selectedVar.link == VarLink.CustomScript)
+					{
+						selectedVar.updateLinkOnStart = CustomGUILayout.Toggle ("Script sets initial value?", selectedVar.updateLinkOnStart, apiPrefix + ".updateLinkOnStart");
+						EditorGUILayout.HelpBox ("See the Manual's 'Global variable linking' chapter for details on how to synchronise values.", MessageType.Info);
+					}
 				}
 
 				EditorGUILayout.BeginHorizontal ();

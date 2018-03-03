@@ -57,7 +57,7 @@ namespace AC
 		{
 			if (_speechManager == null) return;
 
-			ExportWizardWindow window = (ExportWizardWindow) EditorWindow.GetWindow (typeof (ExportWizardWindow));
+			ExportWizardWindow window = EditorWindow.GetWindowWithRect <ExportWizardWindow> (new Rect (0, 0, 350, 500), true, "Game text exporter", true);
 			UnityVersionHandler.SetWindowTitle (window, "Game text exporter");
 			window.position = new Rect (300, 200, 350, 500);
 			window._Init (_speechManager, forLanguage);
@@ -105,6 +105,7 @@ namespace AC
 			}
 			GUI.enabled = true;
 
+			EditorGUILayout.Space ();
 			GUILayout.EndScrollView ();
 		}
 
@@ -425,7 +426,8 @@ namespace AC
 				
 				if (Serializer.SaveFile (fileName, sb.ToString ()))
 				{
-					ACDebug.Log ((exportLines.Count-1).ToString () + " lines exported.");
+					int numLines = exportLines.Count;
+					ACDebug.Log (numLines.ToString () + " line" + ((numLines != 1) ? "s" : "") + " exported.");
 				}
 			}
 
@@ -564,7 +566,10 @@ namespace AC
 			private string RemoveLineBreaks (string text)
 			{
 				if (text.Length == 0) return " ";
-	            text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+	            //text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+				text = text.Replace("\r\n", "[break]");
+				text = text.Replace("\n", "[break]");
+				text = text.Replace("\r", "[break]");
 	            return text;
 	        }
 

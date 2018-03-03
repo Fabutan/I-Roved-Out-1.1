@@ -501,6 +501,16 @@ namespace AC
 					{
 						EndMessage ();
 					}
+					else
+					{
+						if (!hasAudio || !audioSource.isPlaying)
+						{
+							if (!KickStarter.speechManager.playAnimationForever && speaker != null && speaker.isTalking)
+							{
+								speaker.StopSpeaking ();
+							}
+						}
+					}
 				}
 				else
 				{

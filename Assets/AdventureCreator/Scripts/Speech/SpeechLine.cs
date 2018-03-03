@@ -63,7 +63,8 @@ namespace AC
 		#endif
 
 		private bool gotCommentFromDescription;
-		
+		private static string[] badChars = new string[] {"/", "`", "'", "!", "@", "£", "$", "%", "^", "&", "*", "(", ")", "{", "}", ":", ";", ".", "|", "<", ",", ">", "?", "#", "-", "=", "+", "-"};
+
 		
 		/**
 		 * A constructor for non-speech text in which the ID number is explicitly defined.
@@ -250,7 +251,7 @@ namespace AC
 					{
 						if (i==0)
 						{
-							if (speechManager.languages.Count > 1 && speechManager.translateAudio)
+							if (speechManager.languages.Count > 1 && speechManager.translateAudio && !speechManager.ignoreOriginalText)
 							{
 								EditorGUILayout.Space ();
 								EditorGUILayout.LabelField ("Original language:");
@@ -271,6 +272,10 @@ namespace AC
 							if (i > 0)
 							{
 								language = speechManager.languages[i];
+							}
+							else if (speechManager.ignoreOriginalText && speechManager.languages.Count > 1)
+							{
+								continue;
 							}
 							
 							if (speechManager.autoNameSpeechFiles)
@@ -694,16 +699,29 @@ namespace AC
 			{
 				filename = "Narrator";
 			}
-				
-			string badChars = "/`'!@£$%^&*(){}:;.|<,>?#-=+-";
+
 			for (int i=0; i<badChars.Length; i++)
 			{
-				filename = filename.Replace(badChars[i].ToString (), "_");
+				filename = filename.Replace (badChars[i], "_");
 			}
-			filename = filename.Replace ('"'.ToString (), "_");
+			filename = filename.Replace (SpeechMarkAsString, "_");
 			return filename;
 		}
-		
+
+
+		private static string speechMarkAsString;
+		private static string SpeechMarkAsString
+		{
+			get
+			{
+				if (string.IsNullOrEmpty (speechMarkAsString))
+				{
+					speechMarkAsString = '"'.ToString ();
+				}
+				return speechMarkAsString;
+			}
+		}
+
 		
 		private string GetSpeakerName ()
 		{

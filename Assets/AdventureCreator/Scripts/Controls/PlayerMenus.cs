@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"PlayerMenus.cs"
  * 
@@ -205,10 +205,6 @@ namespace AC
 
 				if (_eventSystem != null)
 				{
-					if (GameObject.Find ("_UI"))
-					{
-						_eventSystem.transform.SetParent (GameObject.Find ("_UI").transform);
-					}
 					eventSystem = _eventSystem;
 				}
 			}
@@ -923,7 +919,7 @@ namespace AC
 				}
 				else if (menu.canvas.renderMode == RenderMode.WorldSpace)
 				{
-					menu.SetCentre3D (hotspot.transform.position);
+					menu.SetCentre3D (hotspot.GetIconPosition ());
 				}
 				else
 				{
@@ -1458,7 +1454,6 @@ namespace AC
 							if (KickStarter.playerInput.InputGetButtonDown (menu.elements[j].alternativeInputButton))
 							{
 								CheckClick (menu, menu.elements[j], i, MouseState.SingleClick);
-								//	element.ProcessClick (menu, i, MouseState.SingleClick);
 							}
 						}
 					}
@@ -1470,14 +1465,7 @@ namespace AC
 						{
 							if (KickStarter.sceneSettings && menu.elements[j].hoverSound && lastElementIdentifier != (menu.IDString + menu.elements[j].IDString + i.ToString ()))
 							{
-								if (menu.CanCurrentlyKeyboardControl () && lastElementIdentifier == "")
-								{
-									// Bypass when auto-selected
-								}
-								else
-								{
-									KickStarter.sceneSettings.PlayDefaultSound (menu.elements[j].hoverSound, false);
-								}
+								KickStarter.sceneSettings.PlayDefaultSound (menu.elements[j].hoverSound, false);
 							}
 							
 							elementIdentifier = menu.IDString + menu.elements[j].IDString + i.ToString ();
@@ -1695,6 +1683,18 @@ namespace AC
 
 
 		/**
+		 * The EventSystem used by AC Menus.
+		 */
+		public UnityEngine.EventSystems.EventSystem EventSystem
+		{
+			get
+			{
+				return eventSystem;
+			}
+		}
+
+
+		/**
 		 * <summary>De-selects the Unity UI EventSystem's selected gameobject if it is associated with a given Menu.</summary>
 		 * <param name = "_menu">The Menu to deselect</param>
 		 * <returns>True if the Unity UI EventSystem's selected gameobject was in the given Menu</returns>
@@ -1733,9 +1733,9 @@ namespace AC
 			}
 			else if (KickStarter.settingsManager.inputMethod == InputMethod.KeyboardOrController)
 			{
-				if (menu.IsElementSelectedByEventSystem (elementIndex, i))
+				if (menu.menuSource != MenuSource.AdventureCreator)
 				{
-					return true;
+					return menu.IsElementSelectedByEventSystem (elementIndex, i);
 				}
 
 				if (KickStarter.stateHandler.gameState == GameState.Normal)
@@ -2013,10 +2013,6 @@ namespace AC
 				mouseOverInventory = foundMouseOverInventory;
 				canKeyboardControl = foundCanKeyboardControl;
 
-				if (!mouseOverMenu && !mouseOverInteractionMenu && mouseOverInventory)
-				{
-					menuIdentifier = elementIdentifier = "";
-				}
 				if (mouseOverMenuName != null && (lastElementIdentifier != elementIdentifier || lastMenuIdentifier != menuIdentifier))
 				{
 					KickStarter.eventManager.Call_OnMouseOverMenuElement (mouseOverMenuName, mouseOverElementName, mouseOverElementSlot);
@@ -2735,12 +2731,22 @@ namespace AC
 
 			if (objectToSelect != null)
 			{
-				StartCoroutine (SelectUIElement (objectToSelect));
+				SelectUIElement (objectToSelect);
 			}
 		}
 
 
-		private IEnumerator SelectUIElement (GameObject objectToSelect)
+		/**
+		 * <summary>Selects a Unity UI GameObject</summary>
+		 * <param name = "objectToSelect">The UI GameObject to select</param>
+		 */
+		public void SelectUIElement (GameObject objectToSelect)
+		{
+			StartCoroutine (SelectUIElementCoroutine (objectToSelect));
+		}
+
+
+		private IEnumerator SelectUIElementCoroutine (GameObject objectToSelect)
 		{
 			eventSystem.SetSelectedGameObject (null);
 			yield return null;

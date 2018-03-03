@@ -225,7 +225,7 @@ namespace AC
 
 					if (character != null)
 					{
-						character.SetLookDirection (character.transform.forward, true);
+						character.SetLookDirection (character.TransformRotation * Vector3.forward, true);
 					}
 
 					rotateChangeTime = 0f;

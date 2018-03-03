@@ -168,7 +168,7 @@ namespace AC
 					newObject.GetComponent <RememberTransform>().OnSpawn ();
 				}
 
-				KickStarter.stateHandler.GatherObjects ();
+				KickStarter.stateHandler.IgnoreNavMeshCollisions ();
 			}
 			else if (invAction == InvAction.Remove)
 			{
@@ -197,7 +197,7 @@ namespace AC
 
 				GameObject newObject = (GameObject) Instantiate (_gameObject, position, rotation);
 				newObject.name = _gameObject.name;
-				KickStarter.stateHandler.GatherObjects ();
+				KickStarter.stateHandler.IgnoreNavMeshCollisions ();
 			}
 
 			return 0f;

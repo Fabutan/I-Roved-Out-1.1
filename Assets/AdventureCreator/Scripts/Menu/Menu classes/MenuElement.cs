@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"MenuElement.cs"
  * 
@@ -274,9 +274,10 @@ namespace AC
 
 		/**
 		 * <summary>Gets the linked Unity UI GameObject associated with this element.</summary>
+		 * <param name = "slotIndex">The slot index, if the element has multiple slots</param>
 		 * <returns>The Unity UI GameObject associated with the element</returns>
 		 */
-		public virtual GameObject GetObjectToSelect ()
+		public virtual GameObject GetObjectToSelect (int slotIndex = 0)
 		{
 			return null;
 		}
@@ -694,7 +695,28 @@ namespace AC
 				Rect outlineRect = _menu.GetRectAbsolute (GetSlotRectRelative (i));
 				DrawStraightLine.DrawBox (outlineRect, boxColor, 1f, false, 0);
 			}
+		}
 
+
+		/**
+		 * <summary>Gets the element's slot centres, as an array of Vector2s.  This is used when keyboard-navigating menus</summary>
+		 * <param name = "_menu">The parent Menu</param>
+		 * <returns>The element's slot centres, as an array of Vector2s.</returns>
+		 */
+		public Vector2[] GetSlotCentres (AC.Menu _menu)
+		{
+			List<Vector2> slotCentres = new List<Vector2>();
+
+			if (isClickable)
+			{
+				for (int i=0; i<GetNumSlots (); i++)
+				{
+					Vector2 slotCentre = _menu.GetRectAbsolute (GetSlotRectRelative (i)).center;
+					slotCentres.Add (slotCentre);
+				}
+			}
+
+			return slotCentres.ToArray ();
 		}
 
 
@@ -1035,6 +1057,7 @@ namespace AC
 
 			dragOffset = pos;
 		}
+
 
 		/**
 		 * <summary>Gets the drag offset.</summary>

@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"PlayerMovement.cs"
  * 
@@ -1087,12 +1087,17 @@ namespace AC
 		}
 
 
+		private GameObject clickPrefabInstance;
 		private void ShowClick (Vector3 clickPoint)
 		{
 			if (KickStarter.settingsManager && KickStarter.settingsManager.clickPrefab)
 			{
-				Destroy (GameObject.Find (KickStarter.settingsManager.clickPrefab.name + "(Clone)"));
-				Instantiate (KickStarter.settingsManager.clickPrefab, clickPoint, Quaternion.identity);
+				if (clickPrefabInstance != null && clickPrefabInstance.activeSelf)
+				{
+					KickStarter.sceneChanger.ScheduleForDeletion (clickPrefabInstance);
+				}
+				Transform clickPrefabTransform = Instantiate (KickStarter.settingsManager.clickPrefab, clickPoint, Quaternion.identity) as Transform;
+				clickPrefabInstance = clickPrefabTransform.gameObject;
 			}
 		}
 

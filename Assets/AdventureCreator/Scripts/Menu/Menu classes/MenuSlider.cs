@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"MenuSlider.cs"
  * 
@@ -156,11 +156,7 @@ namespace AC
 		}
 
 
-		/**
-		 * <summary>Gets the linked Unity UI GameObject associated with this element.</summary>
-		 * <returns>The Unity UI GameObject associated with the element</returns>
-		 */
-		public override GameObject GetObjectToSelect ()
+		public override GameObject GetObjectToSelect (int slotIndex = 0)
 		{
 			if (uiSlider)
 			{
@@ -432,14 +428,14 @@ namespace AC
 		
 		private void Change ()
 		{
-			visualAmount += 0.02f; 
+			/*visualAmount += 0.02f; 
 			
 			if (visualAmount > 1f)
 			{
 				visualAmount = 0f;
 			}
 			
-			UpdateValue ();
+			UpdateValue ();*/
 		}
 		
 		
@@ -632,6 +628,24 @@ namespace AC
 			}
 
 			KickStarter.eventManager.Call_OnMenuElementClick (_menu, this, _slot, (int) _mouseState);
+		}
+
+
+		public bool KeyboardControl (Vector2 direction)
+		{
+			if (direction == Vector2.right)
+			{
+				visualAmount += 0.02f; 
+				UpdateValue ();	
+				return true;
+			}
+			else if (direction == Vector2.left)
+			{
+				visualAmount -= 0.02f;
+				UpdateValue ();
+				return true;
+			}
+			return false;
 		}
 		
 

@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"FootstepSounds.cs"
  * 
@@ -70,7 +70,7 @@ namespace AC
 
 		private void Update ()
 		{
-			if (character == null) return;
+			if (character == null || footstepPlayMethod == FootstepPlayMethod.ViaAnimationEvents) return;
 
 			if (character.charState == CharState.Move && !character.isJumping)
 			{

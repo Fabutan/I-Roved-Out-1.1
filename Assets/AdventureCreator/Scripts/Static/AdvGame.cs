@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"AdvGame.cs"
  * 
@@ -298,12 +298,6 @@ namespace AC
 				RuntimeActionList runtimeActionList = runtimeActionListObject.GetComponent <RuntimeActionList>();
 				runtimeActionList.DownloadActions (actionListAsset, endConversation, i, doSkip, addToSkipQueue);
 
-				GameObject cutsceneFolder = GameObject.Find ("_Cutscenes");
-				if (cutsceneFolder != null && cutsceneFolder.transform.position == Vector3.zero)
-				{
-					runtimeActionList.transform.parent = cutsceneFolder.transform;
-				}
-			
 				return runtimeActionList;
 			}
 			
@@ -1332,21 +1326,22 @@ namespace AC
 			if (clip != null && _animation != null)
 			{
 				// Initialises a clip
-				_animation.AddClip (clip, clip.name);
+				string clipName = clip.name;
+				_animation.AddClip (clip, clipName);
 				
 				if (mixingBone != null)
 				{
-					_animation [clip.name].AddMixingTransform (mixingBone);
+					_animation [clipName].AddMixingTransform (mixingBone);
 				}
 				
 				// Set up the state
 				if (_animation [clip.name])
 				{
-					_animation [clip.name].layer = layer;
-					_animation [clip.name].normalizedTime = 0f;
-					_animation [clip.name].blendMode = blendMode;
-					_animation [clip.name].wrapMode = wrapMode;
-					_animation [clip.name].enabled = true;
+					_animation [clipName].layer = layer;
+					_animation [clipName].normalizedTime = 0f;
+					_animation [clipName].blendMode = blendMode;
+					_animation [clipName].wrapMode = wrapMode;
+					_animation [clipName].enabled = true;
 				}
 			}
 		}
@@ -1410,18 +1405,15 @@ namespace AC
 		{
 			// Remove any non-playing animations
 			List <string> removeClips = new List <string>();
-			
+
 			foreach (AnimationState state in _animation)
 			{
 				if (!_animation [state.name].enabled)
 				{
 					// Queued animations get " - Queued Clone" appended to it, so remove
-					
-					int queueIndex = state.name.IndexOf (" - Queued Clone");
-					
-					if (queueIndex > 0)
+					if (state.name.Contains (queuedCloneAnimSuffix))
 					{
-						removeClips.Add (state.name.Substring (0, queueIndex));
+						removeClips.Add (state.name.Replace (queuedCloneAnimSuffix, string.Empty));
 					}
 					else
 					{
@@ -1435,6 +1427,7 @@ namespace AC
 				_animation.RemoveClip (_clip);
 			}
 		}
+		private static string queuedCloneAnimSuffix = " - Queued Clone";
 		
 
 		/**

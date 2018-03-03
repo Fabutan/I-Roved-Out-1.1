@@ -27,7 +27,8 @@ namespace AC
 		private int tagID = 0;
 
 		private bool limitToMissingAudio = false;
-		
+		private Vector2 scroll;
+
 		
 		/**
 		 * <summary>Initialises the window.</summary>
@@ -35,9 +36,10 @@ namespace AC
 		 */
 		public static void Init (int _languageIndex = 0)
 		{
-			ScriptSheetWindow window = (ScriptSheetWindow) EditorWindow.GetWindow (typeof (ScriptSheetWindow));
+			ScriptSheetWindow window = EditorWindow.GetWindowWithRect <ScriptSheetWindow> (new Rect (0, 0, 400, 305), true, "Script sheet exporter", true);
+
 			UnityVersionHandler.SetWindowTitle (window, "Script sheet exporter");
-			window.position = new Rect (300, 200, 350, 205);
+			window.position = new Rect (300, 200, 400, 305);
 			window.languageIndex = _languageIndex;
 		}
 		
@@ -50,6 +52,7 @@ namespace AC
 				return;
 			}
 			
+			scroll = GUILayout.BeginScrollView (scroll);
 			SpeechManager speechManager = AdvGame.GetReferences ().speechManager;
 			
 			EditorGUILayout.HelpBox ("Check the settings below and click 'Create' to save a new script sheet.", MessageType.Info);
@@ -118,6 +121,9 @@ namespace AC
 			{
 				CreateScript ();
 			}
+
+			EditorGUILayout.Space ();
+			EditorGUILayout.EndScrollView ();
 		}
 		
 		

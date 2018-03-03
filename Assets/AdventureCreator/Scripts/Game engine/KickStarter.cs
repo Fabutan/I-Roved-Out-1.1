@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"KickStarter.cs"
  * 
@@ -757,15 +757,22 @@ namespace AC
 				}
 				else
 				{
-					if (GameObject.FindObjectOfType <Player>() && GameObject.FindObjectOfType <Player>().tag == Tags.player)
+					Player foundPlayer = GameObject.FindObjectOfType <Player>();
+					if (foundPlayer != null && foundPlayer.tag == Tags.player)
 					{
-						playerPrefab = GameObject.FindObjectOfType <Player>().GetComponent <Player>();
+						playerPrefab = foundPlayer.GetComponent <Player>();
 						return playerPrefab;
 					}
-					if (GameObject.FindWithTag (Tags.player) && GameObject.FindWithTag (Tags.player).GetComponent <Player>())
+
+					GameObject foundPlayerTag = GameObject.FindWithTag (Tags.player);
+					if (foundPlayerTag != null)
 					{
-						playerPrefab = GameObject.FindWithTag (Tags.player).GetComponent <Player>();
-						return playerPrefab;
+						Player foundPlayerTagPlayer = foundPlayerTag.GetComponent <Player>();
+						if (foundPlayerTagPlayer != null)
+						{
+							playerPrefab = foundPlayerTagPlayer;
+							return playerPrefab;
+						}
 					}
 				}
 				return null;
@@ -813,15 +820,17 @@ namespace AC
 		public static void ResetPlayer (Player ref_player, int ID, bool resetReferences, Quaternion _rotation, bool keepInventory = false, bool deleteInstantly = false)
 		{
 			// Delete current player(s)
-			if (GameObject.FindGameObjectsWithTag (Tags.player) != null)
+			GameObject[] playerTaggedObjects = GameObject.FindGameObjectsWithTag (Tags.player);
+			if (playerTaggedObjects != null && playerTaggedObjects.Length > 0)
 			{
-				foreach (GameObject playerOb in GameObject.FindGameObjectsWithTag (Tags.player))
+				foreach (GameObject playerOb in playerTaggedObjects)
 				{
 					if (playerOb != null)
 					{
-						if (playerOb.GetComponent <Player>())
+						Player playerObPlayer = playerOb.GetComponent <Player>();
+						if (playerObPlayer != null)
 						{
-							playerOb.GetComponent <Player>().ReleaseHeldObjects ();
+							playerObPlayer.ReleaseHeldObjects ();
 						}
 
 						if (deleteInstantly)
@@ -830,7 +839,8 @@ namespace AC
 						}
 						else
 						{
-							foreach (Collider collider in playerOb.GetComponentsInChildren <Collider>())
+							Collider[] playerObColliders = playerOb.GetComponentsInChildren <Collider>();
+							foreach (Collider collider in playerObColliders)
 							{
 								if (collider is CharacterController) continue;
 								collider.isTrigger = true;
@@ -848,6 +858,7 @@ namespace AC
 				SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
 
 				Player newPlayer = (Player) Instantiate (ref_player, Vector3.zero, _rotation);
+
 				newPlayer.ID = ID;
 				newPlayer.name = ref_player.name;
 				playerPrefab = newPlayer;
@@ -901,7 +912,6 @@ namespace AC
 			{
 				KickStarter.playerMovement.AssignFPCamera ();
 				KickStarter.stateHandler.IgnoreNavMeshCollisions ();
-				KickStarter.stateHandler.GatherObjects (false);
 				KickStarter.stateHandler.UpdateAllMaxVolumes ();
 				_Camera[] cameras = FindObjectsOfType (typeof (_Camera)) as _Camera[];
 				foreach (_Camera camera in cameras)
@@ -963,7 +973,7 @@ namespace AC
 					{
 						if (settingsManager.GetDefaultPlayer () != null && existingPlayer.name == (settingsManager.GetDefaultPlayer ().name + "(Clone)"))
 						{
-							DestroyImmediate (GameObject.FindGameObjectWithTag (Tags.player));
+							DestroyImmediate (existingPlayer);
 							ACDebug.LogWarning ("Player clone found in scene - this may have been hidden by a Unity bug, and has been destroyed.");
 						}
 					}
@@ -1193,9 +1203,14 @@ namespace AC
 		 */
 		public void AfterLoad ()
 		{
-			if (GameObject.FindWithTag (Tags.player) && GameObject.FindWithTag (Tags.player).GetComponent <Player>())
+			GameObject taggedPlayerOb = GameObject.FindWithTag (Tags.player);
+			if (taggedPlayerOb != null)
 			{
-				KickStarter.playerPrefab = GameObject.FindWithTag (Tags.player).GetComponent <Player>();
+				Player taggedPlayerObPlayer = taggedPlayerOb.GetComponent <Player>();
+				if (taggedPlayerObPlayer != null)
+				{
+					KickStarter.playerPrefab = taggedPlayerObPlayer;
+				}
 			}
 		}
 		
@@ -1208,6 +1223,7 @@ namespace AC
 			if (KickStarter.stateHandler != null && KickStarter.actionListManager != null)
 			{
 				KickStarter.stateHandler.SetACState (true);
+				ACDebug.Log ("Adventure Creator has been turned on.");
 			}
 			else
 			{
@@ -1241,6 +1257,7 @@ namespace AC
 				if (KickStarter.stateHandler)
 				{
 					KickStarter.stateHandler.SetACState (false);
+					ACDebug.Log ("Adventure Creator has been turned off.");
 				}
 			}
 			else
@@ -1258,16 +1275,16 @@ namespace AC
 				GameObject[] playerObs = GameObject.FindGameObjectsWithTag (Tags.player);
 				foreach (GameObject playerOb in playerObs)
 				{
-					if (playerOb.GetComponent <Player>() && sceneChanger.GetPlayerOnTransition () != playerOb.GetComponent <Player>())
+					Player playerObPlayer = playerOb.GetComponent <Player>();
+					if (playerObPlayer != null && sceneChanger.GetPlayerOnTransition () != playerObPlayer)
 					{
 						KickStarter.sceneChanger.DestroyOldPlayer ();
-						KickStarter.playerPrefab = playerOb.GetComponent <Player>();
+						KickStarter.playerPrefab = playerObPlayer;
 						SetLocalPlayerID (KickStarter.playerPrefab);
 
 						break;
 					}
 				}
-				KickStarter.stateHandler.GatherObjects (true);
 			}
 		}
 

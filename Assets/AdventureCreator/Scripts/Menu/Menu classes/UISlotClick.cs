@@ -38,7 +38,7 @@ namespace AC
 		{
 			if (menuElement)
 			{
-				if (KickStarter.playerInput.InputGetButtonDown ("InteractionB"))
+				if (KickStarter.playerInput != null && KickStarter.playerInput.InputGetButtonDown ("InteractionB"))
 				{
 					if (KickStarter.playerMenus.IsEventSystemSelectingObject (gameObject))
 					{

@@ -63,9 +63,10 @@ namespace AC
 		{
 			if (_inventoryManager == null) return;
 
-			InvItemImportWizardWindow window = (InvItemImportWizardWindow) EditorWindow.GetWindow (typeof (InvItemImportWizardWindow));
+			InvItemImportWizardWindow window = EditorWindow.GetWindowWithRect <InvItemImportWizardWindow> (new Rect (0, 0, 350, 500), true, "Inventory item importer", true);
+
 			UnityVersionHandler.SetWindowTitle (window, "Inventory importer");
-			window.position = new Rect (300, 200, 350, 300);
+			window.position = new Rect (300, 200, 350, 500);
 			window._Init (_inventoryManager, _csvData);
 		}
 		
@@ -108,6 +109,7 @@ namespace AC
 				Import ();
 			}
 
+			EditorGUILayout.Space ();
 			EditorGUILayout.EndScrollView ();
 		}
 

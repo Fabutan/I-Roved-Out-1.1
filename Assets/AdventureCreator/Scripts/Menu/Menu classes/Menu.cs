@@ -1,7 +1,8 @@
+
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"Menu.cs"
  * 
@@ -533,9 +534,9 @@ namespace AC
 		 */
 		public void EnableUI ()
 		{
-			if (GetsDuplicated () && !isDuplicate) return;
+			if (menuSource == MenuSource.AdventureCreator || (GetsDuplicated () && !isDuplicate)) return;
 
-			if (canvas != null && menuSource != MenuSource.AdventureCreator)
+			if (canvas != null)
 			{
 				canvas.gameObject.SetActive (true);
 				canvas.enabled = true;
@@ -547,7 +548,11 @@ namespace AC
 
 				if (CanCurrentlyKeyboardControl () && IsClickable ())
 				{
-					KickStarter.playerMenus.FindFirstSelectedElement ();
+					if (selected_element == null)
+					{
+						// If manually set with 'Menu: Select element' Action, don't select any element
+						KickStarter.playerMenus.FindFirstSelectedElement ();
+					}
 				}
 			}
 		}
@@ -1674,7 +1679,7 @@ namespace AC
 			}
 			return false;
 		}
-		
+
 
 		/**
 		 * <summary>Turns the Menu on.</summary>
@@ -1687,6 +1692,9 @@ namespace AC
 			{
 				return false;
 			}
+
+			selected_slot = 0;
+			selected_element = null;
 
 			gameStateWhenTurnedOn = KickStarter.stateHandler.gameState;
 			if (menuSource == MenuSource.AdventureCreator)
@@ -1722,7 +1730,7 @@ namespace AC
 					}
 				}
 
-				selected_slot = -2;
+				//selected_slot = -2;
 				
 				MenuSystem.OnMenuEnable (this);
 				ChangeGameState ();
@@ -2367,72 +2375,207 @@ namespace AC
 			}
 			return false;
 		}
-				
+
 
 		/**
-		 * <summary>Sets the "active" slot/element within a keyboard-controlled Menu.</summary>
-		 * <param name = "selected_option">The intended slot/element to select</param>
-		 * <returns>The newly-selected slot/element</returns>
+		 * <summary>Selects a given element (and optionally, a slot inside it) for direct-controlled menu navigation.</summary>
+		 * <param name = "elementName">The name of the MenuElement to select</param>
+		 * <param name = "slotIndex">The index number of the slot to select, if the MenuElement has multiple slots</param>
 		 */
-		public int ControlSelected (int selected_option)
+		public void Select (string elementName, int slotIndex = 0)
 		{
-			if (menuSource != MenuSource.AdventureCreator) return selected_option;
+			MenuElement elementToSelect = GetElementWithName (elementName);
 
-			if (selected_slot == -2)
+			if (elementToSelect != null)
 			{
-				selected_option = 0;
-			}
-			
-			if (selected_option < 0)
-			{
-				selected_option = 0;
-				selected_element = visibleElements[0];
-				selected_slot = 0;
+				if (elementToSelect.isVisible)
+				{
+					selected_element = elementToSelect;
+					selected_slot = slotIndex;
+
+					if (IsUnityUI () && IsEnabled ())
+					{
+						GameObject elementObject = selected_element.GetObjectToSelect (selected_slot);
+						if (elementObject != null)
+						{
+							KickStarter.playerMenus.SelectUIElement (elementObject);
+						}
+					}
+				}
+				else
+				{
+					ACDebug.LogWarning ("Cannot select element '" + elementName + "' inside Menu '" + title + "' because it is not visible!");
+				}
 			}
 			else
 			{
-				int sel = 0;
-				selected_slot = -1;
-				int element = 0;
-				int slot = 0;
-				
-				for (element=0; element<visibleElements.Count; element++)
+				ACDebug.LogWarning ("Cannot find element '" + elementName + "' inside Menu '" + title + "'");
+			}
+		}
+
+
+		/**
+		 * Makes sure an element or slots is selected, ready for direct-controlled menu navigation.
+		 * If the Menu has just been turned on, then the first visible element will be selected
+		 * If an element was selected, but made invisible, then the slot or element closest to it will be selected.
+		 */
+		public void AutoSelect ()
+		{
+			if (visibleElements == null || visibleElements.Count == 0 || menuSource != MenuSource.AdventureCreator) return;
+
+			if (selected_element != null)
+			{
+				if (!selected_element.isVisible)
 				{
-					if (visibleElements[element].isClickable)
+					GetNearestSlot (selected_element, selected_slot);
+				}
+			}
+			else
+			{
+				// No element selected, so select first-visible one
+				for (int i=0; i<visibleElements.Count; i++)
+				{
+					if (visibleElements[i].isClickable)
 					{
-						for (slot=0; slot<visibleElements[element].GetNumSlots (); slot++)
-						{
-							if (selected_option == sel)
-							{
-								selected_slot = slot;
-								selected_element = visibleElements[element];
-								break;
-							}
-							sel++;
-						}
-					}
-					
-					if (selected_slot != -1)
-					{
+						selected_element = visibleElements[i];
 						break;
 					}
 				}
-				
-				if (selected_slot == -1)
+			}
+		}
+
+
+		/**
+		 * <summary>Attempts to select a new element or slot in a given direction.  This is used for direct-controlled menu navigation</summary>
+		 * <param name = "inputDirection">The direction to move the selection in</param>
+		 * <param name = "scrollingLocked">If True, don't change the selection (but still call this in case changing e.g. MenuSlider values)</param>
+		 * <returns>True if a new element or slot was changed</returns>
+		 */
+		public bool GetNextSlot (Vector2 inputDirection, bool scrollingLocked)
+		{
+			if (menuSource != MenuSource.AdventureCreator) return false;
+
+			if (inputDirection.y > 0.1f)
+			{
+				// Up
+				GetNextSlot (Vector2.down, scrollingLocked, selected_element, selected_slot);
+				return true;
+			}
+			else if (inputDirection.y < -0.1f)
+			{
+				// Down
+				GetNextSlot (Vector2.up, scrollingLocked, selected_element, selected_slot);
+				return true;
+			}
+			if (inputDirection.x < -0.1f)
+			{
+				// Left
+				GetNextSlot (Vector2.left, scrollingLocked, selected_element, selected_slot);
+				return true;
+			}
+			else if (inputDirection.x > 0.1f)
+			{
+				// Right
+				GetNextSlot (Vector2.right, scrollingLocked, selected_element, selected_slot);
+				return true;
+			}
+			return false;
+		}
+
+
+		private void GetNextSlot (Vector2 direction, bool scrollingLocked, MenuElement currentElement, int currentSlotIndex)
+		{
+			if (currentElement == null) return;
+
+			if (currentElement is MenuSlider)
+			{
+				MenuSlider menuSlider = currentElement as MenuSlider;
+				if (menuSlider.KeyboardControl (direction))
 				{
-					// Couldn't find match, must've maxed out
-					selected_slot = slot - 1;
-					selected_option = sel - 1;
-					if (visibleElements.Count < (element-1))
+					return;
+				}
+			}
+
+			if (scrollingLocked)
+			{
+				return;
+			}
+
+			Vector2 thisCentre = GetRectAbsolute (currentElement.GetSlotRectRelative (currentSlotIndex)).center;
+
+			MenuElement nextElement = currentElement;
+			int nextSlotIndex = currentSlotIndex;
+
+			float scaledDP = -1f;
+			foreach (MenuElement element in visibleElements)
+			{
+				Vector2[] elementCentres = element.GetSlotCentres (this);
+
+				if (elementCentres != null)
+				{
+					for (int i=0; i<elementCentres.Length; i++)
 					{
-						selected_element = visibleElements[element-1];
+						Vector2 relative = elementCentres[i] - thisCentre;
+						float dotProduct = Vector2.Dot (relative, direction);
+						Vector2 normalVec = Quaternion.Euler (0, 0, 90f) * direction;
+						float normalDotProduct = Vector2.Dot (relative, normalVec);
+						float thisScaledDP = dotProduct / relative.sqrMagnitude;
+
+						//Debug.Log ("Compare " + currentElement.title + ", " + currentSlotIndex + " with " + element.title + ", " + i +
+						//	", Test: " + scaledDP + ", TempTest: " + thisScaledDP);
+						
+						if (dotProduct > 0f && Mathf.Abs (dotProduct) > Mathf.Abs (normalDotProduct / 2f))
+						{
+							float dist = relative.sqrMagnitude;
+							if (dist != 0f && (thisScaledDP > scaledDP || scaledDP < 0f))
+							{
+								nextElement = element;
+								nextSlotIndex = i;
+								scaledDP = thisScaledDP;
+								//Debug.LogWarning (nextElement.title + " wins");
+							}
+						}
 					}
 				}
 			}
-			
-			return selected_option;
+
+			selected_slot = nextSlotIndex;
+			selected_element = nextElement;
 		}
-		
+
+
+		private void GetNearestSlot (MenuElement currentElement, int currentSlotIndex)
+		{
+			if (currentElement == null) return;
+
+			Vector2 thisCentre = GetRectAbsolute (currentElement.GetSlotRectRelative (currentSlotIndex)).center;
+
+			MenuElement nextElement = currentElement;
+			int nextSlotIndex = currentSlotIndex;
+
+			float minSqrMag = -1f;
+			foreach (MenuElement element in visibleElements)
+			{
+				Vector2[] elementCentres = element.GetSlotCentres (this);
+
+				if (elementCentres != null)
+				{
+					for (int i=0; i<elementCentres.Length; i++)
+					{
+						float thisSqrMag = (elementCentres[i] - thisCentre).sqrMagnitude;
+						if (thisSqrMag < minSqrMag || minSqrMag < 0f)
+						{
+							nextElement = element;
+							nextSlotIndex = i;
+							minSqrMag = thisSqrMag;
+						}
+					}
+				}
+			}
+			selected_slot = nextSlotIndex;
+			selected_element = nextElement;
+		}
+
 
 		/**
 		 * <summary>Gets a MenuElement subclass within the Menu's list of elements.</summary>

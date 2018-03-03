@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SceneChanger.cs"
  * 
@@ -145,7 +145,7 @@ namespace AC
 
 
 		/**
-		 * <summary>Loads a new scene.</summary>
+		 * <summary>Loads a new scene.  This method should be used instead of Unity's own scene-switching method, because this allows for AC objects to be saved beforehand</summary>
 		 * <param name = "nextSceneInfo">Info about the scene to load</param>
 		 * <param name = "sceneNumber">The number of the scene to load, if sceneName = ""</param>
 		 * <param name = "saveRoomData">If True, then the states of the current scene's Remember scripts will be recorded in LevelStorage</param>
@@ -254,7 +254,6 @@ namespace AC
 		{
 			yield return new WaitForEndOfFrame ();
 			DestroyImmediate (_gameObject);
-			KickStarter.stateHandler.GatherObjects (true);
 		}
 
 
@@ -345,7 +344,7 @@ namespace AC
 					}
 				}
 
-				KickStarter.stateHandler.GatherObjects ();
+				KickStarter.stateHandler.IgnoreNavMeshCollisions ();
 			}
 			else
 			{
@@ -384,7 +383,7 @@ namespace AC
 				yield return null;
 			}
 
-			KickStarter.stateHandler.GatherObjects ();
+			KickStarter.stateHandler.IgnoreNavMeshCollisions ();
 			isLoading = false;
 			preloadAsync = null;
 			preloadSceneInfo = new SceneInfo ("", -1);
@@ -457,6 +456,15 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Saves the current scene objects, kills speech dialog etc.  This should if the scene is changed using a custom script, i.e. without using the provided 'Scene: Switch' Action.</summary>
+		 */
+		public void PrepareSceneForExit ()
+		{
+			PrepareSceneForExit (false, true);
+		}
+
+
 		private void PrepareSceneForExit (bool isInstant, bool saveRoomData)
 		{
 			if (isInstant)
@@ -476,8 +484,7 @@ namespace AC
 			{
 				sound.TryDestroy ();
 			}
-			KickStarter.stateHandler.GatherObjects ();
-			
+
 			KickStarter.playerMenus.ClearParents ();
 			if (KickStarter.dialog)
 			{
@@ -542,7 +549,7 @@ namespace AC
 				subScenes.Add (subScene);
 
 				KickStarter.levelStorage.ReturnSubSceneData (subScene, isLoading);
-				KickStarter.stateHandler.GatherObjects ();
+				KickStarter.stateHandler.IgnoreNavMeshCollisions ();
 			}
 		}
 
@@ -614,7 +621,6 @@ namespace AC
 
 			_sceneInfo.CloseLevel ();
 
-			KickStarter.stateHandler.GatherObjects (true);
 			KickStarter.stateHandler.RegisterWithGameEngine ();
 		}
 
@@ -671,7 +677,6 @@ namespace AC
 				}
 			}
 
-			KickStarter.stateHandler.GatherObjects (true);
 			KickStarter.stateHandler.RegisterWithGameEngine ();
 		}
 

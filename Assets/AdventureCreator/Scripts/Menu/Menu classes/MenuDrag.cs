@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"MenuDrag.cs"
  * 
@@ -113,6 +113,9 @@ namespace AC
 			}
 
 			dragRect = EditorGUILayout.RectField ("Drag boundary:", dragRect);
+
+			ChangeCursorGUI (menu);
+
 			EditorGUILayout.EndVertical ();
 			
 			base.ShowGUI (menu);

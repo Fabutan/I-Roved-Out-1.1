@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SceneSettings.cs"
  * 
@@ -75,6 +75,9 @@ namespace AC
 		/** How much slower vertical movement is compared to horizontal movement, if the game is in 2D and overriderVerticalReductionFactor = True */
 		public float verticalReductionFactor = 0.7f;
 
+		/** The distance to offset a character by when it is in the same area of a SortingMap as another (to correct display order) */
+		public float sharedLayerSeparationDistance = 0.001f;
+
 		[SerializeField] private bool overrideCameraPerspective = false;
 		[SerializeField] private CameraPerspective cameraPerspective;
 		[SerializeField] private MovingTurning movingTurning = MovingTurning.Unity2D;
@@ -145,12 +148,11 @@ namespace AC
 		 */
 		public void UpdateAllSortingMaps ()
 		{
-			SortingMap[] sortingMaps = FindObjectsOfType (typeof (SortingMap)) as SortingMap[];
-			foreach (SortingMap _sortingMap in sortingMaps)
+			if (KickStarter.stateHandler != null)
 			{
-				if (_sortingMap != null)
+				foreach (FollowSortingMap followSortingMap in KickStarter.stateHandler.FollowSortingMaps)
 				{
-					_sortingMap.GetAllFollowers ();
+					followSortingMap.UpdateSortingMap ();
 				}
 			}
 		}
@@ -429,6 +431,8 @@ namespace AC
 				return;
 			}
 
+			#if UNITY_EDITOR
+
 			if ((requiredManagerPackage.sceneManager != null && requiredManagerPackage.sceneManager != KickStarter.sceneManager) ||
 			    (requiredManagerPackage.settingsManager != null && requiredManagerPackage.settingsManager != KickStarter.settingsManager) ||
 			    (requiredManagerPackage.actionsManager != null && requiredManagerPackage.actionsManager != KickStarter.actionsManager) ||
@@ -454,6 +458,8 @@ namespace AC
 
 				ACDebug.LogWarning ("This scene's required Manager asset files are not all loaded - please find the asset file '" + requiredManagerPackage.name + "' and click 'Assign managers' in its Inspector.");
 			}
+
+			#endif
 		}
 
 

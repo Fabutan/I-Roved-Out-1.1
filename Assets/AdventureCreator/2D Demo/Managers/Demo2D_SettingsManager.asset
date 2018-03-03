@@ -39,6 +39,7 @@ MonoBehaviour:
   cycleInventoryCursors: 1
   autoCycleWhenInteract: 0
   showHoverInteractionInHotspotLabel: 0
+  allowDefaultinteractions: 0
   whenReselectHotspot: 0
   lockCursorOnStart: 0
   hideLockedCursor: 0
@@ -97,7 +98,11 @@ MonoBehaviour:
   dragRunThreshold: 20
   drawDragLine: 1
   dragLineWidth: 3
-  dragLineColor: {r: 1, g: 1, b: 1, a: 1}
+  dragLineColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   offsetTouchCursor: 0
   doubleTapHotspots: 0
   firstPersonTouchScreen: 1

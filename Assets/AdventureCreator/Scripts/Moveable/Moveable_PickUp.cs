@@ -55,10 +55,10 @@ namespace AC
 		private LerpUtils.Vector3Lerp fixedJointLerp = new LerpUtils.Vector3Lerp ();
 
 		
-		protected override void Awake ()
+		protected override void Start ()
 		{
-			base.Awake ();
 			LimitCollisions ();
+			base.Start ();
 		}
 
 
@@ -378,11 +378,11 @@ namespace AC
 					Physics.IgnoreCollision (_collider1, _collider2, true);
 				}
 
-				if (ignorePlayerCollider)
+				if (ignorePlayerCollider && KickStarter.player != null)
 				{
-					if (GameObject.FindWithTag (Tags.player) && GameObject.FindWithTag (Tags.player).GetComponent <Collider>())
+					Collider[] playerColliders = KickStarter.player.gameObject.GetComponentsInChildren <Collider>();
+					foreach (Collider playerCollider in playerColliders)
 					{
-						Collider playerCollider = GameObject.FindWithTag (Tags.player).GetComponent <Collider>();
 						Physics.IgnoreCollision (playerCollider, _collider1, true);
 					}
 				}

@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"ActionMovie.cs"
  * 
@@ -11,6 +11,9 @@
 
 #if UNITY_5_6_OR_NEWER
 #define ALLOW_VIDEOPLAYER
+	#if UNITY_WEBGL
+	#define REQUIRE_URL
+	#endif
 #endif
 
 #if (UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_TVOS)
@@ -50,7 +53,14 @@ namespace AC
 		public int videoPlayerParameterID = -1;
 		public int videoPlayerConstantID;
 		public bool prepareOnly = false;
-		public VideoClip newClip;
+
+			#if REQUIRE_URL
+			public string movieURL = "http://";
+			public int movieURLParameterID = -1;
+			#else
+			public VideoClip newClip;
+			#endif
+
 		#endif
 
 		#if ALLOW_HANDHELD
@@ -89,6 +99,11 @@ namespace AC
 		{
 			#if ALLOW_VIDEOPLAYER
 			videoPlayer = AssignFile <VideoPlayer> (parameters, videoPlayerParameterID, videoPlayerConstantID, videoPlayer);
+
+				#if REQUIRE_URL
+				movieURL = AssignString (parameters, movieURLParameterID, movieURL);
+				#endif
+
 			#endif
 
 			#if ALLOW_MOVIETEXTURES
@@ -112,10 +127,17 @@ namespace AC
 
 						if (movieMaterialMethod == MovieMaterialMethod.PlayMovie)
 						{
+							#if REQUIRE_URL
+							if (!string.IsNullOrEmpty (movieURL))
+							{
+								videoPlayer.url = movieURL;
+							}
+							#else
 							if (newClip != null)
 							{
 								videoPlayer.clip = newClip;
 							}
+							#endif
 
 							if (prepareOnly)
 							{
@@ -407,7 +429,15 @@ namespace AC
 
 				if (movieMaterialMethod == MovieMaterialMethod.PlayMovie)
 				{
+					#if REQUIRE_URL
+					movieURLParameterID = Action.ChooseParameterGUI ("Movie URL:", parameters, movieURLParameterID, ParameterType.String);
+					if (movieURLParameterID < 0)
+					{
+						movieURL = EditorGUILayout.TextField ("Movie URL:", movieURL);
+					}
+					#else
 					newClip = (VideoClip) EditorGUILayout.ObjectField ("New Clip (optional):", newClip, typeof (VideoClip), true);
+					#endif
             
 					prepareOnly = EditorGUILayout.Toggle ("Prepare only?", prepareOnly);
 					willWait = EditorGUILayout.Toggle ("Wait until finish?", willWait);

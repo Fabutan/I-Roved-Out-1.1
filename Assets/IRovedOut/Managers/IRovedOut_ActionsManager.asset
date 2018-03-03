@@ -407,6 +407,12 @@ MonoBehaviour:
       state of menus.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionMenuSelect
+    category: 9
+    title: Select element
+    description: Selects an element within an enabled menu.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMenuSetInputBox
     category: 9
     title: Set Input box text
@@ -1156,6 +1162,12 @@ MonoBehaviour:
     title: Check state
     description: Queries the visibility of menu elements, and the enabled or locked
       state of menus.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionMenuSelect
+    category: 9
+    title: Select element
+    description: Selects an element within an enabled menu.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionMenuSetInputBox

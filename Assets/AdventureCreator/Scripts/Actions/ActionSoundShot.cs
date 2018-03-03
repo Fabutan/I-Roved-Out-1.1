@@ -86,7 +86,7 @@ namespace AC
 				return;
 			}
 
-			AudioSource[] audioSources = GameObject.FindObjectsOfType <AudioSource>();
+			AudioSource[] audioSources = FindObjectsOfType (typeof (AudioSource)) as AudioSource[];
 			foreach (AudioSource audioSource in audioSources)
 			{
 				if (audioSource.clip == audioClip && audioSource.isPlaying && audioSource.GetComponent<Sound>() == null)

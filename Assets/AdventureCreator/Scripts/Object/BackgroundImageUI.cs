@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"BackgroundImageUI.cs"
  * 
@@ -63,6 +63,7 @@ namespace AC
 				}
 			}
 
+			canvas.planeDistance = 0.015f;
 			rawImage.texture = texture;
 		}
 

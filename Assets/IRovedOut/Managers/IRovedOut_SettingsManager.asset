@@ -98,6 +98,8 @@ MonoBehaviour:
     enabledOnStart: 1
     gameState: 1
     actionListAsset: {fileID: 0}
+    inputType: 0
+    axisThreshold: 0
   freeAimTouchSpeed: 0.01
   dragWalkThreshold: 5
   dragRunThreshold: 20

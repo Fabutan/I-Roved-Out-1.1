@@ -85,7 +85,7 @@ namespace AC
 			character.headLookRightAnim = (AnimationClip) EditorGUILayout.ObjectField ("Head look right:", character.headLookRightAnim, typeof (AnimationClip), false);
 			character.headLookUpAnim = (AnimationClip) EditorGUILayout.ObjectField ("Head look up:", character.headLookUpAnim, typeof (AnimationClip), false);
 			character.headLookDownAnim = (AnimationClip) EditorGUILayout.ObjectField ("Head look down:", character.headLookDownAnim, typeof (AnimationClip), false);
-			character.headTurnSpeed = EditorGUILayout.Slider ("Head turn speed:", character.headTurnSpeed, 0.1f, 20f);
+
 			if (character is Player)
 			{
 				Player player = (Player) character;

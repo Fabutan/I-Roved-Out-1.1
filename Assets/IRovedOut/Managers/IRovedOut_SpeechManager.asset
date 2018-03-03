@@ -19,6 +19,7 @@ MonoBehaviour:
   playScrollAudioEveryCharacter: 1
   displayForever: 1
   displayNarrationForever: 0
+  playAnimationForever: 1
   canSkipWithMouseClicks: 1
   minimumDisplayTime: 0
   screenTimeFactor: 0.1

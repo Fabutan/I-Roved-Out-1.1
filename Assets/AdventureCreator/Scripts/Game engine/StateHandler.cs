@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SceneHandler.cs"
  * 
@@ -12,6 +12,7 @@
  */
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace AC
 {
@@ -50,15 +51,19 @@ namespace AC
 		private bool runAtLeastOnce = false;
 		private bool hasGameEngine = false;
 
-		private ArrowPrompt[] arrowPrompts;
-		private DragBase[] dragBases;
-		private Parallax2D[] parallax2Ds;
-		private Hotspot[] hotspots;
-		private Highlight[] highlights;
-		private _Camera[] cameras;
-		private Sound[] sounds;
-		private LimitVisibility[] limitVisibilitys;
-		private Char[] characters;
+		private List<ArrowPrompt> arrowPrompts = new List<ArrowPrompt>();
+		private List<DragBase> dragBases = new List<DragBase>();
+		private List<Parallax2D> parallax2Ds = new List<Parallax2D>();
+		private List<Hotspot> hotspots = new List<Hotspot>();
+		private List<Highlight> highlights = new List<Highlight>();
+		private List<_Camera> cameras = new List<_Camera>();
+		private List<Sound> sounds = new List<Sound>();
+		private List<LimitVisibility> limitVisibilitys = new List<LimitVisibility>();
+		private List<Char> characters = new List<Char>();
+		private List<FollowSortingMap> followSortingMaps = new List<FollowSortingMap>();
+		private List<NavMeshBase> navMeshBases = new List<NavMeshBase>();
+		private List<SortingMap> sortingMaps = new List<SortingMap>();
+		private List<BackgroundCamera> backgroundCameras = new List<BackgroundCamera>();
 
 		private int _i = 0;
 
@@ -67,9 +72,10 @@ namespace AC
 		{
 			Time.timeScale = 1f;
 			DontDestroyOnLoad (this);
-			GetReferences ();
+			inScriptedCutscene = false;
 
 			InitPersistentEngine ();
+
 		}
 
 
@@ -141,7 +147,7 @@ namespace AC
 		 */
 		public void AfterLoad ()
 		{
-			GetReferences ();
+			inScriptedCutscene = false;
 		}
 
 
@@ -192,44 +198,11 @@ namespace AC
 		}
 
 
-		private void GetReferences ()
-		{
-			inScriptedCutscene = false;
-			if (KickStarter.settingsManager != null && KickStarter.settingsManager.IsInLoadingScene ())
-			{
-				return;
-			}
-			GatherObjects ();
-		}
-
-
 		/**
-		 * <summary>Re-sets the internal arrays of GameObjects used to mass-update Adventure Creator each frame.
-		 * It should be called whenever a GameObject is added to or removed from the scene.</summary>
-		 * <param name = "afterDelete">If False, then IgnoreNavMeshCollisions() will also be run</param>
+		 * <summary>This method is now deprecrated and is not necessary.</summary>
 		 */
 		public void GatherObjects (bool afterDelete = false)
-		{
-			dragBases = FindObjectsOfType (typeof (DragBase)) as DragBase[];
-			hotspots = FindObjectsOfType (typeof (Hotspot)) as Hotspot[];
-			arrowPrompts = FindObjectsOfType (typeof (ArrowPrompt)) as ArrowPrompt[];
-			parallax2Ds = FindObjectsOfType (typeof (Parallax2D)) as Parallax2D[];
-			highlights = FindObjectsOfType (typeof (Highlight)) as Highlight[];
-			cameras = FindObjectsOfType (typeof (_Camera)) as _Camera[];
-			sounds = FindObjectsOfType (typeof (Sound)) as Sound[];
-			limitVisibilitys = FindObjectsOfType (typeof (LimitVisibility)) as LimitVisibility[];
-			characters = FindObjectsOfType (typeof (Char)) as Char[];
-
-			if (!afterDelete)
-			{
-				IgnoreNavMeshCollisions ();
-			}
-
-			if (KickStarter.sceneSettings != null)
-			{
-				KickStarter.sceneSettings.UpdateAllSortingMaps ();
-			}
-		}
+		{}
 
 
 		/**
@@ -239,24 +212,9 @@ namespace AC
 		{
 			#if UNITY_5 || UNITY_2017_1_OR_NEWER
 			Collider[] allColliders = FindObjectsOfType (typeof(Collider)) as Collider[];
-			NavMeshBase[] navMeshes = FindObjectsOfType (typeof(NavMeshBase)) as NavMeshBase[];
-
-			for (_i=0; _i<navMeshes.Length; _i++)
+			for (_i=0; _i<navMeshBases.Count; _i++)
 			{
-				if (navMeshes[_i].ignoreCollisions)
-				{
-					Collider _collider = navMeshes[_i].GetComponent <Collider>();
-					if (_collider != null && _collider.enabled && _collider.gameObject.activeInHierarchy)
-					{
-						foreach (Collider otherCollider in allColliders)
-						{
-							if (!_collider.isTrigger && !otherCollider.isTrigger && otherCollider.enabled && otherCollider.gameObject.activeInHierarchy && !(_collider is TerrainCollider) && _collider != otherCollider)
-							{
-								Physics.IgnoreCollision (_collider, otherCollider);
-							}
-						}
-					}
-				}
+				navMeshBases[_i].IgnoreNavMeshCollisions (allColliders);
 			}
 			#endif
 		}
@@ -310,9 +268,10 @@ namespace AC
 				if (gameState == GameState.Normal && KickStarter.settingsManager)
 				{
 					bool canHideHotspots = KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot && KickStarter.settingsManager.hideUnhandledHotspots;
-					bool canDrawHotspotIcons = (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never || (KickStarter.settingsManager.hotspotDetection == HotspotDetection.PlayerVicinity && KickStarter.settingsManager.placeDistantHotspotsOnSeparateLayer));
+					bool canDrawHotspotIcons = (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never);
+					bool canUpdateProximity = (KickStarter.settingsManager.hotspotDetection == HotspotDetection.PlayerVicinity && KickStarter.settingsManager.placeDistantHotspotsOnSeparateLayer && KickStarter.player != null);
 
-					for (_i=0; _i<hotspots.Length; _i++)
+					for (_i=0; _i<hotspots.Count; _i++)
 					{
 						bool showing = (canHideHotspots) ? hotspots[_i].UpdateUnhandledVisibility () : true;
 						if (showing)
@@ -327,11 +286,11 @@ namespace AC
 										hotspots[_i].DrawHotspotIcon (true);
 									}
 								}
+							}
 
-								if (KickStarter.settingsManager.hotspotDetection == HotspotDetection.PlayerVicinity && KickStarter.settingsManager.placeDistantHotspotsOnSeparateLayer && KickStarter.player)
-								{
-									hotspots[_i].UpdateProximity (KickStarter.player.hotspotDetector);
-								}
+							if (canUpdateProximity)
+							{
+								hotspots[_i].UpdateProximity (KickStarter.player.hotspotDetector);
 							}
 						}
 					}
@@ -355,7 +314,7 @@ namespace AC
 			{
 				KickStarter.playerInteraction.UpdateInteraction ();
 
-				for (_i=0; _i<highlights.Length; _i++)
+				for (_i=0; _i<highlights.Count; _i++)
 				{
 					highlights[_i]._Update ();
 				}
@@ -363,7 +322,7 @@ namespace AC
 				if (KickStarter.settingsManager.hotspotDetection == HotspotDetection.MouseOver && KickStarter.settingsManager.scaleHighlightWithMouseProximity)
 				{
 					bool setProximity = (gameState == AC.GameState.Normal) ? true : false;
-					for (_i=0; _i<hotspots.Length; _i++)
+					for (_i=0; _i<hotspots.Count; _i++)
 					{
 						hotspots[_i].SetProximity (setProximity);
 					}
@@ -379,7 +338,7 @@ namespace AC
 
 			if (!movementIsOff)
 			{
-				for (_i=0; _i<dragBases.Length; _i++)
+				for (_i=0; _i<dragBases.Count; _i++)
 				{
 					dragBases[_i].UpdateMovement ();
 				}
@@ -397,17 +356,17 @@ namespace AC
 				KickStarter.playerInteraction.UpdateInventory ();
 			}
 
-			for (_i=0; _i<limitVisibilitys.Length; _i++)
+			for (_i=0; _i<limitVisibilitys.Count; _i++)
 			{
 				limitVisibilitys[_i]._Update ();
 			}
 
-			for (_i=0; _i<sounds.Length; _i++)
+			for (_i=0; _i<sounds.Count; _i++)
 			{
 				sounds[_i]._Update ();
 			}
 
-			for (_i=0; _i<characters.Length; _i++)
+			for (_i=0; _i<characters.Count; _i++)
 			{
 				if (characters[_i] != null && (!playerIsOff || !(characters[_i].IsPlayer)))
 				{
@@ -417,7 +376,7 @@ namespace AC
 
 			if (!cameraIsOff)
 			{
-				for (_i=0; _i<cameras.Length; _i++)
+				for (_i=0; _i<cameras.Count; _i++)
 				{
 					cameras[_i]._Update ();
 				}
@@ -468,7 +427,7 @@ namespace AC
 				return;
 			}
 
-			for (_i=0; _i<characters.Length; _i++)
+			for (_i=0; _i<characters.Count; _i++)
 			{
 				if (!playerIsOff || !(characters[_i].IsPlayer))
 				{
@@ -481,9 +440,14 @@ namespace AC
 				KickStarter.mainCamera._LateUpdate ();
 			}
 
-			for (_i=0; _i<parallax2Ds.Length; _i++)
+			for (_i=0; _i<parallax2Ds.Count; _i++)
 			{
 				parallax2Ds[_i].UpdateOffset ();
+			}
+
+			for (_i=0; _i<sortingMaps.Count; _i++)
+			{
+				sortingMaps[_i].UpdateSimilarFollowers ();
 			}
 
 			KickStarter.dialog._LateUpdate ();
@@ -502,7 +466,7 @@ namespace AC
 				return;
 			}
 
-			for (_i=0; _i<characters.Length; _i++)
+			for (_i=0; _i<characters.Count; _i++)
 			{
 				if (!playerIsOff || !(characters[_i].IsPlayer))
 				{
@@ -583,13 +547,13 @@ namespace AC
 				if (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never &&
 				   KickStarter.settingsManager.hotspotDrawing == ScreenWorld.ScreenSpace)
 				{
-					for (_i=0; _i<hotspots.Length; _i++)
+					for (_i=0; _i<hotspots.Count; _i++)
 					{
 						hotspots[_i].DrawHotspotIcon ();
 					}
 				}
 
-				for (_i=0; _i<dragBases.Length; _i++)
+				for (_i=0; _i<dragBases.Count; _i++)
 				{
 					dragBases[_i].DrawGrabIcon ();
 				}
@@ -603,7 +567,7 @@ namespace AC
 				}
 				KickStarter.playerInput.DrawDragLine ();
 
-				for (_i=0; _i<arrowPrompts.Length; _i++)
+				for (_i=0; _i<arrowPrompts.Count; _i++)
 				{
 					arrowPrompts[_i].DrawArrows ();
 				}
@@ -679,7 +643,7 @@ namespace AC
 		{
 			if (_camera != null)
 			{
-				for (_i=0; _i<hotspots.Length; _i++)
+				for (_i=0; _i<hotspots.Count; _i++)
 				{
 					hotspots[_i].LimitToCamera (_camera);
 				}
@@ -981,13 +945,6 @@ namespace AC
 			if (soundtrackOb != null)
 			{
 				soundtrackOb.name = AdvGame.GetName (resourceName);
-				if (GameObject.Find ("_Sound") && GameObject.Find ("_Sound").transform.parent == null)
-				{
-					soundtrackOb.transform.parent = GameObject.Find ("_Sound").transform;
-				}
-
-				GatherObjects ();
-
 				return soundtrackOb.GetComponent <T>();
 			}
 			else
@@ -1024,6 +981,391 @@ namespace AC
 			}
 			return ambience;
 		}
+
+
+		/** A List of all Char components found in the scene */
+		public List<Char> Characters
+		{
+			get
+			{
+				return characters;
+			}
+		}
+
+
+		/** A List of all FollowSortingMap components found in the scene */
+		public List<FollowSortingMap> FollowSortingMaps
+		{
+			get
+			{
+				return followSortingMaps;
+			}
+		}
+
+
+		/** A List of all SortingMap components found in the scene */
+		public List<SortingMap> SortingMaps
+		{
+			get
+			{
+				return sortingMaps;
+			}
+		}
+
+
+		/** A List of all BackgroundCamera components found in the scene */
+		public List<BackgroundCamera> BackgroundCameras
+		{
+			get
+			{
+				return backgroundCameras;
+			}
+		}
+
+
+		#region ObjectRecordKeeping
+
+		/**
+		 * <summary>Registers an ArrowPrompt, so that it can be updated</summary>
+		 * <param name = "_object">The ArrowPrompt to register</param>
+		 */
+		public void Register (ArrowPrompt _object)
+		{
+			if (!arrowPrompts.Contains (_object))
+			{
+				arrowPrompts.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters an ArrowPrompt, so that it is no longer updated</summary>
+		 * <param name = "_object">The ArrowPrompt to unregister</param>
+		 */
+		public void Unregister (ArrowPrompt _object)
+		{
+			if (arrowPrompts.Contains (_object))
+			{
+				arrowPrompts.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a DragBase, so that it can be updated</summary>
+		 * <param name = "_object">The DragBase to register</param>
+		 */
+		public void Register (DragBase _object)
+		{
+			if (!dragBases.Contains (_object))
+			{
+				dragBases.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a DragBase, so that it is no longer updated</summary>
+		 * <param name = "_object">The DragBase to unregister</param>
+		 */
+		public void Unregister (DragBase _object)
+		{
+			if (dragBases.Contains (_object))
+			{
+				dragBases.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a Parallax2D, so that it can be updated</summary>
+		 * <param name = "_object">The Parallax2D to register</param>
+		 */
+		public void Register (Parallax2D _object)
+		{
+			if (!parallax2Ds.Contains (_object))
+			{
+				parallax2Ds.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a Parallax2D, so that it is no longer updated</summary>
+		 * <param name = "_object">The Parallax2D to unregister</param>
+		 */
+		public void Unregister (Parallax2D _object)
+		{
+			if (parallax2Ds.Contains (_object))
+			{
+				parallax2Ds.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a Hotspot, so that it can be updated</summary>
+		 * <param name = "_object">The Hotspot to register</param>
+		 */
+		public void Register (Hotspot _object)
+		{
+			if (!hotspots.Contains (_object))
+			{
+				hotspots.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a Hotspot, so that it is no longer updated</summary>
+		 * <param name = "_object">The Hotspot to unregister</param>
+		 */
+		public void Unregister (Hotspot _object)
+		{
+			if (hotspots.Contains (_object))
+			{
+				hotspots.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a Highlight, so that it can be updated</summary>
+		 * <param name = "_object">The Highlight to register</param>
+		 */
+		public void Register (Highlight _object)
+		{
+			if (!highlights.Contains (_object))
+			{
+				highlights.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a Highlight, so that it is no longer updated</summary>
+		 * <param name = "_object">The Highlight to unregister</param>
+		 */
+		public void Unregister (Highlight _object)
+		{
+			if (highlights.Contains (_object))
+			{
+				highlights.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a _Camera, so that it can be updated</summary>
+		 * <param name = "_object">The _Camera to register</param>
+		 */
+		public void Register (_Camera _object)
+		{
+			if (!cameras.Contains (_object))
+			{
+				cameras.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a _Camera, so that it is no longer updated</summary>
+		 * <param name = "_object">The _Camera to unregister</param>
+		 */
+		public void Unregister (_Camera _object)
+		{
+			if (cameras.Contains (_object))
+			{
+				cameras.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a Sound, so that it can be updated</summary>
+		 * <param name = "_object">The Sound to register</param>
+		 */
+		public void Register (Sound _object)
+		{
+			if (!sounds.Contains (_object))
+			{
+				sounds.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a Sound, so that it is no longer updated</summary>
+		 * <param name = "_object">The Sound to unregister</param>
+		 */
+		public void Unregister (Sound _object)
+		{
+			if (sounds.Contains (_object))
+			{
+				sounds.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a LimitVisibility, so that it can be updated</summary>
+		 * <param name = "_object">The LimitVisibility to register</param>
+		 */
+		public void Register (LimitVisibility _object)
+		{
+			if (!limitVisibilitys.Contains (_object))
+			{
+				limitVisibilitys.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a LimitVisibility, so that it is no longer updated</summary>
+		 * <param name = "_object">The LimitVisibility to unregister</param>
+		 */
+		public void Unregister (LimitVisibility _object)
+		{
+			if (limitVisibilitys.Contains (_object))
+			{
+				limitVisibilitys.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a Char, so that it can be updated</summary>
+		 * <param name = "_object">The Char to register</param>
+		 */
+		public void Register (Char _object)
+		{
+			if (!characters.Contains (_object))
+			{
+				characters.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a Char, so that it is no longer updated</summary>
+		 * <param name = "_object">The Char to unregister</param>
+		 */
+		public void Unregister (Char _object)
+		{
+			if (characters.Contains (_object))
+			{
+				characters.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a FollowSortingMap, so that it can be updated</summary>
+		 * <param name = "_object">The FollowSortingMap to register</param>
+		 */
+		public void Register (FollowSortingMap _object)
+		{
+			if (!followSortingMaps.Contains (_object))
+			{
+				followSortingMaps.Add (_object);
+				_object.UpdateSortingMap ();
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a FollowSortingMap, so that it is no longer updated</summary>
+		 * <param name = "_object">The FollowSortingMap to unregister</param>
+		 */
+		public void Unregister (FollowSortingMap _object)
+		{
+			if (followSortingMaps.Contains (_object))
+			{
+				followSortingMaps.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a NavMeshBase, so that it can be updated</summary>
+		 * <param name = "_object">The NavMeshBase to register</param>
+		 */
+		public void Register (NavMeshBase _object)
+		{
+			if (!navMeshBases.Contains (_object))
+			{
+				navMeshBases.Add (_object);
+				_object.IgnoreNavMeshCollisions ();
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a NavMeshBase, so that it is no longer updated</summary>
+		 * <param name = "_object">The NavMeshBase to unregister</param>
+		 */
+		public void Unregister (NavMeshBase _object)
+		{
+			if (navMeshBases.Contains (_object))
+			{
+				navMeshBases.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a SortingMap, so that it can be updated</summary>
+		 * <param name = "_object">The SortingMap to register</param>
+		 */
+		public void Register (SortingMap _object)
+		{
+			if (!sortingMaps.Contains (_object))
+			{
+				sortingMaps.Add (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a SortingMap, so that it is no longer updated</summary>
+		 * <param name = "_object">The SortingMap to unregister</param>
+		 */
+		public void Unregister (SortingMap _object)
+		{
+			if (sortingMaps.Contains (_object))
+			{
+				sortingMaps.Remove (_object);
+			}
+		}
+
+
+		/**
+		 * <summary>Registers a BackgroundCamera, so that it can be updated</summary>
+		 * <param name = "_object">The BackgroundCamera to register</param>
+		 */
+		public void Register (BackgroundCamera _object)
+		{
+			if (!backgroundCameras.Contains (_object))
+			{
+				backgroundCameras.Add (_object);
+				_object.UpdateRect ();
+			}
+		}
+
+
+		/**
+		 * <summary>Unregisters a BackgroundCamera, so that it is no longer updated</summary>
+		 * <param name = "_object">The BackgroundCamera to unregister</param>
+		 */
+		public void Unregister (BackgroundCamera _object)
+		{
+			if (backgroundCameras.Contains (_object))
+			{
+				backgroundCameras.Remove (_object);
+			}
+		}
+
+		#endregion
 
 	}
 

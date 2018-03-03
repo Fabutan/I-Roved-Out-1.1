@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"BackgroundImage.cs"
  * 
@@ -96,7 +96,7 @@ namespace AC
 			else if (backgroundMethod25D == BackgroundMethod25D.UnityUI)
 			{
 			#endif
-				SetBackgroundCameraFarClipPlane (501f);
+				SetBackgroundCameraFarClipPlane (0.02f);
 				BackgroundImageUI.Instance.SetTexture (GetBackgroundTexture ());
 			#if ALLOW_LEGACY_UI
 			}

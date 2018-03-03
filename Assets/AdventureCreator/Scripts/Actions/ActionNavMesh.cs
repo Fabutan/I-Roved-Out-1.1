@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"ActionNavMesh.cs"
  * 
@@ -143,8 +143,7 @@ namespace AC
 				}
 
 				// Recalculate pathfinding characters
-				Char[] characters = FindObjectsOfType (typeof (Char)) as Char[];
-				foreach (Char _character in characters)
+				foreach (Char _character in KickStarter.stateHandler.Characters)
 				{
 					_character.RecalculateActivePathfind ();
 				}

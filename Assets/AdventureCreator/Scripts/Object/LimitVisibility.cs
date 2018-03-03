@@ -45,8 +45,22 @@ namespace AC
 		private _Camera transitionCamera = null;
 
 
+		private void OnEnable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void OnDisable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Unregister (this);
+		}
+
+
 		private void Start ()
 		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+
 			Upgrade ();
 
 			if (limitToCameras.Count == 0 || KickStarter.mainCamera == null)

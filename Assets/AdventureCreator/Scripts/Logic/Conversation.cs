@@ -188,11 +188,11 @@ namespace AC
 		
 
 		/**
-		 * Hides the Conversation's dialogue options.
+		 * Hides the Conversation's dialogue options, if it is the currently-active Conversation.
 		 */
 		public void TurnOff ()
 		{
-			if (KickStarter.playerInput)
+			if (KickStarter.playerInput != null && KickStarter.playerInput.activeConversation == this)
 			{
 				CancelInvoke ("RunDefault");
 				KickStarter.playerInput.EndConversation ();

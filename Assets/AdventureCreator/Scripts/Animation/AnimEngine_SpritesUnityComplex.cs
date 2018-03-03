@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"AnimEngine_SpritesUnityComplex.cs"
  * 
@@ -30,6 +30,7 @@ namespace AC
 			character = _character;
 			turningStyle = TurningStyle.Linear;
 			isSpriteBased = true;
+			updateHeadAlways = true;
 			_character.frameFlipping = AC_2DFrameFlipping.None;
 		}
 		
@@ -51,7 +52,12 @@ namespace AC
 			character.moveSpeedParameter = EditorGUILayout.TextField ("Move speed float:", character.moveSpeedParameter);
 			character.turnParameter = EditorGUILayout.TextField ("Turn float:", character.turnParameter);
 			character.directionParameter = EditorGUILayout.TextField ("Direction integer:", character.directionParameter);
-			character.angleParameter = EditorGUILayout.TextField ("Angle float:", character.angleParameter);
+			character.angleParameter = EditorGUILayout.TextField ("Body angle float:", character.angleParameter);
+			character.headYawParameter = EditorGUILayout.TextField ("Head angle float:", character.headYawParameter);
+			if (!string.IsNullOrEmpty (character.angleParameter) || !string.IsNullOrEmpty (character.headYawParameter))
+			{
+				character.angleSnapping = (AngleSnapping) EditorGUILayout.EnumPopup ("Angle snapping:", character.angleSnapping);
+			}
 			character.talkParameter = EditorGUILayout.TextField ("Talk bool:", character.talkParameter);
 
 			if (AdvGame.GetReferences () && AdvGame.GetReferences ().speechManager)
@@ -605,14 +611,14 @@ namespace AC
 				return;
 			}
 
-			if (character.moveSpeedParameter != "")
+			if (!string.IsNullOrEmpty (character.moveSpeedParameter))
 			{
 				character.GetAnimator ().SetFloat (character.moveSpeedParameter, character.GetMoveSpeed ());
 			}
 
 			AnimTalk (character.GetAnimator ());
 			
-			if (character.turnParameter != "")
+			if (!string.IsNullOrEmpty (character.turnParameter))
 			{
 				character.GetAnimator ().SetFloat (character.turnParameter, 0f);
 			}
@@ -628,7 +634,7 @@ namespace AC
 				return;
 			}
 
-			if (character.moveSpeedParameter != "")
+			if (!string.IsNullOrEmpty (character.moveSpeedParameter))
 			{
 				if (character.IsReversing ())
 				{
@@ -638,6 +644,11 @@ namespace AC
 				{
 					character.GetAnimator ().SetFloat (character.moveSpeedParameter, character.GetMoveSpeed ());
 				}
+			}
+
+			if (!string.IsNullOrEmpty (character.turnParameter))
+			{
+				character.GetAnimator ().SetFloat (character.turnParameter, 0f);
 			}
 
 			AnimTalk (character.GetAnimator ());
@@ -652,7 +663,7 @@ namespace AC
 				return;
 			}
 
-			if (character.moveSpeedParameter != "")
+			if (!string.IsNullOrEmpty (character.moveSpeedParameter))
 			{
 				if (character.IsReversing ())
 				{
@@ -662,6 +673,11 @@ namespace AC
 				{
 					character.GetAnimator ().SetFloat (character.moveSpeedParameter, character.GetMoveSpeed ());
 				}
+			}
+
+			if (!string.IsNullOrEmpty (character.turnParameter))
+			{
+				character.GetAnimator ().SetFloat (character.turnParameter, 0f);
 			}
 
 			AnimTalk (character.GetAnimator ());
@@ -682,14 +698,14 @@ namespace AC
 				return;
 			}
 
-			if (character.turnParameter != "")
+			if (!string.IsNullOrEmpty (character.turnParameter))
 			{
 				character.GetAnimator ().SetFloat (character.turnParameter, -1f);
 			}
 			
 			AnimTalk (character.GetAnimator ());
 			
-			if (character.moveSpeedParameter != "")
+			if (!string.IsNullOrEmpty (character.moveSpeedParameter))
 			{
 				character.GetAnimator ().SetFloat (character.moveSpeedParameter, 0f);
 			}
@@ -705,14 +721,14 @@ namespace AC
 				return;
 			}
 
-			if (character.turnParameter != "")
+			if (!string.IsNullOrEmpty (character.turnParameter))
 			{
 				character.GetAnimator ().SetFloat (character.turnParameter, 1f);
 			}
 			
 			AnimTalk (character.GetAnimator ());
 			
-			if (character.moveSpeedParameter != "")
+			if (!string.IsNullOrEmpty (character.moveSpeedParameter))
 			{
 				character.GetAnimator ().SetFloat (character.moveSpeedParameter, 0f);
 			}
@@ -728,26 +744,43 @@ namespace AC
 				return;
 			}
 			
-			if (character.verticalMovementParameter != "")
+			if (!string.IsNullOrEmpty (character.verticalMovementParameter))
 			{
 				character.GetAnimator ().SetFloat (character.verticalMovementParameter, character.GetHeightChange ());
 			}
 		}
 
 
+		public override void TurnHead (Vector2 angles)
+		{
+			if (!string.IsNullOrEmpty (character.headYawParameter))
+			{
+				float spinAngleOffset = angles.x * Mathf.Rad2Deg;
+				float headAngle = character.GetSpriteAngle () + spinAngleOffset;
+
+				if (character.angleSnapping != AngleSnapping.None)
+				{
+					headAngle = character.FlattenSpriteAngle (headAngle, character.angleSnapping);
+				}
+
+				character.GetAnimator ().SetFloat (character.headYawParameter, headAngle);
+			}
+		}
+
+
 		private void AnimTalk (Animator animator)
 		{
-			if (character.talkParameter != "")
+			if (!string.IsNullOrEmpty (character.talkParameter))
 			{
 				animator.SetBool (character.talkParameter, character.isTalking);
 			}
 			
-			if (character.phonemeParameter != "" && character.LipSyncGameObject ())
+			if (!string.IsNullOrEmpty (character.phonemeParameter) && character.LipSyncGameObject ())
 			{
 				animator.SetInteger (character.phonemeParameter, character.GetLipSyncFrame ());
 			}
 
-			if (character.expressionParameter != "" && character.useExpressions)
+			if (!string.IsNullOrEmpty (character.expressionParameter) && character.useExpressions)
 			{
 				animator.SetInteger (character.expressionParameter, character.GetExpressionID ());
 			}
@@ -756,11 +789,11 @@ namespace AC
 
 		private void SetDirection (Animator animator)
 		{
-			if (character.directionParameter != "")
+			if (!string.IsNullOrEmpty (character.directionParameter))
 			{
 				animator.SetInteger (character.directionParameter, character.GetSpriteDirectionInt ());
 			}
-			if (character.angleParameter != "")
+			if (!string.IsNullOrEmpty (character.angleParameter))
 			{
 				animator.SetFloat (character.angleParameter, character.GetSpriteAngle ());
 			}

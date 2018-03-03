@@ -51,6 +51,24 @@ namespace AC
 		private float arrowSize = 0.05f;
 
 
+		private void OnEnable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void Start ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void OnDisable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Unregister (this);
+		}
+
+
 		/**
 		 * Draws the arrow(s) on screen, if appropriate.
 		 * This function is called every frame by StateHandler.

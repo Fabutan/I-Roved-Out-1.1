@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"ActionPlayerSwitch.cs"
  * 
@@ -109,7 +109,7 @@ namespace AC
 						    (newPlayerPosition == NewPlayerPosition.ReplaceNPC || newPlayerPosition == NewPlayerPosition.AppearAtMarker || newPlayerPosition == NewPlayerPosition.AppearInOtherScene))
 						{
 							oldPlayerNPC.transform.position = oldPlayerPosition;
-							oldPlayerNPC.transform.rotation = oldPlayerRotation;
+							oldPlayerNPC.TransformRotation = oldPlayerRotation;
 							oldPlayerNPC.transform.localScale = oldPlayerScale;
 						}
 						
@@ -120,7 +120,7 @@ namespace AC
 						}
 						else if (newPlayerPosition == NewPlayerPosition.ReplaceNPC && newPlayerNPC)
 						{
-							newRotation = newPlayerNPC.transform.rotation;
+							newRotation = newPlayerNPC.TransformRotation;
 						}
 						else if (newPlayerPosition == NewPlayerPosition.AppearAtMarker && newPlayerMarker)
 						{
@@ -167,7 +167,7 @@ namespace AC
 								if (newPlayerNPC)
 								{
 									newPlayer.Teleport (newPlayerNPC.transform.position);
-									newPlayer.SetRotation (newPlayerNPC.transform.rotation);
+									newPlayer.SetRotation (newPlayerNPC.TransformRotation);
 									newPlayer.transform.localScale = newPlayerNPC.transform.localScale;
 									
 									newPlayerNPC.transform.position += new Vector3 (100f, -100f, 100f);

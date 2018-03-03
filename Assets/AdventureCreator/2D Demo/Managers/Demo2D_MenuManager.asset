@@ -51,7 +51,7 @@ MonoBehaviour:
   rectTransformID: 0
   uiTransitionType: 0
   uiPositionType: 0
-  isEditing: 1
+  isEditing: 0
   isLocked: 0
   id: 1
   title: Pause
@@ -83,6 +83,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -101,16 +102,13 @@ MonoBehaviour:
   panDirection: 2
   panMovement: 1
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -125,7 +123,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 88.493996, y: 183.39435}
   rect:
-    serializedVersion: 2
     x: 134.0955
     y: 210.84534
     width: 93.008995
@@ -179,6 +176,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -199,16 +197,13 @@ MonoBehaviour:
   panDirection: 3
   panMovement: 1
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -223,7 +218,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 126.27, y: 67.28931}
   rect:
-    serializedVersion: 2
     x: 61.272003
     y: 109.78035
     width: 128.34
@@ -276,6 +270,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -292,16 +287,13 @@ MonoBehaviour:
   panDirection: 3
   panMovement: 1
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -316,7 +308,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 167.67, y: 50.46698}
   rect:
-    serializedVersion: 2
     x: 61.685997
     y: 113.53151
     width: 169.74
@@ -369,6 +360,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -385,16 +377,13 @@ MonoBehaviour:
   panDirection: 3
   panMovement: 1
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -409,7 +398,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 167.67, y: 50.46698}
   rect:
-    serializedVersion: 2
     x: 61.685997
     y: 113.53151
     width: 169.74
@@ -436,8 +424,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -450,7 +446,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 2.07
     width: 165.59999
@@ -517,6 +512,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -532,16 +528,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -556,7 +549,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 0, y: 0}
   rect:
-    serializedVersion: 2
     x: 0
     y: 0
     width: 414
@@ -616,6 +608,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -639,16 +632,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -663,7 +653,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 0, y: 0}
   rect:
-    serializedVersion: 2
     x: 247.0348
     y: 78.23201
     width: 408.9304
@@ -715,6 +704,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -730,16 +720,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -754,7 +741,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 0, y: 0}
   rect:
-    serializedVersion: 2
     x: 0
     y: 195.953
     width: 414
@@ -805,6 +791,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -819,16 +806,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -843,7 +827,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 1
   biggestElementSize: {x: 0, y: 0}
   rect:
-    serializedVersion: 2
     x: 115.92
     y: 96.695
     width: 182.16
@@ -870,8 +853,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -884,7 +875,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 4.515
     width: 83.979
@@ -938,8 +928,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -952,7 +950,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 41.19387
     width: 83.979
@@ -1006,8 +1003,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1020,7 +1025,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 77.87274
     width: 83.979
@@ -1074,8 +1078,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1088,7 +1100,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 114.55161
     width: 83.979
@@ -1142,8 +1153,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1156,7 +1175,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 151.23048
     width: 83.979
@@ -1210,8 +1228,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -1224,7 +1250,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 2.07
     width: 124.2
@@ -1266,8 +1291,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 0
   isClickable: 1
   orientation: 1
@@ -1280,7 +1313,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.144
     y: 41.085022
     width: 124.2
@@ -1326,8 +1358,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1340,7 +1380,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 18.892326
     width: 124.2
@@ -1386,8 +1425,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -1400,7 +1447,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 2.07
     width: 165.59999
@@ -1442,8 +1488,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1456,7 +1510,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 18.892326
     width: 165.59999
@@ -1506,8 +1559,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1520,7 +1581,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 35.714653
     width: 165.59999
@@ -1574,8 +1634,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -1588,7 +1656,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 0
     y: 0
     width: 24.84
@@ -1642,8 +1709,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -1656,7 +1731,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 24.84
     y: 0
     width: 327.06
@@ -1664,6 +1738,7 @@ MonoBehaviour:
   relativePosition: {x: 0, y: 0}
   numSlots: 10
   uiSlots: []
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0
@@ -2349,8 +2424,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -2363,7 +2446,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 18.892326
     width: 165.59999
@@ -2413,8 +2495,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -2427,7 +2517,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 45.800205
     y: 232.01375
     width: 81.27
@@ -2435,6 +2524,7 @@ MonoBehaviour:
   relativePosition: {x: 11.2, y: 66}
   numSlots: 1
   uiSlots: []
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0
@@ -2537,8 +2627,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -2551,7 +2649,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 2.07
     width: 110.537994
@@ -2568,8 +2665,16 @@ MonoBehaviour:
   optionToShow: 1
   maxSlots: 10
   markAlreadyChosen: 0
-  alreadyChosenFontColour: {r: 1, g: 1, b: 1, a: 1}
-  alreadyChosenFontHighlightedColour: {r: 1, g: 1, b: 1, a: 1}
+  alreadyChosenFontColour:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  alreadyChosenFontHighlightedColour:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   showIndexNumbers: 0
   uiHideStyle: 0
   linkUIGraphic: 0
@@ -2595,8 +2700,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -2609,7 +2722,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 0
     y: 0
     width: 182.15999
@@ -2651,8 +2763,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -2665,7 +2785,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 33.265
     width: 414
@@ -2699,8 +2818,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -2713,7 +2840,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 35.714653
     width: 165.59999
@@ -2767,8 +2893,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -2781,7 +2915,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 35.714653
     width: 124.2
@@ -2854,6 +2987,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -2871,16 +3005,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -2895,7 +3026,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 50.8392, y: 16.5998}
   rect:
-    serializedVersion: 2
     x: 189.7155
     y: 108.28819
     width: 51.128998
@@ -2922,8 +3052,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -2936,7 +3074,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 0.2898
     y: 0.2898
     width: 16.56
@@ -2975,8 +3112,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -2989,7 +3134,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 17.1396
     y: 0.2898
     width: 16.56
@@ -3028,8 +3172,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -3042,7 +3194,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 33.9894
     y: 0.2898
     width: 16.56
@@ -3081,8 +3232,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -3095,7 +3254,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 50.8392
     y: 0.2898
     width: 0
@@ -3103,6 +3261,7 @@ MonoBehaviour:
   relativePosition: {x: 0, y: 0}
   numSlots: 0
   uiSlots: []
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 1
@@ -3788,8 +3947,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 0
   isClickable: 1
   orientation: 1
@@ -3802,7 +3969,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.144
     y: 114.96706
     width: 124.2
@@ -3844,8 +4010,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 0
   isClickable: 1
   orientation: 1
@@ -3858,7 +4032,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.144
     y: 151.90808
     width: 124.2
@@ -3904,8 +4077,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -3918,7 +4099,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 2.07
     y: 52.53698
     width: 124.2
@@ -4005,6 +4185,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -4028,16 +4209,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -4052,7 +4230,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 0, y: 0}
   rect:
-    serializedVersion: 2
     x: 200.21062
     y: 151.64352
     width: 502.57877
@@ -4079,8 +4256,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -4093,7 +4278,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 4.515
     y: 4.515
     width: 493.03796
@@ -4135,8 +4319,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -4149,7 +4341,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 30.154728
     y: 26.612686
     width: 90.299995
@@ -4157,6 +4348,7 @@ MonoBehaviour:
   relativePosition: {x: 6, y: 13}
   numSlots: 1
   uiSlots: []
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 5
@@ -4259,8 +4451,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4273,7 +4473,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 427.19196
     y: 184.6511
     width: 69.531
@@ -4327,8 +4526,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4341,7 +4548,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 409.6017
     y: 84.546455
     width: 87.590996
@@ -4395,8 +4601,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 0
@@ -4409,7 +4623,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 30.154728
     y: 131.0163
     width: 90.299995
@@ -4417,6 +4630,7 @@ MonoBehaviour:
   relativePosition: {x: 6, y: 64}
   numSlots: 1
   uiSlots: []
+  uiPointerState: 0
   textEffects: 0
   outlineSize: 2
   inventoryBoxType: 0
@@ -4519,8 +4733,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -4533,7 +4755,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 5.025788
     y: 110.545
     width: 493.03796
@@ -4575,8 +4796,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4589,7 +4818,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 7.538682
     y: 27.63625
     width: 18.06
@@ -4643,8 +4871,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4657,7 +4893,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 477.44983
     y: 27.63625
     width: 18.06
@@ -4711,8 +4946,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4725,7 +4968,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 7.538682
     y: 131.0163
     width: 18.06
@@ -4779,8 +5021,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -4793,7 +5043,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 477.44983
     y: 131.0163
     width: 18.06
@@ -4843,7 +5092,7 @@ MonoBehaviour:
   rectTransformID: 0
   uiTransitionType: 0
   uiPositionType: 0
-  isEditing: 0
+  isEditing: 1
   isLocked: 0
   id: 11
   title: Hotspot
@@ -4871,6 +5120,7 @@ MonoBehaviour:
   speechMenuLimit: 0
   limitToCharacters: 
   forceSubtitles: 0
+  moveWithCharacter: 1
   selected_element: {fileID: 0}
   selected_slot: 0
   autoSelectFirstVisibleElement: 0
@@ -4885,16 +5135,13 @@ MonoBehaviour:
   panDirection: 0
   panMovement: 0
   timeCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -4909,7 +5156,6 @@ MonoBehaviour:
   oneMenuPerSpeech: 0
   biggestElementSize: {x: 160.63199, y: 14.752327}
   rect:
-    serializedVersion: 2
     x: 126.684006
     y: 94.21184
     width: 160.63199
@@ -4936,8 +5182,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -4950,7 +5204,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 0
     y: 0
     width: 160.63199
@@ -4992,8 +5245,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 2
@@ -5006,7 +5267,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 12.267912
     y: 35.1536
     width: 162.54
@@ -5111,8 +5371,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -5125,7 +5393,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 16.357216
     y: 232.01375
     width: 18.06
@@ -5179,8 +5446,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 2
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -5193,7 +5468,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 376.21597
     y: 232.01375
     width: 18.06
@@ -5247,8 +5521,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 0}
   fontScaleFactor: 4
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -5261,7 +5543,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 294.42987
     y: 35.1536
     width: 81.27
@@ -5366,8 +5647,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -5380,7 +5669,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 294.42987
     y: 133.23215
     width: 68
@@ -5434,8 +5722,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 1
   orientation: 1
@@ -5448,7 +5744,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 346.36404
     y: 323.41312
     width: 51
@@ -5502,8 +5797,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -5516,7 +5819,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 12.267912
     y: 10.54608
     width: 110
@@ -5558,8 +5860,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -5572,7 +5882,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 15.1304245
     y: 205.64856
     width: 96.99999
@@ -5614,8 +5923,16 @@ MonoBehaviour:
   alternativeInputButton: 
   font: {fileID: 12800000, guid: 86c95e24cad1f457193772d2521f9ebc, type: 3}
   fontScaleFactor: 3
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  fontColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  fontHighlightColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   isVisible: 1
   isClickable: 0
   orientation: 1
@@ -5628,7 +5945,6 @@ MonoBehaviour:
   cursorID: 0
   linkedUiID: 0
   relativeRect:
-    serializedVersion: 2
     x: 294.42987
     y: 10.54608
     width: 64

@@ -42,7 +42,7 @@ namespace AC
 		{
 			if (_variablesManager == null) return;
 
-			VarExportWizardWindow window = (VarExportWizardWindow) EditorWindow.GetWindow (typeof (VarExportWizardWindow));
+			VarExportWizardWindow window = EditorWindow.GetWindowWithRect <VarExportWizardWindow> (new Rect (0, 0, 350, 500), true, "Variables exporter", true);
 			UnityVersionHandler.SetWindowTitle (window, "Variables exporter");
 			window.position = new Rect (300, 200, 350, 500);
 			window._Init (_variablesManager);
@@ -82,6 +82,7 @@ namespace AC
 			}
 			GUI.enabled = true;
 
+			EditorGUILayout.Space ();
 			GUILayout.EndScrollView ();
 		}
 
@@ -387,7 +388,10 @@ namespace AC
 			private string RemoveLineBreaks (string text)
 			{
 				if (text.Length == 0) return " ";
-	            text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+	            //text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+				text = text.Replace("\r\n", "[break]");
+				text = text.Replace("\n", "[break]");
+				text = text.Replace("\r", "[break]");
 	            return text;
 	        }
 

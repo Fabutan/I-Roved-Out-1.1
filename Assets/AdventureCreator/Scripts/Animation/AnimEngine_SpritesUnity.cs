@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"AnimEngine_SpritesUnity.cs"
  * 
@@ -28,59 +28,65 @@ namespace AC
 		private bool listExpectedAnimations = false;
 		#endif
 
+		private string hideHeadClip = "HideHead";
+		private string headDirection;
+
 
 		public override void Declare (AC.Char _character)
 		{
 			character = _character;
 			turningStyle = TurningStyle.Linear;
 			isSpriteBased = true;
+			updateHeadAlways = true;
 		}
 		
 		
-		private string ShowExpected (AC.Char character, string animName, string result)
+		private string ShowExpected (AC.Char character, string animName, string result, int layerIndex)
 		{
 			if (character == null || animName == "")
 			{
 				return result;
 			}
-			
+
+			string indexString = "   (" + layerIndex + ")";
+
 			if (character.doDirections)
 			{
-				result += "\n- " + animName + "_U";
-				result += "\n- " + animName + "_D";
+				result += "\n- " + animName + "_U" + indexString;
+				result += "\n- " + animName + "_D" + indexString;
 				
 				if (character.frameFlipping == AC_2DFrameFlipping.LeftMirrorsRight)
 				{
-					result += "\n- " + animName + "_R";
+					result += "\n- " + animName + "_R" + indexString;
 				}
 				else if (character.frameFlipping == AC_2DFrameFlipping.RightMirrorsLeft)
 				{
-					result += "\n- " + animName + "_L";
+					result += "\n- " + animName + "_L" + indexString;
 				}
 				else
 				{
-					result += "\n- " + animName + "_L";
-					result += "\n- " + animName + "_R";
+					result += "\n- " + animName + "_L" + indexString;
+					result += "\n- " + animName + "_R" + indexString;
 				}
 				
 				if (character.doDiagonals)
 				{
 					if (character.frameFlipping == AC_2DFrameFlipping.LeftMirrorsRight)
 					{
-						result += "\n- " + animName + "_UR";
-						result += "\n- " + animName + "_DR";
+						result += "\n- " + animName + "_UR" + indexString;
+						result += "\n- " + animName + "_DR" + indexString;
 					}
 					else if (character.frameFlipping == AC_2DFrameFlipping.RightMirrorsLeft)
 					{
-						result += "\n- " + animName + "_UL";
-						result += "\n- " + animName + "_DL";
+						result += "\n- " + animName + "_UL" + indexString;
+						result += "\n- " + animName + "_DL" + indexString;
 					}
 					else
 					{
-						result += "\n- " + animName + "_UL";
-						result += "\n- " + animName + "_DL";
-						result += "\n- " + animName + "_DR";
-						result += "\n- " + animName + "_UR";
+						result += "\n- " + animName + "_UL" + indexString;
+						result += "\n- " + animName + "_DL" + indexString;
+						result += "\n- " + animName + "_DR" + indexString;
+						result += "\n- " + animName + "_UR" + indexString;
 					}
 				}
 				
@@ -88,9 +94,9 @@ namespace AC
 			}
 			else
 			{
-				result += "\n- " + animName;
+				result += "\n- " + animName + indexString;
 			}
-			
+
 			return result;
 		}
 		
@@ -104,12 +110,27 @@ namespace AC
 			
 			character.talkingAnimation = (TalkingAnimation) EditorGUILayout.EnumPopup ("Talk animation style:", character.talkingAnimation);
 			character.spriteChild = (Transform) EditorGUILayout.ObjectField ("Sprite child:", character.spriteChild, typeof (Transform), true);
+
+			if (character.spriteChild != null && character.spriteChild.GetComponent <Animator>() == null)
+			{
+				character.customAnimator = (Animator) EditorGUILayout.ObjectField ("Animator (if not on s.c.):", character.customAnimator, typeof (Animator), true);
+			}
+
 			character.idleAnimSprite = EditorGUILayout.TextField ("Idle name:", character.idleAnimSprite);
 			character.walkAnimSprite = EditorGUILayout.TextField ("Walk name:", character.walkAnimSprite);
 			character.runAnimSprite = EditorGUILayout.TextField ("Run name:", character.runAnimSprite);
 			if (character.talkingAnimation == TalkingAnimation.Standard)
 			{
 				character.talkAnimSprite = EditorGUILayout.TextField ("Talk name:", character.talkAnimSprite);
+				character.separateTalkingLayer = EditorGUILayout.Toggle ("Head on separate layer?", character.separateTalkingLayer);
+				if (character.separateTalkingLayer)
+				{
+					character.headLayer = EditorGUILayout.IntField ("Head layer:", character.headLayer);
+					if (character.headLayer < 1)
+					{
+						EditorGUILayout.HelpBox ("The head layer index must be 1 or greater.", MessageType.Warning);
+					}
+				}
 			}
 			character.doDirections = EditorGUILayout.Toggle ("Multiple directions?", character.doDirections);
 			if (character.doDirections)
@@ -122,7 +143,7 @@ namespace AC
 				}
 			}
 			
-						character.crossfadeAnims = EditorGUILayout.Toggle ("Crossfade animation?", character.crossfadeAnims);
+			character.crossfadeAnims = EditorGUILayout.Toggle ("Crossfade animation?", character.crossfadeAnims);
 			
 			Animator charAnimator = character.GetAnimator ();
 			if (charAnimator == null || !charAnimator.applyRootMotion)
@@ -157,15 +178,24 @@ namespace AC
 			if (listExpectedAnimations)
 			{
 				string result = "\n";
-				result = ShowExpected (character, character.idleAnimSprite, result);
-				result = ShowExpected (character, character.walkAnimSprite, result);
-				result = ShowExpected (character, character.runAnimSprite, result);
+				result = ShowExpected (character, character.idleAnimSprite, result, 0);
+				result = ShowExpected (character, character.walkAnimSprite, result, 0);
+				result = ShowExpected (character, character.runAnimSprite, result, 0);
 				if (character.talkingAnimation == TalkingAnimation.Standard)
 				{
-					result = ShowExpected (character, character.talkAnimSprite, result);
+					if (character.separateTalkingLayer)
+					{
+						result = ShowExpected (character, character.idleAnimSprite, result, character.headLayer);
+						result = ShowExpected (character, character.talkAnimSprite, result, character.headLayer);
+						result += "\n- " + hideHeadClip + "  (" + character.headLayer + ")";
+					}
+					else
+					{
+						result = ShowExpected (character, character.talkAnimSprite, result, 0);
+					}
 				}
 				
-				EditorGUILayout.HelpBox ("The following animations are required, based on the settings above:" + result, MessageType.Info);
+				EditorGUILayout.HelpBox ("The following animations are required, based on the settings above (numbers are the Animator layer indices):" + result, MessageType.Info);
 			}
 
 			EditorGUILayout.EndVertical ();
@@ -194,7 +224,16 @@ namespace AC
 				}
 
 				action.includeDirection = EditorGUILayout.Toggle ("Add directional suffix?", action.includeDirection);
-				
+
+				if (action.animChar != null && action.animChar.talkingAnimation == TalkingAnimation.Standard && action.animChar.separateTalkingLayer)
+				{
+					action.hideHead = EditorGUILayout.Toggle ("Hide head?", action.hideHead);
+					if (action.hideHead)
+					{
+						EditorGUILayout.HelpBox ("The head layer will play '" + hideHeadClip + "' for the duration.", MessageType.Info);
+					}
+				}
+								
 				action.layerInt = EditorGUILayout.IntField ("Mecanim layer:", action.layerInt);
 				action.fadeTime = EditorGUILayout.Slider ("Transition time:", action.fadeTime, 0f, 1f);
 				action.willWait = EditorGUILayout.Toggle ("Wait until finish?", action.willWait);
@@ -275,6 +314,11 @@ namespace AC
 
 						action.animChar.charState = CharState.Custom;
 						action.animChar.GetAnimator ().CrossFade (clip2DNew, action.fadeTime, action.layerInt);
+
+						if (action.hideHead && action.animChar.talkingAnimation == TalkingAnimation.Standard && action.animChar.separateTalkingLayer)
+						{
+							PlayHeadAnim (hideHeadClip, false);
+						}
 					}
 				}
 				
@@ -694,12 +738,14 @@ namespace AC
 		public override void PlayIdle ()
 		{
 			PlayStandardAnim (character.idleAnimSprite, character.doDirections);
+			PlaySeparateHead ();
 		}
 		
 		
 		public override void PlayWalk ()
 		{
 			PlayStandardAnim (character.walkAnimSprite, character.doDirections);
+			PlaySeparateHead ();
 		}
 		
 		
@@ -713,53 +759,150 @@ namespace AC
 			{
 				PlayWalk ();
 			}
+			PlaySeparateHead ();
 		}
 		
 		
 		public override void PlayTalk ()
 		{
-			if (character.LipSyncGameObject () && character.GetAnimator ())
-			{
-				string clip = character.talkAnimSprite;
-				if (character.doDirections)
-				{
-					clip += character.GetSpriteDirection ();
-				}
-				character.GetAnimator ().speed = 0f;
-				
-				#if UNITY_EDITOR && (UNITY_5 || UNITY_2017_1_OR_NEWER)
-				
-				int hash = Animator.StringToHash (clip);
-				if (character.GetAnimator ().HasState (0, hash))
-				{
-					character.GetAnimator ().Play (hash, 0, character.GetLipSyncNormalised ());
-				}
-				else
-				{
-					ACDebug.LogError ("Cannot play clip " + clip + " on " + character.name);
-				}
-				
-				#else
-				
-				try
-				{
-					character.GetAnimator ().Play (clip, 0, character.GetLipSyncNormalised ());
-				}
-				catch
-				{}
-				
-				#endif
-				
-				character.GetAnimator ().speed = 1f;
-			}
-			else if (character.talkAnimSprite != "")
-			{
-				PlayStandardAnim (character.talkAnimSprite, character.doDirections);
-			}
-			else
+			if (string.IsNullOrEmpty (character.talkAnimSprite))
 			{
 				PlayIdle ();
 			}
+			else if (character.talkingAnimation == TalkingAnimation.Standard && character.separateTalkingLayer)
+			{
+				PlayIdle ();
+			}
+			else if (character.LipSyncGameObject () && character.GetAnimator ())
+			{
+				PlayLipSync (false);
+			}
+			else
+			{
+				PlayStandardAnim (character.talkAnimSprite, character.doDirections);
+			}
+		}
+
+
+		private void PlaySeparateHead ()
+		{
+			if (character.talkingAnimation == TalkingAnimation.Standard && character.separateTalkingLayer)
+			{
+				if (character.isTalking)
+				{
+					if (character.LipSyncGameObject () && character.GetAnimator ())
+					{
+						PlayLipSync (true);
+					}
+					else
+					{
+						PlayHeadAnim (character.talkAnimSprite, character.doDirections);
+					}
+				}
+				else
+				{
+					PlayHeadAnim (character.idleAnimSprite, character.doDirections);
+				}
+			}
+		}
+
+
+		private void PlayLipSync (bool onlyHead)
+		{
+			string clip = character.talkAnimSprite;
+			int layer = (onlyHead) ? character.headLayer : 0;
+			if (character.doDirections)
+			{
+				if (layer > 0)
+				{
+					clip += headDirection;
+				}
+				else
+				{
+					clip += character.GetSpriteDirection ();
+				}
+			}
+			character.GetAnimator ().speed = 0f;
+			
+			#if UNITY_EDITOR && (UNITY_5 || UNITY_2017_1_OR_NEWER)
+			
+			int hash = Animator.StringToHash (clip);
+			if (character.GetAnimator ().HasState (layer, hash))
+			{
+				character.GetAnimator ().Play (hash, layer, character.GetLipSyncNormalised ());
+			}
+			else
+			{
+				ACDebug.LogError ("Cannot play clip " + clip + " (layer " + layer + ") on " + character.name);
+			}
+			
+			#else
+			
+			try
+			{
+				character.GetAnimator ().Play (clip, layer, character.GetLipSyncNormalised ());
+			}
+			catch
+			{}
+			
+			#endif
+			
+			character.GetAnimator ().speed = 1f;
+		}
+
+
+		public override void TurnHead (Vector2 angles)
+		{
+			if (character.lockDirection)
+			{
+				headDirection = character.GetSpriteDirection ();
+			}
+			else if (character.talkingAnimation == TalkingAnimation.Standard && character.separateTalkingLayer)
+			{
+				float spinAngleOffset = angles.x * Mathf.Rad2Deg;
+				float headAngle = character.GetSpriteAngle () + spinAngleOffset;
+
+				headDirection = "_" + CalcHeadDirection (headAngle);
+			}
+		}
+
+
+		private string CalcHeadDirection (float headAngle)
+		{
+			if (character.doDiagonals)
+			{
+				if (headAngle > 22.5f && headAngle < 67.5f)
+				{
+					return "DL";
+				}
+				else if (headAngle > 112.5f && headAngle < 157.5f)
+				{
+					return "UL";
+				}
+				else if (headAngle > 202.5f && headAngle < 247.5f)
+				{
+					return "UR";
+				}
+				else if (headAngle > 292.5f && headAngle < 337.5f)
+				{
+					return "DR";
+				}
+			}
+
+			if (headAngle > 135f && headAngle < 225f)
+			{
+				return "U";
+			}
+			else if (headAngle < 45f || headAngle > 315f)
+			{
+				return "D";
+			}
+			else if (headAngle > 180f)
+			{
+				return "R";
+			}
+			
+			return "L";
 		}
 		
 		
@@ -772,49 +915,68 @@ namespace AC
 					clip += character.GetSpriteDirection ();
 				}
 				
-				#if UNITY_EDITOR && (UNITY_5 || UNITY_2017_1_OR_NEWER)
+				PlayCharAnim (clip, 0);
+			}
+		}
 
-				int hash = Animator.StringToHash (clip);
-				if (character.GetAnimator ().HasState (0, hash))
+
+		private void PlayHeadAnim (string clip, bool includeDirection)
+		{
+			if (character && character.GetAnimator () && clip != "")
+			{
+				if (includeDirection)
 				{
-					if (character.crossfadeAnims)
-					{
-						character.GetAnimator ().CrossFade (hash, character.animCrossfadeSpeed, 0);
-					}
-					else
-					{
-						character.GetAnimator ().Play (hash, 0);
-					}
+					clip += headDirection;
 				}
-				else
-				{
-					ACDebug.LogWarning ("Cannot play animation clip " + clip + " on " + character.name);
-				}
-				
-				#else
-				
+
+				PlayCharAnim (clip, character.headLayer);
+			}
+		}
+
+
+		private void PlayCharAnim (string clip, int layer)
+		{
+			#if UNITY_EDITOR && (UNITY_5 || UNITY_2017_1_OR_NEWER)
+
+			int hash = Animator.StringToHash (clip);
+			if (character.GetAnimator ().HasState (layer, hash))
+			{
 				if (character.crossfadeAnims)
 				{
-					try
-					{
-						character.GetAnimator ().CrossFade (clip, character.animCrossfadeSpeed, 0);
-					}
-					catch
-					{}
+					character.GetAnimator ().CrossFade (hash, character.animCrossfadeSpeed, layer);
 				}
 				else
 				{
-					try
-					{
-						character.GetAnimator ().Play (clip, 0);
-					}
-					catch
-					{}
+					character.GetAnimator ().Play (hash, layer);
 				}
-				
-				#endif
-				
 			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot play animation clip " + clip + " (layer " + layer + ") on " + character.name);
+			}
+			
+			#else
+			
+			if (character.crossfadeAnims)
+			{
+				try
+				{
+					character.GetAnimator ().CrossFade (clip, character.animCrossfadeSpeed, layer);
+				}
+				catch
+				{}
+			}
+			else
+			{
+				try
+				{
+					character.GetAnimator ().Play (clip, layer);
+				}
+				catch
+				{}
+			}
+			
+			#endif
 		}
 		
 	}

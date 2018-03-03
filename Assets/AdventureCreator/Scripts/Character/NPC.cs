@@ -350,6 +350,10 @@ namespace AC
 		 */
 		public NPCData SaveData (NPCData npcData)
 		{
+			npcData.RotX = TransformRotation.eulerAngles.x;
+			npcData.RotY = TransformRotation.eulerAngles.y;
+			npcData.RotZ = TransformRotation.eulerAngles.z;
+
 			if (animationEngine == AnimationEngine.Sprites2DToolkit || animationEngine == AnimationEngine.SpritesUnity)
 			{
 				npcData.idleAnim = idleAnimSprite;

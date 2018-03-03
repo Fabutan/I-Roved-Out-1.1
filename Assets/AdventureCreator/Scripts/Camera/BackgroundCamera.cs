@@ -51,6 +51,24 @@ namespace AC
 				ACDebug.LogWarning ("A Settings Manager is required for this camera type");
 			}
 		}
+
+
+		private void OnEnable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void Start ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void OnDisable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Unregister (this);
+		}
 		
 
 		/**

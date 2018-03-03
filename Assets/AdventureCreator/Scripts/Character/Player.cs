@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"Player.cs"
  * 
@@ -110,14 +110,12 @@ namespace AC
 			else if (spriteChild)
 			{
 				// Hack: update 2D sprites
-				if (spriteChild.GetComponent <FollowSortingMap>())
-				{
-					KickStarter.sceneSettings.UpdateAllSortingMaps ();
-				}
 				PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 				UpdateSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
 			}
 			UpdateScale ();
+
+			GetAnimEngine ().TurnHead (Vector2.zero);
 			GetAnimEngine ().PlayIdle ();
 		}
 
@@ -127,6 +125,15 @@ namespace AC
 		 */
 		public override void _Update ()
 		{
+			bool jumped = false;
+			if (KickStarter.playerInput.InputGetButtonDown ("Jump") && KickStarter.stateHandler.gameState == GameState.Normal)
+			{
+				if (!KickStarter.playerInput.IsJumpLocked)
+				{
+					jumped = Jump ();
+				}
+			}
+
 			if (hotspotDetector)
 			{
 				hotspotDetector._Update ();
@@ -163,7 +170,7 @@ namespace AC
 				charState = CharState.Decelerate;
 			}
 
-			if (isJumping)
+			if (isJumping && !jumped)
 			{
 				if (IsGrounded ())
 				{
@@ -195,7 +202,7 @@ namespace AC
 		 */
 		public void TankTurnLeft (float intensity = 1f)
 		{
-			lookDirection = -(intensity * transform.right) + ((1f - intensity) * transform.forward);
+			lookDirection = -(intensity * TransformRight) + ((1f - intensity) * TransformForward);
 			tankTurning = true;
 			tankTurnFloat = -intensity;
 		}
@@ -207,7 +214,7 @@ namespace AC
 		 */
 		public void TankTurnRight (float intensity = 1f)
 		{
-			lookDirection = (intensity * transform.right) + ((1f - intensity) * transform.forward);
+			lookDirection = (intensity * TransformRight) + ((1f - intensity) * TransformForward);
 			tankTurning = true;
 			tankTurnFloat = intensity;
 		}
@@ -227,7 +234,7 @@ namespace AC
 		 */
 		public void StopTurning ()
 		{
-			lookDirection = transform.forward;
+			lookDirection = TransformForward;
 			tankTurning = false;
 		}
 
@@ -249,13 +256,14 @@ namespace AC
 		
 
 		/**
-		 * Causes the Player to jump, so long as a Rigidbody component is attached.
+		 * <summary>Causes the Player to jump, so long as a Rigidbody component is attached.</summary>
+		 * <return>True if the attempt to jump was succesful</returns>
 		 */
-		public void Jump ()
+		public bool Jump ()
 		{
 			if (isJumping)
 			{
-				return;
+				return false;
 			}
 
 			if (IsGrounded () && activePath == null)
@@ -269,8 +277,9 @@ namespace AC
 					else
 					{
 						_rigidbody.velocity = Vector3.up * KickStarter.settingsManager.jumpSpeed;
-						isJumping = true;
 					}
+					isJumping = true;
+					return true;
 				}
 				else
 				{
@@ -291,6 +300,8 @@ namespace AC
 			{
 				ACDebug.Log (gameObject.name + " has no Collider component");
 			}
+
+			return false;
 		}
 
 
@@ -299,7 +310,6 @@ namespace AC
 			if (prepareToJump)
 			{
 				prepareToJump = false;
-				isJumping = true;
 				_rigidbody.AddForce (Vector3.up * KickStarter.settingsManager.jumpSpeed, ForceMode.Impulse);
 			}
 
@@ -548,7 +558,7 @@ namespace AC
 			playerData.playerLocX = transform.position.x;
 			playerData.playerLocY = transform.position.y;
 			playerData.playerLocZ = transform.position.z;
-			playerData.playerRotY = transform.eulerAngles.y;
+			playerData.playerRotY = TransformRotation.eulerAngles.y;
 			
 			playerData.playerWalkSpeed = walkSpeedScale;
 			playerData.playerRunSpeed = runSpeedScale;

@@ -761,7 +761,9 @@ namespace AC
 				LookAtCentre ();
 				isSmoothChanging = false;
 				transitionFromCamera = null;
-				
+
+				bool changedOrientation = (transform.rotation != attachedCamera.transform.rotation);
+
 				_camera.orthographic = attachedCamera._camera.orthographic;
 				_camera.fieldOfView = attachedCamera._camera.fieldOfView;
 				_camera.orthographicSize = attachedCamera._camera.orthographicSize;
@@ -771,7 +773,7 @@ namespace AC
 				
 				perspectiveOffset = attachedCamera.GetPerspectiveOffset ();
 
-				if (KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.settingsManager.movementMethod == MovementMethod.Direct && KickStarter.settingsManager.directMovementType == DirectMovementType.RelativeToCamera && /*KickStarter.settingsManager.inputMethod != InputMethod.TouchScreen &&*/ KickStarter.playerInput != null)
+				if (changedOrientation && !SceneSettings.IsUnity2D () && KickStarter.stateHandler.gameState == GameState.Normal && KickStarter.settingsManager.movementMethod == MovementMethod.Direct && KickStarter.settingsManager.directMovementType == DirectMovementType.RelativeToCamera && /*KickStarter.settingsManager.inputMethod != InputMethod.TouchScreen &&*/ KickStarter.playerInput != null)
 				{
 					if (KickStarter.player != null && 
 						(KickStarter.player.GetPath () == null || !KickStarter.player.IsLockedToPath ()))
@@ -1283,10 +1285,12 @@ namespace AC
 				}
 			}
 			
-			BackgroundCamera backgroundCamera = FindObjectOfType (typeof (BackgroundCamera)) as BackgroundCamera;
-			if (backgroundCamera)
+			if (KickStarter.stateHandler)
 			{
-				backgroundCamera.UpdateRect ();
+				foreach (BackgroundCamera backgroundCamera in KickStarter.stateHandler.BackgroundCameras)
+				{
+					backgroundCamera.UpdateRect ();
+				}
 			}
 
 			CalculateUnityUIAspectRatioCorrection ();
@@ -1350,12 +1354,24 @@ namespace AC
 
 			if (borderWidth != 0f)
 			{
+				if (fadeTexture == null)
+				{
+					ACDebug.LogWarning ("Cannot draw camera borders because no Fade texture is assigned in the MainCamera!");
+					return;
+				}
+
 				GUI.depth = 10;
 				GUI.DrawTexture (borderRect1, fadeTexture);
 				GUI.DrawTexture (borderRect2, fadeTexture);
 			}
 			else if (isSplitScreen)
 			{
+				if (fadeTexture == null)
+				{
+					ACDebug.LogWarning ("Cannot draw camera borders because no Fade texture is assigned in the MainCamera!");
+					return;
+				}
+
 				GUI.depth = 10;
 				GUI.DrawTexture (midBorderRect, fadeTexture);
 			}

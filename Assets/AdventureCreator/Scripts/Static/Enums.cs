@@ -134,9 +134,9 @@ namespace AC
 	public enum AutoManual { Automatic, Manual };
 	public enum SceneSetting { DefaultNavMesh, DefaultPlayerStart, SortingMap, OnStartCutscene, OnLoadCutscene, TintMap };
 	public enum AnimatedCameraType { PlayWhenActive, SyncWithTargetMovement };
-	public enum VarLink { None, PlaymakerGlobalVariable, OptionsData };
+	public enum VarLink { None, PlaymakerGlobalVariable, OptionsData, CustomScript };
 	
-	public enum HotspotIconDisplay { Never, Always, OnlyWhenHighlighting, OnlyWhenFlashing };
+	public enum HotspotIconDisplay { Never, Always, OnlyWhenHighlighting, OnlyWhenFlashing, ViaScriptOnly };
 	public enum HotspotIcon { Texture, UseIcon };
 	public enum OnCreateRecipe { JustMoveToInventory, SelectItem, RunActionList };
 	public enum HighlightState { None, Normal, Flash, Pulse, On };
@@ -235,5 +235,6 @@ namespace AC
 	public enum AlignType { YAxisOnly, CopyFullRotation };
 	public enum DoubleClickMovement { MakesPlayerRun = 0, RequiredToWalk = 1, Disabled = 2 };
 	public enum MusicAction { Play, Stop, Crossfade, ResumeLastStopped };
+	public enum AngleSnapping { None=0, NinetyDegrees=1, FortyFiveDegrees=2 };
 
 }

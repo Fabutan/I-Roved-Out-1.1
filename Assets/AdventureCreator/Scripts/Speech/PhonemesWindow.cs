@@ -14,6 +14,7 @@ namespace AC
 	{
 
 		private SpeechManager speechManager;
+		private Vector2 scrollPos;
 
 
 		/**
@@ -21,9 +22,9 @@ namespace AC
 		 */
 		public static void Init ()
 		{
-			PhonemesWindow window = (PhonemesWindow) EditorWindow.GetWindow (typeof (PhonemesWindow));
-			UnityVersionHandler.SetWindowTitle (window, "Phonemes Editor");
-			window.position = new Rect (300, 200, 450, 400);
+			PhonemesWindow window = EditorWindow.GetWindowWithRect <PhonemesWindow> (new Rect (0, 0, 450, 270), true, "Phonemes editor", true);
+			UnityVersionHandler.SetWindowTitle (window, "Phonemes editor");
+			window.position = new Rect (300, 200, 450, 270);
 		}
 
 
@@ -57,33 +58,7 @@ namespace AC
 			EditorGUILayout.HelpBox ("Sort letters or phoneme sounds into groups below, with each group representing a different animation frame.  Separate sounds with a forward slash (/).\nThe first frame will be considered the default.", MessageType.Info);
 			EditorGUILayout.Space ();
 
-			/*int numOptions = phonemes.Count;
-			numOptions = EditorGUILayout.IntField ("Number of frames:", phonemes.Count);
-			if (phonemes.Count < 0)
-			{
-				phonemes = SetDefaults (mode);
-				numOptions = phonemes.Count;
-			}
-			if (numOptions < 1)
-			{
-				numOptions = 1;
-			}
-			
-			if (numOptions < phonemes.Count)
-			{
-				phonemes.RemoveRange (numOptions, phonemes.Count - numOptions);
-			}
-			else if (numOptions > phonemes.Count)
-			{
-				if (numOptions > phonemes.Capacity)
-				{
-					phonemes.Capacity = numOptions;
-				}
-				for (int i=phonemes.Count; i<numOptions; i++)
-				{
-					phonemes.Add ("");
-				}
-			}*/
+			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
 
 			for (int i=0; i<phonemes.Count; i++)
 			{
@@ -97,6 +72,8 @@ namespace AC
 			}
 
 			EditorGUILayout.Space ();
+			EditorGUILayout.EndScrollView ();
+
 			EditorGUILayout.BeginHorizontal ();
 			if (GUILayout.Button ("Create new frame"))
 			{

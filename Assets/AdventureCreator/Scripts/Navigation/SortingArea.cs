@@ -32,6 +32,8 @@ namespace AC
 		/** The factor by which characters that use FollowSortingMap will be scaled by when positioned at the bottom boundary of this region */
 		public int scale = 100;
 
+		private string orderAsString;
+
 
 		/**
 		 * A Constructor that creates a new SortingArea based on the last one currently on the SortingMap.

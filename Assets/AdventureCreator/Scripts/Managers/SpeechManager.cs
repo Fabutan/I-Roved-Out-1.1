@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SpeechManager.cs"
  * 
@@ -48,6 +48,8 @@ namespace AC
 		public bool displayForever = false;
 		/** If true, then narration text will remain on the screen until the player skips it.  This only has an effect if displayForever = false */
 		public bool displayNarrationForever = false;
+		/** If True, and displayForever = True, then a speaking character will play their talking animation for the whole duration that their speech text is alive */
+		public bool playAnimationForever = true;
 		/** If True, and subtitles can be skipped, then skipping can be achieved with mouse-clicks, as well as by invoking the SkipSpeech input */
 		public bool canSkipWithMouseClicks = true;
 		/** The minimum time, in seconds, that a speech line will be displayed (unless an AudioClip is setting it's length) */
@@ -187,7 +189,11 @@ namespace AC
 				}
 				
 				displayForever = CustomGUILayout.ToggleLeft ("Display subtitles forever until user skips it?", displayForever, "AC.KickStarter.speechManager.displayForever");
-				if (!displayForever)
+				if (displayForever)
+				{
+					playAnimationForever = CustomGUILayout.ToggleLeft ("Play talking animations forever until user skips it?", playAnimationForever, "AC.KickStarter.speechManager.playAnimationForever");
+				}
+				else
 				{
 					displayNarrationForever = CustomGUILayout.ToggleLeft ("Display narration forever until user skips it?", displayNarrationForever, "AC.KickStarter.speechManager.displayNarrationForever");
 				}
@@ -227,8 +233,7 @@ namespace AC
 
 				if (GUILayout.Button ("Edit speech tags"))
 				{
-					SpeechTagsWindow window = (SpeechTagsWindow) EditorWindow.GetWindow (typeof (SpeechTagsWindow));
-					window.Repaint ();
+					SpeechTagsWindow.Init ();
 				}
 
 				if (scrollSubtitles || scrollNarration)
@@ -301,10 +306,11 @@ namespace AC
 					lipSyncOutput = (LipSyncOutput) CustomGUILayout.EnumPopup ("Perform lipsync on:", lipSyncOutput, "AC.KickStarter.speechManager.lipSyncOutput");
 					lipSyncSpeed = CustomGUILayout.FloatField ("Process speed:", lipSyncSpeed, "AC.KickStarter.speechManager.lipSyncSpeed");
 					
-					if (GUILayout.Button ("Phonemes Editor"))
+					if (GUILayout.Button ("Edit phonemes"))
 					{
-						PhonemesWindow window = (PhonemesWindow) EditorWindow.GetWindow (typeof (PhonemesWindow));
-						window.Repaint ();
+						//PhonemesWindow window = (PhonemesWindow) EditorWindow.GetWindow (typeof (PhonemesWindow));
+						//window.Repaint ();
+						PhonemesWindow.Init ();
 					}
 
 					if (lipSyncOutput == LipSyncOutput.GameObjectTexture)
@@ -352,7 +358,7 @@ namespace AC
 				{
 					PopulateList ();
 					
-					if (sceneFiles.Length > 0)
+					if (sceneFiles != null && sceneFiles.Length > 0)
 					{
 						Array.Sort (sceneFiles);
 					}
@@ -625,9 +631,15 @@ namespace AC
 
 				SyncLanguageData ();
 
-				if (languages.Count > 1)
+				/*if (languages.Count > 1)
 				{
 					ignoreOriginalText = CustomGUILayout.ToggleLeft ("Prevent original language from being used?", ignoreOriginalText, "AC.KickStarter.speechManager.ignoreOriginalText");
+				}*/
+
+				ignoreOriginalText = CustomGUILayout.ToggleLeft ("Prevent original language from being used?", ignoreOriginalText, "AC.KickStarter.speechManager.ignoreOriginalText");
+				if (ignoreOriginalText && languages.Count <= 1)
+				{
+					EditorGUILayout.HelpBox ("At least one translation must be defined below for the original language to be ignored.", MessageType.Warning);
 				}
 
 				if (languages.Count < 1 || !ignoreOriginalText)
@@ -696,6 +708,22 @@ namespace AC
 				menu.AddItem (new GUIContent ("Import"), false, MenuCallback, "Import translation");
 				menu.AddItem (new GUIContent ("Export"), false, MenuCallback, "Export translation");
 				menu.AddItem (new GUIContent ("Delete"), false, MenuCallback, "Delete translation");
+
+				if (languages.Count > 2)
+				{
+					menu.AddSeparator ("");
+
+					if (i > 1)
+					{
+						menu.AddItem (new GUIContent ("Move up"), false, MenuCallback, "Move translation up");
+					}
+
+					if (i < (languages.Count - 1))
+					{
+						menu.AddItem (new GUIContent ("Move down"), false, MenuCallback, "Move translation down");
+					}
+				}
+
 			}
 
 			if (lines.Count > 0)
@@ -713,7 +741,6 @@ namespace AC
 			if (sideLanguage >= 0)
 			{
 				int i = sideLanguage;
-
 				switch (obj.ToString ())
 				{
 				case "Import translation":
@@ -725,8 +752,18 @@ namespace AC
 					break;
 
 				case "Delete translation":
-					Undo.RecordObject (this, "Delete translation: " + languages[i]);
+					Undo.RecordObject (this, "Delete translation '" + languages[i] + "'");
 					DeleteLanguage (i);
+					break;
+
+				case "Move translation down":
+					Undo.RecordObject (this, "Move down translation '" + languages[i] + "'");
+					MoveLanguageDown (i);
+					break;
+
+				case "Move translation up":
+					Undo.RecordObject (this, "Move up translation '" + languages[i] + "'");
+					MoveLanguageUp (i);
 					break;
 
 				case "Create script sheet":
@@ -799,6 +836,70 @@ namespace AC
 				if (line.customTranslationLipsyncFiles != null && line.customTranslationLipsyncFiles.Count > (i-1))
 				{
 					line.customTranslationLipsyncFiles.RemoveAt (i-1);
+				}
+			}
+		}
+
+
+		private void MoveLanguageDown (int i)
+		{
+			string thisLanguage = languages[i];
+			languages.Insert (i+2, thisLanguage);
+			languages.RemoveAt (i);
+
+			bool thisLanguageIsRightToLeft = languageIsRightToLeft[i];
+			languageIsRightToLeft.Insert (i+2, thisLanguageIsRightToLeft);
+			languageIsRightToLeft.RemoveAt (i);
+
+			foreach (SpeechLine line in lines)
+			{
+				string thisTranslationText = line.translationText[i-1];
+				line.translationText.Insert (i+1, thisTranslationText);
+				line.translationText.RemoveAt (i-1);
+
+				if (line.customTranslationAudioClips != null && line.customTranslationAudioClips.Count > (i-1))
+				{
+					AudioClip thisAudioClip = line.customTranslationAudioClips[i-1];
+					line.customTranslationAudioClips.Insert (i+1, thisAudioClip);
+					line.customTranslationAudioClips.RemoveAt (i-1);
+				}
+				if (line.customTranslationLipsyncFiles != null && line.customTranslationLipsyncFiles.Count > (i-1))
+				{
+					UnityEngine.Object thisLipSyncFile = line.customTranslationLipsyncFiles[i-1];
+					line.customTranslationLipsyncFiles.Insert (i+1, thisLipSyncFile);
+					line.customTranslationLipsyncFiles.RemoveAt (i-1);
+				}
+			}
+		}
+
+
+		private void MoveLanguageUp (int i)
+		{
+			string thisLanguage = languages[i];
+			languages.Insert (i-1, thisLanguage);
+			languages.RemoveAt (i+1);
+
+			bool thisLanguageIsRightToLeft = languageIsRightToLeft[i];
+			languageIsRightToLeft.Insert (i-1, thisLanguageIsRightToLeft);
+			languageIsRightToLeft.RemoveAt (i+1);
+
+			foreach (SpeechLine line in lines)
+			{
+				string thisTranslationText = line.translationText[i-1];
+				line.translationText.Insert (i-2, thisTranslationText);
+				line.translationText.RemoveAt (i);
+
+				if (line.customTranslationAudioClips != null && line.customTranslationAudioClips.Count > (i-1))
+				{
+					AudioClip thisAudioClip = line.customTranslationAudioClips[i-1];
+					line.customTranslationAudioClips.Insert (i-2, thisAudioClip);
+					line.customTranslationAudioClips.RemoveAt (i);
+				}
+				if (line.customTranslationLipsyncFiles != null && line.customTranslationLipsyncFiles.Count > (i-1))
+				{
+					UnityEngine.Object thisLipSyncFile = line.customTranslationLipsyncFiles[i-1];
+					line.customTranslationLipsyncFiles.Insert (i-2, thisLipSyncFile);
+					line.customTranslationLipsyncFiles.RemoveAt (i);
 				}
 			}
 		}

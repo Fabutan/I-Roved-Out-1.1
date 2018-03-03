@@ -50,7 +50,14 @@ namespace AC
 		{
 			if (isPlayer)
 			{
-				linkedObject = GameObject.FindWithTag (Tags.player);
+				if (KickStarter.player != null)
+				{
+					linkedObject = KickStarter.player.gameObject;
+				}
+				else
+				{
+					ACDebug.LogWarning ("Cannot use Player's FSM since no Player was found!");
+				}
 			}
 			else
 			{

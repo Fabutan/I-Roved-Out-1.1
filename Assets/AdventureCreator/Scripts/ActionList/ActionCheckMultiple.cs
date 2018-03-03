@@ -48,7 +48,7 @@ namespace AC
 		
 		protected ActionEnd ProcessResult (int i, List<Action> actions)
 		{
-			if (endings.Count > i && i >= 0 && endings[i] != null)
+			if (i >= 0 && i < endings.Count && endings[i] != null)
 			{
 				if (endings[i].resultAction == ResultAction.Skip)
 				{
@@ -66,7 +66,8 @@ namespace AC
 
 				return endings[i];
 			}
-			return null;
+			ACDebug.LogWarning ("Attempting to follow socket " + i.ToString () + ", but it doesn't exist! (" + category.ToString () + ": " + title + ")", this);
+			return GenerateStopActionEnd ();
 		}
 
 		

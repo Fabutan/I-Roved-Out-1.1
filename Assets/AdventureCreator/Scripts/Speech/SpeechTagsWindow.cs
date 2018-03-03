@@ -22,9 +22,9 @@ namespace AC
 		 */
 		public static void Init ()
 		{
-			SpeechTagsWindow window = (SpeechTagsWindow) EditorWindow.GetWindow (typeof (SpeechTagsWindow));
-			UnityVersionHandler.SetWindowTitle (window, "Speech Tags Editor");
-			window.position = new Rect (300, 200, 450, 400);
+			SpeechTagsWindow window = EditorWindow.GetWindowWithRect <SpeechTagsWindow> (new Rect (0, 0, 450, 303), true, "Speech Tags editor", true);
+			UnityVersionHandler.SetWindowTitle (window, "Speech Tags editor");
+			window.position = new Rect (300, 200, 450, 303);
 		}
 		
 		
@@ -43,8 +43,8 @@ namespace AC
 			speechManager.useSpeechTags = EditorGUILayout.Toggle ("Use speech tags?", speechManager.useSpeechTags);
 			if (speechManager.useSpeechTags)
 			{
-				EditorGUILayout.BeginVertical ("Button");
-				scrollPos = EditorGUILayout.BeginScrollView (scrollPos, GUILayout.Height (155f));
+				EditorGUILayout.BeginVertical ();
+				scrollPos = EditorGUILayout.BeginScrollView (scrollPos, GUILayout.Height (205f));
 
 				if (speechManager.speechTags.Count == 0)
 				{

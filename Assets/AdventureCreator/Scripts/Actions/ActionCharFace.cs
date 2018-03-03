@@ -106,13 +106,24 @@ namespace AC
 						else
 						{
 							Vector3 offset = Vector3.zero;
-							if (faceObject.GetComponent <Hotspot>())
+
+							Hotspot faceObjectHotspot = faceObject.GetComponent <Hotspot>();
+							Char faceObjectChar = faceObject.GetComponent <Char>();
+
+							if (faceObjectHotspot != null)
 							{
-								offset = faceObject.GetComponent <Hotspot>().GetIconPosition (true);
+								if (faceObjectHotspot.centrePoint != null)
+								{
+									faceObject = faceObjectHotspot.centrePoint.gameObject;
+								}
+								else
+								{
+									offset = faceObjectHotspot.GetIconPosition (true);
+								}
 							}
-							else if (lookAtHead && faceObject.GetComponent <Char>())
+							else if (lookAtHead && faceObjectChar != null)
 							{
-								Transform neckBone = faceObject.GetComponent <Char>().neckBone;
+								Transform neckBone = faceObjectChar.neckBone;
 								if (neckBone != null)
 								{
 									faceObject = neckBone.gameObject;

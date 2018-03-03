@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"AnimEngine_Mecanim.cs"
  * 
@@ -71,7 +71,6 @@ namespace AC
 				character.headYawParameter = EditorGUILayout.TextField ("Head yaw float:", character.headYawParameter);
 				character.headPitchParameter = EditorGUILayout.TextField ("Head pitch float:", character.headPitchParameter);
 			}
-			character.headTurnSpeed = EditorGUILayout.Slider ("Head turn speed:", character.headTurnSpeed, 0.1f, 20f);
 
 			character.verticalMovementParameter = EditorGUILayout.TextField ("Vertical movement float:", character.verticalMovementParameter);
 			character.isGroundedParameter = EditorGUILayout.TextField ("'Is grounded' bool:", character.isGroundedParameter);

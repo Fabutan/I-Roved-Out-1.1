@@ -73,8 +73,10 @@ namespace AC
 		}
 		
 		
-		private void Start ()
+		protected override void Start ()
 		{
+			base.Start ();
+
 			ResetTarget ();
 			if (target)
 			{

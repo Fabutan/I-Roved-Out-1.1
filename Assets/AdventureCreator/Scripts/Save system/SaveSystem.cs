@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SaveSystem.cs"
  * 
@@ -1108,6 +1108,10 @@ namespace AC
 		{
 			if (!Application.isPlaying)
 			{
+				if (useSaveID)
+				{
+					elementSlot = saveID;
+				}
 				return SaveFileHandler.GetDefaultSaveLabel (elementSlot);
 			}
 			else if (KickStarter.saveSystem.foundSaveFiles != null)

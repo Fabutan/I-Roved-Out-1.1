@@ -50,10 +50,17 @@ namespace AC
 			if (_target.GetMotionControl () != MotionControl.Manual)
 			{
 				_target.turnSpeed = EditorGUILayout.FloatField ("Turn speed:", _target.turnSpeed);
+
+				if (_target.GetAnimEngine ().isSpriteBased)
+				{
+					_target.turn2DCharactersIn3DSpace = EditorGUILayout.Toggle ("Turn root object in 3D space?", _target.turn2DCharactersIn3DSpace);
+				}
 			}
 			_target.turnBeforeWalking = EditorGUILayout.Toggle ("Turn before walking?", _target.turnBeforeWalking);
 			_target.retroPathfinding = EditorGUILayout.Toggle ("Retro-style movement?", _target.retroPathfinding);
-		
+
+			_target.headTurnSpeed = EditorGUILayout.Slider ("Head turn speed:", _target.headTurnSpeed, 0.1f, 20f);
+
 			EditorGUILayout.EndVertical ();
 		}
 
@@ -96,6 +103,18 @@ namespace AC
 						{
 							EditorGUILayout.HelpBox ("For smooth movement, the Rigidbody's 'Interpolation' should be set to either 'Interpolate' or 'Extrapolate'.", MessageType.Warning);
 						}
+
+						if (SceneSettings.CameraPerspective != CameraPerspective.TwoD)
+						{
+							EditorGUILayout.HelpBox ("Rigidbody2D-based motion only allows for X and Y movement, not Z, which may not be appropriate for 3D.", MessageType.Warning);
+						}
+
+						#if (UNITY_5_6_OR_NEWER || UNITY_2017_1_OR_NEWER)
+						if (_target.GetAnimEngine ().isSpriteBased && _target.turn2DCharactersIn3DSpace)
+						{
+							EditorGUILayout.HelpBox ("For best results, 'Turn root object in 3D space?' above should be disabled.", MessageType.Warning);
+						}
+						#endif
 					}
 				}
 			}

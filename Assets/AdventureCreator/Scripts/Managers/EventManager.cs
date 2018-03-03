@@ -264,6 +264,10 @@ namespace AC
 		public delegate void Delegate_OnVariableChange (GVar variable);
 		/** An event triggered whenever a Variable is changed via an Action */
 		public static Delegate_OnVariableChange OnVariableChange;
+		/** An event triggered whenever a Variable's value is to be uploaded to a custom script it is linked to */
+		public static Delegate_OnVariableChange OnUploadVariable;
+		/** An event triggered whenever a Variable's value is to be downloaded from a custom script it is linked to */
+		public static Delegate_OnVariableChange OnDownloadVariable;
 
 		/**
 		 * <summary>Triggers the OnVariableChange event.</summary>
@@ -274,6 +278,32 @@ namespace AC
 			if (OnVariableChange != null)
 			{
 				OnVariableChange (_variable);
+			}
+		}
+
+
+		/**
+		 * <summary>Triggers the OnDownloadVariable event.</summary>
+		 * <param name = "_variable">The variable to download</param>
+		 */
+		public void Call_OnDownloadVariable (GVar _variable)
+		{
+			if (OnDownloadVariable != null)
+			{
+				OnDownloadVariable (_variable);
+			}
+		}
+
+
+		/**
+		 * <summary>Triggers the OnUploadVariable event.</summary>
+		 * <param name = "_variable">The variable to upload</param>
+		 */
+		public void Call_OnUploadVariable (GVar _variable)
+		{
+			if (OnUploadVariable != null)
+			{
+				OnUploadVariable (_variable);
 			}
 		}
 

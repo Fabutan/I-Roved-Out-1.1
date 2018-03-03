@@ -38,7 +38,8 @@ namespace AC
 		{
 			if (_inventoryManager == null) return;
 
-			InvItemExportWizardWindow window = (InvItemExportWizardWindow) EditorWindow.GetWindow (typeof (InvItemExportWizardWindow));
+			InvItemExportWizardWindow window = EditorWindow.GetWindowWithRect <InvItemExportWizardWindow> (new Rect (0, 0, 350, 500), true, "Inventory item exporter", true);
+
 			UnityVersionHandler.SetWindowTitle (window, "Inventory item exporter");
 			window.position = new Rect (300, 200, 350, 500);
 			window._Init (_inventoryManager);
@@ -84,6 +85,7 @@ namespace AC
 			}
 			GUI.enabled = true;
 
+			EditorGUILayout.Space ();
 			GUILayout.EndScrollView ();
 		}
 
@@ -336,7 +338,10 @@ namespace AC
 			private string RemoveLineBreaks (string text)
 			{
 				if (text.Length == 0) return " ";
-	            text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+	           // text = text.Replace("\r\n", "[break]").Replace("\n", "[break]");
+				text = text.Replace("\r\n", "[break]");
+				text = text.Replace("\n", "[break]");
+				text = text.Replace("\r", "[break]");
 	            return text;
 	        }
 

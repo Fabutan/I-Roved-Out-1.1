@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"SceneManager.cs"
  * 
@@ -129,7 +129,7 @@ namespace AC
 				}
 
 				EditorGUILayout.BeginHorizontal ();
-				GUILayout.Label ("Organise room objects:");
+				GUILayout.Label ("Organise scene objects:");
 				if (GUILayout.Button ("With folders"))
 				{
 					InitialiseObjects ();
@@ -716,7 +716,7 @@ namespace AC
 				{
 					playerStartPrefab += "2D";
 				}
-				
+
 				PlayerStart playerStart = AddPrefab ("Navigation", playerStartPrefab, true, false, true).GetComponent <PlayerStart>();
 				KickStarter.sceneSettings.defaultPlayerStart = playerStart;
 			}

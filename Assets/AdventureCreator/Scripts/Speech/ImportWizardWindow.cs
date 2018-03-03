@@ -70,9 +70,10 @@ namespace AC
 		{
 			if (_speechManager == null) return;
 
-			ImportWizardWindow window = (ImportWizardWindow) EditorWindow.GetWindow (typeof (ImportWizardWindow));
+			ImportWizardWindow window = EditorWindow.GetWindowWithRect <ImportWizardWindow> (new Rect (0, 0, 350, 500), true, "Game text importer", true);
+
 			UnityVersionHandler.SetWindowTitle (window, "Game text importer");
-			window.position = new Rect (300, 200, 350, 300);
+			window.position = new Rect (300, 200, 350, 500);
 			window._Init (_speechManager, _csvData, _forLanguage);
 		}
 		
@@ -129,6 +130,7 @@ namespace AC
 				Import ();
 			}
 
+			EditorGUILayout.Space ();
 			EditorGUILayout.EndScrollView ();
 		}
 

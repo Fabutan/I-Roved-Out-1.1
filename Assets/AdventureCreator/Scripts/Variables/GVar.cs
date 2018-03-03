@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"GVar.cs"
  * 
@@ -192,6 +192,10 @@ namespace AC
 					SetVector3Value (PlayMakerIntegration.GetGlobalVector3 (pmVar));
 				}
 			}
+			else if (link == VarLink.CustomScript)
+			{
+				KickStarter.eventManager.Call_OnDownloadVariable (this);
+			}
 		}
 		
 		
@@ -238,6 +242,10 @@ namespace AC
 			else if (link == VarLink.OptionsData)
 			{
 				Options.SavePrefs ();
+			}
+			else if (link == VarLink.CustomScript)
+			{
+				KickStarter.eventManager.Call_OnUploadVariable (this);
 			}
 		}
 		

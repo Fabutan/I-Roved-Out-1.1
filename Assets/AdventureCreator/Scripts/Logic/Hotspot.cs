@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"Hotspot.cs"
  * 
@@ -99,6 +99,12 @@ namespace AC
 		private SpriteRenderer iconRenderer = null;
 		private CursorIcon mainIcon;
 
+		private LerpUtils.FloatLerp iconAlphaLerp = new LerpUtils.FloatLerp (true);
+
+		private float manualShowIconSpeed = 5f;
+		private bool manuallyShowIcon = false;
+		private bool tooFarAway = false;
+
 		
 		private void Awake ()
 		{
@@ -118,6 +124,24 @@ namespace AC
 
 			lastInteractionIndex = FindFirstEnabledInteraction ();
 			displayLineID = lineID;
+		}
+
+
+		private void OnEnable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void Start ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void OnDisable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Unregister (this);
 		}
 
 
@@ -294,11 +318,6 @@ namespace AC
 						iconRenderer = iconOb.AddComponent <SpriteRenderer>();
 						iconOb.transform.localScale = Vector3.one * (25f * KickStarter.settingsManager.hotspotIconSize);
 
-						if (GameObject.Find ("_Hotspots") && GameObject.Find ("_Hotspots").transform.eulerAngles == Vector3.zero)
-						{
-							iconOb.transform.parent = GameObject.Find ("_Hotspots").transform;
-						}
-
 						if (iconSortingLayer != "")
 						{
 							iconRenderer.GetComponent <SpriteRenderer>().sortingLayerName = iconSortingLayer;
@@ -369,16 +388,18 @@ namespace AC
 
 		/**
 		 * <summary>Gets the label to display when the cursor is over this Hotspot, with cursor names and active inventory item included if appropriate.</summary>
+		 * <param name = "languageNumber">The index number of the language to return the line in, where 0 = the game's original language.</param>
+		 * <param name = "cursorID">The ID number of the cursor icon (set in the Cursor Manager) to get the label for. If <0, the active cursor will be used.</param>
 		 * <returns>The label to display when the cursor is over this Hotspot, with cursor names and active inventory item included if appropriate.</returns>
 		 */
-		public string GetFullLabel (int languageNumber = 0)
+		public string GetFullLabel (int languageNumber = 0, int cursorID = -1)
 		{
 			if (KickStarter.stateHandler.gameState == GameState.DialogOptions && !KickStarter.settingsManager.allowInventoryInteractionsDuringConversations)
 			{
 				return "";
 			}
 			return AdvGame.CombineLanguageString (
-							KickStarter.playerInteraction.GetLabelPrefix (this, null, languageNumber),
+							KickStarter.playerInteraction.GetLabelPrefix (this, null, languageNumber, cursorID),
 							GetName (languageNumber),
 							languageNumber
 							);
@@ -393,7 +414,6 @@ namespace AC
 			CanDisplayHotspotIcon ();
 		}
 
-		private bool tooFarAway = false;
 
 		/**
 		 * <summary>Sets the layer of the Hotspot according to whether or not it is within the proximity of a Hotspot detector.</summary>
@@ -475,12 +495,13 @@ namespace AC
 						}
 					}
 				}
-				
+
 				if (KickStarter.playerMenus.IsInteractionMenuOn () && KickStarter.settingsManager.hideIconUnderInteractionMenu)
 				{
-					iconAlpha = Mathf.Lerp (iconAlpha, 0f, Time.deltaTime * 5f);
+					iconAlpha = iconAlphaLerp.Update (iconAlpha, 0f, 5f);
 				}
-				else if (KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.OnlyWhenHighlighting ||
+				else if (KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.ViaScriptOnly ||
+						KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.OnlyWhenHighlighting ||
 				         KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.OnlyWhenFlashing)
 				{
 					if (highlight)
@@ -488,6 +509,17 @@ namespace AC
 						if (KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.OnlyWhenHighlighting)
 						{
 							iconAlpha = highlight.GetHighlightAlpha ();
+						}
+						else if (KickStarter.settingsManager.hotspotIconDisplay == HotspotIconDisplay.ViaScriptOnly)
+						{
+							if (manualShowIconSpeed > 0f)
+							{
+								iconAlpha = iconAlphaLerp.Update (iconAlpha, (manuallyShowIcon) ? 1f : 0f, manualShowIconSpeed);
+							}
+							else
+							{
+								iconAlpha = (manuallyShowIcon) ? 1f : 0f;
+							}
 						}
 						else
 						{
@@ -514,6 +546,18 @@ namespace AC
 				iconAlpha = 0f;
 				return false;
 			}
+		}
+
+
+		/**
+		 * <summary>Shows or hides the Hotspot's associated icon, provided that the Settings Manager's hotspotIconDisplay = HotspotIconDisplay.ViaScriptOnly</summary>
+		 * <param name = "makeVisible">If True, the icon will be shown. If false, the icon will be hidden</param>
+		 * <param name = "speed">The speed at which to show or hide the icon. If <=0, the transition will be instantaneous.</param>
+		 */
+		public void SetIconVisibility (bool makeVisible, float speed = 5f)
+		{
+			manuallyShowIcon = makeVisible;
+			manualShowIconSpeed = speed;
 		}
 		
 
@@ -711,7 +755,7 @@ namespace AC
 		{
 			KickStarter.eventManager.Call_OnChangeHotspot (this, true);
 
-			if (highlight)
+			if (highlight != null && highlight.highlightWhenSelected)
 			{
 				highlight.HighlightOn ();
 			}

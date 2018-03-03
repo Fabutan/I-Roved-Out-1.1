@@ -195,8 +195,10 @@ namespace AC
 		}
 		
 		
-		private void Start ()
+		protected override void Start ()
 		{
+			base.Start ();
+
 			ResetTarget ();
 			
 			if (target)
@@ -208,101 +210,6 @@ namespace AC
 
 
 		public override void _Update ()
-		{
-			MoveCamera ();
-		}
-
-
-		/**
-		 * <summary>Switches the camera's target.</summary>
-		 * <param name = "_target">The new target</param>
-		 */
-		public void SwitchTarget (Transform _target)
-		{
-			target = _target;
-			originalTargetPosition = Vector3.zero;
-		}
-		
-		
-		private void SetTargetOriginalPosition ()
-		{
-			if (originalTargetPosition == Vector3.zero)
-			{
-				if (actFromDefaultPlayerStart)
-				{
-					if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.defaultPlayerStart != null)
-					{
-						originalTargetPosition = KickStarter.sceneSettings.defaultPlayerStart.transform.position;
-					}
-					else
-					{
-						originalTargetPosition = target.transform.position;
-					}
-				}
-				else
-				{
-					originalTargetPosition = target.transform.position;
-				}
-			}
-		}
-		
-		
-		private void TrackTarget2D_X ()
-		{
-			if (target.transform.position.x < (transform.position.x - xFreedom))
-			{
-				desiredPosition.x = target.transform.position.x + xFreedom;
-			}
-			else if (target.transform.position.x > (transform.position.x + xFreedom))
-			{
-				desiredPosition.x = target.transform.position.x - xFreedom;
-			}
-		}
-		
-		
-		private void TrackTarget2D_Z ()
-		{
-			if (target.transform.position.z < (transform.position.z - zFreedom))
-			{
-				desiredPosition.z = target.transform.position.z + zFreedom;
-			}
-			else if (target.transform.position.z > (transform.position.z + zFreedom))
-			{
-				desiredPosition.z = target.transform.position.z -zFreedom;
-			}
-		}
-		
-		
-		private float GetDesiredPosition (float originalValue, float gradient, float offset, CameraLocConstrainType constrainType )
-		{
-			float desiredPosition = originalValue + offset;
-			
-			if (constrainType == CameraLocConstrainType.TargetX)
-			{
-				desiredPosition += (target.transform.position.x - originalTargetPosition.x) * gradient;
-			}
-			else if (constrainType == CameraLocConstrainType.TargetZ)
-			{
-				desiredPosition += (target.transform.position.z - originalTargetPosition.z) * gradient;
-			}
-			else if (constrainType == CameraLocConstrainType.TargetIntoScreen)
-			{
-				desiredPosition += (PositionRelativeToCamera (originalTargetPosition).x - PositionRelativeToCamera (target.position).x) * gradient;
-			}
-			else if (constrainType == CameraLocConstrainType.TargetAcrossScreen)
-			{
-				desiredPosition += (PositionRelativeToCamera (originalTargetPosition).z - PositionRelativeToCamera (target.position).z) * gradient;
-			}
-			else if (constrainType == CameraLocConstrainType.TargetHeight)
-			{
-				desiredPosition += (target.transform.position.y - originalTargetPosition.y) * gradient;
-			}
-			
-			return desiredPosition;
-		}
-		
-		
-		private void MoveCamera ()
 		{
 			if (target == null)
 			{
@@ -393,6 +300,105 @@ namespace AC
 			}
 
 			SetFocalPoint ();
+		}
+
+
+		/**
+		 * <summary>Switches the camera's target.</summary>
+		 * <param name = "_target">The new target</param>
+		 */
+		public void SwitchTarget (Transform _target)
+		{
+			target = _target;
+			originalTargetPosition = Vector3.zero;
+		}
+		
+		
+		private void SetTargetOriginalPosition ()
+		{
+			if (originalTargetPosition == Vector3.zero)
+			{
+				if (actFromDefaultPlayerStart)
+				{
+					if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.defaultPlayerStart != null)
+					{
+						originalTargetPosition = KickStarter.sceneSettings.defaultPlayerStart.transform.position;
+					}
+					else
+					{
+						originalTargetPosition = target.transform.position;
+					}
+				}
+				else
+				{
+					originalTargetPosition = target.transform.position;
+				}
+			}
+		}
+		
+		
+		private void TrackTarget2D_X ()
+		{
+			if (target.transform.position.x < (transform.position.x - xFreedom))
+			{
+				desiredPosition.x = target.transform.position.x + xFreedom;
+			}
+			else if (target.transform.position.x > (transform.position.x + xFreedom))
+			{
+				desiredPosition.x = target.transform.position.x - xFreedom;
+			}
+		}
+		
+		
+		private void TrackTarget2D_Z ()
+		{
+			if (target.transform.position.z < (transform.position.z - zFreedom))
+			{
+				desiredPosition.z = target.transform.position.z + zFreedom;
+			}
+			else if (target.transform.position.z > (transform.position.z + zFreedom))
+			{
+				desiredPosition.z = target.transform.position.z -zFreedom;
+			}
+		}
+		
+		
+		private float GetDesiredPosition (float originalValue, float gradient, float offset, CameraLocConstrainType constrainType )
+		{
+			float desiredPosition = originalValue + offset;
+			
+			if (constrainType == CameraLocConstrainType.TargetX)
+			{
+				desiredPosition += (target.transform.position.x - originalTargetPosition.x) * gradient;
+			}
+			else if (constrainType == CameraLocConstrainType.TargetZ)
+			{
+				desiredPosition += (target.transform.position.z - originalTargetPosition.z) * gradient;
+			}
+			else if (constrainType == CameraLocConstrainType.TargetIntoScreen)
+			{
+				desiredPosition += (PositionRelativeToCamera (originalTargetPosition).x - PositionRelativeToCamera (target.position).x) * gradient;
+			}
+			else if (constrainType == CameraLocConstrainType.TargetAcrossScreen)
+			{
+				desiredPosition += (PositionRelativeToCamera (originalTargetPosition).z - PositionRelativeToCamera (target.position).z) * gradient;
+			}
+			else if (constrainType == CameraLocConstrainType.TargetHeight)
+			{
+				desiredPosition += (target.transform.position.y - originalTargetPosition.y) * gradient;
+			}
+			
+			return desiredPosition;
+		}
+
+
+		private bool AllLocked ()
+		{
+			if (lockXLocAxis && lockYLocAxis && lockZLocAxis && lockXRotAxis && lockYRotAxis && lockFOV)
+			{
+				return true;
+			}
+			return false;
 		}
 
 

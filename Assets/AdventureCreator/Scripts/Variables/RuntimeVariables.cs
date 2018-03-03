@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"RuntimeVariables.cs"
  * 
@@ -227,7 +227,7 @@ namespace AC
 		{
 			foreach (GVar var in globalVars)
 			{
-				if (var.link == VarLink.PlaymakerGlobalVariable)
+				if (var.link == VarLink.PlaymakerGlobalVariable || var.link == VarLink.CustomScript)
 				{
 					if (var.updateLinkOnStart)
 					{

@@ -27,6 +27,17 @@ namespace AC
 		private bool pathFailed = false;
 
 
+		public override void OnReset (NavigationMesh navMesh)
+		{
+			if (!Application.isPlaying) return;
+
+			if (navMesh == null && KickStarter.settingsManager != null && KickStarter.settingsManager.movementMethod == MovementMethod.PointAndClick)
+			{
+				ACDebug.LogWarning ("Could not initialise NavMesh - was one set as the Default in the Settings Manager?");
+			}
+		}
+
+
 		public override void TurnOn (NavigationMesh navMesh)
 		{
 			if (navMesh == null || KickStarter.settingsManager == null) return;

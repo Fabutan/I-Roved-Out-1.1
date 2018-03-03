@@ -65,6 +65,8 @@ namespace AC
 		public int parameterNameID = -1;
 		public float parameterValue;
 
+		public bool hideHead = false;
+
 		
 		public ActionCharAnim ()
 		{

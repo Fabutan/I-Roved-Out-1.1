@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"ActiveInput.cs"
  * 
@@ -33,6 +33,10 @@ namespace AC
 		public GameState gameState;
 		/** The ActionListAsset to run when the input button is pressed */
 		public ActionListAsset actionListAsset;
+		/** What type of input is expected (Button, Axis) */
+		public SimulateInputType inputType = SimulateInputType.Button;
+		/** If inputType = SimulateInputType.Axis, the threshold value for the axis to trigger the ActionListAsset */
+		public float axisThreshold = 0.2f;
 
 		private bool isEnabled;
 
@@ -47,6 +51,8 @@ namespace AC
 			actionListAsset = null;
 			enabledOnStart = true;
 			ID = 1;
+			inputType = SimulateInputType.Button;
+			axisThreshold = 0.2f;
 
 			// Update id based on array
 			foreach (int _id in idArray)
@@ -68,6 +74,8 @@ namespace AC
 			actionListAsset = null;
 			enabledOnStart = true;
 			ID = _ID;
+			inputType = SimulateInputType.Button;
+			axisThreshold = 0.2f;
 		}
 
 
@@ -91,7 +99,50 @@ namespace AC
 			}
 			set
 			{
+				if (value && string.IsNullOrEmpty (inputName))
+				{
+					ACDebug.LogWarning ("Active input " + ID + " has no input name!");
+					value = false;
+				}
+
 				isEnabled = value;
+			}
+		}
+
+
+		/**
+		 * <summary>Tests if the associated input button is being pressed at the right time, and runs its associated ActionListAsset if it is</summary>
+		 */
+		public void TestForInput ()
+		{
+			if (IsEnabled)
+			{
+				switch (inputType)
+				{
+					case SimulateInputType.Button:
+						if (KickStarter.playerInput.InputGetButtonDown (inputName))
+						{
+							TriggerIfStateMatches ();
+						}
+						break;
+
+					case SimulateInputType.Axis:
+						float axisValue = KickStarter.playerInput.InputGetAxis (inputName);
+						if ((axisThreshold >= 0f && axisValue > axisThreshold) || (axisThreshold < 0f && axisValue < axisThreshold))
+						{
+							TriggerIfStateMatches ();
+						}
+						break;
+				}
+			}
+		}
+
+
+		private void TriggerIfStateMatches ()
+		{
+			if (KickStarter.stateHandler.gameState == gameState && actionListAsset != null && !KickStarter.actionListAssetManager.IsListRunning (actionListAsset))
+			{
+				AdvGame.RunActionListAsset (actionListAsset);
 			}
 		}
 

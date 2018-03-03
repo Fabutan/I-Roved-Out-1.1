@@ -2,10 +2,115 @@
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww20440\viewh15160\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww23380\viewh15260\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Version 1.60.7:\
+\f0\fs24 \cf0 Version 1.61.2:\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 -Fixed: Critical issue when switching scenes if both scenes rely on sprite-based local player characters\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Version 1.61.1:\
+\
+= Upgrade note =\
+-For sprite-based characters that move with a 2D Rigidbody in Unity 5.6 or newer, it is recommended to uncheck the new "Turn root object in 3D space" Inspector field\
+\
+-Added: Option to prevent 2D characters rotating in 3D space, which provides better results for those that move with 2D Rigidbody components\
+-Changed: Reverted the last update's removal of a Default PlayerState if the "Movement method" is None, as this removes the Default Camera field\
+-Fixed: "Variable: Check" Action UI sometimes breaking when comparing a Local variable with a Global variable\
+-Fixed: "Turn instantly when under player control?" movement option interfering with player characters that rely on manual motion control\
+-Fixed: Minor formatting issues with Manual\
+\
+\
+Version 1.61.0:\
+\
+= Upgrade notes =\
+-When left-clicking a Hotspot with no Use interactions in Context Sensitive mode, the Player will move to the Hotspot's "Walk-to Marker" if one is defined\
+-The _Camera script now has a Start function - any custom cameras that derive from it need to override it\
+-When using the "Engine: Play movie clip" in WebGL, the video is now supplied via a URL\
+-Calling StateHandler's GatherObjects function is no longer necessary after adding or removing objects from the scene via custom script\
+\
+= 2D characters =\
+-Added: Independent head-turning for 2D characters\
+-Added: Sprites Unity-animated characters can opt to have their head animations played on a separate layer, allowing for independent moving and talking\
+-Added: Ability to snap "Facing angle" parameter for Sprites Unity Complex characters to the nearest 45 or 90 degrees\
+-Added: Ability to explicitly assign a Sprites Unity character's Animator if one is not present on the sprite child\
+-Fixed: "Turn float" parameter for Sprites Unity Complex characters not being set correctly when walking\
+-Fixed: Error with Sprites Unity-animated characters that have lip-syncing enabled but no Talk animation supplied\
+-Fixed: Direct-controlled 2D characters sometimes not moving in correct direction after autosaving\
+\
+= Menus =\
+-Added: Overhaul of direct-navigation of AC-menus - Horizontal and Vertical axes will now select the most natural element\
+-Added: "Menu: Select element" Action - use to force the selection of elements in directly-navigated Menus\
+-Added: Option to not update Label elements of type "Hotspot" while the player is moving to a Hotspot\
+-Added: Ability to set a mouse-over cursor when interacting with Drag menu elements\
+-Added: Ability for SavesList elements that loads a fixed slot to automatically hide if no valid save file is found\
+-Changed: When directly-navigating an AC Slider menu element, the Horizontal axis is now used to change its value - not the InteractionA button\
+-Fixed: Unity UI menus set to be positioned "On Hotspot" not respecting the Hotspot's "Centre-point override" if rendering in World Space\
+-Fixed: Critical bug with Unity UI-based Menus and loading screens\
+-Fixed: Crash if a Menu Label references a Global Variable that has been deleted\
+-Fixed: Default SubtitlesUI menu prefab not allowing for dynamic positioning\
+-Fixed: Display issues with SavesList elements that rely on a fixed save ID\
+-Fixed: Unity UI-based menu hover sounds not always playing\
+\
+= Speech =\
+-Added: Ability to define parameters for "DialogueOption" ActionLists, as used by Conversations\
+-Added: Option to not play character talking animations forever if a speech line is set to display until the user skips it\
+-Added: Ability to re-order translations listed in the Speech Manager\
+-Added: Minor cosmetic improvements to Speech Manager's popup windows\
+-Fixed: Issue with line endings when exporting game text depending on platform\
+-Fixed: Lipsync text assets sometimes not processing correctly depending on platform\
+-Fixed: Minor UI issues with the Speech Manager\
+\
+= Navigation =\
+-Added: Minor visual improvements to "Retro-mode" character movement\
+-Added: Improved interface when defining holes in a 2D Navigation Mesh\
+-Added: Exposed shared-layer separation distance for Sorting Maps in GameEngine's SceneSettings component\
+-Added: Warning message if no Default NavMesh assigned when using Point And Click movement\
+-Fixed: Characters moving without pathfinding via the "Character: Move to point" Action being interrupted if the active NavMesh is changed\
+-Fixed: 2D Characters sometimes being considered "off NavMesh" if they are placed exactly on the boundary of the NavMesh\
+-Fixed: Footstep Sounds component playing sounds automatically even when set to play only via animation events\
+-Fixed: Player jump animations not playing in Unity 2017.3\
+\
+= Hotspots =\
+-Added: Ability to prevent Highlight component from working automatically when its associated Hotspot is selected\
+-Added: "Via Script Only" option for Settings Manager's "Display Hotspot icons" field\
+-Added: Manual chapter on the Highlight component\
+-Changed: When left-clicking a Hotspot with no Use interactions in Context Sensitive mode, the Player will move to the Hotspot's "Walk-to Marker" if one is defined\
+-Fixed: Calling a Highlight component's HighlightOnInstant method brightening materials even if auto-brightening is disabled\
+\
+= Variables =\
+-Added: Ability to link global variables to custom scripts, to allow for third-party variable synchronisation\
+-Added: "Variable Linking Example" script, to demonstrate how global variables can be synchronised with external scripts\
+\
+= Input =\
+-Added: Ability for Active Inputs to respond to axis-based inputs (such as controller sticks)\
+-Added: Function to PlayerInput script to check if the player is currently holding any Draggable or PickUp object\
+-Changed: To prevent the game pausing, when expected inputs are undefined a warning is now thrown instead of an error\
+-Fixed: InputGetFreeAimDelegate override for free-aiming not having an effect when using Touch Screen input\
+\
+= Editor =\
+-Changed: If the "Movement method" is set to None, and no Player prefab is defined, a Default PlayerStart will no longer be automatically created when organising scene objects\
+-Changed: The Scene Manager\'92s "Organise room objects" label has been renamed to "Organise scene objects" to better reflect its meaning\
+-Changed: The "GUITexture" component has been removed from the Background Image prefab in the 2017.3 release, since it is no longer used\
+-Fixed: Gizmos showing in Game window when testing 2.5D cameras in Unity 2017.3 or using "Unity UI" background display mode\
+\
+= Other =\
+-Added: General performance improvements\
+-Added: Asset license file to the 2D Demo's Graphics folder\
+-Added: "ActionCheckMultipleTemplate" file - use as a basis for creating custom Actions with an arbitrary number of output sockets\
+-Added: Messages to the console if AC if the TurnOnAC and TurnOffAC methods are successfully run\
+-Changed: When using the "Engine: Play movie clip" in WebGL, the video is now supplied via a URL\
+-Changed: Calling StateHandler's GatherObjects function is no longer necessary after adding or removing objects from the scene via custom script\
+-Fixed: Conversation's "TurnOff" method turning off the active Conversation even if it is not the same as the one invoked\
+-Fixed: Critical error if a custom "Check multiple" Action tries to follow an output socket that doesn\'92t exist\
+-Fixed: Minor cursor display issues\
+\
+\
+Version 1.60.7:\
 \
 = Upgrade note =\
 -Characters will now turn instantly if their turn speed is negative, not zero\

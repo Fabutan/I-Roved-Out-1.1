@@ -27,14 +27,15 @@ namespace AC
 
 			ownKickStarter = GetComponent <KickStarter>();
 
-			if (GameObject.FindWithTag (Tags.mainCamera) == null)
+			GameObject taggedMainCamera = GameObject.FindWithTag (Tags.mainCamera);
+			if (taggedMainCamera == null)
 			{
 				ACDebug.LogError ("No MainCamera found - please click 'Organise room objects' in the Scene Manager to create one.");
 			}
 			else
 			{
-				if (GameObject.FindWithTag (Tags.mainCamera).GetComponent <MainCamera>() == null &&
-				    GameObject.FindWithTag (Tags.mainCamera).GetComponentInParent <MainCamera>() == null)
+				if (taggedMainCamera.GetComponent <MainCamera>() == null &&
+					taggedMainCamera.GetComponentInParent <MainCamera>() == null)
 				{
 					ACDebug.LogError ("MainCamera has no MainCamera component.");
 				}

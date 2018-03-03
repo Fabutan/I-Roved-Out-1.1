@@ -95,7 +95,7 @@ namespace AC
 			return _is2D;
 		}
 		
-
+	Vector2 lastMousePosition;
 		public override void _Update ()
 		{
 			if (KickStarter.stateHandler.gameState != GameState.Normal)
@@ -110,6 +110,10 @@ namespace AC
 			{
 				inputMovement = Vector2.zero;
 			}
+
+		inputMovement = ((Vector2) Input.mousePosition - lastMousePosition) / Time.deltaTime;
+		lastMousePosition = Input.mousePosition;
+
 
 			if (xLock != RotationLock.Locked)
 			{
@@ -227,6 +231,7 @@ namespace AC
 			}
 
 			SetProjection ();
+
 		}
 
 

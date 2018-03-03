@@ -80,10 +80,20 @@ namespace AC
 			transformData.LocX = transform.position.x;
 			transformData.LocY = transform.position.y;
 			transformData.LocZ = transform.position.z;
-			
-			transformData.RotX = transform.eulerAngles.x;
-			transformData.RotY = transform.eulerAngles.y;
-			transformData.RotZ = transform.eulerAngles.z;
+
+			Char attachedChar = transform.GetComponent <Char>();
+			if (attachedChar != null)
+			{
+				transformData.RotX = attachedChar.TransformRotation.eulerAngles.x;
+				transformData.RotY = attachedChar.TransformRotation.eulerAngles.y;
+				transformData.RotZ = attachedChar.TransformRotation.eulerAngles.z;
+			}
+			else
+			{
+				transformData.RotX = transform.eulerAngles.x;
+				transformData.RotY = transform.eulerAngles.y;
+				transformData.RotZ = transform.eulerAngles.z;
+			}
 			
 			transformData.ScaleX = transform.localScale.x;
 			transformData.ScaleY = transform.localScale.y;

@@ -1,7 +1,7 @@
 /*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"MenuLabel.cs"
  * 
@@ -48,8 +48,10 @@ namespace AC
 		public bool useCharacterColour = false;
 		/** If True, and sizeType = AC_SizeType.Manual, then the label's height will adjust itself to fit the text within it */
 		public bool autoAdjustHeight = true;
-		/** If True, and labelType = AC_LabelType.Hotspot, .DialogueSpeaker or .DialogueLine, then the display text buffer can be empty */
+		/** If True, and labelType = AC_LabelType.Hotspot, DialogueSpeaker or DialogueLine, then the display text buffer can be empty */
 		public bool updateIfEmpty = false;
+		/** If True, and labelType = AC_LabelType.Hotspot, then the label will not change while the player is moving towards a Hotspot in order to run an interaction */
+		public bool showPendingWhileMovingToHotspot = false;
 
 		/** The ID number of the inventory property to show, if labelType = AC_LabelType.InventoryProperty */
 		public int itemPropertyID;
@@ -95,6 +97,7 @@ namespace AC
 			outlineSize = 2f;
 			newLabel = "";
 			updateIfEmpty = false;
+			showPendingWhileMovingToHotspot = false;
 			inventoryPropertyType = InventoryPropertyType.SelectedItem;
 			itemPropertyID = 0;
 			itemSlotNumber = 0;
@@ -132,6 +135,7 @@ namespace AC
 			useCharacterColour = _element.useCharacterColour;
 			autoAdjustHeight = _element.autoAdjustHeight;
 			updateIfEmpty = _element.updateIfEmpty;
+			showPendingWhileMovingToHotspot = _element.showPendingWhileMovingToHotspot;
 			newLabel = "";
 			inventoryPropertyType = _element.inventoryPropertyType;
 			itemPropertyID = _element.itemPropertyID;
@@ -224,6 +228,11 @@ namespace AC
 			if (labelType == AC_LabelType.Hotspot || labelType == AC_LabelType.DialogueLine || labelType == AC_LabelType.DialogueSpeaker)
 			{
 				updateIfEmpty = CustomGUILayout.Toggle ("Update if string is empty?", updateIfEmpty, apiPrefix + ".updateIfEmpty");
+
+				if (labelType == AC_LabelType.Hotspot)
+				{
+					showPendingWhileMovingToHotspot = CustomGUILayout.ToggleLeft ("Show pending Interaction while moving to Hotspot?", showPendingWhileMovingToHotspot, apiPrefix + ".showPendingWhileMovingToHotspot");
+				}
 			}
 			else if (labelType == AC_LabelType.InventoryProperty)
 			{
@@ -333,6 +342,10 @@ namespace AC
 					{
 						_newLabel = hotspot.GetFullLabel (languageNumber);
 					}
+					else if (!showPendingWhileMovingToHotspot && KickStarter.playerInteraction.GetHotspotMovingTo () != null && KickStarter.playerCursor.GetSelectedCursorID () == -1)
+					{
+						_newLabel = KickStarter.playerInteraction.MovingToHotspotLabel;
+					}
 					else
 					{
 						_newLabel = KickStarter.playerMenus.GetHotspotLabel ();
@@ -349,7 +362,15 @@ namespace AC
 				}
 				else if (labelType == AC_LabelType.GlobalVariable)
 				{
-					newLabel = GlobalVariables.GetVariable (variableID).GetValue (languageNumber);
+					GVar variable = GlobalVariables.GetVariable (variableID);
+					if (variable != null)
+					{
+						newLabel = variable.GetValue (languageNumber);
+					}
+					else
+					{
+						ACDebug.LogWarning ("Label element '" + title + "' cannot display Global Variable " + variableID + " as it does not exist!");
+					}
 				}
 				else if (labelType == AC_LabelType.ActiveSaveProfile)
 				{

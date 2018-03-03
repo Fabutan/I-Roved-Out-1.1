@@ -539,11 +539,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd2648e8ea494b7aaeaaa1ea71c5d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTexture: {fileID: 2800000, guid: 2de7d16b4ac4b402182d4f2ca40e0b2d, type: 3}
+  fadeTexture: {fileID: 0}
   attachedCamera: {fileID: 0}
   lastNavCamera: {fileID: 0}
   lastNavCamera2: {fileID: 0}
-  lookAtTransform: {fileID: 1810585302}
+  lookAtTransform: {fileID: 0}
   isSplitScreen: 0
   isTopLeftSplit: 0
   splitOrientation: 0
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72e60470f1fa4fd1825cd67ce482cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantID: 739790
+  constantID: 36858
   retainInPrefab: 0
   autoManual: 0
 --- !u!1001 &693319417
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72e60470f1fa4fd1825cd67ce482cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantID: 1184434
+  constantID: 36888
   retainInPrefab: 0
   autoManual: 0
 --- !u!1 &1112796799
@@ -1052,7 +1052,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.0700134
+      value: -0.61
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72e60470f1fa4fd1825cd67ce482cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantID: 456106
+  constantID: 36918
   retainInPrefab: 0
   autoManual: 0
 --- !u!1 &1519765628
@@ -1433,8 +1433,7 @@ Prefab:
     - target: {fileID: 11400016, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: actionListAssetOnStart
       value: 
-      objectReference: {fileID: 11400000, guid: 5b9a0dcf2de82134ca63a79a6059eb6f,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: sortingMap
       value: 
@@ -1747,6 +1746,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72e60470f1fa4fd1825cd67ce482cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  constantID: 615066
+  constantID: 36984
   retainInPrefab: 0
   autoManual: 0

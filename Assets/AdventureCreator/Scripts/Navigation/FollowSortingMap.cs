@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2017
+ *	by Chris Burton, 2013-2018
  *	
  *	"FollowSortingMap.cs"
  * 
@@ -34,7 +34,7 @@ namespace AC
 		public bool lockSorting = false;
 		/** If True, then the sorting values of child SpriteRenderers will be affected as well */
 		public bool affectChildren = true;
-		/** If True, then the SpriteRenderer's sorting values will be amended based on the GameObject's position relative to the scene's default SortingMap */
+		/** If True, then the component will follow the default SortingMap, as defined in SceneSettings */
 		public bool followSortingMap = true;
 		/** The SortingMap to follow, if not the scene default (and followSortingMap = False) */
 		public SortingMap customSortingMap = null;
@@ -52,7 +52,6 @@ namespace AC
 		
 		private List<int> offsets = new List<int>();
 		private int sortingOrder = 0;
-		private string sortingOrderString = "";
 		private string sortingLayer = "";
 		private SortingMap sortingMap;
 		
@@ -63,7 +62,6 @@ namespace AC
 			{
 				return;
 			}
-			sortingOrderString = sortingOrder.ToString ();
 
 			renderers = GetComponentsInChildren <Renderer>();
 
@@ -80,6 +78,18 @@ namespace AC
 			}
 			SetOriginalDepth ();
 		}
+
+
+		private void OnEnable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+		}
+
+
+		private void OnDisable ()
+		{
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Unregister (this);
+		}
 		
 		
 		private void Start ()
@@ -88,7 +98,9 @@ namespace AC
 			{
 				return;
 			}
-			
+
+			if (KickStarter.stateHandler) KickStarter.stateHandler.Register (this);
+
 			SetOriginalOffsets ();
 
 			if (followSortingMap && KickStarter.sceneSettings != null && KickStarter.sceneSettings.sortingMap != null)
@@ -136,27 +148,28 @@ namespace AC
 		
 
 		/**
-		 * Gets the order of the sprite, according to the GameObject's position in the SortingMap.
-		 * If the SortingMap affects the sprite's order in layer, then the order number will be returned.
-		 * If the SortingMap affects the sprite's sorting layer, then the layer name will be returned.
+		 * The order of the sprite, according to the GameObject's position in the SortingMap, provided that the mapType = SortingMapType.OrderInLayer
 		 */
-		public string GetOrder ()
+		public int SortingOrder
 		{
-			if (sortingMap == null)
+			get
 			{
-				return "";
+				return sortingOrder;
 			}
-			
-			if (sortingMap.mapType == SortingMapType.OrderInLayer)
-			{
-				return sortingOrderString;
-			}
-			else
+		}
+
+
+		/**
+		 * The layer of the sprite, according to the GameObject's position in the SortingMap, provided that the mapType = SortingMapType.SortingLayer
+		 */
+		public string SortingLayer
+		{
+			get
 			{
 				return sortingLayer;
 			}
 		}
-		
+
 		
 		/**
 		 * Called after a scene change.
@@ -237,17 +250,21 @@ namespace AC
 		 */
 		public void UpdateSortingMap ()
 		{
-			if (followSortingMap && KickStarter.sceneSettings != null && KickStarter.sceneSettings.sortingMap != null)
+			if (followSortingMap)
 			{
-				sortingMap = KickStarter.sceneSettings.sortingMap;
-				SetOriginalDepth ();
-				sortingMap.UpdateSimilarFollowers (this);
+				if (KickStarter.sceneSettings != null && KickStarter.sceneSettings.sortingMap != null)
+				{
+					sortingMap = KickStarter.sceneSettings.sortingMap;
+					SetOriginalDepth ();
+				}
 			}
-			else if (!followSortingMap && customSortingMap != null)
+			else
 			{
-				sortingMap = customSortingMap;
-				SetOriginalDepth ();
-				sortingMap.UpdateSimilarFollowers (this);
+				if (customSortingMap != null)
+				{
+					sortingMap = customSortingMap;
+					SetOriginalDepth ();
+				}
 			}
 		}
 
@@ -278,7 +295,7 @@ namespace AC
 				followSortingMap = false;
 				customSortingMap = _sortingMap;
 			}
-			KickStarter.sceneSettings.UpdateAllSortingMaps ();
+			UpdateSortingMap ();
 		}
 		
 		
@@ -311,15 +328,12 @@ namespace AC
 				}
 			}
 
-			sortingMap.UpdateSimilarFollowers (this);
-
 			if (sortingMap.sortingAreas.Count > 0)
 			{
 				// Set initial value as below the last line
 				if (sortingMap.mapType == SortingMapType.OrderInLayer)
 				{
 					sortingOrder = sortingMap.sortingAreas [sortingMap.sortingAreas.Count-1].order;
-					sortingOrderString = sortingOrder.ToString ();
 				}
 				else if (sortingMap.mapType == SortingMapType.SortingLayer)
 				{
@@ -334,7 +348,6 @@ namespace AC
 						if (sortingMap.mapType == SortingMapType.OrderInLayer)
 						{
 							sortingOrder = sortingMap.sortingAreas [i].order;
-							sortingOrderString = sortingOrder.ToString ();
 						}
 						else if (sortingMap.mapType == SortingMapType.SortingLayer)
 						{
