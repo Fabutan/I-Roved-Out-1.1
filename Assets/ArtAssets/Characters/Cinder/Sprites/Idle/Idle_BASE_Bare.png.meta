@@ -1,0 +1,238 @@
+fileFormatVersion: 2
+guid: 59859972486a26a4388f5cd6b227d1ce
+timeCreated: 1520212323
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_BASE_Bare
+    21300002: BASE_01_Bare
+    21300004: BASE_02_Bare
+    21300006: BASE_03_Bare
+    21300008: BASE_04_Bare
+    21300010: BASE_05_Bare
+    21300012: BASE_06_Bare
+    21300014: BASE_07_Bare
+    21300016: BASE_08_Bare
+    21300018: BASE_09_Bare
+    21300020: BASE_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 450
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BASE_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 2515
+        width: 650
+        height: 1578
+      alignment: 9
+      pivot: {x: 0.47692308, y: 0.5912548}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2222
+        width: 631
+        height: 1871
+      alignment: 9
+      pivot: {x: 0.5118859, y: 0.514698}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 471
+        width: 484
+        height: 1833
+      alignment: 9
+      pivot: {x: 0.38636363, y: 0.52264047}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 997
+        width: 484
+        height: 1843
+      alignment: 9
+      pivot: {x: 0.3966942, y: 0.51980466}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 527
+        width: 611
+        height: 1589
+      alignment: 9
+      pivot: {x: 0.43698853, y: 0.58401513}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 1144
+        y: 2492
+        width: 618
+        height: 1601
+      alignment: 9
+      pivot: {x: 0.5760518, y: 0.58401}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 490
+        width: 747
+        height: 1551
+      alignment: 9
+      pivot: {x: 0.5488621, y: 0.5699549}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 2512
+        width: 588
+        height: 1581
+      alignment: 9
+      pivot: {x: 0.46938777, y: 0.5831752}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 2467
+        y: 1669
+        width: 491
+        height: 1591
+      alignment: 9
+      pivot: {x: 0.4052953, y: 0.5788812}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BASE_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 1932
+        y: 1454
+        width: 628
+        height: 1469
+      alignment: 9
+      pivot: {x: 0.45700637, y: 0.5616065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

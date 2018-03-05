@@ -233,6 +233,7 @@
         <key>ignoredWarnings</key>
         <array>
             <string>large-max-texture-size</string>
+            <string>unity-importer-4.6.1</string>
         </array>
         <key>commonDivisorX</key>
         <uint>1</uint>

@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: 44c7a1cbb46a7864eb88c0db41663924
+timeCreated: 1520122593
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_HAT_Bare
+    21300002: HAT_Bare_01
+    21300004: HAT_Bare_02
+    21300006: HAT_Bare_03
+    21300008: HAT_Bare_04
+    21300010: HAT_Bare_05
+    21300012: HAT_Bare_06
+    21300014: HAT_Bare_07
+    21300016: HAT_Bare_08
+    21300018: HAT_Bare_09
+    21300020: HAT_Bare_10
+    21300022: HAT_01_Bare
+    21300024: HAT_02_Bare
+    21300026: HAT_03_Bare
+    21300028: HAT_04_Bare
+    21300030: HAT_05_Bare
+    21300032: HAT_06_Bare
+    21300034: HAT_07_Bare
+    21300036: HAT_08_Bare
+    21300038: HAT_09_Bare
+    21300040: HAT_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 450
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HAT_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 511
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5618557, y: -2.146875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1119
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57216495, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1727
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57216495, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1423
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57216495, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 815
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57216495, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 207
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5438144, y: -2.16875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 966
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5154639, y: -2.159375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 358
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.5386598, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 662
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57216495, y: -2.165625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HAT_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 1270
+        width: 388
+        height: 320
+      alignment: 9
+      pivot: {x: 0.57731956, y: -2.14375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
