@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 4e86171bcca5caf4ba91b9e7ddc63e5a
+timeCreated: 1520121532
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: TORSO_Bare_01
+    21300002: TORSO_Bare_02
+    21300004: TORSO_Bare_03
+    21300006: TORSO_Bare_04
+    21300008: TORSO_Bare_05
+    21300010: TORSO_Bare_06
+    21300012: TORSO_Bare_07
+    21300014: TORSO_Bare_08
+    21300016: TORSO_Bare_09
+    21300018: TORSO_Bare_10
+    21300020: TORSO_01_Bare
+    21300022: TORSO_02_Bare
+    21300024: TORSO_03_Bare
+    21300026: TORSO_04_Bare
+    21300028: TORSO_05_Bare
+    21300030: TORSO_06_Bare
+    21300032: TORSO_07_Bare
+    21300034: TORSO_08_Bare
+    21300036: TORSO_09_Bare
+    21300038: TORSO_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 450
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TORSO_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 1232
+        width: 318
+        height: 815
+      alignment: 9
+      pivot: {x: 0.5597484, y: 0.20858896}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 388
+        width: 285
+        height: 827
+      alignment: 9
+      pivot: {x: 0.4280702, y: 0.1898428}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 415
+        width: 282
+        height: 815
+      alignment: 9
+      pivot: {x: 0.4432624, y: 0.19018404}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 1265
+        width: 324
+        height: 782
+      alignment: 9
+      pivot: {x: 0.40123457, y: 0.16496164}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 1259
+        y: 1283
+        width: 418
+        height: 764
+      alignment: 9
+      pivot: {x: 0.33492824, y: 0.13481675}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 1259
+        y: 515
+        width: 405
+        height: 766
+      alignment: 9
+      pivot: {x: 0.30617285, y: 0.15535247}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 514
+        width: 376
+        height: 767
+      alignment: 9
+      pivot: {x: 0.27393618, y: 0.1303781}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 432
+        width: 326
+        height: 798
+      alignment: 9
+      pivot: {x: 0.33128834, y: 0.17418547}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 494
+        width: 326
+        height: 1553
+      alignment: 9
+      pivot: {x: 0.42944786, y: 0.56857693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TORSO_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 1217
+        width: 282
+        height: 830
+      alignment: 9
+      pivot: {x: 0.5141844, y: 0.22409639}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

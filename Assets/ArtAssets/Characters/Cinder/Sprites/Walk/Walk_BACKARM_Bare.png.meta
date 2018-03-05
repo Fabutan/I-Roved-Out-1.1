@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: 75eb082401274d24a97b985d196b4e68
+timeCreated: 1520122242
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_BACKARM_Bare
+    21300002: BACKARM_Bare_01
+    21300004: BACKARM_Bare_02
+    21300006: BACKARM_Bare_03
+    21300008: BACKARM_Bare_04
+    21300010: BACKARM_Bare_05
+    21300012: BACKARM_Bare_06
+    21300014: BACKARM_Bare_07
+    21300016: BACKARM_Bare_08
+    21300018: BACKARM_Bare_09
+    21300020: BACKARM_Bare_10
+    21300022: BACKARM_01_Bare
+    21300024: BACKARM_02_Bare
+    21300026: BACKARM_03_Bare
+    21300028: BACKARM_04_Bare
+    21300030: BACKARM_05_Bare
+    21300032: BACKARM_06_Bare
+    21300034: BACKARM_07_Bare
+    21300036: BACKARM_08_Bare
+    21300038: BACKARM_09_Bare
+    21300040: BACKARM_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 450
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BACKARM_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 180
+        width: 89
+        height: 477
+      alignment: 9
+      pivot: {x: -1.0674157, y: 0.3417191}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 319
+        width: 80
+        height: 476
+      alignment: 9
+      pivot: {x: -1.1, y: 0.3277311}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 100
+        width: 144
+        height: 458
+      alignment: 9
+      pivot: {x: -0.3263889, y: 0.37991267}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 992
+        width: 1
+        height: 1
+      alignment: 9
+      pivot: {x: 1024, y: -1023}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 301
+        width: 191
+        height: 279
+      alignment: 9
+      pivot: {x: 0.79581153, y: -0.56630826}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 461
+        width: 404
+        height: 560
+      alignment: 9
+      pivot: {x: 0.31930694, y: 0.05892857}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 479
+        width: 90
+        height: 318
+      alignment: 9
+      pivot: {x: 1.1333333, y: -0.6006289}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 674
+        width: 101
+        height: 291
+      alignment: 9
+      pivot: {x: 1.069307, y: -0.6563574}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 133
+        width: 122
+        height: 464
+      alignment: 9
+      pivot: {x: -0.74590164, y: 0.28879312}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BACKARM_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 524
+        width: 136
+        height: 472
+      alignment: 9
+      pivot: {x: -0.3897059, y: 0.37288135}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

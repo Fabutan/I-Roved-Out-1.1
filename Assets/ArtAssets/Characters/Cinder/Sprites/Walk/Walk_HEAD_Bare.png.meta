@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: 1d1bd41d412c50c49a5877e61b9b5ce3
+timeCreated: 1520122667
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_HEAD_Bare
+    21300002: HEAD_Bare_01
+    21300004: HEAD_Bare_02
+    21300006: HEAD_Bare_03
+    21300008: HEAD_Bare_04
+    21300010: HEAD_Bare_05
+    21300012: HEAD_Bare_06
+    21300014: HEAD_Bare_07
+    21300016: HEAD_Bare_08
+    21300018: HEAD_Bare_09
+    21300020: HEAD_Bare_10
+    21300022: HEAD_01_Bare
+    21300024: HEAD_02_Bare
+    21300026: HEAD_03_Bare
+    21300028: HEAD_04_Bare
+    21300030: HEAD_05_Bare
+    21300032: HEAD_06_Bare
+    21300034: HEAD_07_Bare
+    21300036: HEAD_08_Bare
+    21300038: HEAD_09_Bare
+    21300040: HEAD_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 450
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HEAD_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1262
+        width: 231
+        height: 391
+      alignment: 9
+      pivot: {x: 0.5021645, y: -1.455243}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 104
+        width: 231
+        height: 380
+      alignment: 9
+      pivot: {x: 0.47619048, y: -1.5447369}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 874
+        width: 231
+        height: 386
+      alignment: 9
+      pivot: {x: 0.4848485, y: -1.5103627}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1655
+        width: 232
+        height: 392
+      alignment: 9
+      pivot: {x: 0.51724136, y: -1.4668367}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 114
+        width: 231
+        height: 376
+      alignment: 9
+      pivot: {x: 0.54112554, y: -1.5718085}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 880
+        width: 229
+        height: 381
+      alignment: 9
+      pivot: {x: 0.49344978, y: -1.5328084}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 496
+        width: 231
+        height: 379
+      alignment: 9
+      pivot: {x: 0.44588745, y: -1.5408971}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 488
+        width: 231
+        height: 381
+      alignment: 9
+      pivot: {x: 0.47186148, y: -1.5223097}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 1263
+        width: 231
+        height: 390
+      alignment: 9
+      pivot: {x: 0.53246754, y: -1.4641025}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: HEAD_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 1655
+        width: 231
+        height: 392
+      alignment: 9
+      pivot: {x: 0.5367965, y: -1.4336735}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
