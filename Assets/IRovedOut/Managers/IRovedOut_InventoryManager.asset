@@ -87,7 +87,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -137,7 +155,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -187,7 +223,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -237,7 +291,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -287,7 +359,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -337,7 +427,25 @@ MonoBehaviour:
     carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
@@ -381,22 +489,40 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Lesser Sweater (+2 Vs. Cold)
+  - label: LesserSweater
     id: 7
-    altLabel: 
+    altLabel: Lesser Sweater (+2 Vs. Cold)
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
-    vars: []
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
     tex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
-    activeTex: {fileID: 0}
+    activeTex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
     selectedTex: {fileID: 0}
     linkedPrefab: {fileID: 0}
     cursorIcon:
-      texture: {fileID: 0}
+      texture: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
       isAnimated: 0
       numFrames: 1
       numRows: 1
@@ -414,12 +540,80 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 1
+    hotspotPrefix1:
+      label: Equip
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Athletic Pants
+    id: 8
+    altLabel: Athletic Pants (+1 Movement Speed)
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    tex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+    activeTex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 2
     isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
-    overrideUseSyntax: 0
+    overrideUseSyntax: 1
     hotspotPrefix1:
-      label: Use
+      label: Equip
       lineID: -1
     hotspotPrefix2:
       label: on
@@ -434,9 +628,33 @@ MonoBehaviour:
   bins:
   - label: Puzzle
     id: 0
-  - label: Clothing
+  - label: Top
     id: 1
-  invVars: []
+  - label: Bottoms
+    id: 2
+  - label: Feet
+    id: 3
+  - label: Hat
+    id: 4
+  invVars:
+  - label: Property 1
+    id: 0
+    type: 0
+    val: 0
+    floatVal: 0
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 1
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+    description: 
+    limitToCategories: 0
+    categoryIDs: 
   unhandledCombine: {fileID: 0}
   unhandledHotspot: {fileID: 0}
   passUnhandledHotspotAsParameter: 0

@@ -17,7 +17,7 @@ MonoBehaviour:
   takeSaveScreenshots: 1
   useProfiles: 0
   maxSaves: 5
-  orderSavesByUpdateTime: 0
+  orderSavesByUpdateTime: 1
   reloadSceneWhenLoading: 0
   useJsonSerialization: 0
   sceneAttributes: []
