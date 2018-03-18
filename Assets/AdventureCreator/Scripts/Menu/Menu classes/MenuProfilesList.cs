@@ -190,7 +190,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuProfilesList)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -223,11 +223,11 @@ namespace AC
 
 			if (autoHandle)
 			{
-				ActionListGUI ("ActionList after selecting:", menu.title, "After_Selecting");
+				ActionListGUI ("ActionList after selecting:", menu.title, "After_Selecting", apiPrefix);
 			}
 			else
 			{
-				ActionListGUI ("ActionList when click:", menu.title, "When_Click");
+				ActionListGUI ("ActionList when click:", menu.title, "When_Click", apiPrefix);
 			}
 
 			if (source != MenuSource.AdventureCreator)
@@ -263,9 +263,9 @@ namespace AC
 		}
 
 
-		private void ActionListGUI (string label, string menuTitle, string suffix)
+		private void ActionListGUI (string label, string menuTitle, string suffix, string apiPrefix)
 		{
-			actionListOnClick = ActionListAssetMenu.AssetGUI (label, actionListOnClick, "", menuTitle + "_" + title + "_" + suffix);
+			actionListOnClick = ActionListAssetMenu.AssetGUI (label, actionListOnClick, apiPrefix + ".actionListOnClick", menuTitle + "_" + title + "_" + suffix);
 			
 			if (actionListOnClick != null && actionListOnClick.useParameters && actionListOnClick.parameters.Count > 0)
 			{

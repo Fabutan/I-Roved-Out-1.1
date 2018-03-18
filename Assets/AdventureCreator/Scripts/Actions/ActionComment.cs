@@ -24,8 +24,9 @@ namespace AC
 	{
 		
 		public string commentText = "";
-		public bool outputToDebugger;
 
+		private enum ACLogType { No, AsInfo, AsWarning, AsError };
+		[SerializeField] private ACLogType acLogType = ACLogType.AsInfo;
 		private string convertedText;
 		
 		
@@ -46,9 +47,20 @@ namespace AC
 
 		public override float Run ()
 		{
-			if (outputToDebugger && !string.IsNullOrEmpty (convertedText))
+			if (acLogType != ACLogType.No && !string.IsNullOrEmpty (convertedText))
 			{
-				ACDebug.Log (convertedText);
+				if (acLogType == ACLogType.AsInfo)
+				{
+					ACDebug.Log (convertedText);
+				}
+				else if (acLogType == ACLogType.AsWarning)
+				{
+					ACDebug.LogWarning (convertedText);
+				}
+				else if (acLogType == ACLogType.AsError)
+				{
+					ACDebug.LogError (convertedText);
+				}
 			}
 			return 0f;
 		}
@@ -61,8 +73,8 @@ namespace AC
 			EditorStyles.textField.wordWrap = true;
 			commentText = EditorGUILayout.TextArea (commentText, GUILayout.MaxWidth (280f));
 
-			outputToDebugger = EditorGUILayout.Toggle ("Print in Console?", outputToDebugger);
-			
+			acLogType = (ACLogType) EditorGUILayout.EnumPopup ("Display in Console?", acLogType);
+
 			AfterRunningOption ();
 		}
 		

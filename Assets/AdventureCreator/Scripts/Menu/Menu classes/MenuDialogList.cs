@@ -59,7 +59,7 @@ namespace AC
 
 		private int numOptions = 0;
 		private string[] labels = null;
-		private Texture2D[] icons;
+		private CursorIconBase[] icons;
 		private bool[] chosens = null;
 
 
@@ -199,7 +199,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuDialogList)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -324,7 +324,7 @@ namespace AC
 
 					if (displayType == ConversationDisplayType.IconOnly || displayType == ConversationDisplayType.IconAndText)
 					{
-						uiSlots[_slot].SetImage (icons [_slot]);
+						uiSlots[_slot].SetImageAsSprite (icons [_slot].GetAnimatedSprite (isActive));
 					}
 					if (displayType == ConversationDisplayType.TextOnly || displayType == ConversationDisplayType.IconAndText)
 					{
@@ -427,7 +427,7 @@ namespace AC
 			{
 				if (Application.isPlaying && icons[_slot] != null)
 				{
-					GUI.DrawTexture (ZoomRect (GetSlotRectRelative (_slot), zoom), icons[_slot], ScaleMode.StretchToFill, true, 0f);
+					icons[_slot].DrawAsInteraction (ZoomRect (GetSlotRectRelative (_slot), zoom), isActive);
 				}
 				else if (testIcon != null)
 				{
@@ -465,8 +465,9 @@ namespace AC
 							labels[0] = KickStarter.playerInput.activeConversation.GetOptionName (optionToShow - 1);
 							labels[0] = AddIndexNumber (labels[0], optionToShow);
 							
-							icons = new Texture2D[numSlots];
-							icons[0] = KickStarter.playerInput.activeConversation.GetOptionIcon (optionToShow - 1);
+							icons = new CursorIconBase[numSlots];
+							icons[0] = new CursorIconBase ();
+							icons[0].Copy (KickStarter.playerInput.activeConversation.GetOptionIcon (optionToShow - 1));
 
 							chosens = new bool[numSlots];
 							chosens[0] = KickStarter.playerInput.activeConversation.OptionHasBeenChosen (optionToShow -1);
@@ -481,13 +482,14 @@ namespace AC
 						}
 
 						labels = new string[numSlots];
-						icons = new Texture2D[numSlots];
+						icons = new CursorIconBase[numSlots];
 						chosens = new bool[numSlots];
 						for (int i=0; i<numSlots; i++)
 						{
 							labels[i] = KickStarter.playerInput.activeConversation.GetOptionName (i + offset);
 							labels[i] = AddIndexNumber (labels[i], i + offset + 1);
-							icons[i] = KickStarter.playerInput.activeConversation.GetOptionIcon (i + offset);
+							icons[i] = new CursorIconBase ();
+							icons[i].Copy (KickStarter.playerInput.activeConversation.GetOptionIcon (i + offset));
 							chosens[i] = KickStarter.playerInput.activeConversation.OptionHasBeenChosen (i + offset);
 						}
 
@@ -524,7 +526,7 @@ namespace AC
 				numSlots = 1;
 				offset = 0;
 				labels = new string[numSlots];
-				icons = new Texture2D[numSlots];
+				icons = new CursorIconBase[numSlots];
 				chosens = new bool[numSlots];
 			}
 

@@ -40,6 +40,7 @@ MonoBehaviour:
   placeAudioInSubfolders: 0
   separateLines: 0
   separateLinePause: 1
+  resetExpressionsEachLine: 1
   lines: []
   languages:
   - Original

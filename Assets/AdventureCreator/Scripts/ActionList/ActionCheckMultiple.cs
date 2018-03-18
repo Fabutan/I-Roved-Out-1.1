@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  *
  *	Adventure Creator
  *	by Chris Burton, 2013-2016

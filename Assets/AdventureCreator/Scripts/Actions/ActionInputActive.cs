@@ -70,7 +70,7 @@ namespace AC
 				string[] labelList = new string[KickStarter.settingsManager.activeInputs.Count];
 				for (int i=0; i<KickStarter.settingsManager.activeInputs.Count; i++)
 				{
-					labelList[i] = KickStarter.settingsManager.activeInputs[i].inputName;
+					labelList[i] = i.ToString () + ": " + KickStarter.settingsManager.activeInputs[i].inputName;
 
 					if (KickStarter.settingsManager.activeInputs[i].ID == activeInputID)
 					{
@@ -87,7 +87,7 @@ namespace AC
 					activeInputID = 0;
 				}
 
-				tempNumber = EditorGUILayout.Popup (tempNumber, labelList);
+				tempNumber = EditorGUILayout.Popup ("Active input:", tempNumber, labelList);
 				activeInputID = KickStarter.settingsManager.activeInputs [tempNumber].ID;
 				newState = EditorGUILayout.Toggle ("New state:", newState);
 			}

@@ -186,7 +186,9 @@ namespace AC
 
 		private void CreateEventSystem ()
 		{
-			if (GameObject.FindObjectOfType <UnityEngine.EventSystems.EventSystem>() == null)
+			UnityEngine.EventSystems.EventSystem localEventSystem = GameObject.FindObjectOfType <UnityEngine.EventSystems.EventSystem>();
+
+			if (localEventSystem == null)
 			{
 				UnityEngine.EventSystems.EventSystem _eventSystem = null;
 
@@ -207,6 +209,12 @@ namespace AC
 				{
 					eventSystem = _eventSystem;
 				}
+			}
+			else if (eventSystem == null)
+			{
+				eventSystem = localEventSystem;
+
+				ACDebug.LogWarning ("A local EventSystem object was found in the scene.  This will override the one created by AC, and may cause problems.  A custom EventSystem prefab can be assigned in the Menu Manager.", localEventSystem);
 			}
 		}
 
@@ -989,6 +997,30 @@ namespace AC
 						foundMouseOverMenu = true;
 					}
 				}
+				else if (KickStarter.stateHandler.gameState == GameState.Paused || KickStarter.stateHandler.gameState == GameState.DialogOptions)
+				{
+					menu.TurnOff (true);
+				}
+				else if (menu.IsOn () && KickStarter.actionListManager.IsGameplayBlocked ())
+				{
+					menu.TurnOff (true);
+				}
+			}
+
+			else if (menu.appearType == AppearType.DuringGameplayAndConversations)
+			{
+				if (!menu.isLocked && (KickStarter.stateHandler.gameState == GameState.Normal || KickStarter.stateHandler.gameState == GameState.DialogOptions))
+				{
+					if (menu.IsOff ())
+					{
+						menu.TurnOn (true);
+					}
+
+					if (menu.IsOn () && menu.IsPointInside (invertedMouse) && !menu.ignoreMouseClicks)
+					{
+						foundMouseOverMenu = true;
+					}
+				}
 				else if (KickStarter.stateHandler.gameState == GameState.Paused)
 				{
 					menu.TurnOff (true);
@@ -1108,7 +1140,7 @@ namespace AC
 			
 			else if (menu.appearType == AppearType.DuringConversation)
 			{
-				if (KickStarter.playerInput.activeConversation != null && KickStarter.stateHandler.gameState == GameState.DialogOptions)
+				if (KickStarter.playerInput.IsInConversation () && KickStarter.stateHandler.gameState == GameState.DialogOptions)
 				{
 					menu.TurnOn (true);
 				}
@@ -2211,7 +2243,7 @@ namespace AC
 						}
 						else
 						{
-							if (menu.appearType == AppearType.DuringConversation && KickStarter.playerInput.activeConversation != null)
+							if (menu.appearType == AppearType.DuringConversation && KickStarter.playerInput.IsInConversation ())
 							{
 								ACDebug.LogWarning ("Cannot turn off Menu '" + menu.title + "' as a Conversation is currently active.");
 								continue;
@@ -2515,7 +2547,7 @@ namespace AC
 		 */
 		public static bool IsSavingLocked (Action _actionToIgnore = null)
 		{
-			if (KickStarter.stateHandler.gameState == GameState.DialogOptions || (KickStarter.stateHandler.gameState == GameState.Paused && KickStarter.playerInput.activeConversation != null))
+			if (KickStarter.stateHandler.gameState == GameState.DialogOptions || (KickStarter.stateHandler.gameState == GameState.Paused && KickStarter.playerInput.IsInConversation ()))
 			{
 				return true;
 			}

@@ -41,35 +41,35 @@ namespace AC
 			EditorGUILayout.Space ();
 			
 			EditorGUILayout.BeginVertical ("Button");
-				EditorGUILayout.LabelField ("X-axis movement", EditorStyles.boldLabel);
+			EditorGUILayout.LabelField ("X-axis movement", EditorStyles.boldLabel);
+			
+			_target.lockXLocAxis = EditorGUILayout.Toggle ("Lock?", _target.lockXLocAxis);
+			
+			if (!_target.lockXLocAxis)
+			{
+				_target.xLocConstrainType = (CameraLocConstrainType) EditorGUILayout.EnumPopup ("Affected by:", _target.xLocConstrainType);
 				
-				_target.lockXLocAxis = EditorGUILayout.Toggle ("Lock?", _target.lockXLocAxis);
-				
-				if (!_target.lockXLocAxis)
+				EditorGUILayout.BeginVertical ("Button");
+				if (_target.xLocConstrainType == CameraLocConstrainType.SideScrolling)
 				{
-					_target.xLocConstrainType = (CameraLocConstrainType) EditorGUILayout.EnumPopup ("Affected by:", _target.xLocConstrainType);
-					
-					EditorGUILayout.BeginVertical ("Button");
-						if (_target.xLocConstrainType == CameraLocConstrainType.SideScrolling)
-						{
-							_target.xFreedom = EditorGUILayout.FloatField ("Track freedom:", _target.xFreedom);
-						}
-						else
-						{
-							_target.xGradient = EditorGUILayout.FloatField ("Influence:", _target.xGradient);
-							_target.xOffset = EditorGUILayout.FloatField ("Offset:", _target.xOffset);
-						}
-					EditorGUILayout.EndVertical ();
-		
-					_target.limitX = EditorGUILayout.BeginToggleGroup ("Constrain?", _target.limitX);
-					
-					EditorGUILayout.BeginVertical ("Button");
-					_target.constrainX[0] = EditorGUILayout.FloatField ("Minimum:", _target.constrainX[0]);
-					_target.constrainX[1] = EditorGUILayout.FloatField ("Maximum:", _target.constrainX[1]);
-					EditorGUILayout.EndVertical ();
-		
-					EditorGUILayout.EndToggleGroup ();
+					_target.xFreedom = EditorGUILayout.FloatField ("Track freedom:", _target.xFreedom);
 				}
+				else
+				{
+					_target.xGradient = EditorGUILayout.FloatField ("Influence:", _target.xGradient);
+				}
+				_target.xOffset = EditorGUILayout.FloatField ("Offset:", _target.xOffset);
+				EditorGUILayout.EndVertical ();
+	
+				_target.limitX = EditorGUILayout.BeginToggleGroup ("Constrain?", _target.limitX);
+				
+				EditorGUILayout.BeginVertical ("Button");
+				_target.constrainX[0] = EditorGUILayout.FloatField ("Minimum:", _target.constrainX[0]);
+				_target.constrainX[1] = EditorGUILayout.FloatField ("Maximum:", _target.constrainX[1]);
+				EditorGUILayout.EndVertical ();
+	
+				EditorGUILayout.EndToggleGroup ();
+			}
 				
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();
@@ -83,17 +83,17 @@ namespace AC
 			{
 				_target.yLocConstrainType = (CameraLocConstrainType) EditorGUILayout.EnumPopup ("Affected by:", _target.yLocConstrainType);
 
-				if(_target.yLocConstrainType == CameraLocConstrainType.SideScrolling)
+				EditorGUILayout.BeginVertical ("Button");
+				if (_target.yLocConstrainType == CameraLocConstrainType.SideScrolling)
 				{
-					EditorGUILayout.HelpBox ("This option is not available for Y-movement", MessageType.Warning);
+					_target.yFreedom = EditorGUILayout.FloatField ("Track freedom:", _target.yFreedom);
 				}
 				else
 				{
-					EditorGUILayout.BeginVertical ("Button");
-						_target.yGradientLoc = EditorGUILayout.FloatField ("Influence:", _target.yGradientLoc);
-						_target.yOffsetLoc = EditorGUILayout.FloatField ("Offset:", _target.yOffsetLoc);
-					EditorGUILayout.EndVertical ();
+					_target.yGradientLoc = EditorGUILayout.FloatField ("Influence:", _target.yGradientLoc);
 				}
+				_target.yOffsetLoc = EditorGUILayout.FloatField ("Offset:", _target.yOffsetLoc);
+				EditorGUILayout.EndVertical ();
 
 				_target.limitYLoc = EditorGUILayout.BeginToggleGroup ("Constrain?", _target.limitYLoc);
 				
@@ -109,35 +109,35 @@ namespace AC
 			EditorGUILayout.Space ();
 
 			EditorGUILayout.BeginVertical ("Button");
-				EditorGUILayout.LabelField ("Z-axis movement", EditorStyles.boldLabel);
-		
-				_target.lockZLocAxis = EditorGUILayout.Toggle ("Lock?", _target.lockZLocAxis);
+			EditorGUILayout.LabelField ("Z-axis movement", EditorStyles.boldLabel);
+	
+			_target.lockZLocAxis = EditorGUILayout.Toggle ("Lock?", _target.lockZLocAxis);
+			
+			if (!_target.lockZLocAxis)
+			{
+				_target.zLocConstrainType = (CameraLocConstrainType) EditorGUILayout.EnumPopup ("Affected by:", _target.zLocConstrainType);
 				
-				if (!_target.lockZLocAxis)
+				EditorGUILayout.BeginVertical ("Button");
+				if (_target.zLocConstrainType == CameraLocConstrainType.SideScrolling)
 				{
-					_target.zLocConstrainType = (CameraLocConstrainType) EditorGUILayout.EnumPopup ("Affected by:", _target.zLocConstrainType);
-					
-					EditorGUILayout.BeginVertical ("Button");
-						if (_target.zLocConstrainType == CameraLocConstrainType.SideScrolling)
-						{
-							_target.zFreedom = EditorGUILayout.FloatField ("Track freedom:", _target.zFreedom);
-						}
-						else
-						{
-							_target.zGradient = EditorGUILayout.FloatField ("Influence:", _target.zGradient);
-							_target.zOffset = EditorGUILayout.FloatField ("Offset:", _target.zOffset);
-						}
-					EditorGUILayout.EndVertical ();
-		
-					_target.limitZ = EditorGUILayout.BeginToggleGroup ("Constrain?", _target.limitZ);
-					
-					EditorGUILayout.BeginVertical ("Button");
-						_target.constrainZ[0] = EditorGUILayout.FloatField ("Minimum:", _target.constrainZ[0]);
-						_target.constrainZ[1] = EditorGUILayout.FloatField ("Maximum:", _target.constrainZ[1]);
-					EditorGUILayout.EndVertical ();
-		
-					EditorGUILayout.EndToggleGroup ();
+					_target.zFreedom = EditorGUILayout.FloatField ("Track freedom:", _target.zFreedom);
 				}
+				else
+				{
+					_target.zGradient = EditorGUILayout.FloatField ("Influence:", _target.zGradient);
+				}
+				_target.zOffset = EditorGUILayout.FloatField ("Offset:", _target.zOffset);
+				EditorGUILayout.EndVertical ();
+	
+				_target.limitZ = EditorGUILayout.BeginToggleGroup ("Constrain?", _target.limitZ);
+				
+				EditorGUILayout.BeginVertical ("Button");
+				_target.constrainZ[0] = EditorGUILayout.FloatField ("Minimum:", _target.constrainZ[0]);
+				_target.constrainZ[1] = EditorGUILayout.FloatField ("Maximum:", _target.constrainZ[1]);
+				EditorGUILayout.EndVertical ();
+	
+				EditorGUILayout.EndToggleGroup ();
+			}
 			
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.Space ();

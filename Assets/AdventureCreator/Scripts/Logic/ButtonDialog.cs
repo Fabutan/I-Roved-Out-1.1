@@ -26,8 +26,10 @@ namespace AC
 		public string label = "(Not set)";
 		/** The translation ID number of the display label, as set by SpeechManager */
 		public int lineID = -1;
-		/** The option's display icon */
+		/** Deprecated */
 		public Texture2D icon;
+		/** The option's display icon */
+		public CursorIconBase cursorIcon;
 		/** If True, the option is enabled, and will be displayed in a MenuDialogList element */
 		public bool isOn;
 		/** If True, the option is locked, and cannot be enabled or disabled */
@@ -67,6 +69,7 @@ namespace AC
 		{
 			label = "";
 			icon = null;
+			cursorIcon = new CursorIconBase ();
 			isOn = true;
 			isLocked = false;
 			conversationAction = ConversationAction.ReturnToConversation;
@@ -100,6 +103,7 @@ namespace AC
 		{
 			label = _label;
 			icon = null;
+			cursorIcon = new CursorIconBase ();
 			isOn = _startEnabled;
 			isLocked = false;
 
@@ -126,6 +130,7 @@ namespace AC
 		{
 			label = _label;
 			icon = null;
+			cursorIcon = new CursorIconBase ();
 			isOn = _startEnabled;
 			isLocked = false;
 
@@ -150,6 +155,7 @@ namespace AC
 		{
 			label = _label;
 			icon = null;
+			cursorIcon = new CursorIconBase ();
 			isOn = _isOn;
 			isLocked = false;
 
@@ -181,6 +187,25 @@ namespace AC
 				{
 					return true;
 				}
+			}
+			return false;
+		}
+
+
+		/**
+		 * <summary>Upgrades the class to make use of cursorIcon instead of icon as the texture to display</summary>
+		 * <returns>True if the class was upgraded</returns>
+		 */
+		public bool Upgrade ()
+		{
+			if (icon != null)
+			{
+				if (cursorIcon.texture == null)
+				{
+					cursorIcon.texture = icon;
+					return true;
+				}
+				icon = null;
 			}
 			return false;
 		}

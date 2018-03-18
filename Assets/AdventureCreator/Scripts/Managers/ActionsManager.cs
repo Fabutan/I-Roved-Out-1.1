@@ -440,10 +440,10 @@ namespace AC
 			ActionList[] actionLists = GameObject.FindObjectsOfType (typeof (ActionList)) as ActionList[];
 			foreach (ActionList list in actionLists)
 			{
-				int numFinds = SearchActionsForType (list.GetActions (), actionType);
-				if (numFinds > 0)
+				int[] foundIDs = SearchActionsForType (list.GetActions (), actionType);
+				if (foundIDs != null && foundIDs.Length > 0)
 				{
-					ACDebug.Log (sceneLabel + " Found " + numFinds + " instances in '" + list.gameObject.name + "'", list.gameObject);
+					ACDebug.Log (sceneLabel + " Found " + foundIDs.Length + " instances in '" + list.gameObject.name + "' " + CreateIDReport (foundIDs), list.gameObject);
 				}
 			}
 		}
@@ -464,34 +464,50 @@ namespace AC
 			searchedAssets.Add (actionListAsset);
 			if (actionListAsset != null)
 			{
-				int numFinds = SearchActionsForType (actionListAsset.actions, actionType);
-				if (numFinds > 0)
+				int[] foundIDs = SearchActionsForType (actionListAsset.actions, actionType);
+				if (foundIDs != null && foundIDs.Length > 0)
 				{
-					ACDebug.Log ("(Asset: " + actionListAsset.name + ") Found " + numFinds + " instances of '" + actionType.GetFullTitle () + "'", actionListAsset);
+					ACDebug.Log ("(Asset: " + actionListAsset.name + ") Found " + foundIDs.Length + " instances of '" + actionType.GetFullTitle () + "' " + CreateIDReport (foundIDs), actionListAsset);
 				}
 			}
 		}
-		
-		
-		private int SearchActionsForType (List<Action> actionList, ActionType actionType)
+
+
+		private string CreateIDReport (int[] foundIDs)
 		{
-			if (actionList == null)
+			string idLabel = "(IDs ";
+			for (int i=0; i<foundIDs.Length; i++)
 			{
-				return 0;
-			}
-			int numFinds = 0;
-			foreach (Action action in actionList)
-			{
-				if ((action.category == actionType.category && action.title == actionType.title) ||
-				    (action.category == actionType.category && action.title.Contains (actionType.title)) ||
-				    (action.GetType ().ToString () == actionType.fileName) ||
-				    (action.GetType ().ToString () == "AC." + actionType.fileName))
+				idLabel += foundIDs[i];
+				if (i < (foundIDs.Length - 1))
 				{
-					numFinds ++;
+					idLabel += ", ";
 				}
 			}
-			
-			return numFinds;
+			idLabel += ")";
+			return idLabel;
+		}
+		
+		
+		private int[] SearchActionsForType (List<Action> actionList, ActionType actionType)
+		{
+			List<int> foundIDs = new List<int>();
+
+			if (actionList != null)
+			{
+				foreach (Action action in actionList)
+				{
+					if ((action.category == actionType.category && action.title == actionType.title) ||
+					    (action.category == actionType.category && action.title.Contains (actionType.title)) ||
+					    (action.GetType ().ToString () == actionType.fileName) ||
+					    (action.GetType ().ToString () == "AC." + actionType.fileName))
+					{
+						int id = actionList.IndexOf (action);
+						foundIDs.Add (id);
+					}
+				}
+			}
+			return foundIDs.ToArray ();
 		}
 
 		/** The folder path to the default Actions */

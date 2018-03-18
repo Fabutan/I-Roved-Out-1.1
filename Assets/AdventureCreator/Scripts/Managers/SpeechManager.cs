@@ -92,6 +92,8 @@ namespace AC
 		public bool separateLines = false;
 		/** The delay between carriage return-separated speech lines, if separateLines = True */
 		public float separateLinePause = 1f;
+		/** If True, then a character's expression will be reset with each new speech line */
+		public bool resetExpressionsEachLine = true;
 
 		/** All SpeechLines generated to store translations and audio filename references */
 		public List<SpeechLine> lines = new List<SpeechLine> ();
@@ -230,6 +232,7 @@ namespace AC
 				}
 				
 				keepTextInBuffer = CustomGUILayout.ToggleLeft ("Retain subtitle text buffer once line has ended?", keepTextInBuffer, "AC.KickStarter.speechManager.keepTextInBuffer");
+				resetExpressionsEachLine = CustomGUILayout.ToggleLeft ("Reset character expression with each line?", resetExpressionsEachLine, "AC.KickStarter.speechManager.resetExpressionsEachLine");
 
 				if (GUILayout.Button ("Edit speech tags"))
 				{
@@ -1828,6 +1831,48 @@ namespace AC
 		}
 
 
+		private void ExtractVariable (ActionVarSet action, bool onlySeekNew, bool isInScene)
+		{
+			if (!action.IsTranslatable ())
+			{
+				return;
+			}
+
+			if (onlySeekNew && action.lineID == -1)
+			{
+				// Assign a new ID on creation
+				SpeechLine newLine;
+				if (isInScene)
+				{
+					newLine = new SpeechLine (GetEmptyID (), UnityVersionHandler.GetCurrentSceneName (), action.stringValue, languages.Count - 1, AC_TextType.Variable);
+				}
+				else
+				{
+					newLine = new SpeechLine (GetEmptyID (), "", action.stringValue, languages.Count - 1, AC_TextType.Variable);
+				}
+				action.lineID = newLine.lineID;
+				lines.Add (newLine);
+			}
+			
+			else if (!onlySeekNew && action.lineID > -1)
+			{
+				// Already has an ID, so don't replace
+				SpeechLine existingLine;
+				if (isInScene)
+				{
+					existingLine = new SpeechLine (action.lineID, UnityVersionHandler.GetCurrentSceneName (), action.stringValue, languages.Count - 1, AC_TextType.Variable);
+				}
+				else
+				{
+					existingLine = new SpeechLine (action.lineID, "", action.stringValue, languages.Count - 1, AC_TextType.Variable);
+				}
+				
+				int lineID = SmartAddLine (existingLine);
+				if (lineID >= 0) action.lineID = lineID;
+			}
+		}
+
+
 		private void GetLinesFromSettings (bool onlySeekNew)
 		{
 			SettingsManager settingsManager = AdvGame.GetReferences ().settingsManager;
@@ -2351,6 +2396,11 @@ namespace AC
 				{
 					ActionDialogOptionRename actionDialogOptionRename = (ActionDialogOptionRename) action;
 					actionDialogOptionRename.lineID = -1;
+				}
+				else if (action is ActionVarSet)
+				{
+					ActionVarSet actionVarSet = (ActionVarSet) action;
+					actionVarSet.lineID = -1;
 				}
 			}
 			
@@ -2935,6 +2985,10 @@ namespace AC
 				else if (action is ActionDialogOptionRename)
 				{
 					ExtractDialogOption (action as ActionDialogOptionRename, onlySeekNew, isInScene);
+				}
+				else if (action is ActionVarSet)
+				{
+					ExtractVariable (action as ActionVarSet, onlySeekNew, isInScene);
 				}
 			}
 

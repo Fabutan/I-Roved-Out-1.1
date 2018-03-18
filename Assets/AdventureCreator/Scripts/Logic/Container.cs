@@ -77,7 +77,7 @@ namespace AC
 		 */
 		public bool Add (int _id, int amount)
 		{
-			// Raise "count" by 1 for appropriate ID
+			// Raise "count" by amount for appropriate ID
 			foreach (ContainerItem containerItem in items)
 			{
 				if (containerItem.linkedID == _id)
@@ -175,9 +175,10 @@ namespace AC
 		 * <summary>Adds an inventory item to the Container's contents, at a particular index.</summary>
 		 * <param name = "_item">The InvItem to place within the Container</param>
 		 * <param name = "_index">The index number within the Container's current contents to insert the new item</param>
+		 * <param name = "count">If >0, the quantity of the item to be added. Otherwise, the same quantity as _item will be added</param>
 		 * <returns>The ContainerItem instance of the added item</returns>
 		 */
-		public ContainerItem InsertAt (InvItem _item, int _index)
+		public ContainerItem InsertAt (InvItem _item, int _index, int count = 0)
 		{
 			if (limitToCategory && !categoryIDs.Contains (_item.binID))
 			{
@@ -185,15 +186,31 @@ namespace AC
 			}
 
 			ContainerItem newContainerItem = new ContainerItem (_item.id, GetIDArray ());
-			newContainerItem.count = _item.count;
 
-			if (items.Count <= _index)
+			if (count > 0)
 			{
-				items.Add (newContainerItem);
+				newContainerItem.count = count;
 			}
 			else
 			{
-				items.Insert (_index, newContainerItem);
+				newContainerItem.count = _item.count;
+			}
+			if (_index < items.Count)
+			{
+				if (items[_index] != null && items[_index].linkedID == _item.id)
+				{
+					// Same item in the slot, so just add instead
+					newContainerItem.count += items[_index].count;
+					items[_index] = newContainerItem;
+				}
+				else
+				{
+					items.Insert (_index, newContainerItem);
+				}
+			}
+			else
+			{
+				items.Add (newContainerItem);
 			}
 
 			PlayerMenus.ResetInventoryBoxes ();

@@ -149,7 +149,7 @@ namespace AC
 					allowMainCursor = CustomGUILayout.Toggle ("Replace mouse cursor?", allowMainCursor, "AC.KickStarter.cursorManager.allowMainCursor");
 					if (allowMainCursor || (settingsManager && settingsManager.inputMethod == InputMethod.KeyboardOrController))
 					{
-						IconBaseGUI ("", pointerIcon, "AC.KickStarter.cursorManager.pointerIcon");
+						IconBaseGUI ("", pointerIcon, "AC.KickStarter.cursorManager.pointerIcon", false);
 					}
 				}
 			}
@@ -346,7 +346,7 @@ namespace AC
 				{
 					EditorGUILayout.LabelField ("Input button:", _cursorIcon.GetButtonName ());
 				}
-				_cursorIcon.ShowGUI (true, "Texture:", cursorRendering, "AC.KickStarter.cursorManager.GetCursorIconFromID (" + i + ")");
+				_cursorIcon.ShowGUI (true, true, "Texture:", cursorRendering, "AC.KickStarter.cursorManager.GetCursorIconFromID (" + i + ")");
 
 				if (settingsManager && settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot)
 				{
@@ -396,12 +396,12 @@ namespace AC
 		}
 
 
-		private void IconBaseGUI (string fieldLabel, CursorIconBase icon, string apiPrefix)
+		private void IconBaseGUI (string fieldLabel, CursorIconBase icon, string apiPrefix, bool includeAlwaysAnimate = true)
 		{
 			if (fieldLabel != "" && fieldLabel.Length > 0)
 				EditorGUILayout.LabelField (fieldLabel,  CustomStyles.subHeader);
 
-			icon.ShowGUI (true, "Texture:", cursorRendering, apiPrefix);
+			icon.ShowGUI (true, includeAlwaysAnimate, "Texture:", cursorRendering, apiPrefix);
 			GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
 		}
 

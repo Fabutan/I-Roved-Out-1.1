@@ -37,7 +37,6 @@ namespace AC
 		private string movingToHotspotLabel = "";
 
 
-
 		/**
 		 * Updates the interaction handler.
 		 * This is called every frame by StateHandler.
@@ -323,7 +322,14 @@ namespace AC
 
 		private Hotspot CheckHotspotValid (Hotspot hotspot)
 		{
-			if (KickStarter.settingsManager.AutoDisableUnhandledHotspots && hotspot != null)
+			if (hotspot == null) return null;
+
+			if (!hotspot.PlayerIsWithinBoundary ())
+			{
+				return null;
+			}
+
+			if (KickStarter.settingsManager.AutoDisableUnhandledHotspots)
 			{
 				if (KickStarter.runtimeInventory.SelectedItem != null)
 				{
@@ -333,6 +339,7 @@ namespace AC
 					}
 				}
 			}
+
 			return hotspot;
 		}
 		
@@ -432,7 +439,7 @@ namespace AC
 						    (KickStarter.settingsManager.MouseOverForInteractionMenu () && KickStarter.runtimeInventory.hoverItem == null && KickStarter.runtimeInventory.SelectedItem == null && clickedNew && !IsDroppingInventory ()))
 						{
 							if (KickStarter.runtimeInventory.hoverItem == null && KickStarter.playerInput.GetMouseState () == MouseState.SingleClick && 
-							    KickStarter.settingsManager.MouseOverForInteractionMenu () && KickStarter.settingsManager.SelectInteractionMethod () == SelectInteractions.ClickingMenu &&
+							    KickStarter.settingsManager.MouseOverForInteractionMenu () && KickStarter.runtimeInventory.SelectedItem == null && KickStarter.settingsManager.SelectInteractionMethod () == SelectInteractions.ClickingMenu &&
 							    KickStarter.settingsManager.cancelInteractions != CancelInteractions.ClickOffMenu &&
 							    !(KickStarter.runtimeInventory.SelectedItem != null && !KickStarter.settingsManager.cycleInventoryCursors))
 							{
@@ -1081,8 +1088,18 @@ namespace AC
 								}
 								
 								pointArray = KickStarter.navigationManager.navigationEngine.GetPointsArray (KickStarter.player.transform.position, targetPosition, KickStarter.player);
-								KickStarter.player.MoveAlongPoints (pointArray, doRun);
-								targetPos = pointArray [pointArray.Length - 1];
+
+								if (pointArray.Length > 0)
+								{
+									KickStarter.player.MoveAlongPoints (pointArray, doRun);
+									targetPos = pointArray [pointArray.Length - 1];
+								}
+								else
+								{
+									ACDebug.LogWarning ("Cannot calculate path to Hotspot " + _hotspot.name + "'s marker.  Moving without pathfinding!", _hotspot.walkToMarker);
+									KickStarter.player.MoveToPoint (targetPosition, doRun);
+									targetPos = targetPosition;
+								}
 
 								if (KickStarter.player.retroPathfinding)
 								{

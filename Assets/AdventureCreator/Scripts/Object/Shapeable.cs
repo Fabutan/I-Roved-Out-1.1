@@ -101,6 +101,27 @@ namespace AC
 				}
 			}
 		}
+
+
+		/**
+		 * <summary>Sets a blendshape within a ShapeGroup as the "active" one, causing all others to be disabled.</summary>
+		 * <param name = "_groupID">The unique identifier of the ShapeGroup to affect</param>
+		 * <param name = "_keyLabel">The name of the blendshape to affect</param?
+		 * <param name = "_value">The value to set the active blendshape</param>
+		 * <param name = "_deltaTime">The duration, in seconds, that the group's blendshapes should be affected</param>
+		 * <param name = "_moveMethod">The interpolation method by which the blendshapes are affected (Linear, Smooth, Curved, EaseIn, EaseOut, CustomCurve)</param>
+		 * <param name = "_timeCurve">If _moveMethod = MoveMethod.CustomCurve, then the transition speed will be follow the shape of the supplied AnimationCurve. This curve can exceed "1" in the Y-scale, allowing for overshoot effects.</param>
+		 */
+		public void SetActiveKey (int _groupID, string _keyLabel, float _value, float _deltaTime, MoveMethod _moveMethod, AnimationCurve _timeCurve)
+		{
+			foreach (ShapeGroup shapeGroup in shapeGroups)
+			{
+				if (shapeGroup.ID == _groupID)
+				{
+					shapeGroup.SetActive (_keyLabel, _value, _deltaTime, _moveMethod, _timeCurve);
+				}
+			}
+		}
 		
 		
 		private void AssignSkinnedMeshRenderer ()
@@ -289,6 +310,42 @@ namespace AC
 			foreach (ShapeKey shapeKey in shapeKeys)
 			{
 				if (shapeKey.ID == _ID)
+				{
+					activeKey = shapeKey;
+					shapeKey.targetValue = _value;
+				}
+				else
+				{
+					shapeKey.targetValue = 0f;
+				}
+			}
+			
+			moveMethod = _moveMethod;
+			timeCurve = _timeCurve;
+			changeTime = _changeTime;
+			startTime = Time.time;
+		}
+
+
+		/**
+		 * <summary>Sets a blendshape as the "active" one, causing all others to be disabled.</summary>
+		 * <param name = "_label">The name of the blendshape to affect</param>
+		 * <param name = "_value">The value to set the active blendshape</param>
+		 * <param name = "_changeTime">The duration, in seconds, that the group's blendshapes should be affected</param>
+		 * <param name = "_moveMethod">The interpolation method by which the blendshapes are affected (Linear, Smooth, Curved, EaseIn, EaseOut, CustomCurve)</param>
+		 * <param name = "_timeCurve">If _moveMethod = MoveMethod.CustomCurve, then the transition speed will be follow the shape of the supplied AnimationCurve. This curve can exceed "1" in the Y-scale, allowing for overshoot effects.</param>
+		 */
+		public void SetActive (string _label, float _value, float _changeTime, MoveMethod _moveMethod, AnimationCurve _timeCurve)
+		{
+			if (_changeTime < 0f)
+			{
+				return;
+			}
+
+			activeKey = null;
+			foreach (ShapeKey shapeKey in shapeKeys)
+			{
+				if (shapeKey.label == _label)
 				{
 					activeKey = shapeKey;
 					shapeKey.targetValue = _value;

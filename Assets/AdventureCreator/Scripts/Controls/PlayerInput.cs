@@ -104,6 +104,7 @@ namespace AC
 
 		/** The active Conversation */
 		[HideInInspector] public Conversation activeConversation = null;
+		private Conversation pendingOptionConversation = null;
 		/** The active ArrowPrompt */
 		[HideInInspector] public ArrowPrompt activeArrows = null;
 		/** The active Container */
@@ -1280,7 +1281,7 @@ namespace AC
 			Hotspot[] hotspots = FindObjectsOfType (typeof (Hotspot)) as Hotspot[];
 			foreach (Hotspot hotspot in hotspots)
 			{
-				if (hotspot.IsOn () && hotspot.highlight && hotspot != KickStarter.playerInteraction.GetActiveHotspot ())
+				if (hotspot.IsOn () && hotspot.PlayerIsWithinBoundary () && hotspot.highlight && hotspot != KickStarter.playerInteraction.GetActiveHotspot ())
 				{
 					hotspot.highlight.Flash ();
 				}
@@ -2363,6 +2364,8 @@ namespace AC
 		 */
 		public void ReturnToGameplayAfterLoad ()
 		{
+			pendingOptionConversation = null;
+
 			if (activeConversation)
 			{
 				KickStarter.stateHandler.gameState = GameState.DialogOptions;
@@ -2392,7 +2395,6 @@ namespace AC
 				mainData.activeConversation = Serializer.GetConstantID (activeConversation.gameObject);
 			}
 			mainData.canKeyboardControlMenusDuringGameplay = canKeyboardControlMenusDuringGameplay;
-			//mainData.toggleCursorState = (toggleCursorOn) ? 1 : 2;
 
 			return mainData;
 		}
@@ -2414,6 +2416,7 @@ namespace AC
 			
 			// Active conversation
 			activeConversation = Serializer.returnComponent <Conversation> (mainData.activeConversation);
+			pendingOptionConversation = null;
 			timeScale = mainData.timeScale;
 
 			canKeyboardControlMenusDuringGameplay = mainData.canKeyboardControlMenusDuringGameplay;
@@ -2505,6 +2508,39 @@ namespace AC
 			if (activeConversation != null)
 			{
 				activeConversation = null;
+			}
+		}
+
+
+		/**
+		 * <summary>Checks if a Conversation is currently active</summary>
+		 * <param name = "alsoPendingOption">If True, then the method will return True if a Conversation is not active, but is in the delay gap between choosing an option and running it</param>
+		 * <returns>True if a Conversation is currently active</returns>
+		 */
+		public bool IsInConversation (bool alsoPendingOption = false)
+		{
+			if (activeConversation != null)
+			{
+				return true;
+			}
+			if (pendingOptionConversation != null && alsoPendingOption)
+			{
+				return true;
+			}
+			return false;
+		}
+
+
+		/** A Conversation that has ended, but has yet to run the response */
+		public Conversation PendingOptionConversation
+		{
+			get
+			{
+				return pendingOptionConversation;
+			}
+			set
+			{
+				pendingOptionConversation = value;
 			}
 		}
 

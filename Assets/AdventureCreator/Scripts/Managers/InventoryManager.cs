@@ -232,6 +232,11 @@ namespace AC
 					if (selectedItem.canCarryMultiple)
 					{
 						selectedItem.useSeparateSlots = CustomGUILayout.Toggle ("Place in separate slots?", selectedItem.useSeparateSlots, apiPrefix + ".useSeparateSlots");
+
+						if (!selectedItem.useSeparateSlots)
+						{
+							selectedItem.selectSingle = CustomGUILayout.Toggle ("Select one-at-a-time?", selectedItem.selectSingle, apiPrefix + ".selectSingle");
+						}
 					}
 					if (selectedItem.carryOnStart && selectedItem.canCarryMultiple)
 					{
@@ -283,7 +288,7 @@ namespace AC
 						if (cursorManager.inventoryHandling == InventoryHandling.ChangeCursor || cursorManager.inventoryHandling == InventoryHandling.ChangeCursorAndHotspotLabel)
 						{
 							GUILayout.Box ("", GUILayout.ExpandWidth (true), GUILayout.Height (1));
-							selectedItem.cursorIcon.ShowGUI (true, "Cursor (optional):", cursorManager.cursorRendering, apiPrefix + ".cursorIcon");
+							selectedItem.cursorIcon.ShowGUI (true, true, "Cursor (optional):", cursorManager.cursorRendering, apiPrefix + ".cursorIcon");
 							GUILayout.Box ("", GUILayout.ExpandWidth (true), GUILayout.Height (1));
 						}
 					}

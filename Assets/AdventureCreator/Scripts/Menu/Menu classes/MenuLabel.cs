@@ -190,7 +190,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuLabel)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -342,7 +342,7 @@ namespace AC
 					{
 						_newLabel = hotspot.GetFullLabel (languageNumber);
 					}
-					else if (!showPendingWhileMovingToHotspot && KickStarter.playerInteraction.GetHotspotMovingTo () != null && KickStarter.playerCursor.GetSelectedCursorID () == -1)
+					else if (!showPendingWhileMovingToHotspot && KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot && KickStarter.playerInteraction.GetHotspotMovingTo () != null && KickStarter.playerCursor.GetSelectedCursorID () == -1)
 					{
 						_newLabel = KickStarter.playerInteraction.MovingToHotspotLabel;
 					}

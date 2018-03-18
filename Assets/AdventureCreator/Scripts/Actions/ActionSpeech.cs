@@ -335,10 +335,10 @@ namespace AC
 			{
 				_speaker = (Application.isPlaying) ? runtimeSpeaker : speaker;
 			}
+
 			if (_speaker != null)
 			{
 				noAnimation = EditorGUILayout.Toggle ("Don't animate speaker?", noAnimation);
-				
 				if (!noAnimation)
 				{
 					if (_speaker.GetAnimEngine ())

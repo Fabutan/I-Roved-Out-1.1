@@ -170,7 +170,8 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuCrafting)";
+
 			MenuSource source = menu.menuSource;
 
 			EditorGUILayout.BeginVertical ("Button");
@@ -179,7 +180,7 @@ namespace AC
 
 			if (craftingType == CraftingElementType.Ingredients)
 			{
-				numSlots = CustomGUILayout.IntSlider ("Number of slots:", numSlots, 1, 12, apiPrefix + ".numSlots");
+				numSlots = CustomGUILayout.IntSlider ("Number of slots:", numSlots, 1, 12);
 				if (source == MenuSource.AdventureCreator)
 				{
 					slotSpacing = EditorGUILayout.Slider ("Slot spacing:", slotSpacing, 0f, 20f);
@@ -418,11 +419,6 @@ namespace AC
 					}
 					else
 					{
-						if (GetItem (_slot) != null)
-						{
-							KickStarter.runtimeInventory.TransferCraftingToLocal (GetItem (_slot).recipeSlot, false);
-						}
-			
 						KickStarter.runtimeInventory.TransferLocalToCrafting (KickStarter.runtimeInventory.SelectedItem, _slot);
 					}
 				}

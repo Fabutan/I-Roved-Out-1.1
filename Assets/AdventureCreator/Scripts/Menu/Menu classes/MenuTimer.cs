@@ -124,7 +124,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuTimer)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -140,7 +140,7 @@ namespace AC
 			{
 				EditorGUILayout.BeginHorizontal ();
 				EditorGUILayout.LabelField ("Timer texture:", GUILayout.Width (145f));
-				timerTexture = (Texture2D) EditorGUILayout.ObjectField (timerTexture, typeof (Texture2D), false, GUILayout.Width (70f), GUILayout.Height (30f));
+				timerTexture = (Texture2D) CustomGUILayout.ObjectField <Texture2D> (timerTexture, false, GUILayout.Width (70f), GUILayout.Height (30f), apiPrefix + ".timerTexture");
 				EditorGUILayout.EndHorizontal ();
 			}
 			else

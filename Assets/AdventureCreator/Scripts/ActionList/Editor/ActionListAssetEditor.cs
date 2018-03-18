@@ -71,12 +71,23 @@ namespace AC
 			}
 			if (GUILayout.Button ("Run now", EditorStyles.miniButtonRight))
 			{
-				if (!_target.canRunMultipleInstances)
+				if (KickStarter.actionListAssetManager != null)
 				{
-					KickStarter.actionListAssetManager.EndAssetList (_target);
-				}
+					if (!_target.canRunMultipleInstances)
+					{
+						int numRemoved = KickStarter.actionListAssetManager.EndAssetList (_target);
+						if (numRemoved > 0)
+						{
+							ACDebug.Log ("Removed 1 instance of ActionList asset '" + _target.name + "' because it is set to only run one at a time.", _target);
+						}
+					}
 
-				AdvGame.RunActionListAsset (_target);
+					AdvGame.RunActionListAsset (_target);
+				}
+				else
+				{
+					ACDebug.LogWarning ("An AC PersistentEngine object must be present in the scene for ActionList assets to run.", _target);
+				}
 			}
 			GUI.enabled = true;
 			EditorGUILayout.EndHorizontal ();

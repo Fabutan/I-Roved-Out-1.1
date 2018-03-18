@@ -140,6 +140,8 @@ namespace AC
 		public Vector2 clickOffset;
 		/** An array of the speeds for each frame when animating, where the index of the array corresponds to the frame of the animation */
 		public float[] frameSpeeds;
+		/** If True, and isAnimated = True, then the animation will occur always and not just when made active */
+		public bool alwaysAnimate = false;
 		
 		private string uniqueIdentifier;
 		private float frameIndex = 0f;
@@ -166,6 +168,7 @@ namespace AC
 			animSpeed = 4;
 			endAnimOnLastFrame = false;
 			skipFirstFrameWhenLooping = false;
+			alwaysAnimate = false;
 			clickOffset = Vector2.zero;
 		}
 		
@@ -186,6 +189,7 @@ namespace AC
 			numRows = _icon.numRows;
 			numCols = _icon.numCols;
 			size = _icon.size;
+			alwaysAnimate = _icon.alwaysAnimate;
 
 			frameSpeeds = new float[0];
 			if (_icon.frameSpeeds != null)
@@ -217,7 +221,7 @@ namespace AC
 			{
 				if (Application.isPlaying)
 				{
-					if (isActive)
+					if (isActive || alwaysAnimate)
 					{
 						GUI.DrawTextureWithTexCoords (_rect, texture, GetAnimatedRect ());
 					}
@@ -260,6 +264,7 @@ namespace AC
 			if (sprites != null && sprites.Length > 0 && sprites[0] == null)
 			{
 				sprites[0] = UnityEngine.Sprite.Create (texture2D, new Rect (0f, 0f, texture2D.width, texture2D.height), new Vector2 (0.5f, 0.5f));
+				sprites[0].name = texture.name + "_0";
 			}
 			return sprites[0];
 		}
@@ -300,6 +305,7 @@ namespace AC
 			{
 				Rect _rect = new Rect (frameWidth * (frameInRow-1) * texture.width, frameHeight * (numRows - currentRow) * texture.height, frameWidth * texture.width, frameHeight * texture.height);
 				sprites[_frameIndex] = UnityEngine.Sprite.Create (texture2D, _rect, new Vector2 (0.5f, 0.5f));
+				sprites[_frameIndex].name = texture.name + "_" + _frameIndex.ToString ();
 			}
 			
 			return sprites[_frameIndex];
@@ -318,24 +324,25 @@ namespace AC
 			{
 				return null;
 			}
-			
+
 			if (isAnimated && numFrames > 0)
 			{
 				if (Application.isPlaying)
 				{
-					if (sprites == null)
+					if (sprites == null || sprites.Length != numFrames)
 					{
 						sprites = new UnityEngine.Sprite[numFrames];
 					}
-					
-					if (isActive)
+
+					if (isActive || alwaysAnimate)
 					{
 						int i = Mathf.FloorToInt (frameIndex);
+						Rect animatedRect = GetAnimatedRect ();
 						if (sprites[i] == null)
 						{
-							Rect animatedRect = GetAnimatedRect ();
 							animatedRect = new Rect (animatedRect.x * texture.width, animatedRect.y * texture.height, animatedRect.width * texture.width, animatedRect.height * texture.height);
 							sprites[i] = UnityEngine.Sprite.Create (texture2D, animatedRect, new Vector2 (0.5f, 0.5f));
+							sprites[i].name = texture.name + "_" + i.ToString ();
 						}
 						return sprites[i];
 					}
@@ -344,7 +351,9 @@ namespace AC
 						frameIndex = 0f;
 						if (sprites[0] == null)
 						{
-							sprites[0] = UnityEngine.Sprite.Create (texture2D, firstFrameRect, new Vector2 (0.5f, 0.5f));
+							Rect animatedRect = new Rect (firstFrameRect.x * texture.width, firstFrameRect.y * texture.height, firstFrameRect.width * texture.width, firstFrameRect.height * texture.height);
+							sprites[0] = UnityEngine.Sprite.Create (texture2D, animatedRect, new Vector2 (0.5f, 0.5f));
+							sprites[0].name = texture.name + "_0";
 						}
 						return sprites[0];
 					}
@@ -359,6 +368,7 @@ namespace AC
 				if (sprites != null && sprites.Length > 0 && sprites[0] == null)
 				{
 					sprites[0] = UnityEngine.Sprite.Create (texture2D, new Rect (0, 0, texture.width, texture.height), new Vector2 (0.5f, 0.5f));
+					sprites[0].name = texture.name + "_0";
 				}
 				return sprites[0];
 			}
@@ -388,7 +398,7 @@ namespace AC
 			
 			if (isAnimated)
 			{
-				Rect animatedRect = GetAnimatedRect ((canAnimate) ? -1 : 0);
+				Rect animatedRect = GetAnimatedRect ((canAnimate || alwaysAnimate) ? -1 : 0);
 				int x = Mathf.FloorToInt (animatedRect.x * Texture2D.width);
 				int y = Mathf.FloorToInt (animatedRect.y * Texture2D.height);
 				int width = Mathf.FloorToInt (animatedRect.width * Texture2D.width);
@@ -462,7 +472,7 @@ namespace AC
 			
 			if (isAnimated && numFrames > 0 && Application.isPlaying)
 			{
-				if (!canAnimate)
+				if (!canAnimate && !alwaysAnimate)
 				{
 					frameIndex = 0f;
 				}
@@ -631,11 +641,11 @@ namespace AC
 
 		private bool showExtra;
 
-		public void ShowGUI (bool includeSize, string _label = "Texture:", CursorRendering cursorRendering = CursorRendering.Software, string apiPrefix = "")
+		public void ShowGUI (bool includeSize, bool includeAlwaysAnimate = true, string _label = "Texture:", CursorRendering cursorRendering = CursorRendering.Software, string apiPrefix = "")
 		{
 			EditorGUILayout.BeginHorizontal ();
 			EditorGUILayout.LabelField (_label, GUILayout.Width (145));
-			texture = (Texture) CustomGUILayout.ObjectField <Texture> (texture, false, GUILayout.Width (70), GUILayout.Height (70), apiPrefix + ".texture");
+			texture = (Texture) CustomGUILayout.ObjectField <Texture> (texture, false, GUILayout.Width (70), GUILayout.Height (70), string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".texture"));
 			EditorGUILayout.EndHorizontal ();
 
 			if (texture == null) return;
@@ -644,35 +654,39 @@ namespace AC
 			{
 				if (cursorRendering == CursorRendering.Software)
 				{
-					size = CustomGUILayout.FloatField ("Size:", size, apiPrefix + ".size");
+					size = CustomGUILayout.FloatField ("Size:", size, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".size"));
 				}
 
 				EditorGUILayout.BeginHorizontal ();
 				EditorGUILayout.LabelField ("Click offset (from " + ((cursorRendering == CursorRendering.Software) ? "centre):" : "top left):"), GUILayout.Width (150f));
-				clickOffset = CustomGUILayout.Vector2Field ("", clickOffset, apiPrefix + ".clickOffset");
+				clickOffset = CustomGUILayout.Vector2Field ("", clickOffset, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".clickOffset"));
 				EditorGUILayout.EndHorizontal ();
 			}
 			
-			isAnimated = CustomGUILayout.Toggle ("Animate?", isAnimated, apiPrefix + ".isAnimated");
+			isAnimated = CustomGUILayout.Toggle ("Animate?", isAnimated, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".isAnimated"));
 			if (isAnimated)
 			{
 				EditorGUILayout.BeginHorizontal ();
 				EditorGUILayout.LabelField ("Frames:", GUILayout.Width (50f));
-				numFrames = CustomGUILayout.IntField (numFrames, GUILayout.Width (70f), apiPrefix + ".numFrames");
+				numFrames = CustomGUILayout.IntField (numFrames, GUILayout.Width (70f), string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".numFrames"));
 				EditorGUILayout.LabelField ("Rows:", GUILayout.Width (50f));
-				numRows = CustomGUILayout.IntField (numRows, GUILayout.Width (70f),apiPrefix + ".numRows");
+				numRows = CustomGUILayout.IntField (numRows, GUILayout.Width (70f), string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".numRows"));
 				EditorGUILayout.LabelField ("Columns:", GUILayout.Width (50f));
-				numCols = CustomGUILayout.IntField (numCols, GUILayout.Width (70f), apiPrefix + ".numCols");
+				numCols = CustomGUILayout.IntField (numCols, GUILayout.Width (70f), string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".numCols"));
 				EditorGUILayout.EndHorizontal ();
 				
-				animSpeed = CustomGUILayout.FloatField ("Animation speed:", animSpeed, apiPrefix + ".animSpeed");
+				animSpeed = CustomGUILayout.FloatField ("Animation speed:", animSpeed, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".animSpeed"));
 
 				showExtra = EditorGUILayout.Foldout (showExtra, "Additional settings:");
 				if (showExtra)
 				{
 					EditorGUILayout.BeginVertical (CustomStyles.thinBox);
-					endAnimOnLastFrame = CustomGUILayout.ToggleLeft ("End on last frame?", endAnimOnLastFrame, apiPrefix + ".endAnimOnLastFrame");
-					skipFirstFrameWhenLooping = CustomGUILayout.ToggleLeft ("Skip first when animating?", skipFirstFrameWhenLooping, apiPrefix + ".skipFirstFrameWhenLooping");
+					if (includeAlwaysAnimate)
+					{
+						alwaysAnimate = CustomGUILayout.ToggleLeft ("Always animate?", alwaysAnimate, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".alwaysAnimate"));
+					}
+					endAnimOnLastFrame = CustomGUILayout.ToggleLeft ("End on last frame?", endAnimOnLastFrame, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".endAnimOnLastFrame"));
+					skipFirstFrameWhenLooping = CustomGUILayout.ToggleLeft ("Skip first when animating?", skipFirstFrameWhenLooping, string.IsNullOrEmpty (apiPrefix) ? "" : (apiPrefix + ".skipFirstFrameWhenLooping"));
 
 					SyncFrameSpeeds ();
 					for (int i=0; i<numFrames; i++)

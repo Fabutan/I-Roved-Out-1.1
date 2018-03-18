@@ -75,6 +75,10 @@ namespace AC
 		public List<Expression> expressions = new List<Expression>();
 		/** The Transform at which to place Menus set to appear 'Above Speaking Character'. If this is not set, the placement will be set automatically. */
 		public Transform speechMenuPlacement;
+		/** If useExpressions = True, and the chosen animation engine allows for it, a Shapeable component can be mapped to expressions to allow for expression tokens to control blendshapes */
+		public bool mapExpressionsToShapeable = false;
+		/** The Shapeable group ID that controls expression blendshapes, if using AnimEngine_Legacy / AnimEngine_Mecanim */
+		public int expressionGroupID;
 		private Expression currentExpression = null;
 
 		protected Quaternion newRotation;
@@ -1748,6 +1752,10 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Checks if the character is pathfinding, and the next node on the path will be their intended destination</summary>
+		 * <returns>True if the character is pathfinding, and the next node on the path will be their intended destination</returns>
+		 */
 		public bool WillStopAtNextNode ()
 		{
 			if (activePath && activePath.WillStopAtNextNode (targetNode))
@@ -1758,6 +1766,10 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Checks if the character is currently pathfinding to a pre-determined destination</summary>
+		 * <returnsy>True if the character is currently pathfinding to a pre-determined destination</returns>
+		 */
 		public bool IsPathfinding ()
 		{
 			if (activePath != null && activePath == ownPath)
@@ -2568,7 +2580,18 @@ namespace AC
 				catch {}
 			}
 		}
-		
+
+
+		/**
+		 * <summary>Prepares and updates the sprite child in one go.  This is necessary for player characters when starting a scene, to ensure they appear correctly to begin with.</summary>
+		 */
+		public void InitSpriteChild ()
+		{
+			if (animEngine == null) ResetAnimationEngine ();
+			PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
+			UpdateSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
+		}
+
 		
 		protected void PrepareSpriteChild (bool isTopDown, bool isUnity2D)
 		{
@@ -3354,6 +3377,12 @@ namespace AC
 			{
 				lipSyncTexture.SetFrame (0);
 			}
+
+			if (KickStarter.speechManager.resetExpressionsEachLine)
+			{
+				ClearExpression ();
+			}
+
 			if (KickStarter.speechManager.lipSyncMode == LipSyncMode.RogoLipSync)
 			{
 				RogoLipSyncIntegration.Stop (this);
@@ -3380,6 +3409,8 @@ namespace AC
 		 */
 		public int GetExpressionID (string expressionLabel)
 		{
+			if (expressionLabel == "None" || expressionLabel == "none") return 99;
+
 			foreach (Expression expression in expressions)
 			{
 				if (expression.label == expressionLabel)
@@ -3406,12 +3437,16 @@ namespace AC
 		
 		
 		/**
-		 * Clears the current Expression so that the default portrait icon is used.
+		 * <summary>Clears the current Expression so that the default portrait icon is used.</summary>
 		 */
 		public void ClearExpression ()
 		{
-			currentExpression = null;
-			
+			if (currentExpression != null)
+			{
+				currentExpression = null;
+				if (animEngine) animEngine.OnSetExpression ();
+			}
+				
 			if (portraitIcon != null)
 			{
 				portraitIcon.Reset ();
@@ -3425,6 +3460,16 @@ namespace AC
 				}
 			}
 		}
+
+
+		/** The character's current Expression */
+		public Expression CurrentExpression
+		{
+			get
+			{
+				return currentExpression;
+			}
+		}
 		
 		
 		/**
@@ -3434,11 +3479,22 @@ namespace AC
 		public void SetExpression (int ID)
 		{
 			currentExpression = null;
+
+			if (ID == 99)
+			{
+				if (animEngine) animEngine.OnSetExpression ();
+				return;
+			}
+
 			foreach (Expression expression in expressions)
 			{
 				if (expression.ID == ID)
 				{
-					currentExpression = expression;
+					if (currentExpression != expression)
+					{
+						currentExpression = expression;
+						if (animEngine) animEngine.OnSetExpression ();
+					}
 					return;
 				}
 			}
@@ -3733,7 +3789,6 @@ namespace AC
 		{
 			get
 			{
-				if (animEngine == null) ResetAnimationEngine ();
 				if (animEngine.isSpriteBased && !turn2DCharactersIn3DSpace && motionControl != MotionControl.Manual)
 				{
 					return false;

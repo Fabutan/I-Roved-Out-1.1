@@ -678,6 +678,8 @@ namespace AC
 					soundOb.AfterLoading ();
 				}
 			}
+
+			KickStarter.dialog.UpdateSpeechVolumes ();
 		}
 		
 

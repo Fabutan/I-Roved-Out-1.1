@@ -981,6 +981,11 @@ namespace AC
 					GameObject potentialPlayerOb = GameObject.FindGameObjectWithTag (Tags.player);
 					if (potentialPlayerOb == null || potentialPlayerOb.GetComponent <Player>() == null)
 					{
+						if (potentialPlayerOb != null)
+						{
+							ACDebug.LogWarning ("Found object: " + potentialPlayerOb.name + ", which is tagged as Player but has no Player component - removing from scene to make way for AC player.", potentialPlayerOb);
+						}
+
 						KickStarter.ResetPlayer (settingsManager.GetDefaultPlayer (), settingsManager.GetDefaultPlayerID (), false, Quaternion.identity, false, true);
 					}
 					else

@@ -103,7 +103,7 @@ namespace AC
 
 			fadeType = (FadeType) EditorGUILayout.EnumPopup ("Type:", fadeType);
 			
-			fadeSpeed = EditorGUILayout.Slider ("Time to fade:", fadeSpeed, 0, 3);
+			fadeSpeed = EditorGUILayout.Slider ("Time to fade:", fadeSpeed, 0f, 10f);
 			willWait = EditorGUILayout.Toggle ("Wait until finish?", willWait);
 
 			AfterRunningOption ();

@@ -114,9 +114,13 @@ namespace AC
 		 * <summary>Stops an ActionListAsset from running.</summary>
 		 * <param name = "asset">The ActionListAsset file to stop></param>
 		 * <param name = "_action">An Action that, if present within 'asset', will prevent the ActionListAsset from ending prematurely</param>
+		 * <param name = "forceEndAll">If True, then all will be stopped - even if the ActionListAsset's canRunMultipleInstances is True</param>
+		 * <returns>The number of instances of the ActionListAsset that were stopped</returns>
 		 */
-		public void EndAssetList (ActionListAsset asset, Action _action = null)
+		public int EndAssetList (ActionListAsset asset, Action _action = null, bool forceEndAll = false)
 		{
+			int numRemoved = 0;
+
 			for (int i=0; i<activeLists.Count; i++)
 			{
 				if (activeLists[i].IsFor (asset))
@@ -124,14 +128,18 @@ namespace AC
 					if (_action == null || !activeLists[i].actionList.actions.Contains (_action))
 					{
 						KickStarter.actionListManager.EndList (activeLists[i]);
-						if (asset.canRunMultipleInstances)
+						numRemoved ++;
+						i=-1;
+						if (asset.canRunMultipleInstances && !forceEndAll)
 						{
-							return;
+							return numRemoved;
 						}
 					}
 					else if (_action != null) ACDebug.Log ("Left " + activeLists[i].actionList.gameObject.name + " alone.");
 				}
 			}
+
+			return numRemoved;
 		}
 
 

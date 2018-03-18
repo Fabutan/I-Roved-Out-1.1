@@ -147,6 +147,8 @@ namespace AC
 				{
 					SetMaxVolume ();
 				}
+
+				SnapSmoothVolume ();
 			}
 			else
 			{
@@ -244,9 +246,15 @@ namespace AC
 				}
 				else
 				{
-					smoothVolume = maxVolume;
+					SnapSmoothVolume ();
 				}
 			}
+		}
+
+
+		private void SnapSmoothVolume ()
+		{
+			smoothVolume = maxVolume;
 		}
 		
 

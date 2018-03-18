@@ -54,10 +54,10 @@ namespace AC
 		}
 
 		public virtual void CharSettingsGUI ()
-		{ 
-			#if UNITY_EDITOR
-			#endif
-		}
+		{}
+
+		public virtual void CharExpressionsGUI ()
+		{}
 
 		public virtual void ActionCharAnimGUI (ActionCharAnim action, List<ActionParameter> parameters = null)
 		{
@@ -187,8 +187,11 @@ namespace AC
 		 * <param name = "angles">The new angles to rotate the head to</param>
 		 */
 		public virtual void TurnHead (Vector2 angles)
-		{ }
+		{}
 
+		/** <summary>Called whenever the character's Expression is changed. It can be read with CurrentExpression.</summary> */
+		public virtual void OnSetExpression ()
+		{}
 
 		#if UNITY_EDITOR
 

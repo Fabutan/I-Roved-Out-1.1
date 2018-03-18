@@ -609,7 +609,7 @@ namespace AC
 		{
 			if (menuSource != MenuSource.AdventureCreator)
 			{
-				foreach (MenuElement element in visibleElements)
+				foreach (MenuElement element in elements)
 				{
 					element.SetUIInteractableState (state);
 				}

@@ -123,7 +123,10 @@ namespace AC
 					}
 				}
 
-				_speaker.ClearExpression ();
+				if (KickStarter.speechManager.resetExpressionsEachLine)
+				{
+					_speaker.ClearExpression ();
+				}
 
 				if (!_noAnimation)
 				{
@@ -319,6 +322,16 @@ namespace AC
 			if (endTime == 0f)
 			{
 				EndMessage ();
+			}
+		}
+
+
+		/** Updates the speech volume to the level set in Options.  This should be called whenever the Speech volume level is changed. */
+		public void UpdateVolume ()
+		{
+			if (speaker)
+			{
+				speaker.SetSpeechVolume (Options.optionsData.speechVolume);
 			}
 		}
 
@@ -1112,7 +1125,6 @@ namespace AC
 						}
 						else
 						{
-							portraitIcon.GetAnimatedRect ();
 							return portraitIcon.GetAnimatedSprite (true);
 						}
 					}

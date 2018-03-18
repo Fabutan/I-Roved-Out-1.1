@@ -204,7 +204,7 @@ namespace AC
 		
 		private void RunDefault ()
 		{
-			if (KickStarter.playerInput && KickStarter.playerInput.activeConversation != null)
+			if (KickStarter.playerInput && KickStarter.playerInput.IsInConversation ())
 			{
 				if (defaultOption < 0 || defaultOption >= options.Count)
 				{
@@ -220,8 +220,14 @@ namespace AC
 		
 		private IEnumerator RunOptionCo (int i)
 		{
+			KickStarter.playerInput.PendingOptionConversation = this;
 			yield return new WaitForSeconds (0.3f);
 			RunOption (options[i]);
+
+			if (KickStarter.playerInput.PendingOptionConversation == this)
+			{
+				KickStarter.playerInput.PendingOptionConversation = null;
+			}
 		}
 		
 
@@ -302,14 +308,14 @@ namespace AC
 		 * <param name = "slot">The index number of the dialogue option to find</param>
 		 * <returns>The display icon of the dialogue option</returns>
 		 */
-		public Texture2D GetOptionIcon (int slot)
+		public CursorIconBase GetOptionIcon (int slot)
 		{
 			int i = ConvertSlotToOption (slot);
 			if (i == -1)
 			{
 				i = 0;
 			}
-			return options[i].icon;
+			return options[i].cursorIcon;
 		}
 
 
@@ -444,6 +450,8 @@ namespace AC
 		 */
 		public void Upgrade ()
 		{
+			bool wasUpgraded = false;
+
 			// Set IDs as index + 1 (because default is 0 when not upgraded)
 			if (options.Count > 0 && options[0].ID == 0)
 			{
@@ -451,10 +459,25 @@ namespace AC
 				{
 					options[i].ID = i+1;
 				}
+
+				wasUpgraded = true;
+			}
+
+			for (int i=0; i<options.Count; i++)
+			{
+				bool upgradedTexture = options[i].Upgrade ();
+				if (upgradedTexture)
+				{
+					wasUpgraded = true;
+				}
+			}
+
+			if (wasUpgraded)
+			{
 				#if UNITY_EDITOR
 				if (Application.isPlaying)
 				{
-					ACDebug.Log ("Conversation '" + gameObject.name + "' has been temporarily upgraded - please view its Inspector when the game ends and save the scene.");
+					ACDebug.LogWarning ("Conversation '" + gameObject.name + "' has been temporarily upgraded - please view its Inspector when the game ends and save the scene.");
 				}
 				else
 				{
@@ -464,7 +487,7 @@ namespace AC
 						// Asset file
 						UnityEditor.AssetDatabase.SaveAssets ();
 					}
-					ACDebug.Log ("Upgraded Conversation '" + gameObject.name + "', please save the scene.");
+					ACDebug.LogWarning ("Upgraded Conversation '" + gameObject.name + "', please save the scene.");
 				}
 				#endif
 			}

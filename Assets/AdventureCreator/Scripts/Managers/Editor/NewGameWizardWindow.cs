@@ -355,7 +355,7 @@ namespace AC
 				AssetDatabase.SaveAssets ();
 				if (GameObject.FindObjectOfType <KickStarter>() == null)
 				{
-					bool initScene = EditorUtility.DisplayDialog ("Setup scene?", "Process complete.  Would you like to organise the scene objects to begin working?  This can be done at any time within the Scene Manager.", "Yes", "No");
+					bool initScene = EditorUtility.DisplayDialog ("Organise scene?", "Process complete.  Would you like to organise the scene objects to begin working?  This can be done at any time within the Scene Manager.", "Yes", "No");
 					if (initScene)
 					{
 						references.sceneManager.InitialiseObjects ();

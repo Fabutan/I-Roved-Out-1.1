@@ -75,6 +75,13 @@ MonoBehaviour:
     description: Sets the value of a parameter in an ActionList.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionWaitMultiple
+    category: 0
+    title: Wait for preceding
+    description: This Action will only trigger its 'After running' command once all
+      Actions that can run it have been run.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionCameraCrossfade
     category: 1
     title: Crossfade
@@ -830,6 +837,13 @@ MonoBehaviour:
     category: 0
     title: Set parameter
     description: Sets the value of a parameter in an ActionList.
+    isEnabled: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - fileName: ActionWaitMultiple
+    category: 0
+    title: Wait for preceding
+    description: This Action will only trigger its 'After running' command once all
+      Actions that can run it have been run.
     isEnabled: 1
     color: {r: 1, g: 1, b: 1, a: 1}
   - fileName: ActionCameraCrossfade

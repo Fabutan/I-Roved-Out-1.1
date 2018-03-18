@@ -158,6 +158,8 @@ namespace AC
 			_target.useExpressions = EditorGUILayout.Toggle ("Use expressions?", _target.useExpressions);
 			if (_target.useExpressions)
 			{
+				_target.GetAnimEngine ().CharExpressionsGUI ();
+
 				EditorGUILayout.Space ();
 				EditorGUILayout.BeginVertical ("Button");
 				for (int i=0; i<_target.expressions.Count; i++)

@@ -40,6 +40,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
     activeTex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
     selectedTex: {fileID: 0}
@@ -57,6 +58,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -109,6 +111,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
     activeTex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
     selectedTex: {fileID: 0}
@@ -125,6 +128,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -177,6 +181,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: 2385d589fa3527243a8432490ff89009, type: 3}
     activeTex: {fileID: 2800000, guid: 2385d589fa3527243a8432490ff89009, type: 3}
     selectedTex: {fileID: 0}
@@ -193,6 +198,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -245,6 +251,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
     activeTex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
     selectedTex: {fileID: 0}
@@ -261,6 +268,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -313,6 +321,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: de317e5b8dfa2114292bada916973339, type: 3}
     activeTex: {fileID: 2800000, guid: de317e5b8dfa2114292bada916973339, type: 3}
     selectedTex: {fileID: 0}
@@ -329,6 +338,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -381,6 +391,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: 6c63443248d9c4b4098768449ce45af0, type: 3}
     activeTex: {fileID: 2800000, guid: 6c63443248d9c4b4098768449ce45af0, type: 3}
     selectedTex: {fileID: 0}
@@ -397,6 +408,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -449,6 +461,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: a2e6c8ad22edd2047a52675a8ff0e82e, type: 3}
     activeTex: {fileID: 2800000, guid: a2e6c8ad22edd2047a52675a8ff0e82e, type: 3}
     selectedTex: {fileID: 0}
@@ -465,6 +478,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -517,6 +531,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
     activeTex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
     selectedTex: {fileID: 0}
@@ -533,6 +548,7 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
@@ -585,6 +601,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
     activeTex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
     selectedTex: {fileID: 0}
@@ -601,13 +618,14 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 2
+    binID: 1
     isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
@@ -653,6 +671,7 @@ MonoBehaviour:
     canCarryMultiple: 0
     count: 1
     useSeparateSlots: 0
+    selectSingle: 0
     tex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
     activeTex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
     selectedTex: {fileID: 0}
@@ -669,13 +688,294 @@ MonoBehaviour:
       skipFirstFrameWhenLooping: 0
       clickOffset: {x: 0, y: 0}
       frameSpeeds: []
+      alwaysAnimate: 0
       dontCycle: 0
       label: Icon 1
       lineID: -1
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 3
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 989148007ab926742a582fac37b4a821, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment
+    id: 10
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+    activeTex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 5dc94a9afb60a0049a1d7f49fe7c8676, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Inventory item 12
+    id: 11
+    altLabel: 
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+    activeTex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Inventory item 13
+    id: 12
+    altLabel: 
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+    activeTex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Inventory item 14
+    id: 13
+    altLabel: 
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: Property 1
+      id: 0
+      type: 0
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+    activeTex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
     isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
@@ -686,7 +986,7 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 11400000, guid: 17f7eec7581167e4eaabed15a65200f4, type: 2}
+    useActionList: {fileID: 0}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
@@ -696,13 +996,13 @@ MonoBehaviour:
   bins:
   - label: Puzzle
     id: 0
-  - label: Top
+  - label: Outfit1
     id: 1
-  - label: Bottoms
+  - label: Outfit2
     id: 2
-  - label: Feet
+  - label: Outfit3
     id: 3
-  - label: Hat
+  - label: Outfit4
     id: 4
   invVars:
   - label: Property 1

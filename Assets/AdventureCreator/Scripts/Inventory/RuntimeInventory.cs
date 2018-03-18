@@ -523,8 +523,9 @@ namespace AC
 		/**
 		 * <summary>Removes an inventory item from the player's inventory.</summary>
 		 * <param name = "_item">The inventory item (InvItem) to remove</param>
+		 * <param name = "amount">If >0, then only that quantity will be removed, if the item's canCarryMultiple property is True</param>
 		 */
-		public void Remove (InvItem _item)
+		public void Remove (InvItem _item, int amount = 0)
 		{
 			if (_item != null && _localItems.Contains (_item))
 			{
@@ -532,13 +533,21 @@ namespace AC
 				{
 					SetNull ();
 				}
-				
-				_localItems [_localItems.IndexOf (_item)] = null;
-				
-				_localItems = ReorderItems (_localItems);
-				_localItems = RemoveEmptySlots (_localItems);
 
-				KickStarter.eventManager.Call_OnChangeInventory (_item, InventoryEventType.Remove);
+				if (amount > 0 && _item.canCarryMultiple && _item.count > amount)
+				{
+					_item.count -= amount;
+				}
+				else
+				{
+					_localItems [_localItems.IndexOf (_item)] = null;
+					
+					_localItems = ReorderItems (_localItems);
+					_localItems = RemoveEmptySlots (_localItems);
+
+					KickStarter.eventManager.Call_OnChangeInventory (_item, InventoryEventType.Remove);
+				}
+
 				PlayerMenus.ResetInventoryBoxes ();
 			}
 		}
@@ -721,7 +730,7 @@ namespace AC
 			// Remove empty slots on end
 			for (int i=craftingItems.Count-1; i>=0; i--)
 			{
-				if (_localItems[i] == null)
+				if (_localItems.Count > i && _localItems[i] == null)
 				{
 					_localItems.RemoveAt (i);
 				}
@@ -759,15 +768,7 @@ namespace AC
 		 */
 		public string GetLabel (InvItem item, int languageNumber)
 		{
-			if (languageNumber > 0)
-			{
-				return (KickStarter.runtimeLanguages.GetTranslation (item.label, item.lineID, languageNumber));
-			}
-			else if (item.altLabel != "")
-			{
-				return (item.altLabel);
-			}
-			return (item.label);
+			return item.GetLabel (languageNumber);
 		}
 		
 
@@ -899,6 +900,28 @@ namespace AC
 			}
 			
 			return null;
+		}
+
+
+		private int GetCraftingItemCount (int _id)
+		{
+			int count = 0;
+
+			foreach (InvItem item in craftingItems)
+			{
+				if (item.id == _id)
+				{
+					if (item.canCarryMultiple)
+					{
+						count += item.count;
+					}
+					else
+					{
+						count ++;
+					}
+				}
+			}
+			return count;
 		}
 		
 
@@ -1240,16 +1263,27 @@ namespace AC
 		 * <summary>Moves an ingredient from a crafting recipe back into the player's inventory.</summary>
 		 * <param name = "_recipeSlot">The index number of the MenuCrafting slot that the ingredient was placed in</param>
 		 * <param name = "selectAfter">If True, the inventory item will be selected once the transfer is complete</param>
+		 * <param name = "forceAll">If True, then all instances of the item will be transferred regardless of the value of its own CanSelectSingle method</param>
 		 */
-		public void TransferCraftingToLocal (int _recipeSlot, bool selectAfter)
+		public void TransferCraftingToLocal (int _recipeSlot, bool selectAfter, bool forceAll = false)
 		{
-			foreach (InvItem item in craftingItems)
+			for (int i=0; i<craftingItems.Count; i++)
 			{
-				if (item.recipeSlot == _recipeSlot)
+				InvItem craftingItem = craftingItems[i];
+
+				if (craftingItem.recipeSlot == _recipeSlot)
 				{
-					Add (item.id, item.count, selectAfter, -1);
-					SelectItemByID (item.id, SelectItemMode.Use);
-					craftingItems.Remove (item);
+					if (!forceAll && craftingItem.CanSelectSingle ())
+					{
+						craftingItem.count --;
+						Add (craftingItem.id, 1, selectAfter, -1);
+					}
+					else
+					{
+						craftingItems.Remove (craftingItem);
+						Add (craftingItem.id, craftingItem.count, selectAfter, -1);
+					}
+					SelectItemByID (craftingItem.id, SelectItemMode.Use);
 					return;
 				}
 			}
@@ -1265,12 +1299,57 @@ namespace AC
 		{
 			if (_item != null && _localItems.Contains (_item))
 			{
-				_item.recipeSlot = _slot;
-				craftingItems.Add (_item);
-				
-				_localItems [_localItems.IndexOf (_item)] = null;
-				_localItems = ReorderItems (_localItems);
-				_localItems = RemoveEmptySlots (_localItems);
+				for (int i=0; i<craftingItems.Count; i++)
+				{
+					InvItem craftingItem = craftingItems[i];
+
+					if (craftingItem.recipeSlot == _slot)
+					{
+						// Space is filled already
+
+						if (craftingItem.id == _item.id && _item.canCarryMultiple)
+						{
+							// Filled with same item, so add
+							if (_item.CanSelectSingle ())
+							{
+								craftingItem.count ++;
+								_item.count --;
+							}
+							else
+							{
+								craftingItem.count += _item.count;
+								_localItems [_localItems.IndexOf (_item)] = null;
+								_localItems = ReorderItems (_localItems);
+								_localItems = RemoveEmptySlots (_localItems);
+							}
+							SetNull ();
+							return;
+						}
+						else
+						{
+							// Filled with different item / can't be added
+							TransferCraftingToLocal (_slot, false, true);
+						}
+					}
+				}
+
+				// Insert new item
+				InvItem newCraftingItem = new InvItem (_item);
+				newCraftingItem.recipeSlot = _slot;
+
+				if (_item.CanSelectSingle ())
+				{
+					newCraftingItem.count = 1;
+					_localItems [localItems.IndexOf (_item)].count --;
+				}
+				else
+				{
+					_localItems [_localItems.IndexOf (_item)] = null;
+					_localItems = ReorderItems (_localItems);
+					_localItems = RemoveEmptySlots (_localItems);
+				}
+
+				craftingItems.Add (newCraftingItem);
 				
 				SetNull ();
 			}
@@ -1375,10 +1454,12 @@ namespace AC
 							canCreateRecipe = false;
 							break;
 						}
-						
+
+						int ingredientCount = GetCraftingItemCount (ingredient.itemID);
+
 						if ((recipe.useSpecificSlots && ingredientItem.recipeSlot == (ingredient.slotNumber -1)) || !recipe.useSpecificSlots)
 						{
-							if ((ingredientItem.canCarryMultiple && ingredientItem.count >= ingredient.amount) || !ingredientItem.canCarryMultiple)
+							if ((ingredientItem.canCarryMultiple && ingredient.amount <= ingredientCount) || !ingredientItem.canCarryMultiple)
 							{
 								if (canCreateRecipe && recipe.ingredients.IndexOf (ingredient) == (recipe.ingredients.Count -1))
 								{
@@ -1428,16 +1509,29 @@ namespace AC
 		{
 			foreach (Ingredient ingredient in recipe.ingredients)
 			{
+				int ingredientAmount = ingredient.amount;
+
 				for (int i=0; i<craftingItems.Count; i++)
 				{
 					if (craftingItems [i].id == ingredient.itemID)
 					{
-						if (craftingItems [i].canCarryMultiple && ingredient.amount > 0)
+						if (craftingItems [i].canCarryMultiple && ingredientAmount > 0)
 						{
-							craftingItems [i].count -= ingredient.amount;
-							if (craftingItems [i].count < 1)
+							if (craftingItems[i].count < ingredientAmount)
 							{
+								// Remove all, and remove more elsewhere
+								ingredientAmount -= craftingItems[i].count;
 								craftingItems.RemoveAt (i);
+								i=-1;
+							}
+							else
+							{
+								craftingItems [i].count -= ingredientAmount;
+								if (craftingItems [i].count < 1)
+								{
+									craftingItems.RemoveAt (i);
+									i=-1;
+								}
 							}
 						}
 						else

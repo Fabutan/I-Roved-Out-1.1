@@ -115,12 +115,27 @@ namespace AC
 				{
 					SkipActionGUI (ending, actions, showGUI);
 				}
-				/*else
+			}
+
+			bool shownError = false;
+			List<int> outputIndices = new List<int>();
+			foreach (ActionEnd ending in endings)
+			{
+				if (ending.resultAction == ResultAction.Skip)
 				{
-					EditorGUILayout.Space ();
-					EditorGUILayout.Space ();
-					EditorGUILayout.Space ();
-				}*/
+					if (outputIndices.Contains (ending.skipAction))
+					{
+						if (!shownError)
+						{
+							EditorGUILayout.HelpBox ("Two or more output sockets connect to the same subsequent Action - this may cause unexpected behaviour and should be changed.", MessageType.Warning);
+						}
+						shownError = true;
+					}
+					else
+					{
+						outputIndices.Add (ending.skipAction);
+					}
+				}
 			}
 		}
 		

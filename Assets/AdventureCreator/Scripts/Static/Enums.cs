@@ -21,7 +21,7 @@ namespace AC
 	public enum ActionListSource { InScene, AssetFile };
 	public enum InteractionSource { InScene, AssetFile, CustomScript };
 	
-	public enum AppearType { Manual, MouseOver, DuringConversation, OnInputKey, OnInteraction, OnHotspot, WhenSpeechPlays, DuringGameplay, OnContainer, WhileLoading, DuringCutscene, WhileInventorySelected, ExceptWhenPaused };
+	public enum AppearType { Manual, MouseOver, DuringConversation, OnInputKey, OnInteraction, OnHotspot, WhenSpeechPlays, DuringGameplay, OnContainer, WhileLoading, DuringCutscene, WhileInventorySelected, ExceptWhenPaused, DuringGameplayAndConversations };
 	public enum SpeechMenuType { All, CharactersOnly, NarrationOnly, SpecificCharactersOnly, AllExceptSpecificCharacters };
 	public enum SpeechMenuLimit { All, BlockingOnly, BackgroundOnly };
 	public enum MenuTransition { Fade, Pan, FadeAndPan, Zoom, None };

@@ -251,7 +251,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuButton)";
 
 			EditorGUILayout.BeginVertical ("Button");
 			MenuSource source = menu.menuSource;
@@ -293,7 +293,7 @@ namespace AC
 			}
 			else if (buttonClickType == AC_ButtonClickType.RunActionList)
 			{
-				ActionListGUI (menu.title);
+				ActionListGUI (menu.title, apiPrefix);
 			}
 			else if (buttonClickType == AC_ButtonClickType.CustomScript)
 			{
@@ -339,9 +339,9 @@ namespace AC
 		}
 
 
-		private void ActionListGUI (string menuTitle)
+		private void ActionListGUI (string menuTitle, string apiPrefix)
 		{
-			actionList = ActionListAssetMenu.AssetGUI ("ActionList to run:", actionList, "", menuTitle + "_" + title + "_OnClick");
+			actionList = ActionListAssetMenu.AssetGUI ("ActionList to run:", actionList, apiPrefix + ".actionList", menuTitle + "_" + title + "_OnClick");
 			if (actionList != null && actionList.useParameters && actionList.parameters.Count > 0)
 			{
 				EditorGUILayout.BeginVertical ("Button");

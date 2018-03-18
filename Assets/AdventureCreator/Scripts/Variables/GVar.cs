@@ -273,13 +273,21 @@ namespace AC
 		
 		
 		/**
-		 * Sets the value if its type is String.
+		 * <summary>Sets the value if its type is String.</summary>
+		 * <param name = "newValue">The new value of the string</param>
+		 * <param name = "newLineID">If >=0, the translation ID used by SpeechManager / RuntimeLanguages will be updated to this value</param>
 		 */
-		public void SetStringValue (string newValue)
+		public void SetStringValue (string newValue, int newLineID = -1)
 		{
 			string originalValue = textVal;
 
 			textVal = newValue;
+
+			if (type == VariableType.String && newLineID >= 0)
+			{
+				textValLineID = newLineID;
+				CreateRuntimeTranslations ();
+			}
 
 			if (originalValue != textVal)
 			{

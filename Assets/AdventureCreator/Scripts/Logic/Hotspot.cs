@@ -36,6 +36,8 @@ namespace AC
 		public InteractionSource interactionSource;
 		/** If assigned, then the Hotspot will only be interactive when the assigned _Camera is active */
 		public _Camera limitToCamera = null;
+		/** If assigned, then the Hotspot will only be interactive when the player is within this Trigger Collider's boundary */
+		public InteractiveBoundary interactiveBoundary = null;
 
 		/** The display name, if not the GameObject's name */
 		public string hotspotName;
@@ -344,6 +346,7 @@ namespace AC
 							iconRenderer.sprite = iconSprite;
 						}
 					}
+
 					iconRenderer.transform.position = GetIconPosition ();
 					iconRenderer.transform.LookAt (iconRenderer.transform.position + KickStarter.mainCamera.transform.rotation * Vector3.forward, KickStarter.mainCamera.transform.rotation * Vector3.up);
 				}
@@ -496,7 +499,12 @@ namespace AC
 					}
 				}
 
-				if (KickStarter.playerMenus.IsInteractionMenuOn () && KickStarter.settingsManager.hideIconUnderInteractionMenu)
+				if (!KickStarter.stateHandler.IsInGameplay ())
+				{
+					iconAlpha = 0f;
+					return false;
+				}
+				else if (KickStarter.playerMenus.IsInteractionMenuOn () && KickStarter.settingsManager.hideIconUnderInteractionMenu)
 				{
 					iconAlpha = iconAlphaLerp.Update (iconAlpha, 0f, 5f);
 				}
@@ -734,7 +742,7 @@ namespace AC
 
 		/**
 		 * <summary>Checks if the Hotspot is enabled or not.</summary>
-		 * <returns>True if the Hotspot is enabled. If the Hotspot is not active only because its limitToCamera is not active, then True will be returned also.</returns.
+		 * <returns>True if the Hotspot is enabled. If the Hotspot is not active only because its limitToCamera is not active, then True will be returned.</returns>
 		 */
 		public bool IsOn ()
 		{
@@ -744,7 +752,23 @@ namespace AC
 			{
 				return false;
 			}
+
 			return true;
+		}
+
+
+		/**
+		 * <summary>Checks if the Player is within the Hotspot's interactableBoundary, if assigned.</summary>
+		 * <returns>True if the Player is within the Hotspot's interactableBoundary, if assigned.  If no InteractableBoundary is assigned, or there is no Player, then True will be returned.</returns>
+		 */
+		public bool PlayerIsWithinBoundary ()
+		{
+			if (interactiveBoundary == null || KickStarter.player == null)
+			{
+				return true;
+			}
+
+			return interactiveBoundary.PlayerIsPresent;
 		}
 		
 
@@ -789,6 +813,18 @@ namespace AC
 				highlight.HighlightOffInstant ();
 			}
 		}
+
+
+		/**
+		 * <summary>Shows any Menus with appearType = AppearType.OnInteraction, connected to a the Hotspot.</summary>
+		 */
+		public void ShowInteractionMenus ()
+		{
+			if (KickStarter.playerMenus != null)
+			{
+				KickStarter.playerMenus.EnableInteractionMenus (this);
+			}
+		}
 		
 
 		/**
@@ -826,13 +862,19 @@ namespace AC
 		{
 			if (this.GetComponent <AC.Char>() == null && drawGizmos)
 			{
+				Color gizmoColor = new Color (1f, 1f, 0f, 0.6f);
+
 				if (GetComponent <PolygonCollider2D>())
 				{
-					AdvGame.DrawPolygonCollider (transform, GetComponent <PolygonCollider2D>(), new Color (1f, 1f, 0f, 0.6f));
+					AdvGame.DrawPolygonCollider (transform, GetComponent <PolygonCollider2D>(), gizmoColor);
+				}
+				else if (GetComponent <MeshCollider>())
+				{
+					AdvGame.DrawMeshCollider (transform, GetComponent <MeshCollider>().sharedMesh, gizmoColor);
 				}
 				else
 				{
-					AdvGame.DrawCubeCollider (transform, new Color (1f, 1f, 0f, 0.6f));
+					AdvGame.DrawCubeCollider (transform, gizmoColor);
 				}
 			}
 		}

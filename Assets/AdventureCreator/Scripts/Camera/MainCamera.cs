@@ -641,6 +641,8 @@ namespace AC
 
 		private void UpdateCameraTransition ()
 		{
+			float timeValue = AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve);
+
 			if (retainPreviousSpeed && previousAttachedCamera != null)
 			{
 				startPerspectiveOffset = previousAttachedCamera.GetPerspectiveOffset ();
@@ -653,8 +655,8 @@ namespace AC
 
 			if (attachedCamera.Is2D ())
 			{
-				perspectiveOffset.x = AdvGame.Lerp (startPerspectiveOffset.x, attachedCamera.GetPerspectiveOffset ().x, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
-				perspectiveOffset.y = AdvGame.Lerp (startPerspectiveOffset.y, attachedCamera.GetPerspectiveOffset ().y, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
+				perspectiveOffset.x = AdvGame.Lerp (startPerspectiveOffset.x, attachedCamera.GetPerspectiveOffset ().x, timeValue);
+				perspectiveOffset.y = AdvGame.Lerp (startPerspectiveOffset.y, attachedCamera.GetPerspectiveOffset ().y, timeValue);
 
 				_camera.ResetProjectionMatrix();
 			}
@@ -662,21 +664,21 @@ namespace AC
 			if (moveMethod == MoveMethod.Curved)
 			{
 				// Don't slerp y position as this will create a "bump" effect
-				Vector3 newPosition = Vector3.Slerp (startPosition, attachedCamera.transform.position, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
-				newPosition.y = Mathf.Lerp(startPosition.y, attachedCamera.transform.position.y, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
+				Vector3 newPosition = Vector3.Slerp (startPosition, attachedCamera.transform.position, timeValue);
+				newPosition.y = Mathf.Lerp(startPosition.y, attachedCamera.transform.position.y, timeValue);
 				transform.position = newPosition;
 
 				transform.rotation = Quaternion.Slerp (startRotation, attachedCamera.transform.rotation, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
 			}
 			else
 			{
-				transform.position = AdvGame.Lerp (startPosition, attachedCamera.transform.position, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
-				transform.rotation = AdvGame.Lerp (startRotation, attachedCamera.transform.rotation, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
+				transform.position = AdvGame.Lerp (startPosition, attachedCamera.transform.position, timeValue);
+				transform.rotation = AdvGame.Lerp (startRotation, attachedCamera.transform.rotation, timeValue);
 			}
 
-			focalDistance = AdvGame.Lerp (startFocalDistance, attachedCamera.focalDistance, AdvGame.Interpolate(startTime, changeTime, moveMethod, timeCurve));
-			_camera.fieldOfView = AdvGame.Lerp (startFOV, attachedCamera._camera.fieldOfView, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
-			_camera.orthographicSize = AdvGame.Lerp (startOrtho, attachedCamera._camera.orthographicSize, AdvGame.Interpolate (startTime, changeTime, moveMethod, timeCurve));
+			focalDistance = AdvGame.Lerp (startFocalDistance, attachedCamera.focalDistance, timeValue);
+			_camera.fieldOfView = AdvGame.Lerp (startFOV, attachedCamera._camera.fieldOfView, timeValue);
+			_camera.orthographicSize = AdvGame.Lerp (startOrtho, attachedCamera._camera.orthographicSize, timeValue);
 
 			if (attachedCamera.Is2D () && !_camera.orthographic)
 			{
@@ -1822,6 +1824,14 @@ namespace AC
 
 		public PlayerData SaveData (PlayerData playerData)
 		{
+			bool restoreLookAtPosition = false;
+			Vector3 localLookAtPosition = Vector3.zero;
+			if (lookAtTransform != null && KickStarter.stateHandler.IsInGameplay ())
+			{
+				restoreLookAtPosition = true;
+				localLookAtPosition = lookAtTransform.localPosition;
+			}
+
 			SnapToAttached ();
 			if (attachedCamera)
 			{
@@ -1881,6 +1891,11 @@ namespace AC
 				{
 					playerData.splitCameraID = 0;
 				}
+			}
+
+			if (restoreLookAtPosition && lookAtTransform != null)
+			{
+				lookAtTransform.localPosition = localLookAtPosition;
 			}
 
 			return playerData;

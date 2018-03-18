@@ -46,6 +46,8 @@ namespace AC
 		public int count;
 		/** If True, and canCarryMultiple = True, then multiple instances of the same item will be listed in separate MenuInventoryBox slots */
 		public bool useSeparateSlots;
+		/** If True, and canCarryMultiple = True and useSeparateSlots = False, then only one item will be selectable at a time */
+		public bool selectSingle;
 		/** The item's main graphic */
 		public Texture tex;
 		/** The item's 'highlighted' graphic */
@@ -109,6 +111,7 @@ namespace AC
 			binID = -1;
 			recipeSlot = -1;
 			useSeparateSlots = false;
+			selectSingle = false;
 			carryOnStartNotDefault = false;
 			vars = new List<InvVar>();
 			canBeAnimated = false;
@@ -150,6 +153,7 @@ namespace AC
 			binID = -1;
 			recipeSlot = -1;
 			useSeparateSlots = false;
+			selectSingle = false;
 			carryOnStartNotDefault = false;
 			vars = new List<InvVar>();
 			canBeAnimated = false;
@@ -195,6 +199,7 @@ namespace AC
 			useIconID = assetItem.useIconID;
 			binID = assetItem.binID;
 			useSeparateSlots = assetItem.useSeparateSlots;
+			selectSingle = assetItem.selectSingle;
 			isEditing = false;
 			recipeSlot = -1;
 
@@ -247,16 +252,16 @@ namespace AC
 		{
 			if (languageNumber > 0)
 			{
-				return (KickStarter.runtimeLanguages.GetTranslation (label, lineID, languageNumber));
+				return AdvGame.ConvertTokens (KickStarter.runtimeLanguages.GetTranslation (label, lineID, languageNumber));
 			}
 			else
 			{
-				if (altLabel != "")
+				if (!string.IsNullOrEmpty (altLabel))
 				{
-					return altLabel;
+					return AdvGame.ConvertTokens (altLabel);
 				}
-				return label;
 			}
+			return AdvGame.ConvertTokens (label);
 		}
 
 
@@ -312,6 +317,18 @@ namespace AC
 		public void Select ()
 		{
 			KickStarter.runtimeInventory.SelectItem (this);
+		}
+
+
+		/**
+		 * <summary>Shows any Menus with appearType = AppearType.OnInteraction, connected to a the InvItem.</summary>
+		 */
+		public void ShowInteractionMenus ()
+		{
+			if (KickStarter.playerMenus != null)
+			{
+				KickStarter.playerMenus.EnableInteractionMenus (this);
+			}
 		}
 
 
@@ -459,6 +476,26 @@ namespace AC
 				}
 			}
 			return null;
+		}
+
+
+		/**
+		 * <summary>Checks if only one instance of the item can be selected, as opposed to all</summary>
+		 */
+		public bool CanSelectSingle (int _count = -1)
+		{
+			if (canCarryMultiple && !useSeparateSlots && selectSingle)
+			{
+				if (_count >= 0)
+				{
+					return (_count > 1);
+				}
+				else
+				{
+					return (count > 1);
+				}
+			}
+			return false;
 		}
 
 	}

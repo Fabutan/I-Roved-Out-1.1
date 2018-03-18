@@ -1194,6 +1194,16 @@ namespace AC
 			}
 			
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Interaction", "Logic/Interaction", "_Interactions", "A sequence of Actions that run when a Hotspot is activated.", "Interaction"));
+
+			if (SceneSettings.IsUnity2D ())
+			{
+				scenePrefabs.Add (new ScenePrefab ("Logic", "InteractiveBoundary2D", "Logic/InteractiveBoundary2D", "_Hotspots", "An optional boundary that the player must be inside for a Hotspot to be interactive.", "InteractiveBoundary"));
+			}
+			else
+			{
+				scenePrefabs.Add (new ScenePrefab ("Logic", "Interactive Boundary", "Logic/InteractiveBoundary", "_Hotspots", "An optional boundary that the player must be inside for a Hotspot to be interactive.", "InteractiveBoundary"));
+			}
+
 			scenePrefabs.Add (new ScenePrefab ("Logic", "Sound", "Logic/Sound", "_Sounds", "An audio source that syncs with AC's sound levels.", "Sound"));
 			
 			if (SceneSettings.IsUnity2D ())

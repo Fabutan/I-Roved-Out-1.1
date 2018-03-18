@@ -261,13 +261,19 @@ namespace AC
 		
 		private void DrawGizmos ()
 		{
+			Color gizmoColor = new Color (1f, 0.3f, 0f, 0.8f);
+
 			if (GetComponent <PolygonCollider2D>())
 			{
-				AdvGame.DrawPolygonCollider (transform, GetComponent <PolygonCollider2D>(), new Color (1f, 0.3f, 0f, 0.8f));
+				AdvGame.DrawPolygonCollider (transform, GetComponent <PolygonCollider2D>(), gizmoColor);
+			}
+			else if (GetComponent <MeshCollider>())
+			{
+				AdvGame.DrawMeshCollider (transform, GetComponent <MeshCollider>().sharedMesh, gizmoColor);
 			}
 			else if (GetComponent <BoxCollider2D>() != null || GetComponent <BoxCollider>() != null)
 			{
-				AdvGame.DrawCubeCollider (transform, new Color (1f, 0.3f, 0f, 0.8f));
+				AdvGame.DrawCubeCollider (transform, gizmoColor);
 			}
 		}
 

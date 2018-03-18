@@ -48,13 +48,10 @@ namespace AC
 			{
 				if (AdvGame.GetReferences ().speechManager.lipSyncOutput == LipSyncOutput.PortraitAndGameObject)
 				{
+					character.phonemeParameter = EditorGUILayout.TextField ("Phoneme integer:", character.phonemeParameter);
 					if (character.GetShapeable ())
 					{
 						character.lipSyncGroupID = ActionBlendShape.ShapeableGroupGUI ("Phoneme shape group:", character.GetShapeable ().shapeGroups, character.lipSyncGroupID);
-					}
-					else
-					{
-						EditorGUILayout.HelpBox ("Attach a Shapeable script to show phoneme options", MessageType.Info);
 					}
 				}
 				else if (AdvGame.GetReferences ().speechManager.lipSyncOutput == LipSyncOutput.GameObjectTexture)
@@ -142,6 +139,29 @@ namespace AC
 				EditorUtility.SetDirty (character);
 			}
 
+			#endif
+		}
+
+
+		public override void CharExpressionsGUI ()
+		{
+			#if UNITY_EDITOR
+			if (character.useExpressions)
+			{
+				character.mapExpressionsToShapeable = EditorGUILayout.Toggle ("Map to Shapeable?", character.mapExpressionsToShapeable);
+				if (character.mapExpressionsToShapeable)
+				{
+					if (character.GetShapeable ())
+					{
+						character.expressionGroupID = ActionBlendShape.ShapeableGroupGUI ("Expression shape group:", character.GetShapeable ().shapeGroups, character.expressionGroupID);
+						EditorGUILayout.HelpBox ("The names of the expressions below must match the shape key labels.", MessageType.Info);
+					}
+					else
+					{
+						EditorGUILayout.HelpBox ("A Shapeable component must be present on the model's Skinned Mesh Renderer.", MessageType.Warning);
+					}
+				}
+			}
 			#endif
 		}
 
@@ -728,6 +748,7 @@ namespace AC
 			}
 
 			MoveCharacter ();
+			AnimTalk (character.GetAnimator ());
 
 			if (character.talkParameter != "")
 			{
@@ -759,6 +780,7 @@ namespace AC
 			}
 
 			MoveCharacter ();
+			AnimTalk (character.GetAnimator ());
 
 			if (character.turnParameter != "")
 			{
@@ -801,6 +823,7 @@ namespace AC
 			}
 
 			MoveCharacter ();
+			AnimTalk (character.GetAnimator ());
 
 			if (character.turnParameter != "")
 			{
@@ -821,26 +844,25 @@ namespace AC
 
 		public override void PlayTalk ()
 		{
-			if (character.GetAnimator () == null)
+			PlayIdle ();
+		}
+
+
+		private void AnimTalk (Animator animator)
+		{
+			if (!string.IsNullOrEmpty (character.talkParameter))
 			{
-				return;
+				animator.SetBool (character.talkParameter, character.isTalking);
 			}
 
-			MoveCharacter ();
-
-			if (character.talkParameter != "")
+			if (!string.IsNullOrEmpty (character.phonemeParameter) && character.LipSyncGameObject ())
 			{
-				character.GetAnimator ().SetBool (character.talkParameter, true);
+				animator.SetInteger (character.phonemeParameter, character.GetLipSyncFrame ());
 			}
 
-			if (character.expressionParameter != "" && character.useExpressions)
+			if (!string.IsNullOrEmpty (character.expressionParameter) && character.useExpressions)
 			{
-				character.GetAnimator ().SetInteger (character.expressionParameter, character.GetExpressionID ());
-			}
-
-			if (character.turnParameter != "")
-			{
-				character.GetAnimator ().SetFloat (character.turnParameter, character.GetTurnFloat ());
+				animator.SetInteger (character.expressionParameter, character.GetExpressionID ());
 			}
 		}
 
@@ -903,6 +925,22 @@ namespace AC
 			if (character.headPitchParameter != "")
 			{
 				character.GetAnimator ().SetFloat (character.headPitchParameter, angles.y);
+			}
+		}
+
+
+		public override void OnSetExpression ()
+		{
+			if (character.mapExpressionsToShapeable && character.GetShapeable () != null)
+			{
+				if (character.CurrentExpression != null)
+				{
+					character.GetShapeable ().SetActiveKey (character.expressionGroupID, character.CurrentExpression.label, 100f, 0.2f, MoveMethod.Smooth, null);
+				}
+				else
+				{
+					character.GetShapeable ().DisableAllKeys (character.expressionGroupID, 0.2f, MoveMethod.Smooth, null);
+				}
 			}
 		}
 

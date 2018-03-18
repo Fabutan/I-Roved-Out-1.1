@@ -92,10 +92,14 @@ namespace AC
 		public static int GetGlobalInt (string _name)
 		{
 			#if PlayMakerIsPresent
-			return (FsmVariables.GlobalVariables.GetFsmInt (_name).Value);
-			#else
-			return 0;
+			FsmInt fsmInt = FsmVariables.GlobalVariables.FindFsmInt (_name);
+			if (fsmInt != null)
+			{
+				return fsmInt.Value;
+			}
+			ACDebug.LogWarning ("Cannot find Playmaker global Integer with then name '" + _name + "'");
 			#endif
+			return 0;
 		}
 		
 
@@ -107,10 +111,14 @@ namespace AC
 		public static bool GetGlobalBool (string _name)
 		{
 			#if PlayMakerIsPresent
-			return (FsmVariables.GlobalVariables.GetFsmBool (_name).Value);
-			#else
-			return false;
+			FsmBool fsmBool = FsmVariables.GlobalVariables.FindFsmBool (_name);
+			if (fsmBool != null)
+			{
+				return fsmBool.Value;
+			}
+			ACDebug.LogWarning ("Cannot find Playmaker global Boolean with then name '" + _name + "'");
 			#endif
+			return false;
 		}
 		
 
@@ -122,10 +130,14 @@ namespace AC
 		public static string GetGlobalString (string _name)
 		{
 			#if PlayMakerIsPresent
-			return (FsmVariables.GlobalVariables.GetFsmString (_name).Value);
-			#else
-			return "";
+			FsmString fsmString = FsmVariables.GlobalVariables.FindFsmString (_name);
+			if (fsmString != null)
+			{
+				return fsmString.Value;
+			}
+			ACDebug.LogWarning ("Cannot find Playmaker global String with then name '" + _name + "'");
 			#endif
+			return "";
 		}
 		
 
@@ -137,10 +149,14 @@ namespace AC
 		public static float GetGlobalFloat (string _name)
 		{
 			#if PlayMakerIsPresent
-			return (FsmVariables.GlobalVariables.GetFsmFloat (_name).Value);
-			#else
-			return 0f;
+			FsmFloat fsmFloat = FsmVariables.GlobalVariables.FindFsmFloat (_name);
+			if (fsmFloat != null)
+			{
+				return fsmFloat.Value;
+			}
+			ACDebug.LogWarning ("Cannot find Playmaker global Float with then name '" + _name + "'");
 			#endif
+			return 0f;
 		}
 
 
@@ -152,10 +168,14 @@ namespace AC
 		public static Vector3 GetGlobalVector3 (string _name)
 		{
 			#if PlayMakerIsPresent
-			return (FsmVariables.GlobalVariables.GetFsmVector3 (_name).Value);
-			#else
-			return Vector3.zero;
+			FsmVector3 fsmVector3 = FsmVariables.GlobalVariables.FindFsmVector3 (_name);
+			if (fsmVector3 != null)
+			{
+				return fsmVector3.Value;
+			}
+			ACDebug.LogWarning ("Cannot find Playmaker global Vector3 with then name '" + _name + "'");
 			#endif
+			return Vector3.zero;
 		}
 		
 
@@ -167,7 +187,15 @@ namespace AC
 		public static void SetGlobalInt (string _name, int _val)
 		{
 			#if PlayMakerIsPresent
-			FsmVariables.GlobalVariables.FindFsmInt (_name).Value = _val;
+			FsmInt fsmInt = FsmVariables.GlobalVariables.FindFsmInt (_name);
+			if (fsmInt != null)
+			{
+				fsmInt.Value = _val;
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot find Playmaker global Integer with then name '" + _name + "'");
+			}
 			#endif
 		}
 		
@@ -180,7 +208,15 @@ namespace AC
 		public static void SetGlobalBool (string _name, bool _val)
 		{
 			#if PlayMakerIsPresent
-			FsmVariables.GlobalVariables.FindFsmBool (_name).Value = _val;
+			FsmBool fsmBool = FsmVariables.GlobalVariables.FindFsmBool (_name);
+			if (fsmBool != null)
+			{
+				fsmBool.Value = _val;
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot find Playmaker global Boolean with then name '" + _name + "'");
+			}
 			#endif
 		}
 		
@@ -193,6 +229,16 @@ namespace AC
 		public static void SetGlobalString (string _name, string _val)
 		{
 			#if PlayMakerIsPresent
+			FsmString fsmString = FsmVariables.GlobalVariables.FindFsmString (_name);
+			if (fsmString != null)
+			{
+				fsmString.Value = _val;
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot find Playmaker global String with then name '" + _name + "'");
+			}
+
 			FsmVariables.GlobalVariables.FindFsmString (_name).Value = _val;
 			#endif
 		}
@@ -206,7 +252,15 @@ namespace AC
 		public static void SetGlobalFloat (string _name, float _val)
 		{
 			#if PlayMakerIsPresent
-			FsmVariables.GlobalVariables.FindFsmFloat (_name).Value = _val;
+			FsmFloat fsmFloat = FsmVariables.GlobalVariables.FindFsmFloat (_name);
+			if (fsmFloat != null)
+			{
+				fsmFloat.Value = _val;
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot find Playmaker global Float with then name '" + _name + "'");
+			}
 			#endif
 		}
 
@@ -219,7 +273,15 @@ namespace AC
 		public static void SetGlobalVector3 (string _name, Vector3 _val)
 		{
 			#if PlayMakerIsPresent
-			FsmVariables.GlobalVariables.FindFsmVector3 (_name).Value = _val;
+			FsmVector3 fsmVector3 = FsmVariables.GlobalVariables.FindFsmVector3 (_name);
+			if (fsmVector3 != null)
+			{
+				fsmVector3.Value = _val;
+			}
+			else
+			{
+				ACDebug.LogWarning ("Cannot find Playmaker global Vector3 with then name '" + _name + "'");
+			}
 			#endif
 		}
 		

@@ -99,7 +99,6 @@ namespace AC
 
 				EditorGUILayout.BeginHorizontal ();
 				_target.walkToMarker = (Marker) EditorGUILayout.ObjectField ("Walk-to marker:", _target.walkToMarker, typeof (Marker), true);
-
 				if (_target.walkToMarker == null)
 				{
 					if (GUILayout.Button ("Create", autoWidth))
@@ -118,6 +117,28 @@ namespace AC
 				EditorGUILayout.EndHorizontal ();
 
 				_target.limitToCamera = (_Camera) EditorGUILayout.ObjectField ("Limit to camera:", _target.limitToCamera, typeof (_Camera), true);
+
+				EditorGUILayout.BeginHorizontal ();
+				_target.interactiveBoundary = (InteractiveBoundary) EditorGUILayout.ObjectField ("Interactive boundary:", _target.interactiveBoundary, typeof (InteractiveBoundary), true);
+				if (_target.interactiveBoundary == null)
+				{
+					if (GUILayout.Button ("Create", autoWidth))
+					{
+						string prefabName = "InteractiveBoundary";
+						if (SceneSettings.IsUnity2D ())
+						{
+							prefabName += "2D";
+						}
+						InteractiveBoundary newInteractiveBoundary = SceneManager.AddPrefab ("Logic", prefabName, true, false, true).GetComponent <InteractiveBoundary>();
+						newInteractiveBoundary.gameObject.name += (": " + _target.gameObject.name);
+						newInteractiveBoundary.transform.position = _target.transform.position;
+						_target.interactiveBoundary = newInteractiveBoundary;
+
+						UnityVersionHandler.PutInFolder (newInteractiveBoundary.gameObject, "_Hotspots");
+					}
+				}
+				EditorGUILayout.EndHorizontal ();
+
 				_target.drawGizmos = EditorGUILayout.Toggle ("Draw yellow cube?", _target.drawGizmos);
 				
 				if (settingsManager != null && (settingsManager.interactionMethod == AC_InteractionMethod.ChooseHotspotThenInteraction || settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot))
@@ -449,7 +470,22 @@ namespace AC
 			{
 				EditorGUILayout.BeginHorizontal ();
 				button.assetFile = (ActionListAsset) EditorGUILayout.ObjectField ("Interaction:", button.assetFile, typeof (ActionListAsset), false);
-				if (button.assetFile != null && GUILayout.Button ("", Resource.NodeSkin.customStyles[13], GUILayout.Width (20f)))
+				if (button.assetFile == null)
+				{
+					if (GUILayout.Button ("Create", autoWidth))
+					{
+						string defaultName = GenerateInteractionName (suffix);
+
+						#if !(UNITY_WP8 || UNITY_WINRT)
+						defaultName = System.Text.RegularExpressions.Regex.Replace (defaultName, "[^\\w\\_]", "");
+						#else
+						defaultName = "";
+						#endif
+
+						button.assetFile = ActionListAssetMenu.CreateAsset (defaultName);
+					}
+				}
+				else if (GUILayout.Button ("", Resource.NodeSkin.customStyles[13], GUILayout.Width (20f)))
 				{
 					ActionListEditorWindow.Init (button.assetFile);
 				}
@@ -489,13 +525,7 @@ namespace AC
 						Undo.RecordObject (_target, "Create Interaction");
 						Interaction newInteraction = SceneManager.AddPrefab ("Logic", "Interaction", true, false, true).GetComponent <Interaction>();
 						
-						string hotspotName = _target.gameObject.name;
-						if (_target != null && _target.hotspotName != null && _target.hotspotName.Length > 0)
-						{
-							hotspotName = _target.hotspotName;
-						}
-						
-						newInteraction.gameObject.name = AdvGame.UniqueName (hotspotName + ": " + suffix);
+						newInteraction.gameObject.name = GenerateInteractionName (suffix);
 						button.interaction = newInteraction;
 					}
 				}
@@ -536,6 +566,18 @@ namespace AC
 					}
 				}
 			}
+		}
+
+
+		private string GenerateInteractionName (string suffix)
+		{
+			string hotspotName = _target.gameObject.name;
+			if (_target != null && _target.hotspotName != null && _target.hotspotName.Length > 0)
+			{
+				hotspotName = _target.hotspotName;
+			}
+
+			return AdvGame.UniqueName (hotspotName + ": " + suffix);
 		}
 
 

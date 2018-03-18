@@ -329,6 +329,11 @@ namespace AC
 			{
 				skipIteractions ++;
 				action.Skip ();
+
+				if (KickStarter.settingsManager.printActionCommentsInConsole)
+				{
+					action.PrintComment (this);
+				}
 			}
 			else
 			{
@@ -603,7 +608,7 @@ namespace AC
 			{
 				if (action != null)
 				{
-					action.isRunning = false;
+					action.Reset (this);
 				}
 			}
 		}

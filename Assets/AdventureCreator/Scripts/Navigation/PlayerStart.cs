@@ -60,8 +60,8 @@ namespace AC
 				{
 					if (KickStarter.player)
 					{
-						KickStarter.player.Teleport (KickStarter.sceneChanger.GetStartPosition (this.transform.position));
 						KickStarter.player.SetLookDirection (this.transform.forward, true);
+						KickStarter.player.Teleport (KickStarter.sceneChanger.GetStartPosition (this.transform.position));
 
 						if (SceneSettings.ActInScreenSpace ())
 						{

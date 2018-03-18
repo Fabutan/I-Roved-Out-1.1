@@ -113,6 +113,29 @@ namespace AC
 		}
 
 
+		public override void CharExpressionsGUI ()
+		{
+			#if UNITY_EDITOR
+			if (character.useExpressions)
+			{
+				character.mapExpressionsToShapeable = EditorGUILayout.Toggle ("Map to Shapeable?", character.mapExpressionsToShapeable);
+				if (character.mapExpressionsToShapeable)
+				{
+					if (character.GetShapeable ())
+					{
+						character.expressionGroupID = ActionBlendShape.ShapeableGroupGUI ("Expression shape group:", character.GetShapeable ().shapeGroups, character.expressionGroupID);
+						EditorGUILayout.HelpBox ("The names of the expressions below must match the shape key labels.", MessageType.Info);
+					}
+					else
+					{
+						EditorGUILayout.HelpBox ("A Shapeable component must be present on the model's Skinned Mesh Renderer.", MessageType.Warning);
+					}
+				}
+			}
+			#endif
+		}
+
+
 		public override void ActionCharAnimGUI (ActionCharAnim action, List<ActionParameter> parameters = null)
 		{
 			#if UNITY_EDITOR
@@ -1025,6 +1048,22 @@ namespace AC
 			}
 
 			return "";
+		}
+
+
+		public override void OnSetExpression ()
+		{
+			if (character.mapExpressionsToShapeable && character.GetShapeable () != null)
+			{
+				if (character.CurrentExpression != null)
+				{
+					character.GetShapeable ().SetActiveKey (character.expressionGroupID, character.CurrentExpression.label, 100f, 0.2f, MoveMethod.Smooth, null);
+				}
+				else
+				{
+					character.GetShapeable ().DisableAllKeys (character.expressionGroupID, 0.2f, MoveMethod.Smooth, null);
+				}
+			}
 		}
 
 	}

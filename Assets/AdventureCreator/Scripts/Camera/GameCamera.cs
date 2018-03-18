@@ -347,6 +347,23 @@ namespace AC
 			{
 				desiredPosition.x = target.transform.position.x - xFreedom;
 			}
+
+			desiredPosition.x += xOffset;
+		}
+
+
+		private void TrackTarget2D_Y ()
+		{
+			if (target.transform.position.y < (transform.position.y - yFreedom))
+			{
+				desiredPosition.y = target.transform.position.y + yFreedom;
+			}
+			else if (target.transform.position.y > (transform.position.y + yFreedom))
+			{
+				desiredPosition.y = target.transform.position.y - yFreedom;
+			}
+
+			desiredPosition.y += yOffsetLoc;
 		}
 		
 		
@@ -360,6 +377,8 @@ namespace AC
 			{
 				desiredPosition.z = target.transform.position.z -zFreedom;
 			}
+
+			desiredPosition.z += zOffset;
 		}
 		
 		
@@ -523,7 +542,11 @@ namespace AC
 			{
 				if (target)
 				{
-					if (yLocConstrainType != CameraLocConstrainType.SideScrolling)
+					if (yLocConstrainType == CameraLocConstrainType.SideScrolling)
+					{
+						TrackTarget2D_Y ();
+					}
+					else
 					{
 						desiredPosition.y = GetDesiredPosition (originalPosition.y, yGradientLoc, yOffsetLoc, yLocConstrainType);
 					}

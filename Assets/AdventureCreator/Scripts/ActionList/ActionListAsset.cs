@@ -182,6 +182,18 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Kills all currently-running instances of the asset.</summary>
+		 */
+		public void KillAllInstances ()
+		{
+			if (KickStarter.actionListAssetManager != null)
+			{
+				int numRemoved = KickStarter.actionListAssetManager.EndAssetList (this, null, true);
+				ACDebug.Log ("Ended " + numRemoved + " instances of the ActionList Asset '" + this.name + "'", this);
+			}
+		}
+
 	}
 
 
@@ -204,6 +216,11 @@ namespace AC
 
 		public static ActionListAsset CreateAsset (string assetName)
 		{
+			if (string.IsNullOrEmpty (assetName))
+			{
+				return CreateAsset ();
+			}
+
 			ScriptableObject t = CustomAssetUtility.CreateAsset <ActionListAsset> (assetName);
 			EditorGUIUtility.PingObject (t);
 			ACDebug.Log ("Created ActionList: " + assetName);
@@ -226,14 +243,7 @@ namespace AC
 					defaultName = "";
 					#endif
 
-					if (defaultName != "")
-					{
-						actionListAsset = ActionListAssetMenu.CreateAsset (defaultName);
-					}
-					else
-					{
-						actionListAsset = ActionListAssetMenu.CreateAsset ();
-					}
+					actionListAsset = ActionListAssetMenu.CreateAsset (defaultName);
 				}
 			}
 

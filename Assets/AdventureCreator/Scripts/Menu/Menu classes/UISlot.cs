@@ -158,7 +158,7 @@ namespace AC
 
 
 		/**
-		 * <summary>Sets the image of the UI Button.</summary>
+		 * <summary>Sets the image of the UI Button using a Texture.</summary>
 		 * <param title = "_texture">The texture to assign the Button</param>
 		 */
 		public void SetImage (Texture _texture)
@@ -171,12 +171,7 @@ namespace AC
 			{
 				if (_texture == null)
 				{
-					if (emptySprite == null)
-					{
-						emptySprite = Resources.Load <UnityEngine.Sprite> (Resource.emptySlot);
-					}
-
-					sprite = emptySprite;
+					sprite = EmptySprite;
 				}
 				else if (sprite == null || sprite == emptySprite || cacheTexture != _texture)
 				{
@@ -197,6 +192,41 @@ namespace AC
 				}
 
 				uiImage.sprite = sprite;
+			}
+		}
+
+
+		/**
+		 * <summary>Sets the image of the UI Button using a Sprite.</summary>
+		 * <param title = "_sprite">The sprite to assign the Button</param>
+		 */
+		public void SetImageAsSprite (Sprite _sprite)
+		{
+			if (uiImage != null)
+			{
+				if (_sprite == null)
+				{
+					sprite = EmptySprite;
+				}
+				else if (sprite == null || sprite == EmptySprite || sprite != _sprite)
+				{
+					sprite = _sprite;
+				}
+
+				uiImage.sprite = sprite;
+			}
+		}
+
+
+		private Sprite EmptySprite
+		{
+			get
+			{
+				if (emptySprite == null)
+				{
+					emptySprite = Resources.Load <UnityEngine.Sprite> (Resource.emptySlot);
+				}
+				return emptySprite;
 			}
 		}
 

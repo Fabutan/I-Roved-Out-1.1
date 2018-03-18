@@ -865,6 +865,16 @@ namespace AC
 		}
 
 
+		/**
+		 * <summary>Resets any runtime values that are necessary to run the Action succesfully</summary>
+		 * <param name = "actionList">The ActionList that the Action is a part of<param>
+		 */
+		public virtual void Reset (ActionList actionList)
+		{
+			isRunning = false;
+		}
+
+
 		protected string AssignString (List<ActionParameter> parameters, int _parameterID, string field)
 		{
 			ActionParameter parameter = GetParameterWithID (parameters, _parameterID);

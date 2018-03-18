@@ -187,10 +187,7 @@ namespace AC
 				EditorGUILayout.EndHorizontal ();
 			}
 			
-			EditorGUILayout.BeginHorizontal ();
-			EditorGUILayout.LabelField ("Icon texture:", GUILayout.Width (155f));
-			option.icon = (Texture2D) EditorGUILayout.ObjectField (option.icon, typeof (Texture2D), false, GUILayout.Width (70f), GUILayout.Height (30f));
-			EditorGUILayout.EndHorizontal ();
+			option.cursorIcon.ShowGUI (false, true, "Icon texture:");
 			
 			option.isOn = EditorGUILayout.Toggle ("Is enabled?", option.isOn);
 			if (source == InteractionSource.CustomScript)

@@ -145,7 +145,7 @@ namespace AC
 				}
 				else
 				{
-					location = (VariableLocation) EditorGUILayout.EnumPopup ("Source:", location);
+					location = (VariableLocation) EditorGUILayout.EnumPopup ("Variable source:", location);
 				}
 				
 				if (location == VariableLocation.Global)
@@ -245,7 +245,7 @@ namespace AC
 				ID = 0;
 			}
 			
-			variableNumber = EditorGUILayout.Popup ("Variable:", variableNumber, labelList.ToArray ());
+			variableNumber = EditorGUILayout.Popup ("Integer variable:", variableNumber, labelList.ToArray ());
 			ID = vars[variableNumber].id;
 			
 			return ID;

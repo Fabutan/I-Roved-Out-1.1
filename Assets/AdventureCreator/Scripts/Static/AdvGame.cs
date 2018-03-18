@@ -594,6 +594,22 @@ namespace AC
 
 
 		/**
+		 * <summary>Draws an outline of a 3D Mesh in the Scene window.</summary>
+		 * <param name = "transform">The transform of the object to draw around</param>
+		 * <param name = "mesh">The Mesh to draw</param>
+		 * <param name = "color">The colour of the mesh</param>
+		 */
+		public static void DrawMeshCollider (Transform transform, Mesh mesh, Color color)
+		{
+			if (mesh != null)
+			{
+				Gizmos.color = color;
+				Gizmos.DrawMesh (mesh, 0, transform.position, transform.rotation, transform.lossyScale);
+			}
+		}
+
+
+		/**
 		 * <summary>Locates an object with a supplied ConstantID number (Unity Editor only).
 		 * If the object is not found in the current scene, all scenes in the Build Settings will be searched.
 		 * Once an object is found, it will be pinged in the Hierarchy window.</summary>
@@ -1434,17 +1450,16 @@ namespace AC
 		 * <summary>Lerps from one float to another over time.</summary>
 		 * <param name = "from">The initial value</param>
 		 * <param name = "to">The final value</param>
-		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value</param>
+		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value. If less than 1, the result will undershoot the initial value</param>
 		 * <returns>The lerped float</returns>
 		 */
 		public static float Lerp (float from, float to, float t)
 		{
-			if (t <= 1)
+			if (t < 0 || t > 1)
 			{
-				return Mathf.Lerp (from, to, t);
+				return from + (to-from)*t;
 			}
-			
-			return from + (to-from)*t;
+			return Mathf.Lerp (from, to, t);
 		}
 		
 		
@@ -1452,17 +1467,16 @@ namespace AC
 		 * <summary>Lerps from one Vector3 to another over time.</summary>
 		 * <param name = "from">The initial value</param>
 		 * <param name = "to">The final value</param>
-		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value</param>
+		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value. If less than 1, the result will undershoot the initial value</param>
 		 * <returns>The lerped Vector3</returns>
 		 */
 		public static Vector3 Lerp (Vector3 from, Vector3 to, float t)
 		{
-			if (t <= 1)
+			if (t < 0 || t > 1)
 			{
-				return Vector3.Lerp (from, to, t);
+				return from + (to-from)*t;
 			}
-			
-			return from + (to-from)*t;
+			return Vector3.Lerp (from, to, t);
 		}
 		
 
@@ -1470,45 +1484,45 @@ namespace AC
 		 * <summary>Lerps from one Quaternion to another over time.</summary>
 		 * <param name = "from">The initial value</param>
 		 * <param name = "to">The final value</param>
-		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value</param>
+		 * <param name = "t">The time value.  If greater than 1, the result will overshoot the final value. If less than 1, the result will undershoot the initial value</param>
 		 * <returns>The lerped Quaternion</returns>
 		 */
 		public static Quaternion Lerp (Quaternion from, Quaternion to, float t)
 		{
-			if (t <= 1)
+			if (t < 0 || t > 1)
 			{
-				return Quaternion.Lerp (from, to, t);
+				Vector3 fromVec = from.eulerAngles;
+				Vector3 toVec = to.eulerAngles;
+				
+				if (fromVec.x - toVec.x > 180f)
+				{
+					toVec.x -= 360f;
+				}
+				else if (fromVec.x - toVec.x > 180f)
+				{
+					toVec.x += 360;
+				}
+				if (fromVec.y - toVec.y < -180f)
+				{
+					toVec.y -= 360f;
+				}
+				else if (fromVec.y - toVec.y > 180f)
+				{
+					toVec.y += 360;
+				}
+				if (fromVec.z - toVec.z > 180f)
+				{
+					toVec.z -= 360f;
+				}
+				else if (fromVec.z - toVec.z > 180f)
+				{
+					toVec.z += 360;
+				}
+				
+				return Quaternion.Euler (Lerp (fromVec, toVec, t));
 			}
-			
-			Vector3 fromVec = from.eulerAngles;
-			Vector3 toVec = to.eulerAngles;
-			
-			if (fromVec.x - toVec.x > 180f)
-			{
-				toVec.x -= 360f;
-			}
-			else if (fromVec.x - toVec.x > 180f)
-			{
-				toVec.x += 360;
-			}
-			if (fromVec.y - toVec.y < -180f)
-			{
-				toVec.y -= 360f;
-			}
-			else if (fromVec.y - toVec.y > 180f)
-			{
-				toVec.y += 360;
-			}
-			if (fromVec.z - toVec.z > 180f)
-			{
-				toVec.z -= 360f;
-			}
-			else if (fromVec.z - toVec.z > 180f)
-			{
-				toVec.z += 360;
-			}
-			
-			return Quaternion.Euler (Lerp (fromVec, toVec, t));
+
+			return Quaternion.Lerp (from, to, t);
 		}
 		
 
@@ -1547,7 +1561,6 @@ namespace AC
 				}
 				float startTime = timeCurve [0].time;
 				float endTime = timeCurve [timeCurve.length - 1].time;
-				
 				return timeCurve.Evaluate ((endTime - startTime) * (Time.time - startT) / deltaT + startTime);
 			}
 			

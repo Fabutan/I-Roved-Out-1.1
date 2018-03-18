@@ -111,6 +111,13 @@ namespace AC
 							targetPosition = AdvGame.GetScreenNavMesh (targetPosition);
 						}
 
+						float distance = Vector3.Distance (targetPosition, charToMove.transform.position);
+						if (distance <= KickStarter.settingsManager.destinationAccuracy)
+						{
+							isRunning = false;
+							return 0f;
+						}
+
 						if (pathFind && KickStarter.navigationManager)
 						{
 							pointArray = KickStarter.navigationManager.navigationEngine.GetPointsArray (charToMove.transform.position, targetPosition, charToMove);

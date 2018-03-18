@@ -228,7 +228,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuSavesList)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -244,11 +244,11 @@ namespace AC
 				autoHandle = CustomGUILayout.Toggle ("Save when click on?", autoHandle, apiPrefix + ".autoHandle");
 				if (autoHandle)
 				{
-					ActionListGUI ("ActionList after saving:", menu.title, "After_Saving");
+					ActionListGUI ("ActionList after saving:", menu.title, "After_Saving", apiPrefix);
 				}
 				else
 				{
-					ActionListGUI ("ActionList when click:", menu.title, "When_Click");
+					ActionListGUI ("ActionList when click:", menu.title, "When_Click", apiPrefix);
 				}
 			}
 			else if (saveListType == AC_SaveListType.Load)
@@ -256,11 +256,11 @@ namespace AC
 				autoHandle = CustomGUILayout.Toggle ("Load when click on?", autoHandle, apiPrefix + ".autoHandle");
 				if (autoHandle)
 				{
-					ActionListGUI ("ActionList after loading:", menu.title, "After_Loading");
+					ActionListGUI ("ActionList after loading:", menu.title, "After_Loading", apiPrefix);
 				}
 				else
 				{
-					ActionListGUI ("ActionList when click:", menu.title, "When_Click");
+					ActionListGUI ("ActionList when click:", menu.title, "When_Click", apiPrefix);
 				}
 			}
 			else if (saveListType == AC_SaveListType.Import)
@@ -269,7 +269,7 @@ namespace AC
 				#if UNITY_STANDALONE
 				importProductName = CustomGUILayout.TextField ("Import product name:", importProductName, apiPrefix + ".importProductName");
 				importSaveFilename = CustomGUILayout.TextField ("Import save filename:", importSaveFilename, apiPrefix + ".importSaveFilename");
-				ActionListGUI ("ActionList after import:", menu.title, "After_Import");
+				ActionListGUI ("ActionList after import:", menu.title, "After_Import", apiPrefix);
 				checkImportBool = CustomGUILayout.Toggle ("Require Bool to be true?", checkImportBool, apiPrefix + ".checkImportBool");
 				if (checkImportBool)
 				{
@@ -408,9 +408,9 @@ namespace AC
 		}
 
 
-		private void ActionListGUI (string label, string menuTitle, string suffix)
+		private void ActionListGUI (string label, string menuTitle, string suffix, string apiPrefix)
 		{
-			actionListOnSave = ActionListAssetMenu.AssetGUI (label, actionListOnSave, "", menuTitle + "_" + title + "_" + suffix);
+			actionListOnSave = ActionListAssetMenu.AssetGUI (label, actionListOnSave, apiPrefix + ".actionListOnSave", menuTitle + "_" + title + "_" + suffix);
 			
 			if (actionListOnSave != null && actionListOnSave.useParameters && actionListOnSave.parameters.Count > 0)
 			{

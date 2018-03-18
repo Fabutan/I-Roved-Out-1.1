@@ -271,7 +271,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuInventoryBox)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -530,9 +530,14 @@ namespace AC
 							{
 								if (KickStarter.settingsManager.selectInventoryDisplay == SelectInventoryDisplay.HideFromMenu && ItemIsSelected (items [_slot+offset]))
 								{
-									uiSlots[_slot].SetImage (null);
-									labels [_slot] = "";
-									return;
+									if (!items[_slot+offset].CanSelectSingle ())
+									{
+										// Display as normal if we only have one selected from many
+										uiSlots[_slot].SetImage (null);
+										labels [_slot] = "";
+										uiSlots[_slot].SetText (labels [_slot]);
+										return;
+									}
 								}
 								tex = GetTexture (items [_slot+offset], isActive);
 							}
@@ -586,7 +591,11 @@ namespace AC
 			{
 				if (Application.isPlaying && KickStarter.settingsManager.selectInventoryDisplay == SelectInventoryDisplay.HideFromMenu && ItemIsSelected (items [_slot+offset]))
 				{
-					return;
+					if (!items[_slot+offset].CanSelectSingle ())
+					{
+						// Display as normal if we only have one selected from many
+						return;
+					}
 				}
 			
 				if (displayType == ConversationDisplayType.IconOnly)
@@ -1100,16 +1109,31 @@ namespace AC
 
 		private string GetCount (int i)
 		{
-			if (items.Count <= (i+offset) || items [i+offset] == null)
+			if (Application.isPlaying)
 			{
-				return "";
+				if (items.Count <= (i+offset) || items [i+offset] == null)
+				{
+					return "";
+				}
+
+				if (items [i+offset].count < 2)
+				{
+					return "";
+				}
+
+				if (ItemIsSelected (items [i+offset]) && items [i+offset].CanSelectSingle ())
+				{
+					return (items [i+offset].count-1).ToString ();
+				}
+
+				return items [i + offset].count.ToString ();
 			}
 
-			if (items [i+offset].count < 2)
+			if (items[i+offset].canCarryMultiple && !items[i+offset].useSeparateSlots && items[i+offset].count > 1)
 			{
-				return "";
+				return items[i+offset].count.ToString ();
 			}
-			return items [i + offset].count.ToString ();
+			return "";
 		}
 
 
@@ -1167,17 +1191,27 @@ namespace AC
 						ContainerItem containerItem = container.items [_slot + offset];
 
 						KickStarter.eventManager.Call_OnUseContainer (false, container, containerItem);
-						KickStarter.runtimeInventory.Add (containerItem.linkedID, containerItem.count, selectItemsAfterTaking, -1);
-						container.items.Remove (containerItem);
+						if (KickStarter.inventoryManager.GetItem (containerItem.linkedID).CanSelectSingle (containerItem.count))
+						{
+							// Only take one
+							KickStarter.runtimeInventory.Add (containerItem.linkedID, 1, selectItemsAfterTaking, -1);
+							container.items [_slot+offset].count -= 1;
+						}
+						else
+						{
+							KickStarter.runtimeInventory.Add (containerItem.linkedID, containerItem.count, selectItemsAfterTaking, -1);
+							container.items.Remove (containerItem);
+						}
 					}
 				}
 				else
 				{
 					// Placing an item inside the container
-					ContainerItem containerItem = container.InsertAt (KickStarter.runtimeInventory.SelectedItem, _slot+offset);
+					int numToChange = (KickStarter.runtimeInventory.SelectedItem.CanSelectSingle ()) ? 1 : 0;
+					ContainerItem containerItem = container.InsertAt (KickStarter.runtimeInventory.SelectedItem, _slot+offset, numToChange);
 					if (containerItem != null)
 					{
-						KickStarter.runtimeInventory.Remove (KickStarter.runtimeInventory.SelectedItem);
+						KickStarter.runtimeInventory.Remove (KickStarter.runtimeInventory.SelectedItem, numToChange);
 						KickStarter.eventManager.Call_OnUseContainer (true, container, containerItem);
 					}
 				}

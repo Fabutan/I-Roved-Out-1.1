@@ -134,7 +134,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuGraphic)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -157,7 +157,7 @@ namespace AC
 			graphicType = (AC_GraphicType) CustomGUILayout.EnumPopup ("Graphic type:", graphicType, apiPrefix + ".graphicType");
 			if (graphicType == AC_GraphicType.Normal)
 			{
-				graphic.ShowGUI (false);
+				graphic.ShowGUI (false, false, "Texture:", CursorRendering.Software, apiPrefix + ".graphic");
 			}
 			EditorGUILayout.EndVertical ();
 			

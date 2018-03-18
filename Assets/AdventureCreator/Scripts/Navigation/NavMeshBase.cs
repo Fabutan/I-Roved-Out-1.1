@@ -40,15 +40,15 @@ namespace AC
 
 		protected void BaseAwake ()
 		{
-			if (disableRenderer)
-			{
-				Hide ();
-			}
-
 			_collider = GetComponent <Collider>();
 			_meshRenderer = GetComponent <MeshRenderer>();
 			_meshCollider = GetComponent <MeshCollider>();
 			_meshFilter = GetComponent <MeshFilter>();
+
+			if (disableRenderer)
+			{
+				Hide ();
+			}
 
 			#if !(UNITY_5 || UNITY_2017_1_OR_NEWER)
 			if (_collider != null)
@@ -82,6 +82,13 @@ namespace AC
 		 */
 		public void Hide ()
 		{
+			#if UNITY_EDITOR
+			if (_meshRenderer == null)
+			{
+				_meshRenderer = GetComponent <MeshRenderer>();
+			}
+			#endif
+
 			if (_meshRenderer != null)
 			{
 				_meshRenderer.enabled = false;
@@ -95,6 +102,13 @@ namespace AC
 		 */
 		public void Show ()
 		{
+			#if UNITY_EDITOR
+			if (_meshRenderer == null)
+			{
+				_meshRenderer = GetComponent <MeshRenderer>();
+			}
+			#endif
+
 			if (_meshRenderer != null)
 			{
 				_meshRenderer.enabled = true;

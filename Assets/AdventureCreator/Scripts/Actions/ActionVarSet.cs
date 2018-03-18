@@ -46,6 +46,8 @@ namespace AC
 		public string formula;
 		public Vector3 vector3Value;
 
+		public int lineID = -1;
+
 		public VariableLocation location;
 
 		public string menuName;
@@ -316,7 +318,7 @@ namespace AC
 					}
 				}
 
-				var.SetStringValue (_value);
+				var.SetStringValue (_value, lineID);
 			}
 
 			if (location == VariableLocation.Global)
@@ -360,6 +362,34 @@ namespace AC
 					EditorGUILayout.HelpBox ("No 'Local Variables' component found in the scene. Please add an AC GameEngine object from the Scene Manager.", MessageType.Info);
 				}
 			}
+		}
+
+
+		public bool IsTranslatable ()
+		{
+			if (setVarMethodString == SetVarMethodString.EnteredHere && setParameterID < 0)
+			{
+				GVar variable = null;
+
+				if (location == VariableLocation.Global)
+				{
+					VariablesManager variablesManager = AdvGame.GetReferences ().variablesManager;
+					if (variablesManager != null)
+					{
+						variable = variablesManager.GetVariable (variableID);
+					}
+				}
+				else
+				{
+					variable = LocalVariables.GetVariable (variableID);
+				}
+
+				if (variable != null && variable.type == VariableType.String)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 

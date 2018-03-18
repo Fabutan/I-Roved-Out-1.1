@@ -50,6 +50,7 @@ namespace AC
 		public Texture activeTexture;
 
 		private Text uiText;
+		private Image uiImage;
 		private CursorIcon icon;
 		private string label = "";
 		private bool isDefaultIcon = false;
@@ -64,6 +65,7 @@ namespace AC
 		{
 			uiButton = null;
 			uiPointerState = UIPointerState.PointerClick;
+			uiImage = null;
 			uiText = null;
 			isVisible = true;
 			isClickable = true;
@@ -103,6 +105,7 @@ namespace AC
 
 			uiPointerState = _element.uiPointerState;
 			uiText = null;
+			uiImage = null;
 
 			displayType = _element.displayType;
 			anchor = _element.anchor;
@@ -126,10 +129,8 @@ namespace AC
 			uiButton = LinkUIElement <UnityEngine.UI.Button> (canvas);
 			if (uiButton)
 			{
-				if (uiButton.GetComponentInChildren <Text>())
-				{
-					uiText = uiButton.GetComponentInChildren <Text>();
-				}
+				uiText = uiButton.GetComponentInChildren <Text>();
+				uiImage = uiButton.GetComponentInChildren <Image>();
 
 				CreateUIEvent (uiButton, _menu, uiPointerState);
 			}
@@ -174,7 +175,7 @@ namespace AC
 		
 		public override void ShowGUI (Menu menu)
 		{
-			string apiPrefix = "AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\")";
+			string apiPrefix = "(AC.PlayerMenus.GetElementWithName (\"" + menu.title + "\", \"" + title + "\") as AC.MenuInteraction)";
 
 			MenuSource source = menu.menuSource;
 			EditorGUILayout.BeginVertical ("Button");
@@ -275,6 +276,10 @@ namespace AC
 				if (displayType != AC_DisplayType.IconOnly && uiText != null)
 				{
 					uiText.text = label;
+				}
+				if (displayType == AC_DisplayType.IconOnly && uiImage != null && icon != null && icon.isAnimated)
+				{
+					uiImage.sprite = icon.GetAnimatedSprite (isActive);
 				}
 
 				if (KickStarter.settingsManager.SelectInteractionMethod () == SelectInteractions.CyclingMenuAndClickingHotspot &&
@@ -433,32 +438,18 @@ namespace AC
 		 */
 		public override void RecalculateSize (MenuSource source)
 		{
-			if (uiButton == null)
+			if (AdvGame.GetReferences ().cursorManager)
 			{
-				if (AdvGame.GetReferences ().cursorManager)
+				CursorIcon _icon = AdvGame.GetReferences ().cursorManager.GetCursorIconFromID (iconID);
+				if (_icon != null)
 				{
-					CursorIcon _icon = AdvGame.GetReferences ().cursorManager.GetCursorIconFromID (iconID);
-					if (_icon != null)
-					{
-						icon = _icon;
-						label = _icon.label;
-						icon.Reset ();
-					}
-				}
-			
-				base.RecalculateSize (source);
-			}
-			else
-			{
-				if (AdvGame.GetReferences ().cursorManager)
-				{
-					CursorIcon _icon = AdvGame.GetReferences ().cursorManager.GetCursorIconFromID (iconID);
-					if (_icon != null)
-					{
-						label = _icon.label;
-					}
+					icon = _icon;
+					label = _icon.label;
+					icon.Reset ();
 				}
 			}
+
+			base.RecalculateSize (source);
 		}
 
 

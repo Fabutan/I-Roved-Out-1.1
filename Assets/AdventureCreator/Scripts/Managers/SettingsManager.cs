@@ -1098,7 +1098,7 @@ namespace AC
 					hotspotDrawing = (ScreenWorld) CustomGUILayout.EnumPopup ("Draw icons in:", hotspotDrawing, "AC.KickStarter.settingsManager.hotspotDrawing");
 					if (cameraPerspective != CameraPerspective.TwoD)
 					{
-						occludeIcons = CustomGUILayout.ToggleLeft ("Don't show behind Colliders?", occludeIcons, "AC.KickStarter.settingsManager.occludeIcons");
+						occludeIcons = CustomGUILayout.ToggleLeft ("Hide icons behind Colliders?", occludeIcons, "AC.KickStarter.settingsManager.occludeIcons");
 					}
 					hotspotIcon = (HotspotIcon) CustomGUILayout.EnumPopup ("Hotspot icon type:", hotspotIcon, "AC.KickStarter.settingsManager.hotspotIcon");
 					if (hotspotIcon == HotspotIcon.Texture)

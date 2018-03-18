@@ -1,7 +1,7 @@
 ﻿/*
  *
  *	Adventure Creator
- *	by Chris Burton, 2013-2016
+ *	by Chris Burton, 2013-2018
  *	
  *	"DetectHotspots.cs"
  * 
@@ -128,7 +128,7 @@ namespace AC
 		private void OnTriggerStay (Collider other)
 		{
 			Hotspot otherHotspot = other.GetComponent <Hotspot>();
-			if (otherHotspot != null && IsLayerCorrect (other.gameObject.layer, true))
+			if (otherHotspot != null && otherHotspot.PlayerIsWithinBoundary () && IsLayerCorrect (other.gameObject.layer, true))
 			{
 				if (nearestHotspot == null ||
 					(transform.position - other.transform.position).sqrMagnitude <= (transform.position - nearestHotspot.transform.position).sqrMagnitude)
@@ -152,7 +152,7 @@ namespace AC
 		private void OnTriggerStay2D (Collider2D other)
 		{
 			Hotspot otherHotspot = other.GetComponent <Hotspot>();
-			if (otherHotspot != null && IsLayerCorrect (other.gameObject.layer, true))
+			if (otherHotspot != null && otherHotspot.PlayerIsWithinBoundary () && IsLayerCorrect (other.gameObject.layer, true))
 			{
 				if (nearestHotspot == null ||
 					(transform.position - other.transform.position).sqrMagnitude <= (transform.position - nearestHotspot.transform.position).sqrMagnitude)
@@ -180,7 +180,6 @@ namespace AC
 
 		private bool IsLayerCorrect (int layerInt, bool distantToo = false)
 		{
-
 			if (distantToo)
 			{
 				if (layerInt == hotspotLayerInt || layerInt == distantHotspotLayerInt)

@@ -89,6 +89,16 @@ namespace AC
 		}
 
 
+		/** Updates all speech volumes to the level set in Options.  This should be called whenever the Speech volume level is changed. */
+		public void UpdateSpeechVolumes ()
+		{
+			for (int i=0; i<speechList.Count; i++)
+			{
+				speechList[i].UpdateVolume ();
+			}
+		}
+
+
 		/**
 		 * <summary>Initialises a new Speech line.</summary>
 		 * <param name = "_speaker">The speaking character. If null, the line will be treated as narration</param>

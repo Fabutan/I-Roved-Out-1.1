@@ -265,33 +265,30 @@ namespace AC
 			{
 				KickStarter.playerCursor.UpdateCursor ();
 
-				if (gameState == GameState.Normal && KickStarter.settingsManager)
-				{
-					bool canHideHotspots = KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot && KickStarter.settingsManager.hideUnhandledHotspots;
-					bool canDrawHotspotIcons = (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never);
-					bool canUpdateProximity = (KickStarter.settingsManager.hotspotDetection == HotspotDetection.PlayerVicinity && KickStarter.settingsManager.placeDistantHotspotsOnSeparateLayer && KickStarter.player != null);
+				bool canHideHotspots = KickStarter.settingsManager.interactionMethod == AC_InteractionMethod.ChooseInteractionThenHotspot && KickStarter.settingsManager.hideUnhandledHotspots;
+				bool canDrawHotspotIcons = (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never);
+				bool canUpdateProximity = (KickStarter.settingsManager.hotspotDetection == HotspotDetection.PlayerVicinity && KickStarter.settingsManager.placeDistantHotspotsOnSeparateLayer && KickStarter.player != null);
 
-					for (_i=0; _i<hotspots.Count; _i++)
+				for (_i=0; _i<hotspots.Count; _i++)
+				{
+					bool showing = (canHideHotspots) ? hotspots[_i].UpdateUnhandledVisibility () : true;
+					if (showing)
 					{
-						bool showing = (canHideHotspots) ? hotspots[_i].UpdateUnhandledVisibility () : true;
-						if (showing)
+						if (canDrawHotspotIcons)
 						{
-							if (canDrawHotspotIcons)
+							if (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never)
 							{
-								if (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never)
+								hotspots[_i].UpdateIcon ();
+								if (KickStarter.settingsManager.hotspotDrawing == ScreenWorld.WorldSpace)
 								{
-									hotspots[_i].UpdateIcon ();
-									if (KickStarter.settingsManager.hotspotDrawing == ScreenWorld.WorldSpace)
-									{
-										hotspots[_i].DrawHotspotIcon (true);
-									}
+									hotspots[_i].DrawHotspotIcon (true);
 								}
 							}
+						}
 
-							if (canUpdateProximity)
-							{
-								hotspots[_i].UpdateProximity (KickStarter.player.hotspotDetector);
-							}
+						if (canUpdateProximity)
+						{
+							hotspots[_i].UpdateProximity (KickStarter.player.hotspotDetector);
 						}
 					}
 				}
@@ -394,19 +391,19 @@ namespace AC
 					}
 				}
 
-				if (gameState != GameState.Paused && Time.time > 0f)
+				if (Time.time > 0f && gameState != GameState.Paused)
 				{
 					AudioListener.pause = false;
 				}
 
-				if (gameState == GameState.Cutscene && previousUpdateState != GameState.Cutscene)
-				{
-					KickStarter.playerMenus.MakeUINonInteractive ();
-				}
-				else if (gameState != GameState.Cutscene && previousUpdateState == GameState.Cutscene)
-				{
-					KickStarter.playerMenus.MakeUIInteractive ();
-				}
+					if (gameState == GameState.Cutscene && previousUpdateState != GameState.Cutscene)
+					{
+						KickStarter.playerMenus.MakeUINonInteractive ();
+					}
+					else if (gameState != GameState.Cutscene && previousUpdateState == GameState.Cutscene)
+					{
+						KickStarter.playerMenus.MakeUIInteractive ();
+					}
 
 				KickStarter.sceneSettings.OnStateChange ();
 			}
@@ -542,7 +539,7 @@ namespace AC
 				return;
 			}
 
-			if (!cursorIsOff && gameState == GameState.Normal && KickStarter.settingsManager)
+			if (!cursorIsOff)
 			{
 				if (KickStarter.settingsManager.hotspotIconDisplay != HotspotIconDisplay.Never &&
 				   KickStarter.settingsManager.hotspotDrawing == ScreenWorld.ScreenSpace)
@@ -553,9 +550,12 @@ namespace AC
 					}
 				}
 
-				for (_i=0; _i<dragBases.Count; _i++)
+				if (gameState == GameState.Normal)
 				{
-					dragBases[_i].DrawGrabIcon ();
+					for (_i=0; _i<dragBases.Count; _i++)
+					{
+						dragBases[_i].DrawGrabIcon ();
+					}
 				}
 			}
 
@@ -624,7 +624,7 @@ namespace AC
 			{
 				gameState = GameState.Cutscene;
 			}
-			else if (KickStarter.playerInput.activeConversation != null)
+			else if (KickStarter.playerInput.IsInConversation (true))
 			{
 				gameState = GameState.DialogOptions;
 			}

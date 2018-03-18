@@ -1559,7 +1559,14 @@ namespace AC
 					{
 						string _text = chunkData[1];
 						_text = AdvGame.PrepareStringForLoading (_text);
-						var.SetStringValue (_text);
+
+						int _textLineID = -1;
+						if (chunkData.Length > 2)
+						{
+							int.TryParse (chunkData[2], out _textLineID);
+						}
+
+						var.SetStringValue (_text, _textLineID);
 					}
 					else if (var.type == VariableType.Float)
 					{
@@ -1674,6 +1681,10 @@ namespace AC
 						string textVal = _var.textVal;
 						textVal = AdvGame.PrepareStringForSaving (textVal);
 						variablesString.Append (textVal);
+
+						// The ID can be changed with SetStringValue, so needs recording
+						variablesString.Append (SaveSystem.colon);
+						variablesString.Append (_var.textValLineID);
 					}
 					else if (_var.type == VariableType.Float)
 					{

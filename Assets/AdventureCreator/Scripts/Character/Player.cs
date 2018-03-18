@@ -110,8 +110,7 @@ namespace AC
 			else if (spriteChild)
 			{
 				// Hack: update 2D sprites
-				PrepareSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
-				UpdateSpriteChild (SceneSettings.IsTopDown (), SceneSettings.IsUnity2D ());
+				InitSpriteChild ();
 			}
 			UpdateScale ();
 
@@ -126,7 +125,7 @@ namespace AC
 		public override void _Update ()
 		{
 			bool jumped = false;
-			if (KickStarter.playerInput.InputGetButtonDown ("Jump") && KickStarter.stateHandler.gameState == GameState.Normal)
+			if (KickStarter.playerInput.InputGetButtonDown ("Jump") && KickStarter.stateHandler.gameState == GameState.Normal && motionControl == MotionControl.Automatic)
 			{
 				if (!KickStarter.playerInput.IsJumpLocked)
 				{

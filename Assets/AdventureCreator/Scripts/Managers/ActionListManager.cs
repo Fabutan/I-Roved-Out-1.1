@@ -346,7 +346,7 @@ namespace AC
 				}
 			}
 			
-			if (KickStarter.stateHandler.gameState == GameState.DialogOptions && KickStarter.playerInput.activeConversation != null)
+			if (KickStarter.stateHandler.gameState == GameState.DialogOptions && KickStarter.playerInput.IsInConversation ())
 			{
 				if (GUILayout.Button ("Conversation: " + KickStarter.playerInput.activeConversation.gameObject.name))
 				{
@@ -670,7 +670,7 @@ namespace AC
 				}
 				else
 				{
-					if (KickStarter.playerInput.activeConversation != null)
+					if (KickStarter.playerInput.IsInConversation (true))
 					{
 						KickStarter.stateHandler.gameState = GameState.DialogOptions;
 					}

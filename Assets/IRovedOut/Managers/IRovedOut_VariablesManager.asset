@@ -126,17 +126,17 @@ MonoBehaviour:
     description: "Controls Cinder's Pantsu\t"
   - label: CinderFeet
     id: 7
-    type: 1
+    type: 2
     val: 0
     floatVal: 0
-    textVal: 
+    textVal: Bare
     popUps: []
     vector3Val: {x: 0, y: 0, z: 0}
     link: 0
     pmVar: 
     updateLinkOnStart: 0
     isEditing: 1
-    canTranslate: 1
+    canTranslate: 0
     textValLineID: -1
     popUpsLineID: -1
     description: 
