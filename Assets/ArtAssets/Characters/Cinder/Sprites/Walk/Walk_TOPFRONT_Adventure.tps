@@ -2,11 +2,11 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>4</int>
+        <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.6.2</string>
+        <string>3.6.0</string>
         <key>fileName</key>
-        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HAT_Bare.tps</string>
+        <string>D:/Github/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Adventure/Walk_TORSOFRONT_Adventure.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -29,6 +29,8 @@
         </array>
         <key>allowRotation</key>
         <false/>
+        <key>premultiplyAlpha</key>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -36,19 +38,15 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>Walk_HAT_Bare.png</filename>
+        <filename>Walk_TOPFRONT_Adventure.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
         <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
-        <key>etc2CompressionQuality</key>
-        <enum type="SettingsBase::Etc2CompressionQuality">ETC2_QUALITY_LOW_PERCEPTUAL</enum>
         <key>dxtCompressionMode</key>
         <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
         <key>jxrColorFormat</key>
@@ -72,7 +70,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>10</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -81,12 +79,10 @@
         <uint>101</uint>
         <key>textureSubPath</key>
         <string></string>
-        <key>atfFormats</key>
-        <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>10</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -101,15 +97,19 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
+        <key>reduceBorderArtifacts</key>
+        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Polygon</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
             <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
+            <false/>
+            <key>forceWordAligned</key>
             <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
@@ -122,11 +122,6 @@
                 <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
-            </struct>
-            <key>polygon</key>
-            <struct type="AlgorithmPolygonSettings">
-                <key>alignToGrid</key>
-                <uint>1</uint>
             </struct>
         </struct>
         <key>andEngine</key>
@@ -150,7 +145,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Walk_HAT_Bare.tpsheet</filename>
+                <filename>Walk_TOPFRONT_Adventure.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -159,20 +154,18 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
-        <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">ReduceBorderArtifacts</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
-        <key>autodetectAnimations</key>
+        <key>cleanTransparentPixels</key>
         <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
@@ -180,76 +173,32 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
-            <key>trimMargin</key>
-            <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Polygon</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
+            <enum type="SpriteSettings::TrimMode">CropKeepPos</enum>
             <key>heuristicMask</key>
             <false/>
-            <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
-            <key>writePivotPoints</key>
-            <true/>
+            <key>pivotPoint</key>
+            <enum type="SpriteSettings::PivotPoint">Center</enum>
         </struct>
-        <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_01_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_02_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_03_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_04_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_05_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_06_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_07_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_08_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_09_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare/HAT_10_Bare.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>512,512,1024,1024</rect>
-                <key>scale9Paddings</key>
-                <rect>512,512,1024,1024</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-        </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../../Desktop/CINDER_WALK_FRAMES/HAT_Bare</filename>
+            <filename>../../../../../../../../../Desktop/Master_Walk/TOP_Adventure</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array>
-            <string>large-max-texture-size</string>
-            <string>unity-importer-4.6.1</string>
-        </array>
+        <array/>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>
         <uint>1</uint>
-        <key>packNormalMaps</key>
-        <false/>
-        <key>autodetectNormalMaps</key>
-        <true/>
-        <key>normalMapFilter</key>
-        <string></string>
-        <key>normalMapSuffix</key>
-        <string></string>
-        <key>normalMapSheetFileName</key>
-        <filename></filename>
-        <key>exporterProperties</key>
-        <map type="ExporterProperties"/>
     </struct>
 </data>

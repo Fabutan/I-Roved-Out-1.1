@@ -1,0 +1,389 @@
+fileFormatVersion: 2
+guid: 219ed55cd1413124ea26341fb7fb4f64
+timeCreated: 1521568916
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_FEET_Bare
+    21300002: FEETBACK_01_Bare
+    21300004: FEETBACK_02_Bare
+    21300006: FEETBACK_03_Bare
+    21300008: FEETBACK_04_Bare
+    21300010: FEETBACK_05_Bare
+    21300012: FEETBACK_06_Bare
+    21300014: FEETBACK_07_Bare
+    21300016: FEETBACK_08_Bare
+    21300018: FEETBACK_09_Bare
+    21300020: FEETBACK_10_Bare
+    21300022: FEETFRONT_01_Bare
+    21300024: FEETFRONT_02_Bare
+    21300026: FEETFRONT_03_Bare
+    21300028: FEETFRONT_04_Bare
+    21300030: FEETFRONT_05_Bare
+    21300032: FEETFRONT_06_Bare
+    21300034: FEETFRONT_07_Bare
+    21300036: FEETFRONT_08_Bare
+    21300038: FEETFRONT_09_Bare
+    21300040: FEETFRONT_10_Bare
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 450
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FEETBACK_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 762
+        width: 175
+        height: 326
+      alignment: 9
+      pivot: {x: 2.1771429, y: 2.9601226}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1001
+        width: 188
+        height: 317
+      alignment: 9
+      pivot: {x: 2.037234, y: 2.9116719}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 698
+        width: 178
+        height: 301
+      alignment: 9
+      pivot: {x: 2.1797752, y: 3.0797343}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 794
+        width: 162
+        height: 294
+      alignment: 9
+      pivot: {x: 2.351852, y: 3.1462586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1873
+        width: 301
+        height: 173
+      alignment: 9
+      pivot: {x: 1.4883721, y: 5.0404625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1865
+        width: 300
+        height: 181
+      alignment: 9
+      pivot: {x: 1.4133333, y: 4.9005523}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 1849
+        width: 282
+        height: 197
+      alignment: 9
+      pivot: {x: 1.4184397, y: 4.4771576}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 1321
+        width: 228
+        height: 298
+      alignment: 9
+      pivot: {x: 1.6666666, y: 2.899329}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 1090
+        width: 224
+        height: 244
+      alignment: 9
+      pivot: {x: 0.91964287, y: 3.9672132}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 827
+        width: 188
+        height: 279
+      alignment: 9
+      pivot: {x: 1.9521277, y: 3.2150538}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 1621
+        width: 262
+        height: 242
+      alignment: 9
+      pivot: {x: -0.7633588, y: 3.9173553}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 1597
+        width: 248
+        height: 250
+      alignment: 9
+      pivot: {x: -0.83870965, y: 3.916}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 1345
+        width: 227
+        height: 250
+      alignment: 9
+      pivot: {x: -0.9603524, y: 3.824}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 1108
+        width: 227
+        height: 235
+      alignment: 9
+      pivot: {x: -0.907489, y: 4.029787}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 1336
+        width: 227
+        height: 249
+      alignment: 9
+      pivot: {x: -0.8854626, y: 3.811245}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 1587
+        width: 214
+        height: 260
+      alignment: 9
+      pivot: {x: -0.8457944, y: 3.7038462}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 778
+        width: 188
+        height: 269
+      alignment: 9
+      pivot: {x: -0.90957445, y: 3.6542752}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 1049
+        width: 197
+        height: 270
+      alignment: 9
+      pivot: {x: -0.8680203, y: 3.6666667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1320
+        width: 223
+        height: 294
+      alignment: 9
+      pivot: {x: -0.19282511, y: 3.0442176}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1616
+        width: 289
+        height: 255
+      alignment: 9
+      pivot: {x: -0.75778544, y: 3.6745098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

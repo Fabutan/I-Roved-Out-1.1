@@ -1,30 +1,20 @@
 fileFormatVersion: 2
-guid: a592887601cd5c84293ea1b64e2a94eb
-timeCreated: 1520122593
-licenseType: Free
+guid: ed7481c1b47d68247b7d3496d12da585
+timeCreated: 1521568239
+licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Walk_HAT_Bare
-    21300002: HAT_Bare_01
-    21300004: HAT_Bare_02
-    21300006: HAT_Bare_03
-    21300008: HAT_Bare_04
-    21300010: HAT_Bare_05
-    21300012: HAT_Bare_06
-    21300014: HAT_Bare_07
-    21300016: HAT_Bare_08
-    21300018: HAT_Bare_09
-    21300020: HAT_Bare_10
-    21300022: HAT_01_Bare
-    21300024: HAT_02_Bare
-    21300026: HAT_03_Bare
-    21300028: HAT_04_Bare
-    21300030: HAT_05_Bare
-    21300032: HAT_06_Bare
-    21300034: HAT_07_Bare
-    21300036: HAT_08_Bare
-    21300038: HAT_09_Bare
-    21300040: HAT_10_Bare
+    21300000: Walk_LEGS_Adventure
+    21300002: LEGS_01_Adventure
+    21300004: LEGS_02_Adventure
+    21300006: LEGS_03_Adventure
+    21300008: LEGS_04_Adventure
+    21300010: LEGS_05_Adventure
+    21300012: LEGS_06_Adventure
+    21300014: LEGS_07_Adventure
+    21300016: LEGS_08_Adventure
+    21300018: LEGS_09_Adventure
+    21300020: LEGS_10_Adventure
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -63,11 +53,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 225
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 450
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -101,141 +92,141 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HAT_01_Bare
+      name: LEGS_01_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 511
-        width: 388
-        height: 320
+        x: 572
+        y: 1295
+        width: 245
+        height: 365
       alignment: 9
-      pivot: {x: 0.5618557, y: -2.146875}
+      pivot: {x: 0.5387755, y: 0.80273974}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_02_Bare
+      name: LEGS_02_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1119
-        width: 388
-        height: 320
+        x: 10
+        y: 532
+        width: 208
+        height: 387
       alignment: 9
-      pivot: {x: 0.5463917, y: -2.178125}
+      pivot: {x: 0.50961536, y: 0.81136954}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_03_Bare
+      name: LEGS_03_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1727
-        width: 388
-        height: 320
+        x: 274
+        y: 914
+        width: 238
+        height: 379
       alignment: 9
-      pivot: {x: 0.5412371, y: -2.18125}
+      pivot: {x: 0.4117647, y: 0.7757256}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_04_Bare
+      name: LEGS_04_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1423
-        width: 388
-        height: 320
+        x: 593
+        y: 1670
+        width: 267
+        height: 368
       alignment: 9
-      pivot: {x: 0.5618557, y: -2.16875}
+      pivot: {x: 0.40074906, y: 0.7717391}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_05_Bare
+      name: LEGS_05_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 815
-        width: 388
-        height: 320
+        x: 304
+        y: 1303
+        width: 258
+        height: 366
       alignment: 9
-      pivot: {x: 0.57474226, y: -2.171875}
+      pivot: {x: 0.48062015, y: 0.76775956}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_06_Bare
+      name: LEGS_06_Adventure
       rect:
         serializedVersion: 2
-        x: 1
-        y: 207
-        width: 388
-        height: 320
+        x: 10
+        y: 1288
+        width: 254
+        height: 377
       alignment: 9
-      pivot: {x: 0.5438144, y: -2.16875}
+      pivot: {x: 0.56299216, y: 0.7798408}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_07_Bare
+      name: LEGS_07_Adventure
       rect:
         serializedVersion: 2
-        x: 319
-        y: 966
-        width: 388
-        height: 320
+        x: 10
+        y: 929
+        width: 216
+        height: 349
       alignment: 9
-      pivot: {x: 0.5154639, y: -2.159375}
+      pivot: {x: 0.47685185, y: 0.77936965}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_08_Bare
+      name: LEGS_08_Adventure
       rect:
         serializedVersion: 2
-        x: 319
-        y: 358
-        width: 388
-        height: 320
+        x: 10
+        y: 168
+        width: 203
+        height: 354
       alignment: 9
-      pivot: {x: 0.5386598, y: -2.165625}
+      pivot: {x: 0.45812806, y: 0.79378533}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_09_Bare
+      name: LEGS_09_Adventure
       rect:
         serializedVersion: 2
-        x: 319
-        y: 662
-        width: 388
-        height: 320
+        x: 10
+        y: 1675
+        width: 284
+        height: 363
       alignment: 9
-      pivot: {x: 0.57216495, y: -2.165625}
+      pivot: {x: 0.41197184, y: 0.8071625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: HAT_10_Bare
+      name: LEGS_10_Adventure
       rect:
         serializedVersion: 2
-        x: 319
-        y: 1270
-        width: 388
-        height: 320
+        x: 304
+        y: 1679
+        width: 279
+        height: 359
       alignment: 9
-      pivot: {x: 0.57731956, y: -2.14375}
+      pivot: {x: 0.4874552, y: 0.81337047}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

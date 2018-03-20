@@ -1,0 +1,239 @@
+fileFormatVersion: 2
+guid: f223d2070d263ac45ac47cd4a50674d2
+timeCreated: 1521567788
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Walk_TORSOFRONT_Adventure
+    21300002: TOPFRONT_01_Adventure
+    21300004: TOPFRONT_02_Adventure
+    21300006: TOPFRONT_03_Adventure
+    21300008: TOPFRONT_04_Adventure
+    21300010: TOPFRONT_05_Adventure
+    21300012: TOPFRONT_06_Adventure
+    21300014: TOPFRONT_07_Adventure
+    21300016: TOPFRONT_08_Adventure
+    21300018: TOPFRONT_09_Adventure
+    21300020: TOPFRONT_10_Adventure
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 450
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TOPFRONT_01_Adventure
+      rect:
+        serializedVersion: 2
+        x: 1058
+        y: 367
+        width: 350
+        height: 849
+      alignment: 9
+      pivot: {x: 0.50857145, y: 0.19905771}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_02_Adventure
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 386
+        width: 337
+        height: 848
+      alignment: 9
+      pivot: {x: 0.47774482, y: 0.2028302}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_03_Adventure
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 407
+        width: 339
+        height: 839
+      alignment: 9
+      pivot: {x: 0.45722714, y: 0.18235995}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_04_Adventure
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 1226
+        width: 353
+        height: 812
+      alignment: 9
+      pivot: {x: 0.4532578, y: 0.15517241}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_05_Adventure
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 1244
+        width: 440
+        height: 794
+      alignment: 9
+      pivot: {x: 0.37272727, y: 0.13602015}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_06_Adventure
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1256
+        width: 411
+        height: 782
+      alignment: 9
+      pivot: {x: 0.34549877, y: 0.12659846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_07_Adventure
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 1256
+        width: 402
+        height: 782
+      alignment: 9
+      pivot: {x: 0.3233831, y: 0.12659846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_08_Adventure
+      rect:
+        serializedVersion: 2
+        x: 1656
+        y: 1220
+        width: 357
+        height: 818
+      alignment: 9
+      pivot: {x: 0.39215687, y: 0.16870415}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_09_Adventure
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 414
+        width: 342
+        height: 832
+      alignment: 9
+      pivot: {x: 0.45906433, y: 0.18028846}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_10_Adventure
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 347
+        width: 333
+        height: 863
+      alignment: 9
+      pivot: {x: 0.4894895, y: 0.21436848}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
