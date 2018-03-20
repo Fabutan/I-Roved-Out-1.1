@@ -1,24 +1,33 @@
 version: 2
 importPivots: 1
 tpsheetFileNames:
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_BACKARM_Bare.tpsheet
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_BASE_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_BACKARM_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_BASE_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_FEET_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_HAT_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_HEAD_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_TOP_Bare.tpsheet
 - Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_FEET_HikingBoots.tpsheet
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HAT_Bare.tpsheet
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HEAD_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_LEGS_Adventure.tpsheet
 - Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_LEGS_Athletic.tpsheet
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_TOP_Bare.tpsheet
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_TOPFRONT_Adventure.tpsheet
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
 textureFileNames:
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_BACKARM_Bare.png
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_BASE_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_BACKARM_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_BASE_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_FEET_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_HAT_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_HEAD_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_TOP_Bare.png
 - Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_FEET_HikingBoots.png
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HAT_Bare.png
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HEAD_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_LEGS_Adventure.png
 - Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_LEGS_Athletic.png
-- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_TOP_Bare.png
+- Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_TORSOFRONT_Adventure.png
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
 normalmapFileNames:
+- 
+- 
+- 
 - 
 - 
 - 
