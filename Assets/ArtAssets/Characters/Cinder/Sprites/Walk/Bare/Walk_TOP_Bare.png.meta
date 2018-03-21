@@ -34,6 +34,26 @@ TextureImporter:
     21300054: TOP_08_Bare
     21300056: TOP_09_Bare
     21300058: TOP_10_Bare
+    21300060: TOPBACK_01_Bare
+    21300062: TOPBACK_02_Bare
+    21300064: TOPBACK_03_Bare
+    21300066: TOPBACK_04_Bare
+    21300068: TOPBACK_05_Bare
+    21300070: TOPBACK_06_Bare
+    21300072: TOPBACK_07_Bare
+    21300074: TOPBACK_08_Bare
+    21300076: TOPBACK_09_Bare
+    21300078: TOPBACK_10_Bare
+    21300080: TOPFRONT_01_Bare
+    21300082: TOPFRONT_02_Bare
+    21300084: TOPFRONT_03_Bare
+    21300086: TOPFRONT_04_Bare
+    21300088: TOPFRONT_05_Bare
+    21300090: TOPFRONT_06_Bare
+    21300092: TOPFRONT_07_Bare
+    21300094: TOPFRONT_08_Bare
+    21300096: TOPFRONT_09_Bare
+    21300098: TOPFRONT_10_Bare
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -110,141 +130,281 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TOP_01_Bare
+      name: TOPBACK_01_Bare
       rect:
         serializedVersion: 2
-        x: 323
-        y: 1223
-        width: 318
+        x: 834
+        y: 188
+        width: 86
+        height: 281
+      alignment: 9
+      pivot: {x: -1.1395348, y: 0.36298934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 210
+        width: 66
+        height: 259
+      alignment: 9
+      pivot: {x: -1.5454545, y: 0.44787645}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 216
+        width: 84
+        height: 253
+      alignment: 9
+      pivot: {x: -0.63095236, y: 0.53754944}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_04_Bare
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 1035
+        width: 64
+        height: 249
+      alignment: 9
+      pivot: {x: 1.375, y: -0.7550201}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_05_Bare
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 784
+        width: 59
+        height: 249
+      alignment: 9
+      pivot: {x: 2.220339, y: -0.7710843}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_06_Bare
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 118
+        width: 87
+        height: 334
+      alignment: 9
+      pivot: {x: 1.3678161, y: -0.46107784}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_07_Bare
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 134
+        width: 90
+        height: 318
+      alignment: 9
+      pivot: {x: 1.1333333, y: -0.6006289}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_08_Bare
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 236
+        width: 93
+        height: 233
+      alignment: 9
+      pivot: {x: 1.0752689, y: -0.888412}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_09_Bare
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 140
+        width: 79
+        height: 312
+      alignment: 9
+      pivot: {x: -0.6455696, y: 0.40384614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPBACK_10_Bare
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 79
+        width: 116
+        height: 373
+      alignment: 9
+      pivot: {x: -0.45689654, y: 0.36461127}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_01_Bare
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 1239
+        width: 389
+        height: 808
+      alignment: 9
+      pivot: {x: 0.45758355, y: 0.21039604}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_02_Bare
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 1229
+        width: 325
+        height: 818
+      alignment: 9
+      pivot: {x: 0.37538463, y: 0.20293398}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: TOPFRONT_03_Bare
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 422
+        width: 327
         height: 815
       alignment: 9
-      pivot: {x: 0.5597484, y: 0.20858896}
+      pivot: {x: 0.36697248, y: 0.18895705}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_02_Bare
+      name: TOPFRONT_04_Bare
       rect:
         serializedVersion: 2
-        x: 973
-        y: 487
-        width: 285
-        height: 827
+        x: 1128
+        y: 1266
+        width: 341
+        height: 781
       alignment: 9
-      pivot: {x: 0.4280702, y: 0.1898428}
+      pivot: {x: 0.36950147, y: 0.16261204}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_03_Bare
+      name: TOPFRONT_05_Bare
       rect:
         serializedVersion: 2
-        x: 1621
-        y: 476
-        width: 282
-        height: 815
+        x: 1
+        y: 1286
+        width: 407
+        height: 761
       alignment: 9
-      pivot: {x: 0.4432624, y: 0.19018404}
+      pivot: {x: 0.31941032, y: 0.14323258}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_04_Bare
+      name: TOPFRONT_06_Bare
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 799
-        width: 324
-        height: 782
+        x: 739
+        y: 471
+        width: 368
+        height: 756
       alignment: 9
-      pivot: {x: 0.40123457, y: 0.16496164}
+      pivot: {x: 0.26630434, y: 0.13227513}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_05_Bare
+      name: TOPFRONT_07_Bare
       rect:
         serializedVersion: 2
-        x: 10
-        y: 511
-        width: 418
-        height: 764
+        x: 1109
+        y: 465
+        width: 366
+        height: 762
       alignment: 9
-      pivot: {x: 0.33492824, y: 0.13481675}
+      pivot: {x: 0.25409836, y: 0.1312336}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_06_Bare
+      name: TOPFRONT_08_Bare
       rect:
         serializedVersion: 2
-        x: 304
-        y: 412
-        width: 405
-        height: 766
+        x: 1477
+        y: 441
+        width: 330
+        height: 793
       alignment: 9
-      pivot: {x: 0.30617285, y: 0.15535247}
+      pivot: {x: 0.3181818, y: 0.17528373}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_07_Bare
+      name: TOPFRONT_09_Bare
       rect:
         serializedVersion: 2
-        x: 619
-        y: 228
-        width: 376
-        height: 767
+        x: 1471
+        y: 1236
+        width: 333
+        height: 811
       alignment: 9
-      pivot: {x: 0.27393618, y: 0.1303781}
+      pivot: {x: 0.4114114, y: 0.18618989}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: TOP_08_Bare
+      name: TOPFRONT_10_Bare
       rect:
         serializedVersion: 2
-        x: 675
-        y: 641
-        width: 326
-        height: 798
-      alignment: 9
-      pivot: {x: 0.33128834, y: 0.17418547}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: TOP_09_Bare
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 485
-        width: 326
-        height: 1553
-      alignment: 9
-      pivot: {x: 0.42944786, y: 0.56857693}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: TOP_10_Bare
-      rect:
-        serializedVersion: 2
-        x: 1272
-        y: 311
-        width: 282
+        x: 1
+        y: 454
+        width: 341
         height: 830
       alignment: 9
-      pivot: {x: 0.5141844, y: 0.22409639}
+      pivot: {x: 0.42521995, y: 0.22409639}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

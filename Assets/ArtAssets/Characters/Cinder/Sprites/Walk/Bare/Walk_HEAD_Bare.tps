@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.6.2</string>
+        <string>4.6.3</string>
         <key>fileName</key>
-        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_HEAD_Bare.tps</string>
+        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_HEAD_Bare.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -129,22 +129,6 @@
                 <uint>1</uint>
             </struct>
         </struct>
-        <key>andEngine</key>
-        <struct type="AndEngine">
-            <key>minFilter</key>
-            <enum type="AndEngine::MinFilter">Linear</enum>
-            <key>packageName</key>
-            <string>Texture</string>
-            <key>wrap</key>
-            <struct type="AndEngineWrap">
-                <key>s</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-                <key>t</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-            </struct>
-            <key>magFilter</key>
-            <enum type="AndEngine::MagFilter">MagLinear</enum>
-        </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
             <key>datafile</key>
@@ -199,32 +183,32 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_01_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_02_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_03_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_04_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_05_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_06_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_07_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_08_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_09_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare/HEAD_10_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_01_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_02_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_03_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_04_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_05_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_06_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_07_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_08_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_09_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare/HEAD_10_Bare.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9Paddings</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../../Desktop/CINDER_WALK_FRAMES/HEAD_Bare</filename>
+            <filename>../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/HEAD_Bare</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

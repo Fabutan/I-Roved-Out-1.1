@@ -104,12 +104,12 @@ TextureImporter:
       name: HEAD_01_Bare
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1262
+        x: 462
+        y: 631
         width: 231
-        height: 391
+        height: 392
       alignment: 9
-      pivot: {x: 0.5021645, y: -1.455243}
+      pivot: {x: 0.51082253, y: -1.4515306}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -118,8 +118,8 @@ TextureImporter:
       name: HEAD_02_Bare
       rect:
         serializedVersion: 2
-        x: 1
-        y: 104
+        x: 1160
+        y: 643
         width: 231
         height: 380
       alignment: 9
@@ -132,8 +132,8 @@ TextureImporter:
       name: HEAD_03_Bare
       rect:
         serializedVersion: 2
-        x: 1
-        y: 874
+        x: 352
+        y: 273
         width: 231
         height: 386
       alignment: 9
@@ -147,7 +147,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 1655
+        y: 631
         width: 232
         height: 392
       alignment: 9
@@ -160,12 +160,12 @@ TextureImporter:
       name: HEAD_05_Bare
       rect:
         serializedVersion: 2
-        x: 236
-        y: 114
-        width: 231
-        height: 376
+        x: 1
+        y: 243
+        width: 232
+        height: 386
       alignment: 9
-      pivot: {x: 0.54112554, y: -1.5718085}
+      pivot: {x: 0.54310346, y: -1.5051813}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -174,12 +174,12 @@ TextureImporter:
       name: HEAD_06_Bare
       rect:
         serializedVersion: 2
-        x: 234
-        y: 880
-        width: 229
+        x: 586
+        y: 210
+        width: 232
         height: 381
       alignment: 9
-      pivot: {x: 0.49344978, y: -1.5328084}
+      pivot: {x: 0.48706895, y: -1.5328084}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,12 +188,12 @@ TextureImporter:
       name: HEAD_07_Bare
       rect:
         serializedVersion: 2
-        x: 234
-        y: 496
-        width: 231
-        height: 379
+        x: 1395
+        y: 645
+        width: 232
+        height: 378
       alignment: 9
-      pivot: {x: 0.44588745, y: -1.5408971}
+      pivot: {x: 0.44396552, y: -1.5449735}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,8 +202,8 @@ TextureImporter:
       name: HEAD_08_Bare
       rect:
         serializedVersion: 2
-        x: 1
-        y: 488
+        x: 927
+        y: 642
         width: 231
         height: 381
       alignment: 9
@@ -216,8 +216,8 @@ TextureImporter:
       name: HEAD_09_Bare
       rect:
         serializedVersion: 2
-        x: 230
-        y: 1263
+        x: 690
+        y: 633
         width: 231
         height: 390
       alignment: 9
@@ -231,7 +231,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 234
-        y: 1655
+        y: 631
         width: 231
         height: 392
       alignment: 9

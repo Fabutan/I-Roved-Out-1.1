@@ -53,12 +53,11 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 225
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spritePixelsToUnits: 225
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -95,12 +94,12 @@ TextureImporter:
       name: LEGS_01_Adventure
       rect:
         serializedVersion: 2
-        x: 572
-        y: 1295
-        width: 245
-        height: 365
+        x: 279
+        y: 1292
+        width: 255
+        height: 380
       alignment: 9
-      pivot: {x: 0.5387755, y: 0.80273974}
+      pivot: {x: 0.5372549, y: 0.79473686}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -109,12 +108,12 @@ TextureImporter:
       name: LEGS_02_Adventure
       rect:
         serializedVersion: 2
-        x: 10
-        y: 532
-        width: 208
-        height: 387
+        x: 1
+        y: 508
+        width: 217
+        height: 398
       alignment: 9
-      pivot: {x: 0.50961536, y: 0.81136954}
+      pivot: {x: 0.48387095, y: 0.7788945}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,12 +122,12 @@ TextureImporter:
       name: LEGS_03_Adventure
       rect:
         serializedVersion: 2
-        x: 274
-        y: 914
-        width: 238
-        height: 379
+        x: 1
+        y: 908
+        width: 253
+        height: 391
       alignment: 9
-      pivot: {x: 0.4117647, y: 0.7757256}
+      pivot: {x: 0.4229249, y: 0.7723785}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -137,12 +136,12 @@ TextureImporter:
       name: LEGS_04_Adventure
       rect:
         serializedVersion: 2
-        x: 593
-        y: 1670
-        width: 267
-        height: 368
+        x: 303
+        y: 1674
+        width: 277
+        height: 373
       alignment: 9
-      pivot: {x: 0.40074906, y: 0.7717391}
+      pivot: {x: 0.40072203, y: 0.772118}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -151,12 +150,12 @@ TextureImporter:
       name: LEGS_05_Adventure
       rect:
         serializedVersion: 2
-        x: 304
-        y: 1303
-        width: 258
-        height: 366
+        x: 1
+        y: 1301
+        width: 276
+        height: 374
       alignment: 9
-      pivot: {x: 0.48062015, y: 0.76775956}
+      pivot: {x: 0.49275362, y: 0.7620321}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,12 +164,12 @@ TextureImporter:
       name: LEGS_06_Adventure
       rect:
         serializedVersion: 2
-        x: 10
-        y: 1288
-        width: 254
-        height: 377
+        x: 582
+        y: 1292
+        width: 270
+        height: 384
       alignment: 9
-      pivot: {x: 0.56299216, y: 0.7798408}
+      pivot: {x: 0.5777778, y: 0.78125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -179,12 +178,12 @@ TextureImporter:
       name: LEGS_07_Adventure
       rect:
         serializedVersion: 2
-        x: 10
-        y: 929
-        width: 216
-        height: 349
+        x: 214
+        y: 149
+        width: 228
+        height: 357
       alignment: 9
-      pivot: {x: 0.47685185, y: 0.77936965}
+      pivot: {x: 0.5, y: 0.77030814}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -193,12 +192,12 @@ TextureImporter:
       name: LEGS_08_Adventure
       rect:
         serializedVersion: 2
-        x: 10
-        y: 168
-        width: 203
-        height: 354
+        x: 1
+        y: 139
+        width: 211
+        height: 367
       alignment: 9
-      pivot: {x: 0.45812806, y: 0.79378533}
+      pivot: {x: 0.45023698, y: 0.78474116}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -207,12 +206,12 @@ TextureImporter:
       name: LEGS_09_Adventure
       rect:
         serializedVersion: 2
-        x: 10
-        y: 1675
-        width: 284
-        height: 363
+        x: 582
+        y: 1678
+        width: 275
+        height: 369
       alignment: 9
-      pivot: {x: 0.41197184, y: 0.8071625}
+      pivot: {x: 0.4618182, y: 0.7886179}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -221,12 +220,12 @@ TextureImporter:
       name: LEGS_10_Adventure
       rect:
         serializedVersion: 2
-        x: 304
-        y: 1679
-        width: 279
-        height: 359
+        x: 1
+        y: 1677
+        width: 300
+        height: 370
       alignment: 9
-      pivot: {x: 0.4874552, y: 0.81337047}
+      pivot: {x: 0.49333334, y: 0.8027027}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

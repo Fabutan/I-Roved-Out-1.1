@@ -1,30 +1,20 @@
 fileFormatVersion: 2
-guid: 75eb082401274d24a97b985d196b4e68
-timeCreated: 1520122242
+guid: f5349609d1f14d944a63a7e82a2053ce
+timeCreated: 1521595460
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Walk_BACKARM_Bare
-    21300002: BACKARM_Bare_01
-    21300004: BACKARM_Bare_02
-    21300006: BACKARM_Bare_03
-    21300008: BACKARM_Bare_04
-    21300010: BACKARM_Bare_05
-    21300012: BACKARM_Bare_06
-    21300014: BACKARM_Bare_07
-    21300016: BACKARM_Bare_08
-    21300018: BACKARM_Bare_09
-    21300020: BACKARM_Bare_10
-    21300022: BACKARM_01_Bare
-    21300024: BACKARM_02_Bare
-    21300026: BACKARM_03_Bare
-    21300028: BACKARM_04_Bare
-    21300030: BACKARM_05_Bare
-    21300032: BACKARM_06_Bare
-    21300034: BACKARM_07_Bare
-    21300036: BACKARM_08_Bare
-    21300038: BACKARM_09_Bare
-    21300040: BACKARM_10_Bare
+    21300000: Walk_UNDER_spanx
+    21300002: UNDER_01_Spanx
+    21300004: UNDER_02_Spanx
+    21300006: UNDER_03_Spanx
+    21300008: UNDER_04_Spanx
+    21300010: UNDER_05_Spanx
+    21300012: UNDER_06_Spanx
+    21300014: UNDER_08_Spanx
+    21300016: UNDER_09_Spanx
+    21300018: UNDER_10_Spanx
+    21300020: UNDER_07_Spanx
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -97,145 +87,155 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BACKARM_01_Bare
+      name: UNDER_01_Spanx
       rect:
         serializedVersion: 2
-        x: 163
-        y: 180
-        width: 89
-        height: 477
+        x: 601
+        y: 21
+        width: 287
+        height: 116
       alignment: 9
-      pivot: {x: -1.0674157, y: 0.3417191}
+      pivot: {x: 0.630662, y: -0.10344828}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_02_Bare
+      name: UNDER_02_Spanx
       rect:
         serializedVersion: 2
-        x: 231
-        y: 319
-        width: 80
-        height: 476
+        x: 1134
+        y: 158
+        width: 295
+        height: 97
       alignment: 9
-      pivot: {x: -1.1, y: 0.3277311}
+      pivot: {x: 0.51525426, y: -0.556701}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_03_Bare
+      name: UNDER_03_Spanx
       rect:
         serializedVersion: 2
-        x: 3
-        y: 100
-        width: 144
-        height: 458
+        x: 43
+        y: 64
+        width: 281
+        height: 143
       alignment: 9
-      pivot: {x: -0.3263889, y: 0.37991267}
+      pivot: {x: 0.53736657, y: -0.06993007}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_04_Bare
+      name: UNDER_04_Spanx
       rect:
         serializedVersion: 2
-        x: 3
-        y: 992
-        width: 1
-        height: 1
+        x: 20
+        y: 4
+        width: 281
+        height: 121
       alignment: 9
-      pivot: {x: 1024, y: -1023}
+      pivot: {x: 0.61565834, y: -0.2644628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_05_Bare
+      name: UNDER_05_Spanx
       rect:
         serializedVersion: 2
-        x: 300
-        y: 301
-        width: 191
-        height: 279
+        x: 569
+        y: 126
+        width: 282
+        height: 129
       alignment: 9
-      pivot: {x: 0.79581153, y: -0.56630826}
+      pivot: {x: 0.69503546, y: -0.1627907}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_06_Bare
+      name: UNDER_06_Spanx
       rect:
         serializedVersion: 2
-        x: 3
-        y: 461
-        width: 404
-        height: 560
+        x: 311
+        y: 19
+        width: 285
+        height: 121
       alignment: 9
-      pivot: {x: 0.31930694, y: 0.05892857}
+      pivot: {x: 0.65964913, y: -0.09917355}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_07_Bare
+      name: UNDER_07_Spanx
       rect:
         serializedVersion: 2
-        x: 322
-        y: 479
-        width: 90
-        height: 318
+        x: 281
+        y: 127
+        width: 290
+        height: 128
       alignment: 9
-      pivot: {x: 1.1333333, y: -0.6006289}
+      pivot: {x: 0.5, y: -0.1875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_08_Bare
+      name: UNDER_08_Spanx
       rect:
         serializedVersion: 2
-        x: 149
-        y: 674
-        width: 101
-        height: 291
+        x: 846
+        y: 148
+        width: 286
+        height: 107
       alignment: 9
-      pivot: {x: 1.069307, y: -0.6563574}
+      pivot: {x: 0.48601398, y: -0.317757}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_09_Bare
+      name: UNDER_09_Spanx
       rect:
         serializedVersion: 2
-        x: 89
-        y: 133
-        width: 122
-        height: 464
+        x: 1431
+        y: 150
+        width: 280
+        height: 105
       alignment: 9
-      pivot: {x: -0.40163934, y: 0.35560346}
+      pivot: {x: 0.62857145, y: -0.35238096}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: BACKARM_10_Bare
+      name: UNDER_10_Spanx
       rect:
         serializedVersion: 2
-        x: 63
-        y: 524
-        width: 136
-        height: 472
+        x: 1
+        y: 93
+        width: 278
+        height: 162
       alignment: 9
-      pivot: {x: -0.3897059, y: 0.37288135}
+      pivot: {x: 0.6294964, y: 0.25925925}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

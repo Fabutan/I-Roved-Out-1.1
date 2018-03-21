@@ -83,12 +83,11 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 450
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spritePixelsToUnits: 450
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -125,12 +124,12 @@ TextureImporter:
       name: HATBACK_01_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8301888}
+      pivot: {x: -0.109375, y: -7.6759257}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,12 +138,12 @@ TextureImporter:
       name: HATBACK_02_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.1640625, y: -7.7777777}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -153,12 +152,12 @@ TextureImporter:
       name: HATBACK_03_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.1484375, y: -7.7685184}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,12 +166,12 @@ TextureImporter:
       name: HATBACK_04_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.1015625, y: -7.7314816}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +180,12 @@ TextureImporter:
       name: HATBACK_05_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.0625, y: -7.7314816}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -195,12 +194,12 @@ TextureImporter:
       name: HATBACK_06_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.109375, y: -7.712963}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -209,12 +208,12 @@ TextureImporter:
       name: HATBACK_07_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.21875, y: -7.6944447}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,12 +222,12 @@ TextureImporter:
       name: HATBACK_08_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.1875, y: -7.685185}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -237,12 +236,12 @@ TextureImporter:
       name: HATBACK_09_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.071428575, y: -7.8396225}
+      pivot: {x: -0.0625, y: -7.685185}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -251,12 +250,12 @@ TextureImporter:
       name: HATBACK_10_Bare
       rect:
         serializedVersion: 2
-        x: 339
-        y: 1120
-        width: 126
-        height: 106
+        x: 2
+        y: 1725
+        width: 128
+        height: 108
       alignment: 9
-      pivot: {x: -0.11904762, y: -7.8679247}
+      pivot: {x: -0.046875, y: -7.638889}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,12 +264,12 @@ TextureImporter:
       name: HATFRONT_01_Bare
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1228
-        width: 336
-        height: 270
+        x: 372
+        y: 1329
+        width: 338
+        height: 272
       alignment: 9
-      pivot: {x: 0.48809522, y: -2.3925927}
+      pivot: {x: 0.71301776, y: -2.6507354}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -279,12 +278,12 @@ TextureImporter:
       name: HATFRONT_02_Bare
       rect:
         serializedVersion: 2
-        x: 340
-        y: 1228
-        width: 336
-        height: 270
+        x: 195
+        y: 1120
+        width: 338
+        height: 272
       alignment: 9
-      pivot: {x: 0.6875, y: -2.7074075}
+      pivot: {x: 0.6863905, y: -2.6838236}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -293,12 +292,12 @@ TextureImporter:
       name: HATFRONT_03_Bare
       rect:
         serializedVersion: 2
-        x: 678
-        y: 1228
-        width: 336
-        height: 270
+        x: 453
+        y: 951
+        width: 338
+        height: 272
       alignment: 9
-      pivot: {x: 0.71428573, y: -2.6740742}
+      pivot: {x: 0.6863905, y: -2.6875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,12 +306,12 @@ TextureImporter:
       name: HATFRONT_04_Bare
       rect:
         serializedVersion: 2
-        x: 342
-        y: 1774
-        width: 336
-        height: 272
+        x: 344
+        y: 1772
+        width: 338
+        height: 274
       alignment: 9
-      pivot: {x: 0.6964286, y: -2.6911764}
+      pivot: {x: 0.69526625, y: -2.6678832}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -322,11 +321,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 1774
-        width: 338
-        height: 272
+        y: 1772
+        width: 340
+        height: 274
       alignment: 9
-      pivot: {x: 0.7071006, y: -2.6948528}
+      pivot: {x: 0.7117647, y: -2.6715329}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -335,12 +334,12 @@ TextureImporter:
       name: HATFRONT_06_Bare
       rect:
         serializedVersion: 2
-        x: 680
-        y: 1774
-        width: 336
-        height: 272
+        x: 684
+        y: 1772
+        width: 338
+        height: 274
       alignment: 9
-      pivot: {x: 0.67261904, y: -2.6838236}
+      pivot: {x: 0.67159766, y: -2.660584}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -349,12 +348,12 @@ TextureImporter:
       name: HATFRONT_07_Bare
       rect:
         serializedVersion: 2
-        x: 2
-        y: 1500
-        width: 336
-        height: 272
+        x: 526
+        y: 1550
+        width: 338
+        height: 274
       alignment: 9
-      pivot: {x: 0.64285713, y: -2.6801472}
+      pivot: {x: 0.6420118, y: -2.6569343}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -363,12 +362,12 @@ TextureImporter:
       name: HATFRONT_08_Bare
       rect:
         serializedVersion: 2
-        x: 340
-        y: 1500
-        width: 336
-        height: 272
+        x: 185
+        y: 1548
+        width: 338
+        height: 274
       alignment: 9
-      pivot: {x: 0.6666667, y: -2.6801472}
+      pivot: {x: 0.66568047, y: -2.6569343}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -377,12 +376,12 @@ TextureImporter:
       name: HATFRONT_09_Bare
       rect:
         serializedVersion: 2
-        x: 678
-        y: 1500
-        width: 336
-        height: 272
+        x: 18
+        y: 1345
+        width: 338
+        height: 274
       alignment: 9
-      pivot: {x: 0.71428573, y: -2.6764705}
+      pivot: {x: 0.71301776, y: -2.6532848}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -391,12 +390,12 @@ TextureImporter:
       name: HATFRONT_10_Bare
       rect:
         serializedVersion: 2
-        x: 2
-        y: 955
-        width: 335
-        height: 271
+        x: 616
+        y: 1160
+        width: 337
+        height: 273
       alignment: 9
-      pivot: {x: 0.7223881, y: -2.6605165}
+      pivot: {x: 0.72106826, y: -2.6373627}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

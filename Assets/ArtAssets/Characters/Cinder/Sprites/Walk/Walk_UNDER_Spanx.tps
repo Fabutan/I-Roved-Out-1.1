@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.6.2</string>
+        <string>4.6.3</string>
         <key>fileName</key>
-        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_BACKARM_Bare.tps</string>
+        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_UNDER_Spanx.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>Walk_BACKARM_Bare.png</filename>
+        <filename>Walk_UNDER_spanx.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -92,7 +92,7 @@
             <key>width</key>
             <int>2048</int>
             <key>height</key>
-            <int>2048</int>
+            <int>4096</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -129,28 +129,12 @@
                 <uint>1</uint>
             </struct>
         </struct>
-        <key>andEngine</key>
-        <struct type="AndEngine">
-            <key>minFilter</key>
-            <enum type="AndEngine::MinFilter">Linear</enum>
-            <key>packageName</key>
-            <string>Texture</string>
-            <key>wrap</key>
-            <struct type="AndEngineWrap">
-                <key>s</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-                <key>t</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-            </struct>
-            <key>magFilter</key>
-            <enum type="AndEngine::MagFilter">MagLinear</enum>
-        </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Walk_BACKARM_Bare.tpsheet</filename>
+                <filename>Walk_UNDER_spanx.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,7 +165,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>3</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -199,32 +183,31 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_01_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_02_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_03_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_04_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_05_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_06_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_07_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_08_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_09_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare/BACKARM_10_Bare.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_01_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_02_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_03_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_04_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_05_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_06_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_08_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_09_Spanx.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx/UNDER_10_Spanx.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9Paddings</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../../Desktop/CINDER_WALK_FRAMES/BACKARM_Bare</filename>
+            <filename>../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/UNDER_Spanx</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

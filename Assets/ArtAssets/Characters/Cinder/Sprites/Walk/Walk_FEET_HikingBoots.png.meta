@@ -25,6 +25,26 @@ TextureImporter:
     21300036: FEET_08_HikingBoots
     21300038: FEET_09_HikingBoots
     21300040: FEET_10_HikingBoots
+    21300042: FEETBACK_01_HikingBoots
+    21300044: FEETBACK_02_HikingBoots
+    21300046: FEETBACK_03_HikingBoots
+    21300048: FEETBACK_04_HikingBoots
+    21300050: FEETBACK_05_HikingBoots
+    21300052: FEETBACK_06_HikingBoots
+    21300054: FEETBACK_07_HikingBoots
+    21300056: FEETBACK_08_HikingBoots
+    21300058: FEETBACK_09_HikingBoots
+    21300060: FEETBACK_10_HikingBoots
+    21300062: FEETFRONT_01_HikingBoots
+    21300064: FEETFRONT_02_HikingBoots
+    21300066: FEETFRONT_03_HikingBoots
+    21300068: FEETFRONT_04_HikingBoots
+    21300070: FEETFRONT_05_HikingBoots
+    21300072: FEETFRONT_06_HikingBoots
+    21300074: FEETFRONT_07_HikingBoots
+    21300076: FEETFRONT_08_HikingBoots
+    21300078: FEETFRONT_09_HikingBoots
+    21300080: FEETFRONT_10_HikingBoots
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -101,141 +121,281 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FEET_01_HikingBoots
+      name: FEETBACK_01_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 1103
+        width: 239
+        height: 287
+      alignment: 9
+      pivot: {x: 1.7238494, y: 3.3763065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_02_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 1750
+        width: 257
+        height: 297
+      alignment: 9
+      pivot: {x: 1.6381323, y: 3.1818182}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_03_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1060
+        width: 259
+        height: 262
+      alignment: 9
+      pivot: {x: 0.74903476, y: 3.4312978}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_04_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 1453
+        width: 250
+        height: 295
+      alignment: 9
+      pivot: {x: 0.176, y: 3.1559322}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_05_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 1787
+        width: 300
+        height: 260
+      alignment: 9
+      pivot: {x: -0.69666666, y: 3.5807693}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_06_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 1582
+        width: 295
+        height: 262
+      alignment: 9
+      pivot: {x: -0.5016949, y: 3.6908398}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETBACK_07_HikingBoots
       rect:
         serializedVersion: 2
         x: 1
-        y: 722
-        width: 905
-        height: 301
+        y: 1273
+        width: 278
+        height: 253
       alignment: 9
-      pivot: {x: 0.46740332, y: 3.219269}
+      pivot: {x: -0.33093524, y: 3.826087}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_02_HikingBoots
+      name: FEETBACK_08_HikingBoots
       rect:
         serializedVersion: 2
-        x: 766
-        y: 222
-        width: 787
-        height: 336
+        x: 1
+        y: 156
+        width: 252
+        height: 233
       alignment: 9
-      pivot: {x: 0.53367215, y: 2.9345238}
+      pivot: {x: 0.23809524, y: 4.158798}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_03_HikingBoots
+      name: FEETBACK_09_HikingBoots
       rect:
         serializedVersion: 2
-        x: 1637
-        y: 110
-        width: 337
-        height: 339
+        x: 1
+        y: 387
+        width: 251
+        height: 238
       alignment: 9
-      pivot: {x: 0.5727003, y: 2.882006}
+      pivot: {x: 0.9243028, y: 4.071429}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_04_HikingBoots
+      name: FEETBACK_10_HikingBoots
       rect:
         serializedVersion: 2
-        x: 1439
-        y: 685
-        width: 359
-        height: 338
+        x: 768
+        y: 1203
+        width: 249
+        height: 263
       alignment: 9
-      pivot: {x: 0.42618385, y: 2.881657}
+      pivot: {x: 1.4698795, y: 3.6882129}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_05_HikingBoots
+      name: FEETFRONT_01_HikingBoots
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 595
-        width: 825
-        height: 309
+        x: 1
+        y: 1786
+        width: 302
+        height: 261
       alignment: 9
-      pivot: {x: 0.3830303, y: 3.168285}
+      pivot: {x: -0.60264903, y: 3.7088122}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_06_HikingBoots
+      name: FEETFRONT_02_HikingBoots
       rect:
         serializedVersion: 2
-        x: 229
-        y: 547
-        width: 857
+        x: 1
+        y: 1522
+        width: 287
+        height: 260
+      alignment: 9
+      pivot: {x: -0.2752613, y: 3.7846153}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_03_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 955
+        width: 246
+        height: 236
+      alignment: 9
+      pivot: {x: 0.41869918, y: 4.1355934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_04_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 868
+        width: 246
+        height: 237
+      alignment: 9
+      pivot: {x: 0.6219512, y: 4.1097045}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_05_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 861
+        width: 242
+        height: 253
+      alignment: 9
+      pivot: {x: 1.3057852, y: 3.8735178}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: FEETFRONT_06_HikingBoots
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 961
+        width: 231
         height: 277
       alignment: 9
-      pivot: {x: 0.4830805, y: 3.5162456}
+      pivot: {x: 1.7922078, y: 3.5415163}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_07_HikingBoots
+      name: FEETFRONT_07_HikingBoots
       rect:
         serializedVersion: 2
-        x: 968
-        y: 407
-        width: 835
-        height: 296
+        x: 565
+        y: 1307
+        width: 248
+        height: 282
       alignment: 9
-      pivot: {x: 0.55688626, y: 3.266892}
+      pivot: {x: 1.875, y: 3.3829787}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_08_HikingBoots
+      name: FEETFRONT_08_HikingBoots
       rect:
         serializedVersion: 2
-        x: 637
-        y: 11
-        width: 542
-        height: 338
+        x: 340
+        y: 1448
+        width: 254
+        height: 291
       alignment: 9
-      pivot: {x: 0.6439114, y: 2.8639054}
+      pivot: {x: 1.3779528, y: 3.1683848}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_09_HikingBoots
+      name: FEETFRONT_09_HikingBoots
       rect:
         serializedVersion: 2
         x: 1
-        y: 243
-        width: 475
-        height: 322
+        y: 615
+        width: 240
+        height: 255
       alignment: 9
-      pivot: {x: 0.48842105, y: 3.0093167}
+      pivot: {x: -0.09166667, y: 3.552941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
     - serializedVersion: 2
-      name: FEET_10_HikingBoots
+      name: FEETFRONT_10_HikingBoots
       rect:
         serializedVersion: 2
-        x: 404
-        y: 750
-        width: 916
-        height: 273
+        x: 219
+        y: 1648
+        width: 300
+        height: 261
       alignment: 9
-      pivot: {x: 0.41157204, y: 3.5494506}
+      pivot: {x: -0.79333335, y: 3.6704981}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

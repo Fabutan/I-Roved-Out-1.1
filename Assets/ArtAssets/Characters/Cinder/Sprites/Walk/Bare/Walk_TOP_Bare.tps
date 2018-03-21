@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>4.6.2</string>
+        <string>4.6.3</string>
         <key>fileName</key>
-        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_TOP_Bare.tps</string>
+        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Bare/Walk_TOP_Bare.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -104,7 +104,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Polygon</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -129,22 +129,6 @@
                 <uint>1</uint>
             </struct>
         </struct>
-        <key>andEngine</key>
-        <struct type="AndEngine">
-            <key>minFilter</key>
-            <enum type="AndEngine::MinFilter">Linear</enum>
-            <key>packageName</key>
-            <string>Texture</string>
-            <key>wrap</key>
-            <struct type="AndEngineWrap">
-                <key>s</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-                <key>t</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-            </struct>
-            <key>magFilter</key>
-            <enum type="AndEngine::MagFilter">MagLinear</enum>
-        </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
             <key>datafile</key>
@@ -167,7 +151,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
@@ -181,7 +165,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>10</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -199,32 +183,42 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_01_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_02_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_03_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_04_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_05_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_06_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_07_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_08_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_09_Bare.png</key>
-            <key type="filename">../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare/TOP_10_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_01_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_02_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_03_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_04_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_05_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_06_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_07_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_08_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_09_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPBACK_10_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_01_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_02_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_03_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_04_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_05_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_06_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_07_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_08_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_09_Bare.png</key>
+            <key type="filename">../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare/TOPFRONT_10_Bare.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9Paddings</key>
-                <rect>512,512,1024,1024</rect>
+                <rect>550,550,1100,1100</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../../Desktop/CINDER_WALK_FRAMES/TOP_Bare</filename>
+            <filename>../../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/TOP_Bare</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

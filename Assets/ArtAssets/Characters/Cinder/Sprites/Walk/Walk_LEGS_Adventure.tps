@@ -2,11 +2,11 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>3</int>
+        <int>4</int>
         <key>texturePackerVersion</key>
-        <string>3.6.0</string>
+        <string>4.6.3</string>
         <key>fileName</key>
-        <string>D:/Github/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Adventure/Walk_LEGS_Adventure.tps</string>
+        <string>E:/GitHub/I-Roved-Out-1.1/Assets/ArtAssets/Characters/Cinder/Sprites/Walk/Walk_LEGS_Adventure.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -29,8 +29,6 @@
         </array>
         <key>allowRotation</key>
         <false/>
-        <key>premultiplyAlpha</key>
-        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -38,15 +36,19 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>Walk_LEGS_Adventure.png</filename>
+        <filename></filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
         <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
+        <key>atfCompressData</key>
+        <false/>
         <key>mipMapMinSize</key>
         <uint>32768</uint>
         <key>etc1CompressionQuality</key>
         <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
+        <key>etc2CompressionQuality</key>
+        <enum type="SettingsBase::Etc2CompressionQuality">ETC2_QUALITY_LOW_PERCEPTUAL</enum>
         <key>dxtCompressionMode</key>
         <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
         <key>jxrColorFormat</key>
@@ -70,7 +72,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>10</uint>
+        <uint>0</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -78,11 +80,13 @@
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
-        <string>D:\Github\I-Roved-Out-1.1\Assets\ArtAssets\Characters\Cinder\Sprites\Walk\Adventure\Walk_LEGS_Adventure</string>
+        <string></string>
+        <key>atfFormats</key>
+        <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>10</uint>
+        <uint>0</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -97,8 +101,6 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
-        <key>reduceBorderArtifacts</key>
-        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -108,8 +110,6 @@
             <key>sizeConstraints</key>
             <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
-            <false/>
-            <key>forceWordAligned</key>
             <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
@@ -123,22 +123,11 @@
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
             </struct>
-        </struct>
-        <key>andEngine</key>
-        <struct type="AndEngine">
-            <key>minFilter</key>
-            <enum type="AndEngine::MinFilter">Linear</enum>
-            <key>packageName</key>
-            <string>Texture</string>
-            <key>wrap</key>
-            <struct type="AndEngineWrap">
-                <key>s</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
-                <key>t</key>
-                <enum type="AndEngineWrap::Wrap">Clamp</enum>
+            <key>polygon</key>
+            <struct type="AlgorithmPolygonSettings">
+                <key>alignToGrid</key>
+                <uint>1</uint>
             </struct>
-            <key>magFilter</key>
-            <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
@@ -154,6 +143,8 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <key>alphaHandling</key>
+        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -165,30 +156,59 @@
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
-        <key>cleanTransparentPixels</key>
+        <key>autodetectAnimations</key>
         <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>0.5</double>
+            <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">CropKeepPos</enum>
+            <enum type="SpriteSettings::TrimMode">Polygon</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
-            <key>pivotPoint</key>
-            <enum type="SpriteSettings::PivotPoint">Center</enum>
+            <key>defaultPivotPoint</key>
+            <point_f>0.5,0.5</point_f>
+            <key>writePivotPoints</key>
+            <true/>
         </struct>
+        <key>individualSpriteSettings</key>
+        <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_01_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_02_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_03_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_04_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_05_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_06_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_07_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_08_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_09_Adventure.png</key>
+            <key type="filename">../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure/LEGS_10_Adventure.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>550,550,1100,1100</rect>
+                <key>scale9Paddings</key>
+                <rect>550,550,1100,1100</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+        </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../../../../../Desktop/Master_Walk/LEGS_Adventure</filename>
+            <filename>../../../../../../../../GoogleDrive/IRovedOutGame/Characters/Cinder/Sprites/Master_Walk/LEGS_Adventure</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -200,5 +220,17 @@
         <uint>1</uint>
         <key>commonDivisorY</key>
         <uint>1</uint>
+        <key>packNormalMaps</key>
+        <false/>
+        <key>autodetectNormalMaps</key>
+        <true/>
+        <key>normalMapFilter</key>
+        <string></string>
+        <key>normalMapSuffix</key>
+        <string></string>
+        <key>normalMapSheetFileName</key>
+        <filename></filename>
+        <key>exporterProperties</key>
+        <map type="ExporterProperties"/>
     </struct>
 </data>
