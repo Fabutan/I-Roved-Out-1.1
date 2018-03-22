@@ -555,11 +555,11 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 1
-    isEditing: 1
+    binID: 2
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
-    overrideUseSyntax: 1
+    overrideUseSyntax: 0
     hotspotPrefix1:
       label: Equip
       lineID: -1
@@ -573,7 +573,7 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: HikingBoots
+  - label: Adventurer's Boots
     id: 9
     altLabel: Good Old Boots
     carryOnStart: 1
@@ -612,7 +612,7 @@ MonoBehaviour:
       numFrames: 1
       numRows: 1
       numCols: 1
-      size: 0.05
+      size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
       skipFirstFrameWhenLooping: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 0
+    isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Black Thong
+  - label: Adventurer's Thong
     id: 11
     altLabel: 
     carryOnStart: 0
