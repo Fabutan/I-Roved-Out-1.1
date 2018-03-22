@@ -1301,10 +1301,10 @@ MonoBehaviour:
   linkedUiID: 0
   relativeRect:
     serializedVersion: 2
-    x: 243.8148
-    y: 12.9537
+    x: 230.09521
+    y: 9.5238
     width: 0
-    height: 39.36
+    height: 28.920002
   relativePosition: {x: 0, y: 0}
   numSlots: 0
   uiSlots:
@@ -1335,9 +1335,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1406,9 +1406,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1476,9 +1476,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1546,9 +1546,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1616,9 +1616,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1686,9 +1686,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1756,9 +1756,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -1819,76 +1819,6 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: LesserSweater
-    id: 7
-    altLabel: Lesser Sweater (+2 Vs. Cold)
-    carryOnStart: 1
-    carryOnStartNotDefault: 0
-    carryOnStartID: 0
-    vars:
-    - label: Property 1
-      id: 0
-      type: 0
-      val: 0
-      floatVal: 0
-      textVal: 
-      popUps: []
-      vector3Val: {x: 0, y: 0, z: 0}
-      link: 0
-      pmVar: 
-      updateLinkOnStart: 0
-      isEditing: 0
-      canTranslate: 1
-      textValLineID: -1
-      popUpsLineID: -1
-      description: 
-      limitToCategories: 0
-      categoryIDs: 
-    canCarryMultiple: 0
-    count: 1
-    useSeparateSlots: 0
-    selectSingle: 0
-    tex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
-    activeTex: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
-    selectedTex: {fileID: 0}
-    linkedPrefab: {fileID: 0}
-    cursorIcon:
-      texture: {fileID: 2800000, guid: b0ba90a66f40ec4459973ba10a5aefc4, type: 3}
-      isAnimated: 0
-      numFrames: 1
-      numRows: 1
-      numCols: 1
-      size: 0.04
-      animSpeed: 4
-      endAnimOnLastFrame: 0
-      skipFirstFrameWhenLooping: 0
-      clickOffset: {x: 0, y: 0}
-      frameSpeeds: []
-      alwaysAnimate: 0
-      dontCycle: 0
-      label: Icon 1
-      lineID: -1
-      id: 0
-    lineID: -1
-    useIconID: 0
-    binID: 1
-    isEditing: 0
-    recipeSlot: -1
-    lastInteractionIndex: 0
-    overrideUseSyntax: 1
-    hotspotPrefix1:
-      label: Equip
-      lineID: -1
-    hotspotPrefix2:
-      label: on
-      lineID: -1
-    useActionList: {fileID: 0}
-    lookActionList: {fileID: 0}
-    interactions: []
-    combineActionList: []
-    combineID: 
-    unhandledActionList: {fileID: 0}
-    unhandledCombineActionList: {fileID: 0}
   - label: Athletic Pants
     id: 8
     altLabel: Athletic Pants (+1 Movement Speed)
@@ -1896,12 +1826,12 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
-      textVal: 
+      textVal: Athletic
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -1941,11 +1871,11 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 1
+    binID: 2
     isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
-    overrideUseSyntax: 1
+    overrideUseSyntax: 0
     hotspotPrefix1:
       label: Equip
       lineID: -1
@@ -1959,19 +1889,19 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: HikingBoots
+  - label: Adventurer's Boots
     id: 9
     altLabel: Good Old Boots
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
-      textVal: 
+      textVal: Adventurer
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -1998,7 +1928,7 @@ MonoBehaviour:
       numFrames: 1
       numRows: 1
       numCols: 1
-      size: 0.05
+      size: 0.04
       animSpeed: 4
       endAnimOnLastFrame: 0
       skipFirstFrameWhenLooping: 0
@@ -2012,7 +1942,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 1
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -2029,16 +1959,297 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Equipment
+  - label: Adventurer's Thong
+    id: 11
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+    activeTex: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Sweater
+    id: 12
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+    activeTex: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Pants
+    id: 13
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+    activeTex: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EQUIPHead
+    id: 7
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 5
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList:
+    - {fileID: 0}
+    combineID: 08000000
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EQUIPTop
     id: 10
     altLabel: 
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -2058,12 +2269,12 @@ MonoBehaviour:
     count: 1
     useSeparateSlots: 0
     selectSingle: 0
-    tex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
-    activeTex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
     selectedTex: {fileID: 0}
     linkedPrefab: {fileID: 0}
     cursorIcon:
-      texture: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
       isAnimated: 0
       numFrames: 1
       numRows: 1
@@ -2081,77 +2292,7 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 1
-    isEditing: 0
-    recipeSlot: -1
-    lastInteractionIndex: 0
-    overrideUseSyntax: 0
-    hotspotPrefix1:
-      label: Use
-      lineID: -1
-    hotspotPrefix2:
-      label: on
-      lineID: -1
-    useActionList: {fileID: 11400000, guid: 5dc94a9afb60a0049a1d7f49fe7c8676, type: 2}
-    lookActionList: {fileID: 0}
-    interactions: []
-    combineActionList: []
-    combineID: 
-    unhandledActionList: {fileID: 0}
-    unhandledCombineActionList: {fileID: 0}
-  - label: Inventory item 12
-    id: 11
-    altLabel: 
-    carryOnStart: 0
-    carryOnStartNotDefault: 0
-    carryOnStartID: 0
-    vars:
-    - label: Property 1
-      id: 0
-      type: 0
-      val: 0
-      floatVal: 0
-      textVal: 
-      popUps: []
-      vector3Val: {x: 0, y: 0, z: 0}
-      link: 0
-      pmVar: 
-      updateLinkOnStart: 0
-      isEditing: 0
-      canTranslate: 1
-      textValLineID: -1
-      popUpsLineID: -1
-      description: 
-      limitToCategories: 0
-      categoryIDs: 
-    canCarryMultiple: 0
-    count: 1
-    useSeparateSlots: 0
-    selectSingle: 0
-    tex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
-    activeTex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
-    selectedTex: {fileID: 0}
-    linkedPrefab: {fileID: 0}
-    cursorIcon:
-      texture: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
-      isAnimated: 0
-      numFrames: 1
-      numRows: 1
-      numCols: 1
-      size: 0.04
-      animSpeed: 4
-      endAnimOnLastFrame: 0
-      skipFirstFrameWhenLooping: 0
-      clickOffset: {x: 0, y: 0}
-      frameSpeeds: []
-      alwaysAnimate: 0
-      dontCycle: 0
-      label: Icon 1
-      lineID: -1
-      id: 0
-    lineID: -1
-    useIconID: 0
-    binID: 1
+    binID: 5
     isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
@@ -2169,16 +2310,16 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Inventory item 13
-    id: 12
+  - label: EQUIPLegs
+    id: 14
     altLabel: 
-    carryOnStart: 0
+    carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -2198,12 +2339,12 @@ MonoBehaviour:
     count: 1
     useSeparateSlots: 0
     selectSingle: 0
-    tex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
-    activeTex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
     selectedTex: {fileID: 0}
     linkedPrefab: {fileID: 0}
     cursorIcon:
-      texture: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
       isAnimated: 0
       numFrames: 1
       numRows: 1
@@ -2221,7 +2362,7 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 1
+    binID: 5
     isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
@@ -2239,16 +2380,16 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Inventory item 14
-    id: 13
+  - label: EquipFeet
+    id: 15
     altLabel: 
-    carryOnStart: 0
+    carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: Property 1
+    - label: OutfitType
       id: 0
-      type: 0
+      type: 2
       val: 0
       floatVal: 0
       textVal: 
@@ -2268,12 +2409,12 @@ MonoBehaviour:
     count: 1
     useSeparateSlots: 0
     selectSingle: 0
-    tex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
-    activeTex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
     selectedTex: {fileID: 0}
     linkedPrefab: {fileID: 0}
     cursorIcon:
-      texture: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
       isAnimated: 0
       numFrames: 1
       numRows: 1
@@ -2291,8 +2432,8 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 0
-    isEditing: 0
+    binID: 5
+    isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -4619,10 +4760,10 @@ MonoBehaviour:
   linkedUiID: 13963684
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 5.835
-    width: 73.521
-    height: 31.488
+    x: 4.325
+    y: 4.325
+    width: 54.495
+    height: 23.328001
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -4662,9 +4803,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
-  isEditing: 1
+  isEditing: 0
   title: CloseButton
-  slotSize: {x: 5.227078, y: 3.5060976}
+  slotSize: {x: 5.361305, y: 3.5269709}
   sizeType: 0
   positionType: 2
   slotSpacing: 0
@@ -4687,10 +4828,10 @@ MonoBehaviour:
   linkedUiID: 0
   relativeRect:
     serializedVersion: 2
-    x: 637.182
+    x: 468.46808
     y: 0
-    width: 61
-    height: 23
+    width: 46
+    height: 17
   relativePosition: {x: 91, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -5798,8 +5939,8 @@ MonoBehaviour:
   linkedUiID: 15193404
   relativeRect:
     serializedVersion: 2
-    x: 166.8611
-    y: 12.9537
+    x: 156.57141
+    y: 9.5238
     width: 64
     height: 64
   relativePosition: {x: 0, y: 0}
@@ -5981,8 +6122,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 583.5
-    height: 45.92
+    width: 432.49997
+    height: 34.02
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiText: {fileID: 0}
@@ -5999,6 +6140,59 @@ MonoBehaviour:
   itemPropertyID: 0
   inventoryPropertyType: 0
   itemSlotNumber: 0
+--- !u!114 &114295062608620998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e338289c9b5c437cb702c29f4458bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 3
+  isEditing: 0
+  title: Interaction
+  slotSize: {x: 10, y: 17}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 2
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 39.124805
+    y: 126.0912
+    width: 85.8
+    height: 81.94
+  relativePosition: {x: 7.6, y: 32.7}
+  numSlots: 1
+  uiButton: {fileID: 0}
+  uiPointerState: 0
+  displayType: 0
+  anchor: 4
+  textEffects: 0
+  outlineSize: 2
+  iconID: 0
+  uiSelectableHideStyle: 0
+  overrideTexture: 0
+  activeTexture: {fileID: 0}
 --- !u!114 &114297458027018282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6257,8 +6451,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 77.07
-    width: 583.5
-    height: 31.488
+    width: 432.49997
+    height: 23.328001
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiText: {fileID: 0}
@@ -6668,8 +6862,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 700.2
-    height: 25.319298
+    width: 514.8
+    height: 18.60351
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiText: {fileID: 0}
@@ -6710,7 +6904,7 @@ MonoBehaviour:
   title: Equipment
   manualSize: {x: 60, y: 80}
   positionType: 0
-  manualPosition: {x: 583.5, y: 328}
+  manualPosition: {x: 429, y: 241}
   positionSmoothing: 0
   alignment: 4
   toggleKey: 
@@ -6728,6 +6922,8 @@ MonoBehaviour:
   - {fileID: 114434362952425190}
   - {fileID: 114137281909760890}
   - {fileID: 114863322396569860}
+  - {fileID: 114295062608620998}
+  - {fileID: 114851052133484584}
   transitionProgress: 0
   appearType: 0
   speechMenuType: 0
@@ -6743,6 +6939,8 @@ MonoBehaviour:
   - {fileID: 114434362952425190}
   - {fileID: 114137281909760890}
   - {fileID: 114863322396569860}
+  - {fileID: 114295062608620998}
+  - {fileID: 114851052133484584}
   spacing: 0
   sizeType: 1
   autoSizeEveryFrame: 0
@@ -6776,10 +6974,10 @@ MonoBehaviour:
   biggestElementSize: {x: 372, y: 53.699997}
   rect:
     serializedVersion: 2
-    x: 233.4
-    y: 65.600006
-    width: 700.2
-    height: 524.8
+    x: 171.59998
+    y: 48.199997
+    width: 514.80005
+    height: 385.6
 --- !u!114 &114453422653131280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6885,8 +7083,8 @@ MonoBehaviour:
   linkedUiID: 15191042
   relativeRect:
     serializedVersion: 2
-    x: 89.907394
-    y: 12.9537
+    x: 83.04761
+    y: 9.5238
     width: 64
     height: 64
   relativePosition: {x: 0, y: 0}
@@ -7230,7 +7428,7 @@ MonoBehaviour:
   isLocked: 0
   id: 5
   title: Conversation
-  manualSize: {x: 36, y: 29.668447}
+  manualSize: {x: 36.000004, y: 29.669752}
   positionType: 2
   manualPosition: {x: 24, y: 69.7}
   positionSmoothing: 0
@@ -7293,13 +7491,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 414.285, y: 188.79001}
+  biggestElementSize: {x: 307.075, y: 139.87}
   rect:
     serializedVersion: 2
-    x: 70.01999
-    y: 359.91946
-    width: 420.12
-    height: 194.62502
+    x: 51.89998
+    y: 266.64447
+    width: 311.40002
+    height: 144.19499
 --- !u!114 &114590487278667224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7390,7 +7588,7 @@ MonoBehaviour:
   isLocked: 0
   id: 6
   title: Interaction
-  manualSize: {x: 22.002441, y: 13.705396}
+  manualSize: {x: 27.927624, y: 17.229794}
   positionType: 4
   manualPosition: {x: 50, y: 50}
   positionSmoothing: 0
@@ -7457,13 +7655,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 243.8148, y: 76.9537}
+  biggestElementSize: {x: 230.09521, y: 73.5238}
   rect:
     serializedVersion: 2
-    x: 455.11575
-    y: 283.0463
-    width: 256.7685
-    height: 89.907394
+    x: 309.1905
+    y: 199.4762
+    width: 239.61902
+    height: 83.04761
 --- !u!114 &114609318938083364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7720,8 +7918,8 @@ MonoBehaviour:
   linkedUiID: 15188550
   relativeRect:
     serializedVersion: 2
-    x: 12.9537
-    y: 12.9537
+    x: 9.5238
+    y: 9.5238
     width: 64
     height: 64
   relativePosition: {x: 0, y: 0}
@@ -8455,9 +8653,9 @@ MonoBehaviour:
   isLocked: 0
   id: 4
   title: InGame
-  manualSize: {x: 19.800003, y: 6.5789638}
+  manualSize: {x: 19.8, y: 6.5798354}
   positionType: 1
-  manualPosition: {x: 115.53301, y: 634.42096}
+  manualPosition: {x: 85.634995, y: 470.01102}
   positionSmoothing: 0
   alignment: 6
   toggleKey: 
@@ -8518,13 +8716,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 225.23102, y: 37.323}
+  biggestElementSize: {x: 166.94499, y: 27.653}
   rect:
     serializedVersion: 2
     x: 0
-    y: 612.842
-    width: 231.06602
-    height: 43.158
+    y: 454.022
+    width: 171.26999
+    height: 31.978
 --- !u!114 &114753925293384542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8547,9 +8745,9 @@ MonoBehaviour:
   isLocked: 0
   id: 9
   title: Subtitles
-  manualSize: {x: 50, y: 16.548475}
+  manualSize: {x: 49.999996, y: 20.658026}
   positionType: 1
-  manualPosition: {x: 583.5, y: 601.721}
+  manualPosition: {x: 432.5, y: 435.801}
   positionSmoothing: 0
   alignment: 7
   toggleKey: 
@@ -8612,13 +8810,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 583.5, y: 108.558}
+  biggestElementSize: {x: 432.49997, y: 100.398}
   rect:
     serializedVersion: 2
-    x: 291.75
-    y: 547.442
-    width: 583.5
-    height: 108.558
+    x: 216.25002
+    y: 385.602
+    width: 432.49997
+    height: 100.398
 --- !u!114 &114788961768933162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8985,10 +9183,10 @@ MonoBehaviour:
   linkedUiID: 14192356
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 182.23001
-    width: 408.45
-    height: 6.56
+    x: 4.325
+    y: 135.01
+    width: 302.75
+    height: 4.86
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiSlider: {fileID: 0}
@@ -9395,10 +9593,10 @@ MonoBehaviour:
   linkedUiID: 0
   relativeRect:
     serializedVersion: 2
-    x: 85.191
-    y: 5.835
-    width: 140.04001
-    height: 31.488
+    x: 63.145
+    y: 4.325
+    width: 103.799995
+    height: 23.328001
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -9426,6 +9624,1186 @@ MonoBehaviour:
   clickTexture: {fileID: 0}
   allowContinuousClick: 0
   uiSelectableHideStyle: 0
+--- !u!114 &114851052133484584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa9eb3d70f0d45a288b0763258b6f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 4
+  isEditing: 1
+  title: InventoryBox
+  slotSize: {x: 11.3, y: 17}
+  sizeType: 1
+  positionType: 2
+  slotSpacing: 0
+  lineID: -1
+  alternativeInputButton: 
+  font: {fileID: 0}
+  fontScaleFactor: 4
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  fontHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  isVisible: 1
+  isClickable: 1
+  orientation: 1
+  gridWidth: 3
+  backgroundTexture: {fileID: 0}
+  highlightTexture: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}
+  changeCursor: 0
+  cursorID: 0
+  linkedUiID: 0
+  relativeRect:
+    serializedVersion: 2
+    x: 397.42563
+    y: 33.9328
+    width: 96.954
+    height: 327.76
+  relativePosition: {x: 77.2, y: 8.8}
+  numSlots: 4
+  uiSlots: []
+  uiPointerState: 0
+  textEffects: 0
+  outlineSize: 2
+  inventoryBoxType: 1
+  maxSlots: 10
+  limitToCategory: 1
+  limitToDefinedInteractions: 1
+  categoryID: -1
+  categoryIDs: 05000000
+  linkUIGraphic: 0
+  items:
+  - label: Vainglorious Crown
+    id: 0
+    altLabel: Crown
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+    activeTex: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 1474569780841946, guid: 04007fd3473f32a4ebe8eedd5bbffa5b,
+      type: 2}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 029c2d98f68f98143a6a75d134489b4f, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Skull
+    id: 1
+    altLabel: Skull
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+    activeTex: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 0e51b821fb431124282a7392d95d87dc, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Guild Issue Hat
+    id: 2
+    altLabel: Hat
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 2385d589fa3527243a8432490ff89009, type: 3}
+    activeTex: {fileID: 2800000, guid: 2385d589fa3527243a8432490ff89009, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 2385d589fa3527243a8432490ff89009, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Frog Prince
+    id: 3
+    altLabel: 
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+    activeTex: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: b8c4ca05c258dbb49ae3694efd5a4d7f, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EmptyBucket
+    id: 4
+    altLabel: Bucket - Empty
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: de317e5b8dfa2114292bada916973339, type: 3}
+    activeTex: {fileID: 2800000, guid: de317e5b8dfa2114292bada916973339, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: de317e5b8dfa2114292bada916973339, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: BucketOfWater
+    id: 5
+    altLabel: Bucket - Water
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 6c63443248d9c4b4098768449ce45af0, type: 3}
+    activeTex: {fileID: 2800000, guid: 6c63443248d9c4b4098768449ce45af0, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 6c63443248d9c4b4098768449ce45af0, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: BucketOfRocks
+    id: 6
+    altLabel: Bucket - Rocks
+    carryOnStart: 0
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: a2e6c8ad22edd2047a52675a8ff0e82e, type: 3}
+    activeTex: {fileID: 2800000, guid: a2e6c8ad22edd2047a52675a8ff0e82e, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: a2e6c8ad22edd2047a52675a8ff0e82e, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 0
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Athletic Pants
+    id: 8
+    altLabel: Athletic Pants (+1 Movement Speed)
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Athletic
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+    activeTex: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: cccd1cd3a4df0334fa98366bd8d334d3, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 2
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Equip
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Boots
+    id: 9
+    altLabel: Good Old Boots
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+    activeTex: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: e64325bd033c81446826093480716548, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 989148007ab926742a582fac37b4a821, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Thong
+    id: 11
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+    activeTex: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 981fb24e283530f4fb6feef814676ff2, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Sweater
+    id: 12
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+    activeTex: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: b5c0348fbc410a94eb6e41f54e68a526, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Adventurer's Pants
+    id: 13
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: Adventurer
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+    activeTex: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 201fbde7abbf93c45a120339884b3d51, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 1
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EQUIPHead
+    id: 7
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 5
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList:
+    - {fileID: 0}
+    combineID: 08000000
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EQUIPTop
+    id: 10
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 5
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EQUIPLegs
+    id: 14
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 5
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: EquipFeet
+    id: 15
+    altLabel: 
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars:
+    - label: OutfitType
+      id: 0
+      type: 2
+      val: 0
+      floatVal: 0
+      textVal: 
+      popUps: []
+      vector3Val: {x: 0, y: 0, z: 0}
+      link: 0
+      pmVar: 
+      updateLinkOnStart: 0
+      isEditing: 0
+      canTranslate: 1
+      textValLineID: -1
+      popUpsLineID: -1
+      description: 
+      limitToCategories: 0
+      categoryIDs: 
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    activeTex: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 97d81105cd97fb34ba3e95bb018102df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 5
+    isEditing: 1
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 0}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  selectItemsAfterTaking: 1
+  displayType: 1
+  uiHideStyle: 0
 --- !u!114 &114854876709919368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9614,7 +10992,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 1
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -9634,7 +11012,7 @@ MonoBehaviour:
   - label: Adventurer's Thong
     id: 11
     altLabel: 
-    carryOnStart: 0
+    carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
@@ -9704,7 +11082,7 @@ MonoBehaviour:
   - label: Adventurer's Sweater
     id: 12
     altLabel: 
-    carryOnStart: 0
+    carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
@@ -9774,7 +11152,7 @@ MonoBehaviour:
   - label: Adventurer's Pants
     id: 13
     altLabel: 
-    carryOnStart: 0
+    carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
@@ -10385,10 +11763,10 @@ MonoBehaviour:
   linkedUiID: 0
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 5.835
-    width: 408.45
-    height: 170.56
+    x: 4.325
+    y: 4.325
+    width: 302.75
+    height: 126.36
   relativePosition: {x: 0, y: 0}
   numSlots: 5
   uiSlots:
