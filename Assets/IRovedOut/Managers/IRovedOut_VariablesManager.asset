@@ -12,6 +12,86 @@ MonoBehaviour:
   m_Name: IRovedOut_VariablesManager
   m_EditorClassIdentifier: 
   vars:
+  - label: Equipped_Top
+    id: 5
+    type: 3
+    val: 1
+    floatVal: 1
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 1
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+    description: "Controls Cinder's Top\t"
+  - label: Equipped_Leg
+    id: 6
+    type: 3
+    val: 1
+    floatVal: 1
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 0
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+    description: "Controls Cinder's Pantsu\t"
+  - label: Equipped_Feet
+    id: 7
+    type: 3
+    val: 1
+    floatVal: 1
+    textVal: Bare
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 0
+    canTranslate: 0
+    textValLineID: -1
+    popUpsLineID: -1
+    description: 
+  - label: Equipped_Hat
+    id: 8
+    type: 3
+    val: 1
+    floatVal: 1
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 0
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+    description: 
+  - label: Equipped_Under
+    id: 9
+    type: 3
+    val: 0
+    floatVal: 1
+    textVal: 
+    popUps: []
+    vector3Val: {x: 0, y: 0, z: 0}
+    link: 0
+    pmVar: 
+    updateLinkOnStart: 0
+    isEditing: 0
+    canTranslate: 1
+    textValLineID: -1
+    popUpsLineID: -1
+    description: 
   - label: IsPollinated
     id: 0
     type: 0
@@ -89,54 +169,6 @@ MonoBehaviour:
     updateLinkOnStart: 0
     isEditing: 0
     canTranslate: 1
-    textValLineID: -1
-    popUpsLineID: -1
-    description: 
-  - label: CinderTop
-    id: 5
-    type: 1
-    val: 0
-    floatVal: 0
-    textVal: 
-    popUps: []
-    vector3Val: {x: 0, y: 0, z: 0}
-    link: 0
-    pmVar: 
-    updateLinkOnStart: 0
-    isEditing: 0
-    canTranslate: 1
-    textValLineID: -1
-    popUpsLineID: -1
-    description: "Controls Cinder's Top\t"
-  - label: CinderBottom
-    id: 6
-    type: 1
-    val: 0
-    floatVal: 0
-    textVal: 
-    popUps: []
-    vector3Val: {x: 0, y: 0, z: 0}
-    link: 0
-    pmVar: 
-    updateLinkOnStart: 0
-    isEditing: 0
-    canTranslate: 1
-    textValLineID: -1
-    popUpsLineID: -1
-    description: "Controls Cinder's Pantsu\t"
-  - label: CinderFeet
-    id: 7
-    type: 2
-    val: 0
-    floatVal: 0
-    textVal: Bare
-    popUps: []
-    vector3Val: {x: 0, y: 0, z: 0}
-    link: 0
-    pmVar: 
-    updateLinkOnStart: 0
-    isEditing: 1
-    canTranslate: 0
     textValLineID: -1
     popUpsLineID: -1
     description: 

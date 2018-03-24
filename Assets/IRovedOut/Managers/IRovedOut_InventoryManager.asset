@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Name: IRovedOut_InventoryManager
   m_EditorClassIdentifier: 
   items:
-  - label: Adventurer's Sweater
+  - label: TopAdventurer
     id: 12
-    altLabel: 
+    altLabel: Lesser Sweater
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
-      textVal: Adventurer
+      textVal: 
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 0
+    isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -75,26 +75,26 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 0}
+    useActionList: {fileID: 11400000, guid: 1866618e18867db4ba1c127f974e09c2, type: 2}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Adventurer's Pants
+  - label: LegsAdventurer
     id: 13
-    altLabel: 
+    altLabel: Cinder's Pants
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
-      floatVal: 0
-      textVal: Adventurer
+      floatVal: 1
+      textVal: 
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -145,26 +145,26 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 0}
+    useActionList: {fileID: 11400000, guid: fdc46169a792fe84d92178ebeb804e52, type: 2}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Adventurer's Thong
+  - label: UnderAdventurer
     id: 11
-    altLabel: 
+    altLabel: Adventurer's Thong
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
-      textVal: Adventurer
+      textVal: 
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -215,26 +215,26 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 0}
+    useActionList: {fileID: 11400000, guid: 93195e10f6f91b4479459258e3483486, type: 2}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Adventurer's Boots
+  - label: Feet_Adventurer
     id: 9
     altLabel: Good Old Boots
     carryOnStart: 1
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
-      textVal: Adventurer
+      textVal: 
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 11400000, guid: 989148007ab926742a582fac37b4a821, type: 2}
+    useActionList: {fileID: 0}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
@@ -299,9 +299,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -370,9 +370,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -440,9 +440,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -510,9 +510,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -580,9 +580,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -650,9 +650,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -720,9 +720,9 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
       textVal: 
@@ -790,12 +790,12 @@ MonoBehaviour:
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
-    - label: OutfitType
+    - label: Value
       id: 0
-      type: 2
+      type: 3
       val: 0
       floatVal: 0
-      textVal: Athletic
+      textVal: 
       popUps: []
       vector3Val: {x: 0, y: 0, z: 0}
       link: 0
@@ -836,7 +836,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 0
-    isEditing: 1
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -846,7 +846,7 @@ MonoBehaviour:
     hotspotPrefix2:
       label: on
       lineID: -1
-    useActionList: {fileID: 0}
+    useActionList: {fileID: 11400000, guid: 894d844c874a5a5488f335942c7292e8, type: 2}
     lookActionList: {fileID: 0}
     interactions: []
     combineActionList: []
@@ -858,8 +858,6 @@ MonoBehaviour:
     id: 0
   - label: Outfit1
     id: 1
-  - label: EQUIP
-    id: 5
   invVars: []
   unhandledCombine: {fileID: 0}
   unhandledHotspot: {fileID: 0}
