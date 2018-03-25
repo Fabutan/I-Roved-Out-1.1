@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: IRovedOut_InventoryManager
   m_EditorClassIdentifier: 
   items:
-  - label: TopAdventurer
+  - label: Equipment_Top_Adventurer
     id: 12
     altLabel: Lesser Sweater
     carryOnStart: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: LegsAdventurer
+  - label: Equipment_Legs_Adventurer
     id: 13
     altLabel: Cinder's Pants
     carryOnStart: 1
@@ -152,7 +152,7 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: UnderAdventurer
+  - label: Equipment_Under_Adventurer
     id: 11
     altLabel: Adventurer's Thong
     carryOnStart: 1
@@ -222,7 +222,7 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Feet_Adventurer
+  - label: Equipment_Feet_Adventurer
     id: 9
     altLabel: Good Old Boots
     carryOnStart: 1
@@ -275,7 +275,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 1
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -783,7 +783,59 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
-  - label: Athletic Pants
+  - label: Equipment Top Athletic
+    id: 7
+    altLabel: Athletic Top
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: bc14490e62de4234bbc993b97f583620, type: 3}
+    activeTex: {fileID: 2800000, guid: bc14490e62de4234bbc993b97f583620, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: bc14490e62de4234bbc993b97f583620, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 2
+    isEditing: 1
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 5536e32ef1a17e244ba58dff0f26edc2, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Legs Athletic
     id: 8
     altLabel: Athletic Pants (+1 Movement Speed)
     carryOnStart: 1
@@ -835,7 +887,7 @@ MonoBehaviour:
       id: 0
     lineID: -1
     useIconID: 0
-    binID: 0
+    binID: 2
     isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
@@ -853,11 +905,327 @@ MonoBehaviour:
     combineID: 
     unhandledActionList: {fileID: 0}
     unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Under Athletic
+    id: 14
+    altLabel: Sports Gitch
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: a69cb08ec1d85e94f90b68848a346bba, type: 3}
+    activeTex: {fileID: 2800000, guid: a69cb08ec1d85e94f90b68848a346bba, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: a69cb08ec1d85e94f90b68848a346bba, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 2
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 597a8dbc497473f41bb69104c241fa4e, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Feet Athletic
+    id: 10
+    altLabel: Athletic Shoes
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 17c7f073a3fdbed4f9c1653e959dd55a, type: 3}
+    activeTex: {fileID: 2800000, guid: 17c7f073a3fdbed4f9c1653e959dd55a, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 17c7f073a3fdbed4f9c1653e959dd55a, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 2
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: cc2aa9e0fcc78c14f82ad00d15acf791, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Top Outfit3
+    id: 15
+    altLabel: Red Sweater
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 5861e776e37911c4084ac22e565a01f0, type: 3}
+    activeTex: {fileID: 2800000, guid: 5861e776e37911c4084ac22e565a01f0, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 5861e776e37911c4084ac22e565a01f0, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 3
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 0d6dd873e58e1a943aa6f2b1fad06433, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Legs Outfit3
+    id: 16
+    altLabel: Red Pants
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 07a139e656633b749a484647b2d1f4df, type: 3}
+    activeTex: {fileID: 2800000, guid: 07a139e656633b749a484647b2d1f4df, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 07a139e656633b749a484647b2d1f4df, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 3
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 0f3580414fcd03b40bc18187c231f62e, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Under Outfit3
+    id: 17
+    altLabel: Red Thong
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: 4df205b76fc8754469104049133963e3, type: 3}
+    activeTex: {fileID: 2800000, guid: 4df205b76fc8754469104049133963e3, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: 4df205b76fc8754469104049133963e3, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 3
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: e586493e163bcdd4a9ad4ce0821aa1fb, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
+  - label: Equipment Feet Outfit 3
+    id: 18
+    altLabel: Red Boots
+    carryOnStart: 1
+    carryOnStartNotDefault: 0
+    carryOnStartID: 0
+    vars: []
+    canCarryMultiple: 0
+    count: 1
+    useSeparateSlots: 0
+    selectSingle: 0
+    tex: {fileID: 2800000, guid: d311af188fd0f714089696886fdc4298, type: 3}
+    activeTex: {fileID: 2800000, guid: d311af188fd0f714089696886fdc4298, type: 3}
+    selectedTex: {fileID: 0}
+    linkedPrefab: {fileID: 0}
+    cursorIcon:
+      texture: {fileID: 2800000, guid: d311af188fd0f714089696886fdc4298, type: 3}
+      isAnimated: 0
+      numFrames: 1
+      numRows: 1
+      numCols: 1
+      size: 0.04
+      animSpeed: 4
+      endAnimOnLastFrame: 0
+      skipFirstFrameWhenLooping: 0
+      clickOffset: {x: 0, y: 0}
+      frameSpeeds: []
+      alwaysAnimate: 0
+      dontCycle: 0
+      label: Icon 1
+      lineID: -1
+      id: 0
+    lineID: -1
+    useIconID: 0
+    binID: 3
+    isEditing: 0
+    recipeSlot: -1
+    lastInteractionIndex: 0
+    overrideUseSyntax: 0
+    hotspotPrefix1:
+      label: Use
+      lineID: -1
+    hotspotPrefix2:
+      label: on
+      lineID: -1
+    useActionList: {fileID: 11400000, guid: 8363d6f88f716e0419d8131e25244ab3, type: 2}
+    lookActionList: {fileID: 0}
+    interactions: []
+    combineActionList: []
+    combineID: 
+    unhandledActionList: {fileID: 0}
+    unhandledCombineActionList: {fileID: 0}
   bins:
   - label: Puzzle
     id: 0
-  - label: Outfit1
+  - label: Equipment_Adventurer
     id: 1
+  - label: Equipment_Athletic
+    id: 2
+  - label: Equipment_Outfit3
+    id: 3
   invVars: []
   unhandledCombine: {fileID: 0}
   unhandledHotspot: {fileID: 0}

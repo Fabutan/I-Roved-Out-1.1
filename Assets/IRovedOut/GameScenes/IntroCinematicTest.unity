@@ -1433,7 +1433,8 @@ Prefab:
     - target: {fileID: 11400016, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: actionListAssetOnStart
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 5b9a0dcf2de82134ca63a79a6059eb6f,
+        type: 2}
     - target: {fileID: 11400016, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: sortingMap
       value: 

@@ -113,6 +113,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &271453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 35
+    y: 284
+    width: 300
+    height: 202
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: Who left this ol thing just lying around?
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 0
 --- !u!1001 &9652692
 Prefab:
   m_ObjectHideFlags: 0
@@ -173,6 +238,66 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
   m_Name: ActionCharPathFind(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 2
+  title: Move to point
+  description: Moves a character to a given Marker object. By default, the character
+    will attempt to pathfind their way to the marker, but can optionally just move
+    in a straight line.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 1
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 10
+    y: 259
+    width: 300
+    height: 176
+  nodeHeight: 0
+  charToMoveParameterID: -1
+  markerParameterID: -1
+  charToMoveID: 0
+  markerID: 0
+  marker: {fileID: 402271720}
+  isPlayer: 1
+  charToMove: {fileID: 0}
+  speed: 0
+  pathFind: 1
+  doFloat: 0
+  doTimeLimit: 0
+  maxTimeParameterID: -1
+  maxTime: 10
+  onReachTimeLimit: 0
+--- !u!114 &29788837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
+  m_Name: ActionCharPathFind(Clone)(Clone)
   m_EditorClassIdentifier: 
   id: 0
   category: 2
@@ -347,7 +472,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2454e47dbf358484bb5cfba10d699562, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &102162861
+--- !u!114 &99742716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -355,22 +480,80 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d11677f69f745f88dbe9922511d53f, type: 3}
-  m_Name: ActionScene(Clone)
+  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
+  m_Name: ActionCharPathFind(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   id: 0
-  category: 14
-  title: Switch
-  description: 'Moves the Player to a new scene. The scene must be listed in Unity''s
-    Build Settings. By default, the screen will cut to black during the transition,
-    but the last frame of the current scene can instead be overlayed. This allows
-    for cinematic effects: if the next scene fades in, it will cause a crossfade effect;
-    if the next scene doesn''t fade, it will cause a straight cut.'
+  category: 2
+  title: Move to point
+  description: Moves a character to a given Marker object. By default, the character
+    will attempt to pathfind their way to the marker, but can optionally just move
+    in a straight line.
+  isDisplayed: 0
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 1
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 65
+    width: 300
+    height: 21
+  nodeHeight: 0
+  charToMoveParameterID: -1
+  markerParameterID: -1
+  charToMoveID: 0
+  markerID: 0
+  marker: {fileID: 2037870002}
+  isPlayer: 1
+  charToMove: {fileID: 0}
+  speed: 0
+  pathFind: 0
+  doFloat: 0
+  doTimeLimit: 0
+  maxTimeParameterID: -1
+  maxTime: 10
+  onReachTimeLimit: 0
+--- !u!114 &100804789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
   isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
-  numSockets: 0
+  numSockets: 1
   willWait: 0
   isRunning: 0
   lastResult:
@@ -390,23 +573,30 @@ MonoBehaviour:
   isBreakPoint: 0
   nodeRect:
     serializedVersion: 2
-    x: 0
-    y: 0
+    x: 14
+    y: 252
     width: 300
-    height: 60
+    height: 202
   nodeHeight: 0
-  chooseSceneBy: 1
-  sceneNumber: 0
-  sceneNumberParameterID: -1
-  sceneName: MoonlitPier
-  sceneNameParameterID: -1
-  assignScreenOverlay: 0
-  onlyPreload: 0
-  relativePosition: 0
-  relativeMarker: {fileID: 0}
-  relativeMarkerID: 0
-  relativeMarkerParameterID: -1
-  forceReload: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: This sword has never seen any action.
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 0
 --- !u!1 &104666958
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +751,65 @@ Transform:
   m_Father: {fileID: 1424641065}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &182471090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f082ec839c73045bcabc1244bb57d1dc, type: 3}
+  m_Name: ActionCharFace(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 2
+  title: Face object
+  description: Makes a Character turn, either instantly or over time. Can turn to
+    face another object, or copy that object's facing direction.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: 0
+  skipActionActual: {fileID: 182471090}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 176
+  nodeHeight: 0
+  charToMoveParameterID: -1
+  faceObjectParameterID: -1
+  charToMoveID: 0
+  faceObjectID: 0
+  isInstant: 1
+  charToMove: {fileID: 0}
+  faceObject: {fileID: 781647037}
+  copyRotation: 0
+  facePlayer: 0
+  faceType: 0
+  isPlayer: 1
+  lookUpDown: 0
+  stopLooking: 0
+  lookAtHead: 0
 --- !u!1001 &184619800
 Prefab:
   m_ObjectHideFlags: 0
@@ -750,7 +999,7 @@ Transform:
   - {fileID: 1531671179}
   - {fileID: 189502929}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &223283844
 GameObject:
@@ -778,7 +1027,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &223912490
 GameObject:
@@ -806,8 +1055,65 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &242915759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aac25eb7cbe8345d6baaf5efb8fc62e8, type: 3}
+  m_Name: ActionInventorySet(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 8
+  title: Add or remove
+  description: Adds or removes an item from the Player's inventory. Items are defined
+    in the Inventory Manager. If the player can carry multiple amounts of the item,
+    more options will show.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 82
+    y: 571
+    width: 300
+    height: 122
+  nodeHeight: 0
+  invAction: 0
+  parameterID: -1
+  invID: 0
+  replaceParameterID: -1
+  invIDReplace: 0
+  setAmount: 0
+  amountParameterID: -1
+  amount: 1
+  setPlayer: 0
+  playerID: 0
+  addToFront: 0
 --- !u!1 &274377697
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,9 +1279,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1886808839}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &308276897
 GameObject:
@@ -1034,71 +1341,6 @@ Transform:
   m_Father: {fileID: 1506877070}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &317376398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: Doesn't look comfortable.
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
 --- !u!1 &330810244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,7 +1372,7 @@ Transform:
   - {fileID: 1036837543}
   - {fileID: 1115740158}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &356708508
 MonoBehaviour:
@@ -1252,6 +1494,66 @@ MonoBehaviour:
   maxTimeParameterID: -1
   maxTime: 10
   onReachTimeLimit: 0
+--- !u!114 &529168711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d11677f69f745f88dbe9922511d53f, type: 3}
+  m_Name: ActionScene(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 14
+  title: Switch
+  description: 'Moves the Player to a new scene. The scene must be listed in Unity''s
+    Build Settings. By default, the screen will cut to black during the transition,
+    but the last frame of the current scene can instead be overlayed. This allows
+    for cinematic effects: if the next scene fades in, it will cause a crossfade effect;
+    if the next scene doesn''t fade, it will cause a straight cut.'
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 0
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 300
+    height: 60
+  nodeHeight: 0
+  chooseSceneBy: 1
+  sceneNumber: 0
+  sceneNumberParameterID: -1
+  sceneName: MoonlitPier
+  sceneNameParameterID: -1
+  assignScreenOverlay: 0
+  onlyPreload: 0
+  relativePosition: 0
+  relativeMarker: {fileID: 0}
+  relativeMarkerID: 0
+  relativeMarkerParameterID: -1
+  forceReload: 0
 --- !u!1001 &560832360
 Prefab:
   m_ObjectHideFlags: 0
@@ -1389,71 +1691,6 @@ MonoBehaviour:
   mouthClip2D: 
   mouthLayer: 0
   waitTimeOffset: 0
---- !u!114 &564963838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 116
-    width: 300
-    height: 21
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: Whew, that was close!
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 1
 --- !u!1 &571075584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,6 +1719,71 @@ Transform:
   m_Father: {fileID: 1424641065}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622410103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 202
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: Doesn't look comfortable.
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 0
 --- !u!1001 &631977931
 Prefab:
   m_ObjectHideFlags: 0
@@ -1940,7 +2242,7 @@ Transform:
   - {fileID: 631977932}
   - {fileID: 560832362}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &739939903
 Prefab:
@@ -2063,9 +2365,9 @@ Transform:
   m_LocalScale: {x: 0.74113613, y: 0.74113613, z: 0.74113613}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -29.286001}
---- !u!114 &814671089
+--- !u!114 &819451105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2073,16 +2375,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aac25eb7cbe8345d6baaf5efb8fc62e8, type: 3}
-  m_Name: ActionInventorySet(Clone)
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   id: 0
-  category: 8
-  title: Add or remove
-  description: Adds or removes an item from the Player's inventory. Items are defined
-    in the Inventory Manager. If the player can carry multiple amounts of the item,
-    more options will show.
-  isDisplayed: 1
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 0
   showComment: 0
   comment: 
   showOutputSockets: 1
@@ -2095,7 +2397,7 @@ MonoBehaviour:
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
-  endAction: 1
+  endAction: 0
   skipAction: -1
   skipActionActual: {fileID: 0}
   linkedCutscene: {fileID: 0}
@@ -2106,22 +2408,30 @@ MonoBehaviour:
   isBreakPoint: 0
   nodeRect:
     serializedVersion: 2
-    x: 82
-    y: 571
+    x: 14
+    y: 116
     width: 300
-    height: 122
+    height: 21
   nodeHeight: 0
-  invAction: 0
+  constantID: 0
   parameterID: -1
-  invID: 0
-  replaceParameterID: -1
-  invIDReplace: 0
-  setAmount: 0
-  amountParameterID: -1
-  amount: 1
-  setPlayer: 0
-  playerID: 0
-  addToFront: 0
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: Whew, that was close!
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 1
 --- !u!114 &896501017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2179,6 +2489,71 @@ MonoBehaviour:
   setPlayer: 0
   playerID: 0
   addToFront: 0
+--- !u!114 &917042061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 202
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: Fuck Man, you are so cool.
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 0
 --- !u!1001 &925097016
 Prefab:
   m_ObjectHideFlags: 0
@@ -2309,71 +2684,6 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 863cd5d53c44945c2b30dca66dfce16e, type: 2}
   m_PrefabInternal: {fileID: 68372873}
---- !u!114 &952330824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 39
-    y: 417
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 0
-  speaker: {fileID: 0}
-  messageText: I really must get back to work.
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
 --- !u!1 &959722060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,7 +2710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &971753689
 GameObject:
@@ -2641,6 +2951,71 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1041072167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 39
+    y: 417
+    width: 300
+    height: 202
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 0
+  speaker: {fileID: 0}
+  messageText: I really must get back to work.
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 0
 --- !u!114 &1052122475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2712,66 +3087,6 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 08565f0c245ea4cb493de486dfcfe4e9, type: 2}
   m_PrefabInternal: {fileID: 661175250}
---- !u!114 &1106783247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d11677f69f745f88dbe9922511d53f, type: 3}
-  m_Name: ActionScene(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 14
-  title: Switch
-  description: 'Moves the Player to a new scene. The scene must be listed in Unity''s
-    Build Settings. By default, the screen will cut to black during the transition,
-    but the last frame of the current scene can instead be overlayed. This allows
-    for cinematic effects: if the next scene fades in, it will cause a crossfade effect;
-    if the next scene doesn''t fade, it will cause a straight cut.'
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 0
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 150
-  nodeHeight: 0
-  chooseSceneBy: 1
-  sceneNumber: 0
-  sceneNumberParameterID: -1
-  sceneName: TownSquare
-  sceneNameParameterID: -1
-  assignScreenOverlay: 0
-  onlyPreload: 0
-  relativePosition: 0
-  relativeMarker: {fileID: 0}
-  relativeMarkerID: 0
-  relativeMarkerParameterID: -1
-  forceReload: 0
 --- !u!1 &1115740157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2878,6 +3193,66 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: a9d4e17cb5a8745ccad47e11f075de33, type: 2}
   m_PrefabInternal: {fileID: 925097016}
+--- !u!114 &1164392357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d11677f69f745f88dbe9922511d53f, type: 3}
+  m_Name: ActionScene(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 14
+  title: Switch
+  description: 'Moves the Player to a new scene. The scene must be listed in Unity''s
+    Build Settings. By default, the screen will cut to black during the transition,
+    but the last frame of the current scene can instead be overlayed. This allows
+    for cinematic effects: if the next scene fades in, it will cause a crossfade effect;
+    if the next scene doesn''t fade, it will cause a straight cut.'
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 0
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 150
+  nodeHeight: 0
+  chooseSceneBy: 1
+  sceneNumber: 0
+  sceneNumberParameterID: -1
+  sceneName: TownSquare
+  sceneNameParameterID: -1
+  assignScreenOverlay: 0
+  onlyPreload: 0
+  relativePosition: 0
+  relativeMarker: {fileID: 0}
+  relativeMarkerID: 0
+  relativeMarkerParameterID: -1
+  forceReload: 0
 --- !u!114 &1172093109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2943,6 +3318,66 @@ MonoBehaviour:
   mouthClip2D: 
   mouthLayer: 0
   waitTimeOffset: 0
+--- !u!114 &1205630908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
+  m_Name: ActionCharPathFind(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 2
+  title: Move to point
+  description: Moves a character to a given Marker object. By default, the character
+    will attempt to pathfind their way to the marker, but can optionally just move
+    in a straight line.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 1
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 339
+    y: 261
+    width: 300
+    height: 176
+  nodeHeight: 0
+  charToMoveParameterID: -1
+  markerParameterID: -1
+  charToMoveID: 0
+  markerID: 0
+  marker: {fileID: 930440994}
+  isPlayer: 1
+  charToMove: {fileID: 0}
+  speed: 0
+  pathFind: 1
+  doFloat: 0
+  doTimeLimit: 0
+  maxTimeParameterID: -1
+  maxTime: 10
+  onReachTimeLimit: 0
 --- !u!114 &1244472137 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: 863cd5d53c44945c2b30dca66dfce16e,
@@ -2953,6 +3388,77 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 863cd5d53c44945c2b30dca66dfce16e, type: 2}
   m_PrefabInternal: {fileID: 184619800}
+--- !u!114 &1250832610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23cea76e14804ca49ce03fec05afd8f, type: 3}
+  m_Name: ActionCamera(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 1
+  title: Switch
+  description: Moves the MainCamera to the position, rotation and field of view of
+    a specified GameCamera. Can be instantaneous or transition over time.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 1
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 30
+    y: 528
+    width: 300
+    height: 158
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  linkedCamera: {fileID: 0}
+  transitionTime: 2
+  transitionTimeParameterID: -1
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveMethod: 1
+  returnToLast: 1
+  retainPreviousSpeed: 0
 --- !u!1001 &1264501904
 Prefab:
   m_ObjectHideFlags: 0
@@ -3112,7 +3618,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 11400022, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
       propertyPath: navigationEngine
@@ -3145,77 +3651,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a39e31ce28cc48b096320990773071b, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1316028024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a23cea76e14804ca49ce03fec05afd8f, type: 3}
-  m_Name: ActionCamera(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 1
-  title: Switch
-  description: Moves the MainCamera to the position, rotation and field of view of
-    a specified GameCamera. Can be instantaneous or transition over time.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 1
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 176
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  linkedCamera: {fileID: 1452736670}
-  transitionTime: 2
-  transitionTimeParameterID: -1
-  timeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  moveMethod: 1
-  returnToLast: 0
-  retainPreviousSpeed: 0
 --- !u!1001 &1333560098
 Prefab:
   m_ObjectHideFlags: 0
@@ -3405,6 +3840,71 @@ MonoBehaviour:
   sceneNameParameterID: -1
   sceneName: MoonlitPier
   intCondition: 0
+--- !u!114 &1342302975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
+  m_Name: ActionSpeech(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 4
+  title: Play speech
+  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
+    displays a message. Subtitles only appear if they are enabled from the Options
+    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  isDisplayed: 0
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 167
+    width: 300
+    height: 21
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  messageParameterID: -1
+  isPlayer: 1
+  speaker: {fileID: 0}
+  messageText: Now how do I get out of here!?
+  lineID: -1
+  multiLineIDs: 
+  isBackground: 0
+  noAnimation: 0
+  headClip: {fileID: 0}
+  mouthClip: {fileID: 0}
+  play2DHeadAnim: 0
+  headClip2D: 
+  headLayer: 0
+  play2DMouthAnim: 0
+  mouthClip2D: 
+  mouthLayer: 0
+  waitTimeOffset: 1
 --- !u!1001 &1356127230
 Prefab:
   m_ObjectHideFlags: 0
@@ -3570,6 +4070,73 @@ MonoBehaviour:
   maxTimeParameterID: -1
   maxTime: 10
   onReachTimeLimit: 0
+--- !u!114 &1374934908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d4ab0f7ce3d4193a55deb9d20a7d66, type: 3}
+  m_Name: ActionTeleport(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 11
+  title: Teleport
+  description: Moves a GameObject to a Marker instantly. Can also copy the Marker's
+    rotation. The final position can optionally be made relative to the active camera,
+    or the player. For example, if the Marker's position is (0, 0, 1) and Positon
+    relative to is set to Relative To Active Camera, then the object will be teleported
+    in front of the camera.
+  isDisplayed: 0
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 21
+  nodeHeight: 0
+  obToMoveParameterID: -1
+  obToMoveID: 0
+  markerParameterID: -1
+  markerID: 0
+  relativeGameObject: {fileID: 0}
+  relativeGameObjectID: 0
+  relativeGameObjectParameterID: -1
+  positionRelativeTo: 0
+  relativeVectorParameterID: -1
+  relativeVector: {x: 0, y: 0, z: 0}
+  vectorVarParameterID: -1
+  vectorVarID: 0
+  variableLocation: 0
+  recalculateActivePathFind: 0
+  isPlayer: 1
+  snapCamera: 0
+  obToMove: {fileID: 0}
+  teleporter: {fileID: 688164555}
+  copyRotation: 0
 --- !u!1 &1387744824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3742,6 +4309,77 @@ Transform:
   m_Father: {fileID: 222696285}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1415355626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a23cea76e14804ca49ce03fec05afd8f, type: 3}
+  m_Name: ActionCamera(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 1
+  title: Switch
+  description: Moves the MainCamera to the position, rotation and field of view of
+    a specified GameCamera. Can be instantaneous or transition over time.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 1
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 0
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 14
+    y: 14
+    width: 300
+    height: 176
+  nodeHeight: 0
+  constantID: 0
+  parameterID: -1
+  linkedCamera: {fileID: 1452736670}
+  transitionTime: 2
+  transitionTimeParameterID: -1
+  timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveMethod: 1
+  returnToLast: 0
+  retainPreviousSpeed: 0
 --- !u!1 &1419808277
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,7 +4407,7 @@ Transform:
   m_Children:
   - {fileID: 1273520767}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1424641064
 GameObject:
@@ -3805,69 +4443,8 @@ Transform:
   - {fileID: 104666959}
   - {fileID: 157957513}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1426058998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee55ab6fc4c1a4080a3e890703f10e69, type: 3}
-  m_Name: ActionSceneCheck(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 14
-  title: Check
-  description: Queries either the current scene, or the last one visited.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 2
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 160
-  nodeHeight: 0
-  resultActionTrue: 0
-  skipActionTrue: -1
-  skipActionTrueActual: {fileID: 0}
-  linkedCutsceneTrue: {fileID: 0}
-  linkedAssetTrue: {fileID: 0}
-  resultActionFail: 2
-  skipActionFail: 2
-  skipActionFailActual: {fileID: 1052122475}
-  linkedCutsceneFail: {fileID: 0}
-  linkedAssetFail: {fileID: 0}
-  chooseSceneBy: 1
-  sceneToCheck: 1
-  sceneNumberParameterID: -1
-  sceneNumber: 0
-  sceneNameParameterID: -1
-  sceneName: MoonlitPier
-  intCondition: 0
 --- !u!4 &1452736669 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 08565f0c245ea4cb493de486dfcfe4e9, type: 2}
@@ -4143,73 +4720,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: a9d4e17cb5a8745ccad47e11f075de33, type: 2}
   m_PrefabInternal: {fileID: 1483933608}
---- !u!114 &1505605755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d4ab0f7ce3d4193a55deb9d20a7d66, type: 3}
-  m_Name: ActionTeleport(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 11
-  title: Teleport
-  description: Moves a GameObject to a Marker instantly. Can also copy the Marker's
-    rotation. The final position can optionally be made relative to the active camera,
-    or the player. For example, if the Marker's position is (0, 0, 1) and Positon
-    relative to is set to Relative To Active Camera, then the object will be teleported
-    in front of the camera.
-  isDisplayed: 0
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 21
-  nodeHeight: 0
-  obToMoveParameterID: -1
-  obToMoveID: 0
-  markerParameterID: -1
-  markerID: 0
-  relativeGameObject: {fileID: 0}
-  relativeGameObjectID: 0
-  relativeGameObjectParameterID: -1
-  positionRelativeTo: 0
-  relativeVectorParameterID: -1
-  relativeVector: {x: 0, y: 0, z: 0}
-  vectorVarParameterID: -1
-  vectorVarID: 0
-  variableLocation: 0
-  recalculateActivePathFind: 0
-  isPlayer: 1
-  snapCamera: 0
-  obToMove: {fileID: 0}
-  teleporter: {fileID: 688164555}
-  copyRotation: 0
 --- !u!1 &1506877069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4240,66 +4750,6 @@ Transform:
   m_Father: {fileID: 1424641065}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1510960205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
-  m_Name: ActionCharPathFind(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 2
-  title: Move to point
-  description: Moves a character to a given Marker object. By default, the character
-    will attempt to pathfind their way to the marker, but can optionally just move
-    in a straight line.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 1
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 339
-    y: 261
-    width: 300
-    height: 176
-  nodeHeight: 0
-  charToMoveParameterID: -1
-  markerParameterID: -1
-  charToMoveID: 0
-  markerID: 0
-  marker: {fileID: 930440994}
-  isPlayer: 1
-  charToMove: {fileID: 0}
-  speed: 0
-  pathFind: 1
-  doFloat: 0
-  doTimeLimit: 0
-  maxTimeParameterID: -1
-  maxTime: 10
-  onReachTimeLimit: 0
 --- !u!1 &1531671178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4332,142 +4782,6 @@ Transform:
   m_Father: {fileID: 222696285}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1550369035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a23cea76e14804ca49ce03fec05afd8f, type: 3}
-  m_Name: ActionCamera(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 1
-  title: Switch
-  description: Moves the MainCamera to the position, rotation and field of view of
-    a specified GameCamera. Can be instantaneous or transition over time.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 1
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 30
-    y: 528
-    width: 300
-    height: 158
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  linkedCamera: {fileID: 0}
-  transitionTime: 2
-  transitionTimeParameterID: -1
-  timeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  moveMethod: 1
-  returnToLast: 1
-  retainPreviousSpeed: 0
---- !u!114 &1550849758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 14
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: Fuck Man, you are so cool.
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
 --- !u!114 &1567214357 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: a9d4e17cb5a8745ccad47e11f075de33,
@@ -4824,7 +5138,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 296417376}
     m_Modifications:
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalPosition.x
@@ -4840,15 +5154,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_LocalRotation.w
@@ -4857,86 +5171,6 @@ Prefab:
     - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114167916908135048, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: livePreview
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212602973162416376, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212002279891595888, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212193243503313398, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212516392541599610, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212736361086239260, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212694630024596178, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212587343163887122, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212487298901312078, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212111504341878954, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212928960850262070, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827424422925564, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827424422925564, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.2790824
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.2790824
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.2790824
-      objectReference: {fileID: 0}
-    - target: {fileID: 212811892796930924, guid: b70bce7d408efc84da5a677b49288fd9,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b70bce7d408efc84da5a677b49288fd9, type: 2}
@@ -5354,127 +5588,6 @@ MonoBehaviour:
   mouthClip2D: 
   mouthLayer: 0
   waitTimeOffset: 0
---- !u!114 &1732674791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
-  m_Name: ActionCharPathFind(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 2
-  title: Move to point
-  description: Moves a character to a given Marker object. By default, the character
-    will attempt to pathfind their way to the marker, but can optionally just move
-    in a straight line.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 1
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 10
-    y: 259
-    width: 300
-    height: 176
-  nodeHeight: 0
-  charToMoveParameterID: -1
-  markerParameterID: -1
-  charToMoveID: 0
-  markerID: 0
-  marker: {fileID: 402271720}
-  isPlayer: 1
-  charToMove: {fileID: 0}
-  speed: 0
-  pathFind: 1
-  doFloat: 0
-  doTimeLimit: 0
-  maxTimeParameterID: -1
-  maxTime: 10
-  onReachTimeLimit: 0
---- !u!114 &1762113929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee55ab6fc4c1a4080a3e890703f10e69, type: 3}
-  m_Name: ActionSceneCheck(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 14
-  title: Check
-  description: Queries either the current scene, or the last one visited.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 2
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 355
-    y: 14
-    width: 300
-    height: 140
-  nodeHeight: 0
-  resultActionTrue: 0
-  skipActionTrue: -1
-  skipActionTrueActual: {fileID: 0}
-  linkedCutsceneTrue: {fileID: 0}
-  linkedAssetTrue: {fileID: 0}
-  resultActionFail: 1
-  skipActionFail: -1
-  skipActionFailActual: {fileID: 0}
-  linkedCutsceneFail: {fileID: 0}
-  linkedAssetFail: {fileID: 0}
-  chooseSceneBy: 1
-  sceneToCheck: 1
-  sceneNumberParameterID: -1
-  sceneNumber: 0
-  sceneNameParameterID: -1
-  sceneName: TownSquare
-  intCondition: 0
 --- !u!114 &1785522937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5568,73 +5681,8 @@ Transform:
   - {fileID: 945548574}
   - {fileID: 1244472138}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1841453218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 252
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: This sword has never seen any action.
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
 --- !u!1 &1859724743
 GameObject:
   m_ObjectHideFlags: 0
@@ -5804,6 +5852,11 @@ MonoBehaviour:
   moveMethod: 1
   returnToLast: 1
   retainPreviousSpeed: 0
+--- !u!4 &1886808839 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4828688634752198, guid: b70bce7d408efc84da5a677b49288fd9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1697305605}
 --- !u!114 &1889761314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5931,66 +5984,6 @@ MonoBehaviour:
   obToMove: {fileID: 0}
   teleporter: {fileID: 688164555}
   copyRotation: 0
---- !u!114 &1914597520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0643024da91f402a9281e781736a4c6, type: 3}
-  m_Name: ActionCharPathFind(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 2
-  title: Move to point
-  description: Moves a character to a given Marker object. By default, the character
-    will attempt to pathfind their way to the marker, but can optionally just move
-    in a straight line.
-  isDisplayed: 0
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 1
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 65
-    width: 300
-    height: 21
-  nodeHeight: 0
-  charToMoveParameterID: -1
-  markerParameterID: -1
-  charToMoveID: 0
-  markerID: 0
-  marker: {fileID: 2037870002}
-  isPlayer: 1
-  charToMove: {fileID: 0}
-  speed: 0
-  pathFind: 0
-  doFloat: 0
-  doTimeLimit: 0
-  maxTimeParameterID: -1
-  maxTime: 10
-  onReachTimeLimit: 0
 --- !u!1 &1924882362
 GameObject:
   m_ObjectHideFlags: 0
@@ -6019,7 +6012,7 @@ Transform:
   - {fileID: 1387744825}
   - {fileID: 1393099699}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1946001796
 GameObject:
@@ -6049,7 +6042,7 @@ Transform:
   m_Father: {fileID: 1424641065}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1948866631
+--- !u!114 &1959006796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -6057,20 +6050,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)(Clone)
+  m_Script: {fileID: 11500000, guid: ee55ab6fc4c1a4080a3e890703f10e69, type: 3}
+  m_Name: ActionSceneCheck(Clone)(Clone)
   m_EditorClassIdentifier: 
   id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
+  category: 14
+  title: Check
+  description: Queries either the current scene, or the last one visited.
   isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
-  numSockets: 1
+  numSockets: 2
   willWait: 0
   isRunning: 0
   lastResult:
@@ -6082,135 +6073,6 @@ MonoBehaviour:
   endAction: 0
   skipAction: -1
   skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 35
-    y: 284
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: Who left this ol thing just lying around?
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
---- !u!114 &1966316832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: ActionSpeech(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 0
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 167
-    width: 300
-    height: 21
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 1
-  speaker: {fileID: 0}
-  messageText: Now how do I get out of here!?
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 1
---- !u!114 &1974615202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f082ec839c73045bcabc1244bb57d1dc, type: 3}
-  m_Name: ActionCharFace(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 2
-  title: Face object
-  description: Makes a Character turn, either instantly or over time. Can turn to
-    face another object, or copy that object's facing direction.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 0
-  skipAction: 0
-  skipActionActual: {fileID: 1974615202}
   linkedCutscene: {fileID: 0}
   linkedAsset: {fileID: 0}
   isEnabled: 1
@@ -6222,22 +6084,25 @@ MonoBehaviour:
     x: 14
     y: 14
     width: 300
-    height: 176
+    height: 160
   nodeHeight: 0
-  charToMoveParameterID: -1
-  faceObjectParameterID: -1
-  charToMoveID: 0
-  faceObjectID: 0
-  isInstant: 1
-  charToMove: {fileID: 0}
-  faceObject: {fileID: 781647037}
-  copyRotation: 0
-  facePlayer: 0
-  faceType: 0
-  isPlayer: 1
-  lookUpDown: 0
-  stopLooking: 0
-  lookAtHead: 0
+  resultActionTrue: 0
+  skipActionTrue: -1
+  skipActionTrueActual: {fileID: 0}
+  linkedCutsceneTrue: {fileID: 0}
+  linkedAssetTrue: {fileID: 0}
+  resultActionFail: 2
+  skipActionFail: 2
+  skipActionFailActual: {fileID: 1052122475}
+  linkedCutsceneFail: {fileID: 0}
+  linkedAssetFail: {fileID: 0}
+  chooseSceneBy: 1
+  sceneToCheck: 1
+  sceneNumberParameterID: -1
+  sceneNumber: 0
+  sceneNameParameterID: -1
+  sceneName: MoonlitPier
+  intCondition: 0
 --- !u!1 &1977438558
 GameObject:
   m_ObjectHideFlags: 0
@@ -6264,8 +6129,69 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1998779020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee55ab6fc4c1a4080a3e890703f10e69, type: 3}
+  m_Name: ActionSceneCheck(Clone)
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 14
+  title: Check
+  description: Queries either the current scene, or the last one visited.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 2
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 0
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 355
+    y: 14
+    width: 300
+    height: 140
+  nodeHeight: 0
+  resultActionTrue: 0
+  skipActionTrue: -1
+  skipActionTrueActual: {fileID: 0}
+  linkedCutsceneTrue: {fileID: 0}
+  linkedAssetTrue: {fileID: 0}
+  resultActionFail: 1
+  skipActionFail: -1
+  skipActionFailActual: {fileID: 0}
+  linkedCutsceneFail: {fileID: 0}
+  linkedAssetFail: {fileID: 0}
+  chooseSceneBy: 1
+  sceneToCheck: 1
+  sceneNumberParameterID: -1
+  sceneNumber: 0
+  sceneNameParameterID: -1
+  sceneName: TownSquare
+  intCondition: 0
 --- !u!114 &2013967529
 MonoBehaviour:
   m_ObjectHideFlags: 0
