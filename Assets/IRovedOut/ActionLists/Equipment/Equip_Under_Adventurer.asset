@@ -90,8 +90,8 @@ MonoBehaviour:
     vector3Value: {x: 0, y: 0, z: 0}
   - label: Parameter 1
     ID: 0
-    parameterType: 5
-    intValue: -1
+    parameterType: 6
+    intValue: 1
     floatValue: 1
     stringValue: 
     gameObject: {fileID: 0}

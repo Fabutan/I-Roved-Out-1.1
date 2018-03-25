@@ -14,7 +14,7 @@ MonoBehaviour:
   vars:
   - label: Equipped_Top
     id: 5
-    type: 3
+    type: 1
     val: 1
     floatVal: 1
     textVal: 
@@ -30,7 +30,7 @@ MonoBehaviour:
     description: "Controls Cinder's Top\t"
   - label: Equipped_Leg
     id: 6
-    type: 3
+    type: 1
     val: 1
     floatVal: 1
     textVal: 
@@ -46,7 +46,7 @@ MonoBehaviour:
     description: "Controls Cinder's Pantsu\t"
   - label: Equipped_Feet
     id: 7
-    type: 3
+    type: 1
     val: 1
     floatVal: 1
     textVal: Bare
@@ -62,7 +62,7 @@ MonoBehaviour:
     description: 
   - label: Equipped_Hat
     id: 8
-    type: 3
+    type: 1
     val: 1
     floatVal: 1
     textVal: 
@@ -78,7 +78,7 @@ MonoBehaviour:
     description: 
   - label: Equipped_Under
     id: 9
-    type: 3
+    type: 1
     val: 0
     floatVal: 1
     textVal: 

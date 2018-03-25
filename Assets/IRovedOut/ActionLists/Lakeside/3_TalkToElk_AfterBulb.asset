@@ -66,10 +66,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 641
-    width: 300
+    width: 335
     height: 250
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -177,10 +177,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 130
-    width: 300
+    width: 335
     height: 250
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0

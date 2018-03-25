@@ -24,7 +24,7 @@ MonoBehaviour:
   - label: EquipmentVariable
     ID: 1
     parameterType: 2
-    intValue: -1
+    intValue: 7
     floatValue: 0
     stringValue: 
     gameObject: {fileID: 0}
@@ -32,9 +32,9 @@ MonoBehaviour:
     vector3Value: {x: 0, y: 0, z: 0}
   - label: EquipmentValue
     ID: 0
-    parameterType: 5
-    intValue: -1
-    floatValue: 1
+    parameterType: 6
+    intValue: 3
+    floatValue: 0
     stringValue: 
     gameObject: {fileID: 0}
     objectValue: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 1
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -96,8 +96,8 @@ MonoBehaviour:
   setVarMethodIntBool: 0
   setVarMethodVector: 0
   parameterID: 1
-  variableID: -1
-  variableNumber: 0
+  variableID: 6
+  variableNumber: 1
   setParameterID: -1
   slotNumber: 0
   slotNumberParameterID: -1
@@ -144,7 +144,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 1
-    skipAction: -10
+    skipAction: -1
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -169,13 +169,13 @@ MonoBehaviour:
   setVarMethodIntBool: 0
   setVarMethodVector: 0
   parameterID: 1
-  variableID: -1
-  variableNumber: 0
+  variableID: 7
+  variableNumber: 1
   setParameterID: 0
   slotNumber: 0
   slotNumberParameterID: -1
-  intValue: 0
-  floatValue: 1
+  intValue: 3
+  floatValue: 2
   boolValue: 0
   stringValue: 
   formula: 
@@ -212,7 +212,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 2
+    skipAction: 1
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -243,13 +243,13 @@ MonoBehaviour:
   linkedCutsceneFail: {fileID: 0}
   linkedAssetFail: {fileID: 0}
   parameterID: 1
-  variableID: 5
+  variableID: 7
   variableNumber: 0
   checkParameterID: 0
   getVarMethod: 0
   compareVariableID: 0
-  intValue: 0
-  floatValue: 1
+  intValue: 3
+  floatValue: 2
   intCondition: 0
   isAdditive: 0
   boolValue: 1

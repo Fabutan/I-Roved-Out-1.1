@@ -64,10 +64,10 @@ MonoBehaviour:
   showOutputSockets: 1
   numSockets: 1
   willWait: 0
-  isRunning: 0
+  isRunning: 1
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -84,10 +84,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 364
     y: 3123
-    width: 300
+    width: 335
     height: 276
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -150,10 +150,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 2343
-    width: 300
+    width: 335
     height: 268
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 14
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -360,7 +360,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 1
-  variableNumber: 1
+  variableNumber: 6
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -483,10 +483,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 1541
-    width: 300
+    width: 335
     height: 281
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -603,7 +603,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 20
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -620,10 +620,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 364
     y: 3661
-    width: 300
+    width: 335
     height: 281
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -782,7 +782,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -864,10 +864,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 744
-    width: 300
+    width: 335
     height: 255
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -929,10 +929,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 364
     y: 2838
-    width: 300
+    width: 335
     height: 255
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -982,7 +982,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 21
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -1008,7 +1008,7 @@ MonoBehaviour:
   setVarMethodVector: 0
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   setParameterID: -1
   slotNumber: 0
   slotNumberParameterID: -1
@@ -1018,6 +1018,7 @@ MonoBehaviour:
   stringValue: 
   formula: 
   vector3Value: {x: 0, y: 0, z: 0}
+  lineID: -1
   location: 0
   menuName: 
   elementName: 
@@ -1066,10 +1067,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 364
     y: 2308
-    width: 300
+    width: 335
     height: 268
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -1131,10 +1132,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 446
-    width: 300
+    width: 335
     height: 268
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -1327,10 +1328,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 148
-    width: 300
+    width: 335
     height: 268
   nodeHeight: 0
-  constantID: 5251172
+  constantID: 1158704
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -1373,7 +1374,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 1
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}

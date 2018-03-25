@@ -14,17 +14,17 @@ public class VariableParameterSetter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		AC.GlobalVariables.GetFloatValue (5);
-		AC.GlobalVariables.GetFloatValue (6);
-		AC.GlobalVariables.GetFloatValue (7);
-		AC.GlobalVariables.GetFloatValue (8);
-		AC.GlobalVariables.GetFloatValue (9);
+		AC.GlobalVariables.GetIntegerValue (5);
+		AC.GlobalVariables.GetIntegerValue (6);
+		AC.GlobalVariables.GetIntegerValue (7);
+		AC.GlobalVariables.GetIntegerValue (8);
+		AC.GlobalVariables.GetIntegerValue (9);
 
-		float topSetterValue = AC.GlobalVariables.GetFloatValue (5);
-		float legSetterValue = AC.GlobalVariables.GetFloatValue (6);
-		float feetSetterValue = AC.GlobalVariables.GetFloatValue (7);
-		float hatSetterValue = AC.GlobalVariables.GetFloatValue (8);
-		float underSetterValue = AC.GlobalVariables.GetFloatValue (9);
+		float topSetterValue = AC.GlobalVariables.GetIntegerValue (5);
+		float legSetterValue = AC.GlobalVariables.GetIntegerValue (6);
+		float feetSetterValue = AC.GlobalVariables.GetIntegerValue (7);
+		float hatSetterValue = AC.GlobalVariables.GetIntegerValue (8);
+		float underSetterValue = AC.GlobalVariables.GetIntegerValue (9);
 
 		Animator myAnimator = GetComponent <Animator>();
 

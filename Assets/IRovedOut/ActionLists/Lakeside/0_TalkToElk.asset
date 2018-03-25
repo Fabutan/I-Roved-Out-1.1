@@ -57,7 +57,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 9
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 5
+    skipAction: 4
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 1
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -362,11 +362,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 361
-    width: 300
-    height: 219
+    width: 335
+    height: 233
   nodeHeight: 0
   parameterID: -1
-  constantID: 5251172
+  constantID: 1158704
   editingAnimEngine: {fileID: 0}
   isPlayer: 0
   animChar: {fileID: 0}
@@ -395,6 +395,7 @@ MonoBehaviour:
   parameterName: LookPlayer
   parameterNameID: -1
   parameterValue: 1
+  hideHead: 0
 --- !u!114 &114367072210857278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -502,6 +503,7 @@ MonoBehaviour:
   localParameters: []
   parameterIDs: 
   setParameters: 1
+  hasUpgradedAgain: 0
 --- !u!114 &114399878523518880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -574,7 +576,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -591,11 +593,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: 364
     y: 1138
-    width: 300
-    height: 201
+    width: 335
+    height: 215
   nodeHeight: 0
   parameterID: -1
-  constantID: 5251172
+  constantID: 1158704
   editingAnimEngine: {fileID: 0}
   isPlayer: 0
   animChar: {fileID: 0}
@@ -624,6 +626,7 @@ MonoBehaviour:
   parameterName: LookPlayer
   parameterNameID: -1
   parameterValue: 0
+  hideHead: 0
 --- !u!114 &114565433862842846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -647,7 +650,7 @@ MonoBehaviour:
   showOutputSockets: 1
   numSockets: 1
   willWait: 1
-  isRunning: 0
+  isRunning: 1
   lastResult:
     resultAction: 2
     skipAction: -10
@@ -685,6 +688,7 @@ MonoBehaviour:
   localParameters: []
   parameterIDs: 
   setParameters: 1
+  hasUpgradedAgain: 0
 --- !u!114 &114570788882709406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -711,7 +715,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -743,7 +747,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -784,7 +788,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 6
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -819,3 +823,4 @@ MonoBehaviour:
   localParameters: []
   parameterIDs: 
   setParameters: 1
+  hasUpgradedAgain: 0

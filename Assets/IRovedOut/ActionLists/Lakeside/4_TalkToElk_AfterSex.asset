@@ -83,7 +83,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   linkedAssetFail: {fileID: 0}
   parameterID: -1
   variableID: 2
-  variableNumber: 2
+  variableNumber: 7
   checkParameterID: -1
   getVarMethod: 0
   compareVariableID: 0
@@ -285,11 +285,11 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 375
-    width: 300
-    height: 201
+    width: 335
+    height: 215
   nodeHeight: 0
   parameterID: -1
-  constantID: 5251172
+  constantID: 1158704
   editingAnimEngine: {fileID: 0}
   isPlayer: 0
   animChar: {fileID: 0}
@@ -318,6 +318,7 @@ MonoBehaviour:
   parameterName: LookPlayer
   parameterNameID: -1
   parameterValue: 1
+  hideHead: 0
 --- !u!114 &114367072210857278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,3 +426,4 @@ MonoBehaviour:
   localParameters: []
   parameterIDs: 
   setParameters: 1
+  hasUpgradedAgain: 0
