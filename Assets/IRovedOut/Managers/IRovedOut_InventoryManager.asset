@@ -65,7 +65,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 1
-    isEditing: 1
+    isEditing: 0
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0
@@ -786,7 +786,7 @@ MonoBehaviour:
   - label: Equipment Top Athletic
     id: 7
     altLabel: Athletic Top
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -838,7 +838,7 @@ MonoBehaviour:
   - label: Equipment Legs Athletic
     id: 8
     altLabel: Athletic Pants (+1 Movement Speed)
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars:
@@ -908,7 +908,7 @@ MonoBehaviour:
   - label: Equipment Under Athletic
     id: 14
     altLabel: Sports Gitch
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -960,7 +960,7 @@ MonoBehaviour:
   - label: Equipment Feet Athletic
     id: 10
     altLabel: Athletic Shoes
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   - label: Equipment Top Outfit3
     id: 15
     altLabel: Red Sweater
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   - label: Equipment Legs Outfit3
     id: 16
     altLabel: Red Pants
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -1116,7 +1116,7 @@ MonoBehaviour:
   - label: Equipment Under Outfit3
     id: 17
     altLabel: Red Thong
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   - label: Equipment Feet Outfit 3
     id: 18
     altLabel: Red Boots
-    carryOnStart: 1
+    carryOnStart: 0
     carryOnStartNotDefault: 0
     carryOnStartID: 0
     vars: []
@@ -1200,7 +1200,7 @@ MonoBehaviour:
     lineID: -1
     useIconID: 0
     binID: 3
-    isEditing: 0
+    isEditing: 1
     recipeSlot: -1
     lastInteractionIndex: 0
     overrideUseSyntax: 0

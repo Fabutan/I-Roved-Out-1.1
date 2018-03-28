@@ -26,13 +26,73 @@ MonoBehaviour:
   - {fileID: 114607813909106626}
   - {fileID: 114729476560235442}
   - {fileID: 114836064742848740}
+  - {fileID: 114064675208979448}
   isSkippable: 1
   actionListType: 0
   unfreezePauseMenus: 1
   useParameters: 0
   canRunMultipleInstances: 0
-  parameters: []
+  parameters:
+  - label: Maeryll
+    ID: 0
+    parameterType: 0
+    intValue: -1
+    floatValue: 0
+    stringValue: 
+    gameObject: {fileID: 0}
+    objectValue: {fileID: 0}
+    vector3Value: {x: 0, y: 0, z: 0}
   tagID: 0
+--- !u!114 &114064675208979448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33593da7d3524e1998da7151086b1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 11
+  title: Visibility
+  description: Hides or shows a GameObject. Can optionally affect the GameObject's
+    children.
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 1
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 1
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 39
+    y: 3280
+    width: 300
+    height: 140
+  nodeHeight: 0
+  parameterID: -1
+  constantID: 0
+  obToAffect: {fileID: 0}
+  affectChildren: 0
+  visState: 0
 --- !u!114 &114082899154268396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,10 +201,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 1116
-    width: 300
-    height: 237
+    width: 335
+    height: 245
   nodeHeight: 0
-  constantID: 456106
+  constantID: 260008
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -317,10 +377,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 604
-    width: 300
-    height: 250
+    width: 335
+    height: 268
   nodeHeight: 0
-  constantID: 456106
+  constantID: 260008
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -383,7 +443,7 @@ MonoBehaviour:
     x: 14
     y: 354
     width: 300
-    height: 220
+    height: 273
   nodeHeight: 0
   constantID: 0
   parameterID: -1
@@ -512,10 +572,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 2488
-    width: 300
-    height: 237
+    width: 335
+    height: 245
   nodeHeight: 0
-  constantID: 456106
+  constantID: 260008
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -688,10 +748,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 1731
-    width: 300
-    height: 250
+    width: 335
+    height: 258
   nodeHeight: 0
-  constantID: 456106
+  constantID: 260008
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -741,8 +801,8 @@ MonoBehaviour:
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
   endAction: 0
-  skipAction: -1
-  skipActionActual: {fileID: 0}
+  skipAction: 13
+  skipActionActual: {fileID: 114836064742848740}
   linkedCutscene: {fileID: 0}
   linkedAsset: {fileID: 0}
   isEnabled: 1
@@ -801,14 +861,14 @@ MonoBehaviour:
   willWait: 0
   isRunning: 0
   lastResult:
-    resultAction: 1
+    resultAction: 0
     skipAction: -1
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: -1
-  skipActionActual: {fileID: 0}
+  endAction: 0
+  skipAction: 13
+  skipActionActual: {fileID: 114836064742848740}
   linkedCutscene: {fileID: 0}
   linkedAsset: {fileID: 0}
   isEnabled: 1
@@ -819,10 +879,10 @@ MonoBehaviour:
     serializedVersion: 2
     x: 14
     y: 2987
-    width: 300
-    height: 237
+    width: 335
+    height: 245
   nodeHeight: 0
-  constantID: 456106
+  constantID: 260008
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/IRovedOut/GameScenes/Title.unity
     guid: 34c1e312dab432043bcbdc6f123f9661
   - enabled: 1
+    path: Assets/IRovedOut/GameScenes/IntroCinematicTest.unity
+    guid: 60299cd0f78f24e499f467c303cecf16
+  - enabled: 1
     path: Assets/IRovedOut/GameScenes/Lakeside/Lakeside_Start.unity
     guid: 24d6ad0e982baa147908a8c48261ffa1
   - enabled: 1

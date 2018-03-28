@@ -40,8 +40,7 @@ MonoBehaviour:
   - {fileID: 114902534224216308}
   - {fileID: 114098718538345302}
   - {fileID: 114215664518396552}
-  - {fileID: 114616416829833960}
-  - {fileID: 114685685550609308}
+  - {fileID: 114230567690020632}
   isSkippable: 1
   actionListType: 0
   unfreezePauseMenus: 1
@@ -91,7 +90,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1867
+    y: 2649
     width: 300
     height: 219
   nodeHeight: 0
@@ -156,7 +155,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 3663
+    y: 4445
     width: 300
     height: 202
   nodeHeight: 0
@@ -204,13 +203,13 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 2
-    skipAction: 28
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
   endAction: 2
   skipAction: 28
-  skipActionActual: {fileID: 114616416829833960}
+  skipActionActual: {fileID: 114230567690020632}
   linkedCutscene: {fileID: 0}
   linkedAsset: {fileID: 0}
   isEnabled: 1
@@ -220,7 +219,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 5215
+    y: 5997
     width: 300
     height: 194
   nodeHeight: 0
@@ -248,7 +247,7 @@ MonoBehaviour:
   description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
     displays a message. Subtitles only appear if they are enabled from the Options
     menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
+  isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
@@ -273,9 +272,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1266
+    y: 1662
     width: 300
-    height: 21
+    height: 201
   nodeHeight: 0
   constantID: 333878
   parameterID: -1
@@ -372,6 +371,7 @@ MonoBehaviour:
   parameterName: Aim
   parameterNameID: -1
   parameterValue: 0
+  hideHead: 0
 --- !u!114 &114134565986004460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -414,7 +414,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 2401
+    y: 3183
     width: 300
     height: 219
   nodeHeight: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
     displays a message. Subtitles only appear if they are enabled from the Options
     menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
+  isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
@@ -481,7 +481,7 @@ MonoBehaviour:
     x: 14
     y: 1164
     width: 300
-    height: 21
+    height: 201
   nodeHeight: 0
   constantID: 333878
   parameterID: -1
@@ -578,6 +578,67 @@ MonoBehaviour:
   parameterName: Aim
   parameterNameID: -1
   parameterValue: 1
+  hideHead: 0
+--- !u!114 &114230567690020632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d11677f69f745f88dbe9922511d53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  category: 14
+  title: Switch
+  description: 'Moves the Player to a new scene. The scene must be listed in Unity''s
+    Build Settings. By default, the screen will cut to black during the transition,
+    but the last frame of the current scene can instead be overlayed. This allows
+    for cinematic effects: if the next scene fades in, it will cause a crossfade effect;
+    if the next scene doesn''t fade, it will cause a straight cut.'
+  isDisplayed: 1
+  showComment: 0
+  comment: 
+  showOutputSockets: 1
+  numSockets: 0
+  willWait: 0
+  isRunning: 0
+  lastResult:
+    resultAction: 0
+    skipAction: -10
+    skipActionActual: {fileID: 0}
+    linkedCutscene: {fileID: 0}
+    linkedAsset: {fileID: 0}
+  endAction: 1
+  skipAction: -1
+  skipActionActual: {fileID: 0}
+  linkedCutscene: {fileID: 0}
+  linkedAsset: {fileID: 0}
+  isEnabled: 1
+  isAssetFile: 1
+  isMarked: 0
+  isBreakPoint: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 62
+    y: 6232
+    width: 300
+    height: 150
+  nodeHeight: 0
+  chooseSceneBy: 1
+  sceneNumber: 0
+  sceneNumberParameterID: -1
+  sceneName: Lakeside_Start
+  sceneNameParameterID: -1
+  assignScreenOverlay: 0
+  onlyPreload: 0
+  relativePosition: 0
+  relativeMarker: {fileID: 0}
+  relativeMarkerID: 0
+  relativeMarkerParameterID: -1
+  forceReload: 0
 --- !u!114 &114233763623140346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -595,7 +656,7 @@ MonoBehaviour:
   description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
     displays a message. Subtitles only appear if they are enabled from the Options
     menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
+  isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
@@ -620,11 +681,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1317
-    width: 300
-    height: 21
+    y: 1893
+    width: 335
+    height: 237
   nodeHeight: 0
-  constantID: 456106
+  constantID: 36918
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -660,7 +721,7 @@ MonoBehaviour:
   description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
     displays a message. Subtitles only appear if they are enabled from the Options
     menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 0
+  isDisplayed: 1
   showComment: 0
   comment: 
   showOutputSockets: 1
@@ -685,11 +746,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1215
-    width: 300
-    height: 21
+    y: 1395
+    width: 335
+    height: 237
   nodeHeight: 0
-  constantID: 456106
+  constantID: 36918
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -748,7 +809,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 4151
+    y: 4933
     width: 300
     height: 86
   nodeHeight: 0
@@ -777,10 +838,10 @@ MonoBehaviour:
   showOutputSockets: 1
   numSockets: 1
   willWait: 0
-  isRunning: 0
+  isRunning: 1
   lastResult:
     resultAction: 2
-    skipAction: 24
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -796,11 +857,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 4534
-    width: 300
+    y: 5316
+    width: 335
     height: 268
   nodeHeight: 0
-  constantID: 456106
+  constantID: 36918
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -859,7 +920,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 3547
+    y: 4329
     width: 300
     height: 86
   nodeHeight: 0
@@ -951,7 +1012,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 3164
+    y: 3946
     width: 300
     height: 86
   nodeHeight: 0
@@ -998,7 +1059,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 3280
+    y: 4062
     width: 300
     height: 237
   nodeHeight: 0
@@ -1042,7 +1103,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -1058,7 +1119,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 4832
+    y: 5614
     width: 300
     height: 237
   nodeHeight: 0
@@ -1175,14 +1236,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 2882
-    width: 300
+    y: 3664
+    width: 335
     height: 252
   nodeHeight: 0
   charToMoveParameterID: -1
   markerParameterID: -1
   charToMoveID: 333878
-  markerID: 615066
+  markerID: 36984
   marker: {fileID: 0}
   isPlayer: 0
   charToMove: {fileID: 0}
@@ -1235,7 +1296,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 4267
+    y: 5049
     width: 300
     height: 237
   nodeHeight: 0
@@ -1365,7 +1426,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1368
+    y: 2150
     width: 300
     height: 202
   nodeHeight: 0
@@ -1375,133 +1436,6 @@ MonoBehaviour:
   isPlayer: 1
   speaker: {fileID: 0}
   messageText: What the fuck is wrong with you? Are you nuts?
-  lineID: -1
-  multiLineIDs: 
-  isBackground: 0
-  noAnimation: 0
-  headClip: {fileID: 0}
-  mouthClip: {fileID: 0}
-  play2DHeadAnim: 0
-  headClip2D: 
-  headLayer: 0
-  play2DMouthAnim: 0
-  mouthClip2D: 
-  mouthLayer: 0
-  waitTimeOffset: 0
---- !u!114 &114616416829833960
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea4c3ba658ee84d51a7ccd6f9fc22176, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 0
-  title: Run
-  description: Runs any ActionList (either scene-based like Cutscenes, Triggers and
-    Interactions, or ActionList assets). If the new ActionList takes parameters, this
-    Action can be used to set them.
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 1
-    skipAction: -1
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: 28
-  skipActionActual: {fileID: 114616416829833960}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 1
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 14
-    y: 5450
-    width: 300
-    height: 140
-  nodeHeight: 0
-  listSource: 1
-  actionList: {fileID: 0}
-  constantID: 0
-  parameterID: -1
-  invActionList: {fileID: 11400000, guid: f6d7ce86666187e4b8c29f1f12c1a543, type: 2}
-  assetParameterID: -1
-  runFromStart: 1
-  jumpToAction: 0
-  jumpToActionParameterID: -1
-  jumpToActionActual: {fileID: 0}
-  runInParallel: 1
-  isSkippable: 1
-  localParameters: []
-  parameterIDs: 
-  setParameters: 1
-  hasUpgradedAgain: 0
---- !u!114 &114685685550609308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed656dc9f403a441f8fe89408c7a7189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  category: 4
-  title: Play speech
-  description: "Makes a Character talk, or \u2013 if no Character is specified \u2013
-    displays a message. Subtitles only appear if they are enabled from the Options
-    menu. A 'thinking' effect can be produced by opting to not play any animation."
-  isDisplayed: 1
-  showComment: 0
-  comment: 
-  showOutputSockets: 1
-  numSockets: 1
-  willWait: 0
-  isRunning: 0
-  lastResult:
-    resultAction: 0
-    skipAction: -10
-    skipActionActual: {fileID: 0}
-    linkedCutscene: {fileID: 0}
-    linkedAsset: {fileID: 0}
-  endAction: 1
-  skipAction: 28
-  skipActionActual: {fileID: 0}
-  linkedCutscene: {fileID: 0}
-  linkedAsset: {fileID: 0}
-  isEnabled: 1
-  isAssetFile: 1
-  isMarked: 0
-  isBreakPoint: 0
-  nodeRect:
-    serializedVersion: 2
-    x: 407
-    y: 272
-    width: 300
-    height: 202
-  nodeHeight: 0
-  constantID: 0
-  parameterID: -1
-  messageParameterID: -1
-  isPlayer: 0
-  speaker: {fileID: 0}
-  messageText: 
   lineID: -1
   multiLineIDs: 
   isBackground: 0
@@ -1603,14 +1537,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 3895
-    width: 300
+    y: 4677
+    width: 335
     height: 226
   nodeHeight: 0
   charToMoveParameterID: -1
   markerParameterID: -1
   charToMoveID: 333878
-  markerID: 739790
+  markerID: 36858
   marker: {fileID: 0}
   isPlayer: 0
   charToMove: {fileID: 0}
@@ -1663,7 +1597,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 2650
+    y: 3432
     width: 300
     height: 202
   nodeHeight: 0
@@ -1728,11 +1662,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 1600
-    width: 300
+    y: 2382
+    width: 335
     height: 237
   nodeHeight: 0
-  constantID: 456106
+  constantID: 36918
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0
@@ -1775,7 +1709,7 @@ MonoBehaviour:
   isRunning: 0
   lastResult:
     resultAction: 0
-    skipAction: -1
+    skipAction: -10
     skipActionActual: {fileID: 0}
     linkedCutscene: {fileID: 0}
     linkedAsset: {fileID: 0}
@@ -1791,7 +1725,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 5099
+    y: 5881
     width: 300
     height: 86
   nodeHeight: 0
@@ -1839,11 +1773,11 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 14
-    y: 2116
-    width: 300
+    y: 2898
+    width: 335
     height: 255
   nodeHeight: 0
-  constantID: 456106
+  constantID: 36918
   parameterID: -1
   messageParameterID: -1
   isPlayer: 0

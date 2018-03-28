@@ -7605,10 +7605,10 @@ MonoBehaviour:
   linkedUiID: 326570
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 44.469997
-    width: 186.72
-    height: 32.8
+    x: 11.97
+    y: 91.29
+    width: 383.04
+    height: 67.35
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -7673,10 +7673,10 @@ MonoBehaviour:
   linkedUiID: 335904
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 121.74
-    width: 186.72
-    height: 32.8
+    x: 11.97
+    y: 249.93
+    width: 383.04
+    height: 67.35
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -7779,7 +7779,7 @@ MonoBehaviour:
   rectTransformID: 0
   uiTransitionType: 0
   uiPositionType: 0
-  isEditing: 1
+  isEditing: 0
   isLocked: 0
   id: 14
   title: Equipment
@@ -7902,10 +7902,10 @@ MonoBehaviour:
   linkedUiID: 332646
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 83.104996
-    width: 186.72
-    height: 32.8
+    x: 11.97
+    y: 170.61
+    width: 383.04
+    height: 67.35
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -8025,8 +8025,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 4.845
     y: 133.225
-    width: 186.72
-    height: 32.8
+    width: 383.04
+    height: 67.35
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -10492,10 +10492,10 @@ MonoBehaviour:
   linkedUiID: 318248
   relativeRect:
     serializedVersion: 2
-    x: 5.835
-    y: 5.835
-    width: 186.72
-    height: 32.8
+    x: 11.97
+    y: 11.97
+    width: 383.04
+    height: 67.35
   relativePosition: {x: 0, y: 0}
   numSlots: 1
   uiButton: {fileID: 0}
@@ -12012,11 +12012,11 @@ MonoBehaviour:
   rectTransformID: 0
   uiTransitionType: 1
   uiPositionType: 0
-  isEditing: 0
+  isEditing: 1
   isLocked: 0
   id: 13
   title: Title
-  manualSize: {x: 17.000002, y: 24.447409}
+  manualSize: {x: 17, y: 24.443207}
   positionType: 2
   manualPosition: {x: 50, y: 75}
   positionSmoothing: 0
@@ -12084,13 +12084,13 @@ MonoBehaviour:
   zoomAnchor: 4
   zoomElements: 0
   oneMenuPerSpeech: 0
-  biggestElementSize: {x: 192.55501, y: 154.54}
+  biggestElementSize: {x: 395.01, y: 317.28}
   rect:
     serializedVersion: 2
-    x: 484.305
-    y: 411.8125
-    width: 198.39001
-    height: 160.375
+    x: 993.51
+    y: 845.625
+    width: 406.98
+    height: 329.25
 --- !u!114 &114978905940740290
 MonoBehaviour:
   m_ObjectHideFlags: 1
