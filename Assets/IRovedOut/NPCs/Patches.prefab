@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 212205781118155442}
   - component: {fileID: 114479268044485236}
   - component: {fileID: 61047490839467632}
-  - component: {fileID: 114710276714083480}
   m_Layer: 0
   m_Name: SpriteRenderer
   m_TagString: Untagged
@@ -146,7 +145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 4}
+  m_Size: {x: 1.75, y: 4}
   m_EdgeRadius: 0
 --- !u!82 &82176104260506758
 AudioSource:
@@ -341,12 +340,13 @@ MonoBehaviour:
   customAnimationClass: 
   motionControl: 0
   talkingAnimation: 0
+  separateTalkingLayer: 0
   speechLabel: Patches
   lineID: -1
   displayLineID: -1
   speechColor: {r: 1, g: 1, b: 1, a: 1}
   portraitIcon:
-    texture: {fileID: 0}
+    texture: {fileID: 2800000, guid: f2a1d2c8f27129e458f08c32f4b90b12, type: 3}
     isAnimated: 0
     numFrames: 1
     numRows: 1
@@ -354,10 +354,15 @@ MonoBehaviour:
     size: 0.015
     animSpeed: 4
     endAnimOnLastFrame: 0
+    skipFirstFrameWhenLooping: 0
     clickOffset: {x: 0, y: 0}
+    frameSpeeds: []
+    alwaysAnimate: 0
   useExpressions: 0
   expressions: []
   speechMenuPlacement: {fileID: 0}
+  mapExpressionsToShapeable: 0
+  expressionGroupID: 0
   isLipSyncing: 0
   phonemeParameter: 
   lipSyncGroupID: 0
@@ -378,14 +383,13 @@ MonoBehaviour:
   rightArmBone: {fileID: 0}
   neckBone: {fileID: 0}
   animCrossfadeSpeed: 0.2
-  groundCheckLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  groundCheckLayerMask: 1
   moveSpeedParameter: Speed
   verticalMovementParameter: 
+  isGroundedParameter: 
   turnParameter: 
   talkParameter: IsTalking
-  directionParameter: Direction
+  directionParameter: 
   angleParameter: Angle
   headYawParameter: 
   headPitchParameter: 
@@ -394,6 +398,7 @@ MonoBehaviour:
   headLayer: 1
   mouthLayer: 2
   customAnimator: {fileID: 0}
+  turn2DCharactersIn3DSpace: 0
   spriteChild: {fileID: 4210061441110218}
   rotateSprite3D: 0
   idleAnimSprite: idle
@@ -410,14 +415,16 @@ MonoBehaviour:
   isTalking: 0
   frameFlipping: 0
   flipCustomAnims: 0
-  walkSpeedScale: 2
+  angleSnapping: 1
+  walkSpeedScale: 3
   runSpeedScale: 6
-  turnSpeed: 7
+  turnSpeed: 100
   acceleration: 6
   deceleration: 0
   turnBeforeWalking: 0
   runDistanceThreshold: 1
   antiGlideMode: 0
+  retroPathfinding: 0
   isJumping: 0
   ignoreGravity: 0
   freezeRigidbodyWhenIdle: 0
@@ -490,84 +497,6 @@ MonoBehaviour:
   teleportToStart: 0
   affectY: 0
   nodePause: 0
---- !u!114 &114710276714083480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1642219915325196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7c3ce72f27144c1be5a4a8ce09121d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showInEditor: 1
-  interactionSource: 0
-  limitToCamera: {fileID: 0}
-  hotspotName: Patches
-  lineID: -1
-  highlight: {fileID: 0}
-  walkToMarker: {fileID: 0}
-  centrePoint: {fileID: 0}
-  provideUseInteraction: 0
-  useButton:
-    interaction: {fileID: 0}
-    assetFile: {fileID: 0}
-    customScriptObject: {fileID: 0}
-    customScriptFunction: 
-    isDisabled: 0
-    invID: 0
-    iconID: -1
-    selectItemMode: 0
-    playerAction: 0
-    setProximity: 0
-    proximity: 1
-    faceAfter: 0
-    isBlocking: 0
-    parameterID: -1
-  useButtons: []
-  oneClick: 0
-  provideLookInteraction: 0
-  lookButton:
-    interaction: {fileID: 0}
-    assetFile: {fileID: 0}
-    customScriptObject: {fileID: 0}
-    customScriptFunction: 
-    isDisabled: 0
-    invID: 0
-    iconID: -1
-    selectItemMode: 0
-    playerAction: 0
-    setProximity: 0
-    proximity: 1
-    faceAfter: 0
-    isBlocking: 0
-    parameterID: -1
-  provideInvInteraction: 0
-  invButtons: []
-  provideUnhandledInvInteraction: 0
-  unhandledInvButton:
-    interaction: {fileID: 0}
-    assetFile: {fileID: 0}
-    customScriptObject: {fileID: 0}
-    customScriptFunction: 
-    isDisabled: 0
-    invID: 0
-    iconID: -1
-    selectItemMode: 0
-    playerAction: 0
-    setProximity: 0
-    proximity: 1
-    faceAfter: 0
-    isBlocking: 0
-    parameterID: -1
-  drawGizmos: 0
-  lastInteractionIndex: 0
-  displayLineID: -1
-  iconSortingLayer: 
-  iconSortingOrder: 0
-  doubleClickingHotspot: 0
-  playerTurnsHead: 1
 --- !u!212 &212205781118155442
 SpriteRenderer:
   m_ObjectHideFlags: 1
